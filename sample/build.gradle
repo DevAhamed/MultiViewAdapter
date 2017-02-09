@@ -1,0 +1,35 @@
+apply plugin: 'com.android.application'
+
+android {
+  compileSdkVersion 25
+  buildToolsVersion "25.0.2"
+
+  defaultConfig {
+    applicationId "com.ahamed.sample"
+    minSdkVersion 16
+    targetSdkVersion 25
+    versionCode 1
+    versionName "1.0"
+
+    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+  }
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+  }
+}
+
+dependencies {
+  compile project(':multi-view-adapter')
+
+  compile 'com.android.support:appcompat-v7:25.1.1'
+  compile 'com.android.support:recyclerview-v7:25.1.1'
+  compile 'com.android.support:cardview-v7:25.1.1'
+  compile 'com.android.support:design:25.1.1'
+  compile 'com.android.support:support-v4:25.1.1'
+
+  debugCompile "com.github.brianPlummer:tinydancer:0.1.0"
+  releaseCompile "com.github.brianPlummer:tinydancer-noop:0.1.0"
+}

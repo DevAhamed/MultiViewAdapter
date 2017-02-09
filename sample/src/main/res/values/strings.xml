@@ -1,0 +1,14 @@
+<resources>
+  <string name="app_name">Sample</string>
+  <string name="title_activity_simple_adapter">SimpleAdapterActivity</string>
+
+  <string-array name="sample_options">
+    <item>Simple</item>
+    <item>Multi-list</item>
+    <item>Grid</item>
+    <item>Complex</item>
+  </string-array>
+
+  <!-- TODO: Remove or change this placeholder text -->
+  <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
