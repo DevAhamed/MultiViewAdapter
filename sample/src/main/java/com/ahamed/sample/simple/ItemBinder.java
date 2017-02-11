@@ -18,8 +18,8 @@ class ItemBinder extends BaseBinder<ItemModel, ItemBinder.ItemViewHolder> {
     holder.textView.setText(item.getData());
   }
 
-  @Override public Class<ItemModel> getType() {
-    return ItemModel.class;
+  @Override public boolean canBindData(Object item) {
+    return item instanceof ItemModel;
   }
 
   static class ItemViewHolder extends BaseViewHolder<ItemModel> {
