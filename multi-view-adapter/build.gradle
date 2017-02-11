@@ -43,7 +43,7 @@ ext {
   siteUrl = 'https://github.com/DevAhamed/MultiViewAdapter'
   gitUrl = 'https://github.com/DevAhamed/MultiViewAdapter.git'
 
-  libraryVersion = '0.7.0-SNAPSHOT'
+  libraryVersion = '0.7.0'
 
   developerId = devProperties['devId']
   developerName = devProperties['devName']
