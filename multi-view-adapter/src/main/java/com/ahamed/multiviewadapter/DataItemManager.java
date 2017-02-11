@@ -20,4 +20,11 @@ public final class DataItemManager<M> extends BaseDataManager<M> {
       onChanged(0, 1, null);
     }
   }
+
+  public void removeItem() {
+    if (getDataList().size() > 0) {
+      getDataList().clear();
+      onRemoved(0, 1);
+    }
+  }
 }

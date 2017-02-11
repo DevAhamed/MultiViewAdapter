@@ -19,8 +19,8 @@ public class ItemTwoBinder extends BaseBinder<ItemTwo, ItemTwoBinder.ItemViewHol
     holder.textView.setText(item.getData());
   }
 
-  @Override public Class<ItemTwo> getType() {
-    return ItemTwo.class;
+  @Override public boolean canBindData(Object item) {
+    return item instanceof ItemTwo;
   }
 
   @Override public int getSpanSize(int maxSpanCount) {

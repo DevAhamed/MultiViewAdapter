@@ -19,8 +19,8 @@ public class HeaderBinder extends BaseBinder<Header, HeaderBinder.HeaderViewHold
     holder.header.setText(item.getHeaderInfo());
   }
 
-  @Override public Class<Header> getType() {
-    return Header.class;
+  @Override public boolean canBindData(Object item) {
+    return item instanceof Header;
   }
 
   @Override public int getSpanSize(int maxSpanCount) {

@@ -10,7 +10,7 @@ public abstract class BaseBinder<M, VH extends BaseViewHolder<M>> {
 
   public abstract void bind(VH holder, M item);
 
-  public abstract Class<M> getType();
+  public abstract boolean canBindData(Object item);
 
   public void bind(VH holder, M item, List payloads) {
     bind(holder, item);

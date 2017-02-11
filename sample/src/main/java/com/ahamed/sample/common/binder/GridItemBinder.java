@@ -20,8 +20,8 @@ public class GridItemBinder extends BaseBinder<GridItem, GridItemBinder.ItemView
     holder.textView.setText(item.getData());
   }
 
-  @Override public Class<GridItem> getType() {
-    return GridItem.class;
+  @Override public boolean canBindData(Object item) {
+    return item instanceof GridItem;
   }
 
   static class ItemViewHolder extends BaseViewHolder<GridItem> {

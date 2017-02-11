@@ -19,8 +19,8 @@ public class ItemThreeBinder extends BaseBinder<ItemThree, ItemThreeBinder.ItemV
     holder.textView.setText(item.getData());
   }
 
-  @Override public Class<ItemThree> getType() {
-    return ItemThree.class;
+  @Override public boolean canBindData(Object item) {
+    return item instanceof ItemThree;
   }
 
   @Override public int getSpanSize(int maxSpanCount) {
