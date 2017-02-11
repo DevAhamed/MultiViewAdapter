@@ -6,8 +6,8 @@ import java.util.List;
 
 class BaseDataManager<M> implements ListUpdateCallback {
 
-  private List<M> dataList = new ArrayList<>();
   private final RecyclerListAdapter listAdapter;
+  private List<M> dataList = new ArrayList<>();
 
   BaseDataManager(RecyclerListAdapter baseAdapter) {
     this.listAdapter = baseAdapter;
