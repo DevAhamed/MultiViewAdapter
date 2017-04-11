@@ -12,7 +12,12 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
   private List<BaseBinder> binders = new ArrayList<>();
   private List<BaseDataManager> dataManagers = new ArrayList<>();
 
+  private ItemDecorationManager itemDecorationManager;
   private int maxSpanCount = 1;
+
+  public RecyclerListAdapter() {
+    this.itemDecorationManager = new ItemDecorationManager(this);
+  }
 
   private final GridLayoutManager.SpanSizeLookup spanSizeLookup =
       new GridLayoutManager.SpanSizeLookup() {
@@ -90,7 +95,11 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     throw new IllegalStateException("Binder not found for position. Position = " + position);
   }
 
-  private int getItemPositionInManager(int position) {
+  public ItemDecorationManager getItemDecorationManager() {
+    return itemDecorationManager;
+  }
+
+  int getItemPositionInManager(int position) {
     int binderItemCount;
     for (int i = 0, size = dataManagers.size(); i < size; i++) {
       binderItemCount = dataManagers.get(i).getCount();
@@ -151,5 +160,17 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
   protected final void registerBinder(BaseBinder binder) {
     binders.add(binder);
+  }
+
+  boolean isLastItemInManager(int position) {
+    int itemsCount;
+    for (int i = 0, size = dataManagers.size(); i < size; i++) {
+      itemsCount = dataManagers.get(i).getCount();
+      if (position - itemsCount < 0) {
+        return position == itemsCount - 1;
+      }
+      position -= itemsCount;
+    }
+    return false;
   }
 }
