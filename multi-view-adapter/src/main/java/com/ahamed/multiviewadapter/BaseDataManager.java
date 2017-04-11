@@ -14,7 +14,7 @@ class BaseDataManager<M> implements ListUpdateCallback {
   }
 
   int getCount() {
-    return dataList.size();
+    return size();
   }
 
   M getItem(int position) {
@@ -51,5 +51,29 @@ class BaseDataManager<M> implements ListUpdateCallback {
 
   void setDataList(List<M> dataList) {
     this.dataList = dataList;
+  }
+
+  public final int size() {
+    return dataList.size();
+  }
+
+  public final boolean isEmpty() {
+    return dataList.isEmpty();
+  }
+
+  public final boolean contains(M item) {
+    return dataList.contains(item);
+  }
+
+  public final M get(int index) {
+    return dataList.get(index);
+  }
+
+  public final int indexOf(M item) {
+    return dataList.indexOf(item);
+  }
+
+  public final int lastIndexOf(M item) {
+    return dataList.lastIndexOf(item);
   }
 }

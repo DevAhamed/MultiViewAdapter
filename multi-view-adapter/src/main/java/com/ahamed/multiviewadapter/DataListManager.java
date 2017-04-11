@@ -1,6 +1,8 @@
 package com.ahamed.multiviewadapter;
 
+import android.support.annotation.NonNull;
 import android.support.v7.util.DiffUtil;
+import java.util.Collection;
 import java.util.List;
 
 public class DataListManager<M> extends BaseDataManager<M> {
@@ -9,22 +11,29 @@ public class DataListManager<M> extends BaseDataManager<M> {
     super(baseAdapter);
   }
 
-  public final void add(M item) {
-    add(getDataList().size(), item);
+  public final boolean add(M item) {
+    boolean result = getDataList().add(item);
+    if (result) {
+      onInserted(getDataList().size() - 1, 1);
+    }
+    return result;
   }
 
-  public final void addAll(List<M> items) {
-    addAll(getDataList().size(), items);
+  public final boolean addAll(@NonNull Collection<? extends M> items) {
+    return addAll(getDataList().size(), items);
+  }
+
+  public final boolean addAll(int index, @NonNull Collection<? extends M> items) {
+    boolean result = getDataList().addAll(index, items);
+    if (result) {
+      onInserted(index, items.size());
+    }
+    return result;
   }
 
   public final void add(int index, M item) {
     getDataList().add(index, item);
     onInserted(index, 1);
-  }
-
-  public final void addAll(int index, List<M> items) {
-    getDataList().addAll(index, items);
-    onInserted(index, items.size());
   }
 
   public final void set(int position, M item) {
@@ -49,15 +58,25 @@ public class DataListManager<M> extends BaseDataManager<M> {
   }
 
   public final void remove(M item) {
-    remove(getDataList().indexOf(item));
+    int index = getDataList().indexOf(item);
+    boolean result = getDataList().remove(item);
+    if (result) {
+      onRemoved(index, 1);
+    }
   }
 
   public final void remove(int index) {
+    if (index >= size()) {
+      throw new IndexOutOfBoundsException();
+    }
     getDataList().remove(index);
     onRemoved(index, 1);
   }
 
-  public final void removeAll() {
+  public void clear() {
+    if (size() <= 0) {
+      return;
+    }
     int oldSize = getDataList().size();
     getDataList().clear();
     onRemoved(0, oldSize);
