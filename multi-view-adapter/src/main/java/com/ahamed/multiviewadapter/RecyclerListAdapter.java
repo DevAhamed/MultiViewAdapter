@@ -1,5 +1,6 @@
 package com.ahamed.multiviewadapter;
 
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -10,6 +11,15 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
   private List<BaseBinder> binders = new ArrayList<>();
   private List<BaseDataManager> dataManagers = new ArrayList<>();
+
+  private int maxSpanCount = 1;
+
+  private final GridLayoutManager.SpanSizeLookup spanSizeLookup =
+      new GridLayoutManager.SpanSizeLookup() {
+        @Override public int getSpanSize(int position) {
+          return getBinderForPosition(position).getSpanSize(maxSpanCount);
+        }
+      };
 
   @Override public final BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     return binders.get(viewType).create(LayoutInflater.from(parent.getContext()), parent);
@@ -59,6 +69,17 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     return super.getItemViewType(position);
   }
 
+  public final void setSpanCount(int maxSpanCount) {
+    this.maxSpanCount = maxSpanCount;
+  }
+
+  public final GridLayoutManager.SpanSizeLookup getSpanSizeLookup() {
+    return spanSizeLookup;
+  }
+
+  /*
+  * Position refers to overall list position
+   */
   BaseBinder getBinderForPosition(int position) {
     BaseDataManager dataManager = getDataManager(position);
     for (BaseBinder baseBinder : binders) {
