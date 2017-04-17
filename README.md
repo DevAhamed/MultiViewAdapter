@@ -42,14 +42,14 @@ If you Watch this repository, GitHub will send you an email every time there is 
 
 # Why this library?
 
-Most of the android apps out there uses recyclerview to display content. As with any other system-level api, recyclerview api is also designed in a generic way. So it needs lot of boilerplate code to be written.
+Most of the android apps out there uses recyclerview to display content. As with any other system-level api, recyclerview api is also designed in a generic way. So it needs lot of boilerplate code to be written for displaying a simple list.
 
-If the app contains multiple view types, the boilerplate code doubles. MultiViewAdapter library helps you in removing this bolierplate code while allowing you to truly re-use the viewholder code across multiple adapters.
+If the app contains multiple view types in the same list, the boilerplate code doubles. MultiViewAdapter library helps you in removing this boilerplate code while allowing you to truly re-use the viewholder code across multiple adapters.
 
 There are many other libraries, which provides the same feature. But they do enforce the either or all of the following constraints :
 
-1. Your POJO classes should extend/implement some Base classes. This forces us to make changes in model level, sometimes this is not acceptable.
-2. Forces you to implement some boilerplate code - like managing view types by yourself. (This library too have one redundant method. More about this later)
+1. Your POJO classes should extend/implement some Base classes. This forces us to make changes in model level.
+2. Forces you to implement some boilerplate code - like managing view types by yourself.
 3. Doesn't utilise diffutil or payloads from recyclerview api
 
 Now the advantages of the MultiViewAdapter
@@ -58,11 +58,20 @@ Now the advantages of the MultiViewAdapter
 2. No need to cast your models, no need for switch/if-else cases when you are having multiple view types.
 3. Takes advantage of diffutil and allows payload while notifying adapter.
 
-The MultiViewAdapter itself has own cons.  As mentioned earlier, you need to override one boilerplate method to differentiate different models used inside same adapter. We did the best to reduce the boilerplate methods except this one.
+# Usage
+
+To get some idea about the MultiViewAdapter features kindly look at sample implementations.
+
+## List & Grids
+
+If you are using the linear layout manager for recyclerview, extend the adapter from RecyclerListAdapter. If you are using the grid layout manager use RecyclerGridAdapter as parent for the adapter.
+
+## Getting models inside ViewHolder
 
 ## Limitations
 
-You can not have a different viewholder for the same model inside one adapter. For example, if the adapter shows list of 'Car', then 'Car' can have only one viewholder 
+1. While the library allows to reuse the viewholders, you still need to override a method to identify models used (ie., instanceOf check).
+2. You can not have a different viewholder for the same model inside one adapter. For example, if the adapter shows list of 'Car', then 'Car' can have only one viewholder
 
 ---
 
