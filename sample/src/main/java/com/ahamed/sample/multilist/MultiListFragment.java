@@ -2,7 +2,6 @@ package com.ahamed.sample.multilist;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -26,10 +25,9 @@ public class MultiListFragment extends Fragment {
 
     RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rcv_list);
     LinearLayoutManager llm = new LinearLayoutManager(getContext().getApplicationContext());
-    recyclerView.addItemDecoration(new DividerItemDecoration(getContext().getApplicationContext(),
-        DividerItemDecoration.VERTICAL));
 
-    MultiListAdapter adapter = new MultiListAdapter();
+    MultiListAdapter adapter = new MultiListAdapter(getActivity());
+    recyclerView.addItemDecoration(adapter.getItemDecorationManager());
 
     recyclerView.setLayoutManager(llm);
     recyclerView.setAdapter(adapter);

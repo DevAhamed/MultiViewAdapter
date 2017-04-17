@@ -1,8 +1,10 @@
 package com.ahamed.sample.complex;
 
+import android.content.Context;
 import com.ahamed.multiviewadapter.DataItemManager;
 import com.ahamed.multiviewadapter.DataListManager;
-import com.ahamed.multiviewadapter.RecyclerGridAdapter;
+import com.ahamed.multiviewadapter.RecyclerListAdapter;
+import com.ahamed.multiviewadapter.SimpleItemDecoration;
 import com.ahamed.sample.common.binder.GridItemBinder;
 import com.ahamed.sample.common.binder.HeaderBinder;
 import com.ahamed.sample.common.binder.ItemOneBinder;
@@ -14,13 +16,13 @@ import com.ahamed.sample.common.model.Header;
 import com.ahamed.sample.common.model.ItemThree;
 import java.util.List;
 
-public class ComplexListAdapter extends RecyclerGridAdapter {
+public class ComplexListAdapter extends RecyclerListAdapter {
 
   private DataListManager<ItemThree> singleModelManager;
   private DataListManager<GridItem> gridItemsManager;
   private DataListManager<BaseModel> multiItemsManager;
 
-  public ComplexListAdapter() {
+  public ComplexListAdapter(Context context) {
     singleModelManager = new DataListManager<>(this);
     gridItemsManager = new DataListManager<>(this);
     multiItemsManager = new DataListManager<>(this);
@@ -34,7 +36,7 @@ public class ComplexListAdapter extends RecyclerGridAdapter {
 
     registerBinder(new HeaderBinder());
     registerBinder(new GridItemBinder());
-    registerBinder(new ItemOneBinder());
+    registerBinder(new ItemOneBinder(new SimpleItemDecoration(context, SimpleItemDecoration.VERTICAL)));
     registerBinder(new ItemTwoBinder());
     registerBinder(new ItemThreeBinder());
   }

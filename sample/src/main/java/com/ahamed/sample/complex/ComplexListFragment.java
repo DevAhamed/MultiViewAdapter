@@ -29,10 +29,11 @@ public class ComplexListFragment extends Fragment {
     RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rcv_list);
     GridLayoutManager glm = new GridLayoutManager(getContext().getApplicationContext(), 3);
 
-    ComplexListAdapter adapter = new ComplexListAdapter();
+    ComplexListAdapter adapter = new ComplexListAdapter(getActivity());
     adapter.setSpanCount(3);
 
     glm.setSpanSizeLookup(adapter.getSpanSizeLookup());
+    recyclerView.addItemDecoration(adapter.getItemDecorationManager());
     recyclerView.setLayoutManager(glm);
     recyclerView.setAdapter(adapter);
 

@@ -1,5 +1,6 @@
 package com.ahamed.multiviewadapter;
 
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -11,8 +12,22 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
   private List<BaseBinder> binders = new ArrayList<>();
   private List<BaseDataManager> dataManagers = new ArrayList<>();
 
+  private ItemDecorationManager itemDecorationManager;
+  private int maxSpanCount = 1;
+
+  private final GridLayoutManager.SpanSizeLookup spanSizeLookup =
+      new GridLayoutManager.SpanSizeLookup() {
+        @Override public int getSpanSize(int position) {
+          return getBinderForPosition(position).getSpanSize(maxSpanCount);
+        }
+      };
+
+  public RecyclerListAdapter() {
+    this.itemDecorationManager = new ItemDecorationManager(this);
+  }
+
   @Override public final BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-    return binders.get(viewType).create(LayoutInflater.from(parent.getContext()), parent);
+    return binders.get(viewType).createViewHolder(LayoutInflater.from(parent.getContext()), parent);
   }
 
   @Override public final void onBindViewHolder(BaseViewHolder holder, int position) {
@@ -35,11 +50,15 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     if (null == payloads) {
       //noinspection unchecked
-      baseBinder.bind(holder, holder.getItem());
+      baseBinder.bindViewHolder(holder, holder.getItem(), isItemSelected(position));
     } else {
       //noinspection unchecked
-      baseBinder.bind(holder, holder.getItem(), payloads);
+      baseBinder.bindViewHolder(holder, holder.getItem(), isItemSelected(position), payloads);
     }
+  }
+
+  boolean isItemSelected(int adapterPosition) {
+    return false;
   }
 
   @Override public final int getItemCount() {
@@ -59,6 +78,17 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     return super.getItemViewType(position);
   }
 
+  public final void setSpanCount(int maxSpanCount) {
+    this.maxSpanCount = maxSpanCount;
+  }
+
+  public final GridLayoutManager.SpanSizeLookup getSpanSizeLookup() {
+    return spanSizeLookup;
+  }
+
+  /*
+  * Position refers to overall list position
+   */
   BaseBinder getBinderForPosition(int position) {
     BaseDataManager dataManager = getDataManager(position);
     for (BaseBinder baseBinder : binders) {
@@ -69,7 +99,11 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     throw new IllegalStateException("Binder not found for position. Position = " + position);
   }
 
-  private int getItemPositionInManager(int position) {
+  public ItemDecorationManager getItemDecorationManager() {
+    return itemDecorationManager;
+  }
+
+  int getItemPositionInManager(int position) {
     int binderItemCount;
     for (int i = 0, size = dataManagers.size(); i < size; i++) {
       binderItemCount = dataManagers.get(i).getCount();
@@ -81,7 +115,8 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     return position;
   }
 
-  private BaseDataManager getDataManager(int position) {
+  // TODO AdapterPosition
+  BaseDataManager getDataManager(int position) {
     int processedCount = 0;
     for (BaseDataManager dataManager : dataManagers) {
       processedCount += dataManager.getCount();
@@ -129,6 +164,22 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
   }
 
   protected final void registerBinder(BaseBinder binder) {
+    addBinder(binder);
+  }
+
+  void addBinder(BaseBinder binder) {
     binders.add(binder);
+  }
+
+  boolean isLastItemInManager(int position) {
+    int itemsCount;
+    for (int i = 0, size = dataManagers.size(); i < size; i++) {
+      itemsCount = dataManagers.get(i).getCount();
+      if (position - itemsCount < 0) {
+        return position == itemsCount - 1;
+      }
+      position -= itemsCount;
+    }
+    return false;
   }
 }
