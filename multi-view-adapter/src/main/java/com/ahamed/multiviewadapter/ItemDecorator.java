@@ -16,7 +16,8 @@ public interface ItemDecorator {
 
   void getItemOffsets(Rect outRect, int position, @PositionType int positionType);
 
-  void onDraw(Canvas canvas, RecyclerView parent, View child, int position, @PositionType int positionType);
+  void onDraw(Canvas canvas, RecyclerView parent, View child, int position,
+      @PositionType int positionType);
 
   @Retention(RetentionPolicy.SOURCE) @IntDef({
       POSITION_START, POSITION_MIDDLE, POSITION_END

@@ -15,10 +15,6 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
   private ItemDecorationManager itemDecorationManager;
   private int maxSpanCount = 1;
 
-  public RecyclerListAdapter() {
-    this.itemDecorationManager = new ItemDecorationManager(this);
-  }
-
   private final GridLayoutManager.SpanSizeLookup spanSizeLookup =
       new GridLayoutManager.SpanSizeLookup() {
         @Override public int getSpanSize(int position) {
@@ -26,8 +22,12 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
       };
 
+  public RecyclerListAdapter() {
+    this.itemDecorationManager = new ItemDecorationManager(this);
+  }
+
   @Override public final BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-    return binders.get(viewType).create(LayoutInflater.from(parent.getContext()), parent);
+    return binders.get(viewType).createViewHolder(LayoutInflater.from(parent.getContext()), parent);
   }
 
   @Override public final void onBindViewHolder(BaseViewHolder holder, int position) {
@@ -50,11 +50,15 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     if (null == payloads) {
       //noinspection unchecked
-      baseBinder.bind(holder, holder.getItem());
+      baseBinder.bindViewHolder(holder, holder.getItem(), isItemSelected(position));
     } else {
       //noinspection unchecked
-      baseBinder.bind(holder, holder.getItem(), payloads);
+      baseBinder.bindViewHolder(holder, holder.getItem(), isItemSelected(position), payloads);
     }
+  }
+
+  boolean isItemSelected(int adapterPosition) {
+    return false;
   }
 
   @Override public final int getItemCount() {
@@ -111,7 +115,8 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     return position;
   }
 
-  private BaseDataManager getDataManager(int position) {
+  // TODO AdapterPosition
+  BaseDataManager getDataManager(int position) {
     int processedCount = 0;
     for (BaseDataManager dataManager : dataManagers) {
       processedCount += dataManager.getCount();
@@ -159,6 +164,10 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
   }
 
   protected final void registerBinder(BaseBinder binder) {
+    addBinder(binder);
+  }
+
+  void addBinder(BaseBinder binder) {
     binders.add(binder);
   }
 

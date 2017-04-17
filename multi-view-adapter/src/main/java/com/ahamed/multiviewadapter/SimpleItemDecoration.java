@@ -6,7 +6,6 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -18,12 +17,9 @@ public class SimpleItemDecoration implements ItemDecorator {
   public static final int VERTICAL = LinearLayout.VERTICAL;
 
   private static final int[] ATTRS = new int[] { android.R.attr.listDivider };
-
-  private Drawable mDivider;
-
-  private int mOrientation;
-
   private final Rect mBounds = new Rect();
+  private Drawable mDivider;
+  private int mOrientation;
 
   public SimpleItemDecoration(Context context, int orientation) {
     final TypedArray a = context.obtainStyledAttributes(ATTRS);
@@ -64,13 +60,6 @@ public class SimpleItemDecoration implements ItemDecorator {
           "Invalid orientation. It should be either HORIZONTAL or VERTICAL");
     }
     mOrientation = orientation;
-  }
-
-  public void setDrawable(@NonNull Drawable drawable) {
-    if (drawable == null) {
-      throw new IllegalArgumentException("Drawable cannot be null.");
-    }
-    mDivider = drawable;
   }
 
   @SuppressLint("NewApi")

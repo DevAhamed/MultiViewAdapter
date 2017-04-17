@@ -1,6 +1,8 @@
 package com.ahamed.multiviewadapter;
 
+import android.support.annotation.Nullable;
 import android.support.v7.util.ListUpdateCallback;
+import android.util.SparseBooleanArray;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +10,7 @@ class BaseDataManager<M> implements ListUpdateCallback {
 
   private final RecyclerListAdapter listAdapter;
   private List<M> dataList = new ArrayList<>();
+  private SparseBooleanArray selectedItems = new SparseBooleanArray();
 
   BaseDataManager(RecyclerListAdapter baseAdapter) {
     this.listAdapter = baseAdapter;
@@ -75,5 +78,29 @@ class BaseDataManager<M> implements ListUpdateCallback {
 
   public final int lastIndexOf(M item) {
     return dataList.lastIndexOf(item);
+  }
+
+  void onItemSelectionToggled(int position, boolean isSelected) {
+    selectedItems.put(position, isSelected);
+    onChanged(position, 1, null);
+  }
+
+  public List<M> getSelectedItems() {
+    List<M> selectedItemsList = new ArrayList<>();
+    for (int i = 0; i < size(); i++) {
+      if (selectedItems.get(i)) {
+        selectedItemsList.add(dataList.get(i));
+      }
+    }
+    return selectedItemsList;
+  }
+
+  @Nullable public M getSelectedItem() {
+    for (int i = 0; i < size(); i++) {
+      if (selectedItems.get(i)) {
+        return dataList.get(i);
+      }
+    }
+    return null;
   }
 }
