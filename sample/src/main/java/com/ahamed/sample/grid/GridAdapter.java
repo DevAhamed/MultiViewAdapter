@@ -1,13 +1,13 @@
 package com.ahamed.sample.grid;
 
 import com.ahamed.multiviewadapter.DataListManager;
-import com.ahamed.multiviewadapter.RecyclerListAdapter;
+import com.ahamed.multiviewadapter.SelectableAdapter;
 import com.ahamed.sample.common.binder.GridItemBinder;
 import com.ahamed.sample.common.binder.HeaderBinder;
 import com.ahamed.sample.common.model.BaseModel;
 import java.util.List;
 
-class GridAdapter extends RecyclerListAdapter {
+class GridAdapter extends SelectableAdapter {
 
   private DataListManager<BaseModel> dataManager;
 

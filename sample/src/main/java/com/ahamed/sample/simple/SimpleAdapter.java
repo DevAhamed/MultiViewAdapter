@@ -1,10 +1,10 @@
 package com.ahamed.sample.simple;
 
 import com.ahamed.multiviewadapter.DataListManager;
-import com.ahamed.multiviewadapter.RecyclerListAdapter;
+import com.ahamed.multiviewadapter.SelectableAdapter;
 import java.util.List;
 
-public class SimpleAdapter extends RecyclerListAdapter {
+public class SimpleAdapter extends SelectableAdapter {
 
   private DataListManager<ItemModel> dataManager;
 
