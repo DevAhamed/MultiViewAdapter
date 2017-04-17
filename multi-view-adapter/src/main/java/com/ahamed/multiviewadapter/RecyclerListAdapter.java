@@ -22,7 +22,7 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
       };
 
-  public RecyclerListAdapter() {
+  RecyclerListAdapter() {
     this.itemDecorationManager = new ItemDecorationManager(this);
   }
 
@@ -30,30 +30,31 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     return binders.get(viewType).createViewHolder(LayoutInflater.from(parent.getContext()), parent);
   }
 
-  @Override public final void onBindViewHolder(BaseViewHolder holder, int position) {
-    onBindViewHolder(holder, position, null);
+  @Override public final void onBindViewHolder(BaseViewHolder holder, int adapterPosition) {
+    onBindViewHolder(holder, adapterPosition, null);
   }
 
-  @Override
-  public final void onBindViewHolder(BaseViewHolder holder, int position, List<Object> payloads) {
+  @Override public final void onBindViewHolder(BaseViewHolder holder, int adapterPosition,
+      List<Object> payloads) {
     BaseBinder baseBinder = binders.get(holder.getItemViewType());
 
     int totalCount = 0;
     for (BaseDataManager dataManager : dataManagers) {
       totalCount += dataManager.getCount();
-      if (position < totalCount) {
+      if (adapterPosition < totalCount) {
         //noinspection unchecked
-        holder.setItem(dataManager.getItem(getItemPositionInManager(position)));
+        holder.setItem(dataManager.getItem(getItemPositionInManager(adapterPosition)));
         break;
       }
     }
 
     if (null == payloads) {
       //noinspection unchecked
-      baseBinder.bindViewHolder(holder, holder.getItem(), isItemSelected(position));
+      baseBinder.bindViewHolder(holder, holder.getItem(), isItemSelected(adapterPosition));
     } else {
       //noinspection unchecked
-      baseBinder.bindViewHolder(holder, holder.getItem(), isItemSelected(position), payloads);
+      baseBinder.bindViewHolder(holder, holder.getItem(), isItemSelected(adapterPosition),
+          payloads);
     }
   }
 
@@ -64,18 +65,17 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
   @Override public final int getItemCount() {
     int itemCount = 0;
     for (int i = 0, size = dataManagers.size(); i < size; i++) {
-      BaseDataManager dataManager = dataManagers.get(i);
-      itemCount += dataManager.getCount();
+      itemCount += dataManagers.get(i).size();
     }
     return itemCount;
   }
 
-  @Override public final int getItemViewType(int position) {
-    BaseBinder baseBinder = getBinderForPosition(position);
+  @Override public final int getItemViewType(int adapterPosition) {
+    BaseBinder baseBinder = getBinderForPosition(adapterPosition);
     if (null != baseBinder) {
       return binders.indexOf(baseBinder);
     }
-    return super.getItemViewType(position);
+    return super.getItemViewType(adapterPosition);
   }
 
   public final void setSpanCount(int maxSpanCount) {
@@ -86,41 +86,38 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     return spanSizeLookup;
   }
 
-  /*
-  * Position refers to overall list position
-   */
-  BaseBinder getBinderForPosition(int position) {
-    BaseDataManager dataManager = getDataManager(position);
+  BaseBinder getBinderForPosition(int adapterPosition) {
+    BaseDataManager dataManager = getDataManager(adapterPosition);
     for (BaseBinder baseBinder : binders) {
-      if (baseBinder.canBindData(dataManager.getItem(getItemPositionInManager(position)))) {
+      if (baseBinder.canBindData(dataManager.getItem(getItemPositionInManager(adapterPosition)))) {
         return baseBinder;
       }
     }
-    throw new IllegalStateException("Binder not found for position. Position = " + position);
+    throw new IllegalStateException("Binder not found for position. Position = " + adapterPosition);
   }
 
   public ItemDecorationManager getItemDecorationManager() {
     return itemDecorationManager;
   }
 
-  int getItemPositionInManager(int position) {
+  int getItemPositionInManager(int adapterPosition) {
     int binderItemCount;
     for (int i = 0, size = dataManagers.size(); i < size; i++) {
       binderItemCount = dataManagers.get(i).getCount();
-      if (position - binderItemCount < 0) {
+      if (adapterPosition - binderItemCount < 0) {
         break;
       }
-      position -= binderItemCount;
+      adapterPosition -= binderItemCount;
     }
-    return position;
+    // adapterPosition now refers to position in manager
+    return adapterPosition;
   }
 
-  // TODO AdapterPosition
-  BaseDataManager getDataManager(int position) {
+  BaseDataManager getDataManager(int adapterPosition) {
     int processedCount = 0;
     for (BaseDataManager dataManager : dataManagers) {
       processedCount += dataManager.getCount();
-      if (position < processedCount) {
+      if (adapterPosition < processedCount) {
         return dataManager;
       }
     }
@@ -171,14 +168,14 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     binders.add(binder);
   }
 
-  boolean isLastItemInManager(int position) {
+  boolean isLastItemInManager(int adapterPosition) {
     int itemsCount;
     for (int i = 0, size = dataManagers.size(); i < size; i++) {
       itemsCount = dataManagers.get(i).getCount();
-      if (position - itemsCount < 0) {
-        return position == itemsCount - 1;
+      if (adapterPosition - itemsCount < 0) {
+        return adapterPosition == itemsCount - 1;
       }
-      position -= itemsCount;
+      adapterPosition -= itemsCount;
     }
     return false;
   }

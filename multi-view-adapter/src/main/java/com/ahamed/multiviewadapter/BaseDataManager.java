@@ -20,8 +20,8 @@ class BaseDataManager<M> implements ListUpdateCallback {
     return size();
   }
 
-  M getItem(int position) {
-    return dataList.get(position);
+  M getItem(int dataItemPosition) {
+    return dataList.get(dataItemPosition);
   }
 
   @Override public final void onInserted(int position, int count) {

@@ -2,6 +2,7 @@ package com.ahamed.multiviewadapter;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,11 +20,11 @@ public abstract class BaseBinder<M, VH extends BaseViewHolder<M>> {
     this.itemDecorator = itemDecorator;
   }
 
-  public void bindViewHolder(VH holder, M item, boolean isSelected) {
+  void bindViewHolder(VH holder, M item, boolean isSelected) {
     bind(holder, item);
   }
 
-  public void bindViewHolder(VH holder, M item, boolean isSelected, List payloads) {
+  void bindViewHolder(VH holder, M item, boolean isSelected, List payloads) {
     bind(holder, item, payloads);
   }
 
@@ -31,16 +32,51 @@ public abstract class BaseBinder<M, VH extends BaseViewHolder<M>> {
     return create(inflater, parent);
   }
 
+  /**
+   * @param inflater LayoutInflater to inflate view
+   * @param parent The ViewGroup into which the new View will be added after it is bound to
+   * an adapter position.
+   * @return A new ViewHolder that holds a View for the given {@link BaseBinder}.
+   */
   public abstract VH create(LayoutInflater inflater, ViewGroup parent);
 
+  /**
+   * @param holder holder The ViewHolder which should be updated to represent the contents of the
+   * item at the given position in the data set.
+   * @param item The object which holds the data
+   * @see #bind(BaseViewHolder, Object, List)
+   */
   public abstract void bind(VH holder, M item);
 
+  /**
+   * @param item The object from the data set
+   * @return boolean value which determines whether the {@link BaseBinder} can bind the {@param
+   * item} to the ViewHolder
+   */
   public abstract boolean canBindData(Object item);
 
+  /**
+   * @param holder holder The ViewHolder which should be updated to represent the contents of the
+   * item at the given position in the data set.
+   * @param item The object which holds the data
+   * @param payloads A non-null list of merged payloads. Can be empty list if requires full
+   * update.
+   * @see #bind(BaseViewHolder, Object)
+   */
   public void bind(VH holder, M item, List payloads) {
     bind(holder, item);
   }
 
+  /**
+   * Used to determine the span size for the {@link BaseBinder}.
+   * <p>
+   * By default the {@link BaseBinder} has the span size as 1. It can be overridden by the child
+   * ViewBinders to provide the custom span size.
+   * </p>
+   *
+   * @param maxSpanCount The maximum span count of the {@link GridLayoutManager} used inside the
+   * RecyclerView
+   */
   public int getSpanSize(int maxSpanCount) {
     return 1;
   }
