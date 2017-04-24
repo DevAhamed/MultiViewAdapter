@@ -61,7 +61,7 @@ public class SelectableAdapter extends RecyclerListAdapter
     return selectedItemIndexes.get(adapterPosition);
   }
 
-  @Override void addBinder(BaseBinder binder) {
+  @Override void addBinder(ItemBinder binder) {
     if (binder instanceof SelectableBinder) {
       ((SelectableBinder) binder).setListener(this);
     }

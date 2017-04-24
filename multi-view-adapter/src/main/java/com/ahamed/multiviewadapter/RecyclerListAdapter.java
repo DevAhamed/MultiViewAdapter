@@ -9,7 +9,7 @@ import java.util.List;
 
 public class RecyclerListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
-  private List<BaseBinder> binders = new ArrayList<>();
+  private List<ItemBinder> binders = new ArrayList<>();
   private List<BaseDataManager> dataManagers = new ArrayList<>();
   private ItemDecorationManager itemDecorationManager;
   private int maxSpanCount = 1;
@@ -34,7 +34,7 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
   @Override public final void onBindViewHolder(BaseViewHolder holder, int adapterPosition,
       List<Object> payloads) {
-    BaseBinder baseBinder = binders.get(holder.getItemViewType());
+    ItemBinder baseBinder = binders.get(holder.getItemViewType());
 
     int totalCount = 0;
     for (BaseDataManager dataManager : dataManagers) {
@@ -65,7 +65,7 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
   }
 
   @Override public final int getItemViewType(int adapterPosition) {
-    BaseBinder baseBinder = getBinderForPosition(adapterPosition);
+    ItemBinder baseBinder = getBinderForPosition(adapterPosition);
     if (null != baseBinder) {
       return binders.indexOf(baseBinder);
     }
@@ -88,7 +88,7 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     dataManagers.add(dataManager);
   }
 
-  protected final void registerBinder(BaseBinder binder) {
+  protected final void registerBinder(ItemBinder binder) {
     addBinder(binder);
   }
 
@@ -96,9 +96,9 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
   /////////// Internal API ahead. ///////////
   ///////////////////////////////////////////
 
-  BaseBinder getBinderForPosition(int adapterPosition) {
+  ItemBinder getBinderForPosition(int adapterPosition) {
     BaseDataManager dataManager = getDataManager(adapterPosition);
-    for (BaseBinder baseBinder : binders) {
+    for (ItemBinder baseBinder : binders) {
       if (baseBinder.canBindData(dataManager.getItem(getItemPositionInManager(adapterPosition)))) {
         return baseBinder;
       }
@@ -166,7 +166,7 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     notifyItemRangeRemoved(getPosition(binder, positionStart), itemCount);
   }
 
-  void addBinder(BaseBinder binder) {
+  void addBinder(ItemBinder binder) {
     binders.add(binder);
   }
 

@@ -5,7 +5,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 public abstract class SelectableBinder<M, VH extends SelectableViewHolder<M>>
-    extends BaseBinder<M, VH> {
+    extends ItemBinder<M, VH> {
 
   private SelectableViewHolder.OnItemSelectedListener listener;
 

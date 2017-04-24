@@ -9,14 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import java.util.List;
 
-public abstract class BaseBinder<M, VH extends BaseViewHolder<M>> {
+public abstract class ItemBinder<M, VH extends BaseViewHolder<M>> {
 
   private ItemDecorator itemDecorator;
 
-  public BaseBinder() {
+  public ItemBinder() {
   }
 
-  public BaseBinder(ItemDecorator itemDecorator) {
+  public ItemBinder(ItemDecorator itemDecorator) {
     this.itemDecorator = itemDecorator;
   }
 
@@ -24,7 +24,7 @@ public abstract class BaseBinder<M, VH extends BaseViewHolder<M>> {
    * @param inflater LayoutInflater to inflate view
    * @param parent The ViewGroup into which the new View will be added after it is bound to
    * an adapter position.
-   * @return A new ViewHolder that holds a View for the given {@link BaseBinder}.
+   * @return A new ViewHolder that holds a View for the given {@link ItemBinder}.
    */
   public abstract VH create(LayoutInflater inflater, ViewGroup parent);
 
@@ -38,7 +38,7 @@ public abstract class BaseBinder<M, VH extends BaseViewHolder<M>> {
 
   /**
    * @param item The object from the data set
-   * @return boolean value which determines whether the {@link BaseBinder} can bind the {@param
+   * @return boolean value which determines whether the {@link ItemBinder} can bind the {@param
    * item} to the ViewHolder
    */
   public abstract boolean canBindData(Object item);
@@ -56,9 +56,9 @@ public abstract class BaseBinder<M, VH extends BaseViewHolder<M>> {
   }
 
   /**
-   * Used to determine the span size for the {@link BaseBinder}.
+   * Used to determine the span size for the {@link ItemBinder}.
    * <p>
-   * By default the {@link BaseBinder} has the span size as 1. It can be overridden by the child
+   * By default the {@link ItemBinder} has the span size as 1. It can be overridden by the child
    * ViewBinders to provide the custom span size.
    * </p>
    *

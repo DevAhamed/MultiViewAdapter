@@ -7,7 +7,7 @@ import android.view.View;
 
 /**
  * This is an internal class. Should not be extended by client code. Used to manage the different
- * {@link RecyclerView.ItemDecoration} for different {@link BaseBinder}. It will delegate the {@link
+ * {@link RecyclerView.ItemDecoration} for different {@link ItemBinder}. It will delegate the {@link
  * RecyclerView.ItemDecoration}
  */
 class ItemDecorationManager extends RecyclerView.ItemDecoration {
@@ -20,7 +20,7 @@ class ItemDecorationManager extends RecyclerView.ItemDecoration {
 
   @Override public void getItemOffsets(Rect outRect, View view, RecyclerView parent,
       RecyclerView.State state) {
-    BaseBinder binder = adapter.getBinderForPosition(parent.getChildAdapterPosition(view));
+    ItemBinder binder = adapter.getBinderForPosition(parent.getChildAdapterPosition(view));
     if (binder.isItemDecorationEnabled()) {
       int itemPosition = adapter.getItemPositionInManager(parent.getChildAdapterPosition(view));
       boolean isLastItem = adapter.isLastItemInManager(parent.getChildAdapterPosition(view));
@@ -34,7 +34,7 @@ class ItemDecorationManager extends RecyclerView.ItemDecoration {
     int childCount = parent.getChildCount();
     for (int i = 0; i < childCount - 1; i++) {
       View child = parent.getChildAt(i);
-      BaseBinder binder = adapter.getBinderForPosition(parent.getChildAdapterPosition(child));
+      ItemBinder binder = adapter.getBinderForPosition(parent.getChildAdapterPosition(child));
       if (binder.isItemDecorationEnabled()) {
         int itemPosition = adapter.getItemPositionInManager(parent.getChildAdapterPosition(child));
         boolean isLastItem = adapter.isLastItemInManager(parent.getChildAdapterPosition(child));
