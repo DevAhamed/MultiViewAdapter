@@ -36,7 +36,8 @@ public class ComplexListAdapter extends RecyclerListAdapter {
 
     registerBinder(new HeaderBinder());
     registerBinder(new GridItemBinder());
-    registerBinder(new ItemOneBinder(new SimpleItemDecoration(context, SimpleItemDecoration.VERTICAL)));
+    registerBinder(
+        new ItemOneBinder(new SimpleItemDecoration(context, SimpleItemDecoration.VERTICAL)));
     registerBinder(new ItemTwoBinder());
     registerBinder(new ItemThreeBinder());
   }

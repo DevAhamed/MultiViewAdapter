@@ -4,12 +4,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import com.ahamed.multiviewadapter.BaseBinder;
 import com.ahamed.multiviewadapter.BaseViewHolder;
+import com.ahamed.multiviewadapter.ItemBinder;
 import com.ahamed.sample.R;
 import com.ahamed.sample.common.model.ItemTwo;
 
-public class ItemTwoBinder extends BaseBinder<ItemTwo, ItemTwoBinder.ItemViewHolder> {
+public class ItemTwoBinder extends ItemBinder<ItemTwo, ItemTwoBinder.ItemViewHolder> {
 
   @Override public ItemViewHolder create(LayoutInflater layoutInflater, ViewGroup parent) {
     return new ItemViewHolder(layoutInflater.inflate(R.layout.item_two, parent, false));

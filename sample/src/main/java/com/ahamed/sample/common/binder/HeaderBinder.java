@@ -4,12 +4,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import com.ahamed.multiviewadapter.BaseBinder;
 import com.ahamed.multiviewadapter.BaseViewHolder;
+import com.ahamed.multiviewadapter.ItemBinder;
 import com.ahamed.sample.R;
 import com.ahamed.sample.common.model.Header;
 
-public class HeaderBinder extends BaseBinder<Header, HeaderBinder.HeaderViewHolder> {
+public class HeaderBinder extends ItemBinder<Header, HeaderBinder.HeaderViewHolder> {
 
   @Override public HeaderViewHolder create(LayoutInflater layoutInflater, ViewGroup parent) {
     return new HeaderViewHolder(layoutInflater.inflate(R.layout.item_header, parent, false));
