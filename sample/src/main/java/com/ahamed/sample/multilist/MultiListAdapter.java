@@ -3,7 +3,7 @@ package com.ahamed.sample.multilist;
 import android.content.Context;
 import com.ahamed.multiviewadapter.DataListManager;
 import com.ahamed.multiviewadapter.RecyclerListAdapter;
-import com.ahamed.multiviewadapter.SimpleItemDecoration;
+import com.ahamed.sample.common.ThickItemDecorator;
 import com.ahamed.sample.common.binder.ItemOneBinder;
 import com.ahamed.sample.common.binder.ItemThreeBinder;
 import com.ahamed.sample.common.binder.ItemTwoBinder;
@@ -27,8 +27,7 @@ public class MultiListAdapter extends RecyclerListAdapter {
     addDataManager(modelTwoDataManager);
     addDataManager(modelThreeDataManager);
 
-    registerBinder(
-        new ItemOneBinder(new SimpleItemDecoration(context, SimpleItemDecoration.VERTICAL)));
+    registerBinder(new ItemOneBinder(new ThickItemDecorator(context)));
     registerBinder(new ItemTwoBinder());
     registerBinder(new ItemThreeBinder());
   }
