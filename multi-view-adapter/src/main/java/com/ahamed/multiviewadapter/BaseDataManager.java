@@ -16,14 +16,6 @@ class BaseDataManager<M> implements ListUpdateCallback {
     this.listAdapter = baseAdapter;
   }
 
-  int getCount() {
-    return size();
-  }
-
-  M getItem(int dataItemPosition) {
-    return dataList.get(dataItemPosition);
-  }
-
   @Override public final void onInserted(int position, int count) {
     listAdapter.notifyBinderItemRangeInserted(this, position, count);
   }
@@ -40,6 +32,19 @@ class BaseDataManager<M> implements ListUpdateCallback {
     listAdapter.notifyBinderItemRangeChanged(this, position, count, payload);
   }
 
+  /**
+   * Called by the {@link BaseDataManager} when it wants to check whether two items have the same
+   * data.
+   * BaseDataManager uses this information to detect if the contents of an item has changed.
+   * <p>
+   * BaseDataManager uses this method to check equality instead of {@link Object#equals(Object)}
+   * so that you can change its behavior depending on your UI.
+   *
+   * @param oldItem The item in the old list
+   * @param newItem The item in the new list which replaces the oldItem
+   * @return True if the contents of the items are the same or false if they are different, ie., you
+   * should return whether the items' visual representations are the same.
+   */
   public boolean areContentsTheSame(M oldItem, M newItem) {
     return oldItem.equals(newItem);
   }
@@ -48,16 +53,8 @@ class BaseDataManager<M> implements ListUpdateCallback {
     return null;
   }
 
-  List<M> getDataList() {
-    return dataList;
-  }
-
-  void setDataList(List<M> dataList) {
-    this.dataList = dataList;
-  }
-
-  public final int size() {
-    return dataList.size();
+  public final int getCount() {
+    return size();
   }
 
   public final boolean isEmpty() {
@@ -80,11 +77,6 @@ class BaseDataManager<M> implements ListUpdateCallback {
     return dataList.lastIndexOf(item);
   }
 
-  void onItemSelectionToggled(int position, boolean isSelected) {
-    selectedItems.put(position, isSelected);
-    onChanged(position, 1, null);
-  }
-
   public List<M> getSelectedItems() {
     List<M> selectedItemsList = new ArrayList<>();
     for (int i = 0; i < size(); i++) {
@@ -102,5 +94,30 @@ class BaseDataManager<M> implements ListUpdateCallback {
       }
     }
     return null;
+  }
+
+  ///////////////////////////////////////////
+  /////////// Internal API ahead. ///////////
+  ///////////////////////////////////////////
+
+  void onItemSelectionToggled(int position, boolean isSelected) {
+    selectedItems.put(position, isSelected);
+    onChanged(position, 1, null);
+  }
+
+  List<M> getDataList() {
+    return dataList;
+  }
+
+  void setDataList(List<M> dataList) {
+    this.dataList = dataList;
+  }
+
+  int size() {
+    return dataList.size();
+  }
+
+  M getItem(int dataItemPosition) {
+    return dataList.get(dataItemPosition);
   }
 }

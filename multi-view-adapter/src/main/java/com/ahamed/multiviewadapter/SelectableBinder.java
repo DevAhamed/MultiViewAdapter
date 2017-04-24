@@ -35,6 +35,10 @@ public abstract class SelectableBinder<M, VH extends SelectableViewHolder<M>>
     // No-op - Only to finalize the method
   }
 
+  ////////////////////////////////////////
+  ///////// Public Methods ///////////////
+  ////////////////////////////////////////
+
   /**
    * @param holder holder The ViewHolder which should be updated to represent the contents of the
    * item at the given position in the data set.

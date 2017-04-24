@@ -5,11 +5,16 @@ import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-public class ItemDecorationManager extends RecyclerView.ItemDecoration {
+/**
+ * This is an internal class. Should not be extended by client code. Used to manage the different
+ * {@link RecyclerView.ItemDecoration} for different {@link BaseBinder}. It will delegate the {@link
+ * RecyclerView.ItemDecoration}
+ */
+class ItemDecorationManager extends RecyclerView.ItemDecoration {
 
   private final RecyclerListAdapter adapter;
 
-  public ItemDecorationManager(RecyclerListAdapter adapter) {
+  ItemDecorationManager(RecyclerListAdapter adapter) {
     this.adapter = adapter;
   }
 

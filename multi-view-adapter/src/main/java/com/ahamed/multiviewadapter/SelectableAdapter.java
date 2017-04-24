@@ -12,8 +12,9 @@ public class SelectableAdapter extends RecyclerListAdapter
   public static final int SELECTION_MODE_SINGLE = 1;
   public static final int SELECTION_MODE_SINGLE_OR_NONE = 2;
   public static final int SELECTION_MODE_MULTIPLE = 3;
+
   private int lastSelectedPosition = -1;
-  @SelectionMode private int selectionMode = SELECTION_MODE_MULTIPLE;
+  @SelectionMode private int selectionMode = SELECTION_MODE_NONE;
   private SparseBooleanArray selectedItemIndexes = new SparseBooleanArray();
 
   @Override public void onItemSelected(int position) {

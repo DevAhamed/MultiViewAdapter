@@ -11,10 +11,8 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
   private List<BaseBinder> binders = new ArrayList<>();
   private List<BaseDataManager> dataManagers = new ArrayList<>();
-
   private ItemDecorationManager itemDecorationManager;
   private int maxSpanCount = 1;
-
   private final GridLayoutManager.SpanSizeLookup spanSizeLookup =
       new GridLayoutManager.SpanSizeLookup() {
         @Override public int getSpanSize(int position) {
@@ -22,7 +20,7 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
       };
 
-  RecyclerListAdapter() {
+  protected RecyclerListAdapter() {
     this.itemDecorationManager = new ItemDecorationManager(this);
   }
 
@@ -58,10 +56,6 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     }
   }
 
-  boolean isItemSelected(int adapterPosition) {
-    return false;
-  }
-
   @Override public final int getItemCount() {
     int itemCount = 0;
     for (int i = 0, size = dataManagers.size(); i < size; i++) {
@@ -86,6 +80,22 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     return spanSizeLookup;
   }
 
+  public ItemDecorationManager getItemDecorationManager() {
+    return itemDecorationManager;
+  }
+
+  protected final void addDataManager(BaseDataManager dataManager) {
+    dataManagers.add(dataManager);
+  }
+
+  protected final void registerBinder(BaseBinder binder) {
+    addBinder(binder);
+  }
+
+  ///////////////////////////////////////////
+  /////////// Internal API ahead. ///////////
+  ///////////////////////////////////////////
+
   BaseBinder getBinderForPosition(int adapterPosition) {
     BaseDataManager dataManager = getDataManager(adapterPosition);
     for (BaseBinder baseBinder : binders) {
@@ -94,10 +104,6 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
       }
     }
     throw new IllegalStateException("Binder not found for position. Position = " + adapterPosition);
-  }
-
-  public ItemDecorationManager getItemDecorationManager() {
-    return itemDecorationManager;
   }
 
   int getItemPositionInManager(int adapterPosition) {
@@ -137,6 +143,10 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     return position;
   }
 
+  boolean isItemSelected(int adapterPosition) {
+    return false;
+  }
+
   final void notifyBinderItemRangeChanged(BaseDataManager binder, int positionStart, int itemCount,
       Object payload) {
     notifyItemRangeChanged(getPosition(binder, positionStart), itemCount, payload);
@@ -154,14 +164,6 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
   final void notifyBinderItemRangeRemoved(BaseDataManager binder, int positionStart,
       int itemCount) {
     notifyItemRangeRemoved(getPosition(binder, positionStart), itemCount);
-  }
-
-  protected final void addDataManager(BaseDataManager dataManager) {
-    dataManagers.add(dataManager);
-  }
-
-  protected final void registerBinder(BaseBinder binder) {
-    addBinder(binder);
   }
 
   void addBinder(BaseBinder binder) {

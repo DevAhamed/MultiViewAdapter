@@ -20,18 +20,6 @@ public abstract class BaseBinder<M, VH extends BaseViewHolder<M>> {
     this.itemDecorator = itemDecorator;
   }
 
-  void bindViewHolder(VH holder, M item, boolean isSelected) {
-    bind(holder, item);
-  }
-
-  void bindViewHolder(VH holder, M item, boolean isSelected, List payloads) {
-    bind(holder, item, payloads);
-  }
-
-  VH createViewHolder(LayoutInflater inflater, ViewGroup parent) {
-    return create(inflater, parent);
-  }
-
   /**
    * @param inflater LayoutInflater to inflate view
    * @param parent The ViewGroup into which the new View will be added after it is bound to
@@ -79,6 +67,22 @@ public abstract class BaseBinder<M, VH extends BaseViewHolder<M>> {
    */
   public int getSpanSize(int maxSpanCount) {
     return 1;
+  }
+
+  ///////////////////////////////////////////
+  /////////// Internal API ahead. ///////////
+  ///////////////////////////////////////////
+
+  void bindViewHolder(VH holder, M item, boolean isSelected) {
+    bind(holder, item);
+  }
+
+  void bindViewHolder(VH holder, M item, boolean isSelected, List payloads) {
+    bind(holder, item, payloads);
+  }
+
+  VH createViewHolder(LayoutInflater inflater, ViewGroup parent) {
+    return create(inflater, parent);
   }
 
   boolean isItemDecorationEnabled() {
