@@ -9,13 +9,21 @@ public abstract class SelectableBinder<M, VH extends SelectableViewHolder<M>>
 
   private SelectableViewHolder.OnItemSelectedListener listener;
 
+  public SelectableBinder() {
+    super();
+  }
+
+  public SelectableBinder(ItemDecorator itemDecorator) {
+    super(itemDecorator);
+  }
+
   void setListener(SelectableViewHolder.OnItemSelectedListener listener) {
     this.listener = listener;
   }
 
   @Override VH createViewHolder(LayoutInflater inflater, ViewGroup parent) {
     VH vh = create(inflater, parent);
-    vh.setListener(listener);
+    vh.setItemSelectedListener(listener);
     return vh;
   }
 

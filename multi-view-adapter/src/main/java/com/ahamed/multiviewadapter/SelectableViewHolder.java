@@ -4,29 +4,29 @@ import android.view.View;
 
 public class SelectableViewHolder<M> extends BaseViewHolder<M> {
 
-  private OnItemSelectedListener listener;
+  private OnItemSelectedListener itemSelectedListener;
 
   public SelectableViewHolder(View itemView) {
     super(itemView);
-    itemView.setOnLongClickListener(new View.OnLongClickListener() {
-      @Override public boolean onLongClick(View v) {
+    setItemLongClickListener(new OnItemLongClickListener<M>() {
+      @Override public boolean onItemLongClick(View view, M item) {
         itemSelected();
-        return null != listener;
+        return null != itemSelectedListener;
       }
     });
   }
 
-  public void setListener(OnItemSelectedListener listener) {
-    this.listener = listener;
+  void setItemSelectedListener(OnItemSelectedListener listener) {
+    this.itemSelectedListener = listener;
   }
 
-  public void itemSelected() {
-    if (null != listener) {
-      listener.onItemSelected(getAdapterPosition());
+  protected void itemSelected() {
+    if (null != itemSelectedListener) {
+      itemSelectedListener.onItemSelected(getAdapterPosition());
     }
   }
 
-  public interface OnItemSelectedListener {
+  interface OnItemSelectedListener {
 
     void onItemSelected(int position);
   }

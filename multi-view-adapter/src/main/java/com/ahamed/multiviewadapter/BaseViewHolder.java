@@ -3,14 +3,17 @@ package com.ahamed.multiviewadapter;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.View;
 
-public class BaseViewHolder<M> extends ViewHolder implements View.OnClickListener {
+public class BaseViewHolder<M> extends ViewHolder
+    implements View.OnClickListener, View.OnLongClickListener {
 
   private M item;
-  private OnItemClickedListener<M> listener;
+  private OnItemClickListener<M> itemClickListener;
+  private OnItemLongClickListener<M> itemLongClickListener;
 
   public BaseViewHolder(View itemView) {
     super(itemView);
     itemView.setOnClickListener(this);
+    itemView.setOnLongClickListener(this);
   }
 
   public final M getItem() {
@@ -21,16 +24,28 @@ public class BaseViewHolder<M> extends ViewHolder implements View.OnClickListene
     this.item = item;
   }
 
-  protected final void setListener(OnItemClickedListener<M> listener) {
-    this.listener = listener;
+  protected final void setItemClickListener(OnItemClickListener<M> itemClickListener) {
+    this.itemClickListener = itemClickListener;
+  }
+
+  protected final void setItemLongClickListener(OnItemLongClickListener<M> itemLongClickListener) {
+    this.itemLongClickListener = itemLongClickListener;
   }
 
   @Override public void onClick(View view) {
-    if (null == listener) return;
-    listener.onItemClicked(view, getItem(), getAdapterPosition());
+    if (null == itemClickListener) return;
+    itemClickListener.onItemClick(view, getItem());
   }
 
-  public interface OnItemClickedListener<M> {
-    void onItemClicked(View view, M item, int position);
+  @Override public boolean onLongClick(View view) {
+    return null != itemLongClickListener && itemLongClickListener.onItemLongClick(view, getItem());
+  }
+
+  public interface OnItemClickListener<M> {
+    void onItemClick(View view, M item);
+  }
+
+  public interface OnItemLongClickListener<M> {
+    boolean onItemLongClick(View view, M item);
   }
 }
