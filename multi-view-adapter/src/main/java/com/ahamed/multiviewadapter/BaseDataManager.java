@@ -53,6 +53,66 @@ class BaseDataManager<M> implements ListUpdateCallback {
     return null;
   }
 
+  public List<M> getSelectedItems() {
+    List<M> selectedItemsList = new ArrayList<>();
+    for (int i = 0; i < size(); i++) {
+      if (selectedItems.get(i)) {
+        selectedItemsList.add(dataList.get(i));
+      }
+    }
+    return selectedItemsList;
+  }
+
+  public void setSelectedItems(List<M> selectedItems) {
+    if (!(listAdapter instanceof SelectableAdapter)) {
+      throw new IllegalStateException(
+          "Make sure your adapter extends from com.ahamed.multiviewadapter.SelectableAdapter");
+    }
+    if (size() < 0) {
+      return;
+    }
+    SparseBooleanArray oldSelectedItems = this.selectedItems.clone();
+    this.selectedItems = new SparseBooleanArray();
+    int i = 0;
+    for (M m : selectedItems) {
+      boolean isSelected = contains(m);
+      this.selectedItems.put(i, isSelected);
+      if (oldSelectedItems.get(i, false) != isSelected) {
+        onItemSelectionToggled(i, isSelected);
+      }
+      i++;
+    }
+  }
+
+  @Nullable public M getSelectedItem() {
+    for (int i = 0; i < size(); i++) {
+      if (selectedItems.get(i)) {
+        return dataList.get(i);
+      }
+    }
+    return null;
+  }
+
+  public void setSelectedItem(M selectedItem) {
+    if (!(listAdapter instanceof SelectableAdapter)) {
+      throw new IllegalStateException(
+          "Make sure your adapter extends from com.ahamed.multiviewadapter.SelectableAdapter");
+    }
+    if (size() < 0) {
+      return;
+    }
+    M previousSelectedItem = getSelectedItem();
+    int index = indexOf(selectedItem);
+    if (index != -1) {
+      this.selectedItems.put(index, true);
+      onItemSelectionToggled(index, true);
+      ((SelectableAdapter) listAdapter).setLastSelectedIndex(index);
+    }
+    if (null != previousSelectedItem && indexOf(previousSelectedItem) != -1) {
+      onItemSelectionToggled(indexOf(previousSelectedItem), false);
+    }
+  }
+
   public final int getCount() {
     return size();
   }
@@ -77,25 +137,6 @@ class BaseDataManager<M> implements ListUpdateCallback {
     return dataList.lastIndexOf(item);
   }
 
-  public List<M> getSelectedItems() {
-    List<M> selectedItemsList = new ArrayList<>();
-    for (int i = 0; i < size(); i++) {
-      if (selectedItems.get(i)) {
-        selectedItemsList.add(dataList.get(i));
-      }
-    }
-    return selectedItemsList;
-  }
-
-  @Nullable public M getSelectedItem() {
-    for (int i = 0; i < size(); i++) {
-      if (selectedItems.get(i)) {
-        return dataList.get(i);
-      }
-    }
-    return null;
-  }
-
   ///////////////////////////////////////////
   /////////// Internal API ahead. ///////////
   ///////////////////////////////////////////
@@ -110,7 +151,7 @@ class BaseDataManager<M> implements ListUpdateCallback {
   }
 
   void setDataList(List<M> dataList) {
-    this.dataList = dataList;
+    this.dataList = new ArrayList<>(dataList);
   }
 
   int size() {
@@ -119,5 +160,9 @@ class BaseDataManager<M> implements ListUpdateCallback {
 
   M getItem(int dataItemPosition) {
     return dataList.get(dataItemPosition);
+  }
+
+  boolean isItemSelected(int dataItemPosition) {
+    return selectedItems.get(dataItemPosition);
   }
 }

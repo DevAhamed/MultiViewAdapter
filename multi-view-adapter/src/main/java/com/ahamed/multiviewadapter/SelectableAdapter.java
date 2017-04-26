@@ -1,7 +1,6 @@
 package com.ahamed.multiviewadapter;
 
 import android.support.annotation.IntDef;
-import android.util.SparseBooleanArray;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
@@ -13,43 +12,37 @@ public class SelectableAdapter extends RecyclerListAdapter
   public static final int SELECTION_MODE_SINGLE_OR_NONE = 2;
   public static final int SELECTION_MODE_MULTIPLE = 3;
 
-  private int lastSelectedPosition = -1;
+  private int lastSelectedIndex = -1;
   @SelectionMode private int selectionMode = SELECTION_MODE_NONE;
-  private SparseBooleanArray selectedItemIndexes = new SparseBooleanArray();
 
-  @Override public void onItemSelected(int position) {
+  @Override public final void onItemSelected(int adapterPosition) {
     switch (selectionMode) {
       case SELECTION_MODE_SINGLE:
-        if (lastSelectedPosition == position) {
+        if (lastSelectedIndex == adapterPosition) {
           return;
         }
-        if (lastSelectedPosition != -1) {
-          selectedItemIndexes.put(lastSelectedPosition, false);
-          getDataManager(lastSelectedPosition).onItemSelectionToggled(
-              getItemPositionInManager(lastSelectedPosition), false);
+        if (lastSelectedIndex != -1) {
+          getDataManager(lastSelectedIndex).onItemSelectionToggled(
+              getItemPositionInManager(lastSelectedIndex), false);
         }
-        selectedItemIndexes.put(position, true);
-        getDataManager(position).onItemSelectionToggled(
-            getItemPositionInManager(lastSelectedPosition), true);
-        lastSelectedPosition = position;
+        getDataManager(adapterPosition).onItemSelectionToggled(
+            getItemPositionInManager(adapterPosition), true);
+        lastSelectedIndex = adapterPosition;
         break;
       case SELECTION_MODE_SINGLE_OR_NONE:
-        if (lastSelectedPosition != -1) {
-          selectedItemIndexes.put(lastSelectedPosition, false);
-          getDataManager(lastSelectedPosition).onItemSelectionToggled(
-              getItemPositionInManager(lastSelectedPosition), false);
+        if (lastSelectedIndex != -1) {
+          getDataManager(lastSelectedIndex).onItemSelectionToggled(
+              getItemPositionInManager(lastSelectedIndex), false);
         }
-        if (lastSelectedPosition != position) {
-          selectedItemIndexes.put(position, true);
-          getDataManager(position).onItemSelectionToggled(
-              getItemPositionInManager(lastSelectedPosition), true);
-          lastSelectedPosition = position;
+        if (lastSelectedIndex != adapterPosition) {
+          getDataManager(adapterPosition).onItemSelectionToggled(
+              getItemPositionInManager(adapterPosition), true);
+          lastSelectedIndex = adapterPosition;
         }
         break;
       case SELECTION_MODE_MULTIPLE:
-        selectedItemIndexes.put(position, true);
-        getDataManager(position).onItemSelectionToggled(getItemPositionInManager(position),
-            !selectedItemIndexes.get(position));
+        getDataManager(adapterPosition).onItemSelectionToggled(
+            getItemPositionInManager(adapterPosition), !isItemSelected(adapterPosition));
         break;
       case SELECTION_MODE_NONE:
       default:
@@ -58,7 +51,8 @@ public class SelectableAdapter extends RecyclerListAdapter
   }
 
   @Override boolean isItemSelected(int adapterPosition) {
-    return selectedItemIndexes.get(adapterPosition);
+    return getDataManager(adapterPosition).isItemSelected(
+        getItemPositionInManager(adapterPosition));
   }
 
   @Override void addBinder(ItemBinder binder) {
@@ -68,7 +62,11 @@ public class SelectableAdapter extends RecyclerListAdapter
     super.addBinder(binder);
   }
 
-  public void setSelectionMode(int selectionMode) {
+  void setLastSelectedIndex(int index) {
+    lastSelectedIndex = index;
+  }
+
+  public final void setSelectionMode(int selectionMode) {
     this.selectionMode = selectionMode;
   }
 
