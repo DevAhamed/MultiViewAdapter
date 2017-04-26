@@ -38,8 +38,8 @@ public class GridItemBinder extends SelectableBinder<GridItem, GridItemBinder.It
       super(itemView);
       textView = (TextView) itemView.findViewById(R.id.tv_grid_text);
 
-      setListener(new OnItemClickedListener<GridItem>() {
-        @Override public void onItemClicked(View view, GridItem item, int position) {
+      setItemClickListener(new OnItemClickListener<GridItem>() {
+        @Override public void onItemClick(View view, GridItem item) {
           Toast.makeText(view.getContext(), item.getData(), Toast.LENGTH_SHORT).show();
         }
       });

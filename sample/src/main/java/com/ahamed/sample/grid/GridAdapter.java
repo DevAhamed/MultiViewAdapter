@@ -17,9 +17,12 @@ class GridAdapter extends SelectableAdapter {
 
     registerBinder(new HeaderBinder());
     registerBinder(new GridItemBinder());
+
+    setSelectionMode(SELECTION_MODE_SINGLE);
   }
 
   void addData(List<BaseModel> data) {
     dataManager.addAll(data);
+    dataManager.setSelectedItem(dataManager.get(2));
   }
 }

@@ -1,5 +1,6 @@
 package com.ahamed.sample.simple;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
