@@ -1,6 +1,7 @@
 package com.ahamed.multiviewadapter;
 
 import android.support.annotation.IntDef;
+import android.widget.RadioGroup;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
@@ -66,10 +67,30 @@ public class SelectableAdapter extends RecyclerListAdapter
     lastSelectedIndex = index;
   }
 
+  ////////////////////////////////////////
+  ///////// Public Methods ///////////////
+  ////////////////////////////////////////
+
+  /**
+   * To set the selection mode for the {@link SelectableAdapter}
+   *
+   * @param selectionMode The selection mode to be set
+   * @see SelectionMode SelectionMode for possible values
+   */
   public final void setSelectionMode(int selectionMode) {
     this.selectionMode = selectionMode;
   }
 
+  /**
+   * Represents the selection mode of the adapter.
+   *
+   * <p>Possible values : </p>
+   * <li>SELECTION_MODE_NONE - Default value. No {@link DataListManager} is not selectable </li>
+   * <li>SELECTION_MODE_SINGLE - Single selection. You cannot deselect the item without selecting
+   * other. Similar to a {@link RadioGroup} </li>
+   * <li>SELECTION_MODE_SINGLE_OR_NONE - Single selection. You can deselect the item </li>
+   * <li>SELECTION_MODE_MULTIPLE - Multiple selection</li>
+   */
   @Retention(RetentionPolicy.SOURCE) @IntDef({
       SELECTION_MODE_NONE, SELECTION_MODE_SINGLE, SELECTION_MODE_SINGLE_OR_NONE,
       SELECTION_MODE_MULTIPLE

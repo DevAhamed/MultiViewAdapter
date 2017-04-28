@@ -72,10 +72,24 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     return super.getItemViewType(adapterPosition);
   }
 
+  /**
+   * Sets the number of spans to be laid out.
+   * <p>
+   * Based on the orientation of your {@link GridLayoutManager}'s orientation it can represent rows
+   * or columns.</p>
+   *
+   * @param maxSpanCount The total number of spans in the grid
+   */
   public final void setSpanCount(int maxSpanCount) {
     this.maxSpanCount = maxSpanCount;
   }
 
+  /**
+   * Returns the current {@link GridLayoutManager.SpanSizeLookup} used by the {@link
+   * RecyclerListAdapter}.<p> Default implementation sets each item to occupy exactly 1 span.</p>
+   *
+   * @return The {@link GridLayoutManager.SpanSizeLookup} used by the {@link RecyclerListAdapter}.
+   */
   public final GridLayoutManager.SpanSizeLookup getSpanSizeLookup() {
     return spanSizeLookup;
   }
@@ -84,10 +98,20 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     return itemDecorationManager;
   }
 
+  /**
+   * To add the {@link DataListManager} to the {@link RecyclerListAdapter}
+   *
+   * @param dataManager The DataManager to be added to {@link RecyclerListAdapter}
+   */
   protected final void addDataManager(BaseDataManager dataManager) {
     dataManagers.add(dataManager);
   }
 
+  /**
+   * To register the {@link ItemBinder} to the {@link RecyclerListAdapter}
+   *
+   * @param binder The ItemBinder to be register with {@link RecyclerListAdapter}
+   */
   protected final void registerBinder(ItemBinder binder) {
     addBinder(binder);
   }

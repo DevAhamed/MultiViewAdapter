@@ -31,22 +31,6 @@ abstract class DiffUtilCallback<M> extends DiffUtil.Callback {
     return areContentsTheSame(oldList.get(oldItemPosition), newList.get(newItemPosition));
   }
 
-  /**
-   * When {@link #areItemsTheSame(int, int)} returns {@code true} for two items and
-   * {@link #areContentsTheSame(int, int)} returns false for them, DiffUtil
-   * calls this method to get a payload about the change.
-   * <p>
-   * For example, if you are using DiffUtil with {@link RecyclerView}, you can return the
-   * particular field that changed in the item and your
-   * {@link android.support.v7.widget.RecyclerView.ItemAnimator ItemAnimator} can use that
-   * information to run the correct animation.
-   * <p>
-   * Default implementation returns {@code null}.
-   *
-   * @param oldItemPosition The position of the item in the old list
-   * @param newItemPosition The position of the item in the new list
-   * @return A payload object that represents the change between the two items.
-   */
   @Nullable @Override public Object getChangePayload(int oldItemPosition, int newItemPosition) {
     Object payload = getChangePayload(oldList.get(oldItemPosition), newList.get(newItemPosition));
     return payload != null ? payload : super.getChangePayload(oldItemPosition, newItemPosition);

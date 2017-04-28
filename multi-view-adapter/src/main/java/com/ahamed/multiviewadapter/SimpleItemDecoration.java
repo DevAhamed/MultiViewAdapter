@@ -7,10 +7,19 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.support.v4.view.ViewCompat;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 
+/**
+ * SimpleItemDecoration is a {@link RecyclerView.ItemDecoration} that can be used as a divider
+ * between items of a {@link LinearLayoutManager}. It supports both {@link #HORIZONTAL} and
+ * {@link #VERTICAL} orientations.
+ *
+ * This code has been re-used from official support library's  {@link DividerItemDecoration}
+ */
 public class SimpleItemDecoration implements ItemDecorator {
 
   public static final int HORIZONTAL = LinearLayout.HORIZONTAL;
