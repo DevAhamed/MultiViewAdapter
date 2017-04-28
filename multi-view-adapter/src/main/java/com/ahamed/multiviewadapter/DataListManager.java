@@ -8,7 +8,7 @@ import java.util.List;
 
 public class DataListManager<M> extends BaseDataManager<M> {
 
-  public DataListManager(RecyclerListAdapter baseAdapter) {
+  public DataListManager(RecyclerAdapter baseAdapter) {
     super(baseAdapter);
   }
 

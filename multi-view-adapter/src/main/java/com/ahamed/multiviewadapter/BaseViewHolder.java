@@ -25,6 +25,10 @@ public class BaseViewHolder<M> extends ViewHolder
     return item;
   }
 
+  final void setItem(M item) {
+    this.item = item;
+  }
+
   /**
    * Register a callback to be invoked when this {@link BaseViewHolder} is clicked. If this {@link
    * BaseViewHolder} is not clickable, it becomes clickable.
@@ -52,10 +56,6 @@ public class BaseViewHolder<M> extends ViewHolder
 
   @Override public final boolean onLongClick(View view) {
     return null != itemLongClickListener && itemLongClickListener.onItemLongClick(view, getItem());
-  }
-
-  final void setItem(M item) {
-    this.item = item;
   }
 
   /**

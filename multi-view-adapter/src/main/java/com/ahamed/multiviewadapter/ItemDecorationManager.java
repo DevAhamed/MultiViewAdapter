@@ -13,9 +13,9 @@ import android.view.View;
  */
 class ItemDecorationManager extends RecyclerView.ItemDecoration {
 
-  private final RecyclerListAdapter adapter;
+  private final RecyclerAdapter adapter;
 
-  ItemDecorationManager(RecyclerListAdapter adapter) {
+  ItemDecorationManager(RecyclerAdapter adapter) {
     this.adapter = adapter;
   }
 

@@ -3,7 +3,7 @@ package com.ahamed.sample.complex;
 import android.content.Context;
 import com.ahamed.multiviewadapter.DataItemManager;
 import com.ahamed.multiviewadapter.DataListManager;
-import com.ahamed.multiviewadapter.RecyclerListAdapter;
+import com.ahamed.multiviewadapter.RecyclerAdapter;
 import com.ahamed.multiviewadapter.SimpleItemDecoration;
 import com.ahamed.sample.common.binder.GridItemBinder;
 import com.ahamed.sample.common.binder.HeaderBinder;
@@ -16,7 +16,7 @@ import com.ahamed.sample.common.model.Header;
 import com.ahamed.sample.common.model.ItemThree;
 import java.util.List;
 
-public class ComplexListAdapter extends RecyclerListAdapter {
+public class ComplexListAdapter extends RecyclerAdapter {
 
   private DataListManager<ItemThree> singleModelManager;
   private DataListManager<GridItem> gridItemsManager;

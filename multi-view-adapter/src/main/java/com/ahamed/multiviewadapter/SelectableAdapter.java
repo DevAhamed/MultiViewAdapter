@@ -5,7 +5,7 @@ import android.widget.RadioGroup;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-public class SelectableAdapter extends RecyclerListAdapter
+public class SelectableAdapter extends RecyclerAdapter
     implements SelectableViewHolder.OnItemSelectedListener {
 
   public static final int SELECTION_MODE_NONE = -1;

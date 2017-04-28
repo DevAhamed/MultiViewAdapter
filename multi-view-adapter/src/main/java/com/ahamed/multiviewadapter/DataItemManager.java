@@ -4,11 +4,11 @@ import android.support.v7.widget.RecyclerView;
 
 public final class DataItemManager<M> extends BaseDataManager<M> {
 
-  public DataItemManager(RecyclerListAdapter baseAdapter) {
+  public DataItemManager(RecyclerAdapter baseAdapter) {
     super(baseAdapter);
   }
 
-  public DataItemManager(RecyclerListAdapter baseAdapter, M item) {
+  public DataItemManager(RecyclerAdapter baseAdapter, M item) {
     super(baseAdapter);
     getDataList().add(item);
   }

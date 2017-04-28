@@ -2,7 +2,7 @@ package com.ahamed.sample.multilist;
 
 import android.content.Context;
 import com.ahamed.multiviewadapter.DataListManager;
-import com.ahamed.multiviewadapter.RecyclerListAdapter;
+import com.ahamed.multiviewadapter.RecyclerAdapter;
 import com.ahamed.sample.common.ThickItemDecorator;
 import com.ahamed.sample.common.binder.ItemOneBinder;
 import com.ahamed.sample.common.binder.ItemThreeBinder;
@@ -12,7 +12,7 @@ import com.ahamed.sample.common.model.ItemThree;
 import com.ahamed.sample.common.model.ItemTwo;
 import java.util.List;
 
-public class MultiListAdapter extends RecyclerListAdapter {
+public class MultiListAdapter extends RecyclerAdapter {
 
   private DataListManager<ItemOne> modelOneDataManager;
   private DataListManager<ItemTwo> modelTwoDataManager;

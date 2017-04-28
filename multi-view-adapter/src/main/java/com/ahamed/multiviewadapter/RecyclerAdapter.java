@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecyclerListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
+public class RecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
   private List<ItemBinder> binders = new ArrayList<>();
   private List<BaseDataManager> dataManagers = new ArrayList<>();
@@ -20,7 +20,7 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
       };
 
-  protected RecyclerListAdapter() {
+  protected RecyclerAdapter() {
     this.itemDecorationManager = new ItemDecorationManager(this);
   }
 
@@ -86,9 +86,9 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
   /**
    * Returns the current {@link GridLayoutManager.SpanSizeLookup} used by the {@link
-   * RecyclerListAdapter}.<p> Default implementation sets each item to occupy exactly 1 span.</p>
+   * RecyclerAdapter}.<p> Default implementation sets each item to occupy exactly 1 span.</p>
    *
-   * @return The {@link GridLayoutManager.SpanSizeLookup} used by the {@link RecyclerListAdapter}.
+   * @return The {@link GridLayoutManager.SpanSizeLookup} used by the {@link RecyclerAdapter}.
    */
   public final GridLayoutManager.SpanSizeLookup getSpanSizeLookup() {
     return spanSizeLookup;
@@ -99,18 +99,18 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
   }
 
   /**
-   * To add the {@link DataListManager} to the {@link RecyclerListAdapter}
+   * To add the {@link DataListManager} to the {@link RecyclerAdapter}
    *
-   * @param dataManager The DataManager to be added to {@link RecyclerListAdapter}
+   * @param dataManager The DataManager to be added to {@link RecyclerAdapter}
    */
   protected final void addDataManager(BaseDataManager dataManager) {
     dataManagers.add(dataManager);
   }
 
   /**
-   * To register the {@link ItemBinder} to the {@link RecyclerListAdapter}
+   * To register the {@link ItemBinder} to the {@link RecyclerAdapter}
    *
-   * @param binder The ItemBinder to be register with {@link RecyclerListAdapter}
+   * @param binder The ItemBinder to be register with {@link RecyclerAdapter}
    */
   protected final void registerBinder(ItemBinder binder) {
     addBinder(binder);

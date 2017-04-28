@@ -9,11 +9,11 @@ import java.util.List;
 
 class BaseDataManager<M> implements ListUpdateCallback {
 
-  private final RecyclerListAdapter listAdapter;
+  private final RecyclerAdapter listAdapter;
   private List<M> dataList = new ArrayList<>();
   private SparseBooleanArray selectedItems = new SparseBooleanArray();
 
-  BaseDataManager(RecyclerListAdapter baseAdapter) {
+  BaseDataManager(RecyclerAdapter baseAdapter) {
     this.listAdapter = baseAdapter;
   }
 
