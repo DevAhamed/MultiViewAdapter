@@ -1,10 +1,10 @@
 package com.ahamed.sample.simple;
 
 import com.ahamed.multiviewadapter.DataListManager;
-import com.ahamed.multiviewadapter.RecyclerListAdapter;
+import com.ahamed.multiviewadapter.RecyclerAdapter;
 import java.util.List;
 
-public class SimpleAdapter extends RecyclerListAdapter {
+public class SimpleAdapter extends RecyclerAdapter {
 
   private DataListManager<ItemModel> dataManager;
 
@@ -12,7 +12,7 @@ public class SimpleAdapter extends RecyclerListAdapter {
     this.dataManager = new DataListManager<>(this);
     addDataManager(dataManager);
 
-    registerBinder(new ItemBinder());
+    registerBinder(new SimpleItemBinder());
   }
 
   public void addData(List<ItemModel> dataList) {

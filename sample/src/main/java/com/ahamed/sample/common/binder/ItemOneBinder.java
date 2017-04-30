@@ -4,13 +4,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import com.ahamed.multiviewadapter.BaseBinder;
 import com.ahamed.multiviewadapter.BaseViewHolder;
+import com.ahamed.multiviewadapter.ItemBinder;
 import com.ahamed.multiviewadapter.ItemDecorator;
 import com.ahamed.sample.R;
 import com.ahamed.sample.common.model.ItemOne;
 
-public class ItemOneBinder extends BaseBinder<ItemOne, ItemOneBinder.ItemViewHolder> {
+public class ItemOneBinder extends ItemBinder<ItemOne, ItemOneBinder.ItemViewHolder> {
 
   public ItemOneBinder(ItemDecorator itemDecorator) {
     super(itemDecorator);
