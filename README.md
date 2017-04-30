@@ -24,9 +24,10 @@ dependencies {
 
 ## Why this library?
 
-Most of the android apps out there uses recyclerview to display content. As with any other system-level api, recyclerview api is also designed in a generic way. So it needs lot of boilerplate code to be written for displaying a simple list.
-
-If the app contains multiple view types in the same list, the boilerplate code doubles. MultiViewAdapter library helps you in removing this boilerplate code while allowing you to truly re-use the viewholder code across multiple adapters.
+Most of the android apps out there uses recyclerview to display content. 
+As with any other system-level api, recyclerview api is also designed in a generic way. 
+So it needs lot of boilerplate code to be written for displaying a simple list. And it doubles, if you need to display multiple view types.
+MultiViewAdapter library helps you in removing this boilerplate code while allowing you to truly re-use the viewholder code across various adapters.
 
 There are many other libraries, which provides the same feature. But they do enforce the either or all of the following constraints :
 
@@ -40,18 +41,166 @@ Now the advantages of the MultiViewAdapter
 2. No need to cast your models, no need for switch/if-else cases when you are having multiple view types.
 3. Takes advantage of diffutil and allows payload while notifying adapter.
 
+## Key concepts
+
+1. RecyclerAdapter - This is the adapter class. It can have multiple ItemBinder and DataManagers. It extends from official RecyclerView.Adapter
+2. ItemBinder - ItemBinder's responsibility is to create and bind viewholders. ItemBinder has type parameter which accepts the  model class need to be displayed. ItemBinder needs to be registered inside RecyclerAdapter. ItemBinder can be registered with multiple adapters.
+3. DataManger - Consider it as a List<E>. But internally it calls necessary animations when the list is modified. There are two DataManagers. <b>DataListManager</b> for list of items. <b>DataItemManager</b> for a single item (Header, Footer etc.,). 
+
+## Features
+
+1. Supports different span count for different ItemBinders.
+2. Adds different ItemDecoration for different ItemBinders.
+3. Items can be selected - Single and Multiple selection options are available.
+4. Out of the box support for DiffUtil.
+
 ## Usage
-To get some idea about the MultiViewAdapter features kindly look at sample implementations.
+To get some idea about the MultiViewAdapter features kindly look at sample app code.
 
-## List & Grids
-If you are using the linear layout manager for recyclerview, extend the adapter from RecyclerListAdapter. If you are using the grid layout manager use RecyclerGridAdapter as parent for the adapter.
+### Simple adapters
+Let us display list of cars. No fuss. Here is the entire code.
 
-## Getting models inside ViewHolder
+<b>CarBinder</b>
+ 
+```java
+class CarBinder extends ItemBinder<CarModel, CarBinder.CarViewHolder> {
+
+  @Override public CarViewHolder create(LayoutInflater inflater, ViewGroup parent) {
+    return new CarViewHolder(inflater.inflate(R.layout.item_car, parent, false));
+  }
+
+  @Override public boolean canBindData(Object item) {
+    return item instanceof CarModel;
+  }
+
+  @Override public void bind(CarViewHolder holder, CarModel item) {
+    // Bind the data here
+  }
+
+  static class CarViewHolder extends BaseViewHolder<ItemModel> {
+    // Normal ViewHolder code
+  }
+}
+```
+
+<b>CarAdapter</b>
+
+```java
+class CarAdapter extends RecyclerAdapter {
+
+  private DataListManager<CarModel> dataManager;
+
+  public SimpleAdapter() {
+    this.dataManager = new DataListManager<>(this);
+    addDataManager(dataManager);
+
+    registerBinder(new CarBinder());
+  }
+
+  public void addData(List<CarModel> dataList) {
+    dataManager.addAll(dataList);
+  }
+}
+```
+
+Now you are good to go. Just create the CarAdapter object and set it to your recyclerview. When addData() method is called it will show the items in recyclerview.
+<br/>
+If you want to show multiple viewtypes just create multiple ItemBinders and register inside the adapter.
+ 
+### For different span count in GridLayoutManager
+If the GridLayoutManager has different span count for different view types, then override the getSpanSize() method inside ItemBinder.
+
+```
+
+  @Override public int getSpanSize(int maxSpanCount) {
+    return 1; // Return any number which is less than maxSpanCount 
+  }
+
+```
+
+Also don't forget to set span size lookup in GridLayoutManager. Adapter has default span size lookup object. Use that object.
+
+```
+layoutManager.setSpanSizeLookup(adapter.getSpanSizeLookup());
+```
+
+### ItemDecoration support
+Create your own item decoration class implementing ItemDecorator. It goes like this,
 
 
-## Limitations
-1. While the library allows to reuse the viewholders, you still need to override a method to identify models used (ie., instanceOf check).
-2. You can not have a different viewholder for the same model inside one adapter. For example, if the adapter shows list of 'Car', then 'Car' can have only one viewholder
+```java
+
+public class MyItemDecorator implements ItemDecorator {
+
+  public MyItemDecorator() {
+    // Any initialization code
+  }
+
+  @Override public void getItemOffsets(Rect outRect, int position, int positionType) {
+    // Set item offset for each item
+    // outRect.set(0, 0, 0, 0);
+  }
+
+  @Override public void onDraw(Canvas canvas, RecyclerView parent, View child, int position,
+      int positionType) {
+    // Canvas drawing code implementation
+    // Unlike default ItemDecoration, this method will be called for individual items. Do not create objects here.
+  }
+}
+
+```
+
+The methods, getItemOffsets and onDraw will be called for each item. So avoid creating objects there.
+<br/> 
+MyItemDecorator will be used with the ItemBinder as follows.
+
+
+```java
+
+public class CustomItemBinder implements ItemBinder {
+
+  public CustomItemBinder(CustomItemBinder customItemBinder) {
+    super(customItemBinder);
+  }
+}
+
+```
+
+### Making RecyclerView selectable
+Just extend your adapter from SelectableAdapter instead of RecyclerAdapter. Now the adapter is selectable. 
+To make an ItemBinder as selectable, extend it from SelectableBinder and also extend ViewHolder from SelectableViewHolder. 
+By default, on long press ViewHolder will be selectable if it extends from SelectableViewHolder. 
+You can also call `itemSelectionToggled()` to make it selected by yourself. Kindly go through the sample repo implementation.
+<br/>
+Finally, you can call `DataListManager`'s `getSelectedItems()` and `setSelectedItems(List<E> selectedItems)` to get and set selected items respectively.
+
+### Using DiffUtil and Payload
+DataListManager and DataItemManager will take care of diffutil. There is no special code needed. But to enable the payloads, you have to create custom DataManager and override `areContensSame(Object, Object)`  and `getChangePayload(Object, Object)`.
+
+
+```java
+public class CustomDataManager extends DataListManager<GridItem> {
+
+  public CustomDataManager(RecyclerAdapter recyclerAdapter) {
+    super(recyclerAdapter);
+  }
+
+  @Override public boolean areContentsTheSame(GridItem oldItem, GridItem newItem) {
+    // own impl
+  }
+
+  @Override public Object getChangePayload(GridItem oldItem, GridItem newItem) {
+    return super.getChangePayload(oldItem, newItem); // Own impl
+  }
+}
+```
+
+## Roadmap
+I am actively working on expanding the feature set of this library. While i don't have a exact timeline, but here are the future plans.
+1. Add support for StaggeredGrid layout manager
+2. Move diffutil calculation to background thread
+3. Adding support for swipe listeners with composability as priority
+4. Improve the sample app code and api documentation
 
 
 ## Changelog
@@ -64,8 +213,8 @@ Contributing to this library is simple,
 1. Clone the repo
 2. Make the changes
 3. Make a pull request to develop branch
+<br/><br/>The only requirement is whatever changes you make should be backward compatible. Also make sure its not a too specific feature which maynot be useful for everyone.
 Kindly make sure your code is formatted with this codestyle - [Square Java code style](https://github.com/square/java-code-styles)
-<br/>
 
 
 ## Alternatives
