@@ -11,30 +11,30 @@ import java.util.List;
 
 class BaseDataManager<M> implements ListUpdateCallback {
 
-  private final RecyclerAdapter listAdapter;
+  private final RecyclerAdapter adapter;
   private List<M> dataList = new ArrayList<>();
   private SparseBooleanArray selectedItems = new SparseBooleanArray();
   private ItemSelectionChangedListener<M> itemSelectionChangedListener;
   private MultiSelectionChangedListener<M> multiSelectionChangedListener;
 
   BaseDataManager(RecyclerAdapter baseAdapter) {
-    this.listAdapter = baseAdapter;
+    this.adapter = baseAdapter;
   }
 
   @Override public final void onInserted(int position, int count) {
-    listAdapter.notifyBinderItemRangeInserted(this, position, count);
+    adapter.notifyBinderItemRangeInserted(this, position, count);
   }
 
   @Override public final void onRemoved(int position, int count) {
-    listAdapter.notifyBinderItemRangeRemoved(this, position, count);
+    adapter.notifyBinderItemRangeRemoved(this, position, count);
   }
 
   @Override public final void onMoved(int fromPosition, int toPosition) {
-    listAdapter.notifyBinderItemMoved(this, fromPosition, toPosition);
+    adapter.notifyBinderItemMoved(this, fromPosition, toPosition);
   }
 
   @Override public final void onChanged(int position, int count, Object payload) {
-    listAdapter.notifyBinderItemRangeChanged(this, position, count, payload);
+    adapter.notifyBinderItemRangeChanged(this, position, count, payload);
   }
 
   /**
@@ -95,7 +95,7 @@ class BaseDataManager<M> implements ListUpdateCallback {
    * SelectableAdapter}.
    */
   public final void setSelectedItems(List<M> selectedItems) {
-    if (!(listAdapter instanceof SelectableAdapter)) {
+    if (!(adapter instanceof SelectableAdapter)) {
       throw new IllegalStateException(
           "Make sure your adapter extends from com.ahamed.multiviewadapter.SelectableAdapter");
     }
@@ -137,7 +137,7 @@ class BaseDataManager<M> implements ListUpdateCallback {
    * SelectableAdapter}.
    */
   public final void setSelectedItem(M selectedItem) {
-    if (!(listAdapter instanceof SelectableAdapter)) {
+    if (!(adapter instanceof SelectableAdapter)) {
       throw new IllegalStateException(
           "Make sure your adapter extends from com.ahamed.multiviewadapter.SelectableAdapter");
     }
@@ -149,7 +149,7 @@ class BaseDataManager<M> implements ListUpdateCallback {
     if (index != -1) {
       this.selectedItems.put(index, true);
       onItemSelectionToggled(index, true);
-      ((SelectableAdapter) listAdapter).setLastSelectedIndex(index);
+      ((SelectableAdapter) adapter).setLastSelectedIndex(index);
     }
     if (null != previousSelectedItem && indexOf(previousSelectedItem) != -1) {
       onItemSelectionToggled(indexOf(previousSelectedItem), false);
@@ -258,9 +258,9 @@ class BaseDataManager<M> implements ListUpdateCallback {
   void onItemSelectionToggled(int position, boolean isSelected) {
     selectedItems.put(position, isSelected);
     onChanged(position, 1, null);
-    if (listAdapter instanceof SelectableAdapter && (itemSelectionChangedListener != null
+    if (adapter instanceof SelectableAdapter && (itemSelectionChangedListener != null
         || multiSelectionChangedListener != null)) {
-      SelectableAdapter adapter = (SelectableAdapter) listAdapter;
+      SelectableAdapter adapter = (SelectableAdapter) this.adapter;
       switch (adapter.getSelectionMode()) {
         case SelectableAdapter.SELECTION_MODE_MULTIPLE:
           if (null != multiSelectionChangedListener) {
