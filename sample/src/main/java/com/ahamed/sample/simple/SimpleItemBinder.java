@@ -1,15 +1,14 @@
 package com.ahamed.sample.simple;
 
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import com.ahamed.multiviewadapter.SelectableBinder;
-import com.ahamed.multiviewadapter.SelectableViewHolder;
+import com.ahamed.multiviewadapter.BaseViewHolder;
+import com.ahamed.multiviewadapter.ItemBinder;
 import com.ahamed.sample.R;
 
-class ItemBinder extends SelectableBinder<ItemModel, ItemBinder.ItemViewHolder> {
+class SimpleItemBinder extends ItemBinder<ItemModel, SimpleItemBinder.ItemViewHolder> {
 
   @Override public ItemViewHolder create(LayoutInflater layoutInflater, ViewGroup parent) {
     return new ItemViewHolder(layoutInflater.inflate(R.layout.item_simple, parent, false));
@@ -19,14 +18,11 @@ class ItemBinder extends SelectableBinder<ItemModel, ItemBinder.ItemViewHolder> 
     return item instanceof ItemModel;
   }
 
-  @Override public void bind(ItemViewHolder holder, ItemModel item, boolean isSelected) {
-    if (isSelected) {
-      holder.textView.setTextColor(Color.parseColor("#33B5E5"));
-    }
+  @Override public void bind(ItemViewHolder holder, ItemModel item) {
     holder.textView.setText(item.getData());
   }
 
-  static class ItemViewHolder extends SelectableViewHolder<ItemModel> {
+  static class ItemViewHolder extends BaseViewHolder<ItemModel> {
 
     private TextView textView;
 
