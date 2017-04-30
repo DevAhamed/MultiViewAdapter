@@ -74,7 +74,7 @@ class BaseDataManager<M> implements ListUpdateCallback {
    *
    * @return List of selected items or empty list
    */
-  public List<M> getSelectedItems() {
+  public final List<M> getSelectedItems() {
     List<M> selectedItemsList = new ArrayList<>();
     for (int i = 0; i < size(); i++) {
       if (selectedItems.get(i)) {
@@ -90,7 +90,7 @@ class BaseDataManager<M> implements ListUpdateCallback {
    * Exception will be thrown if calling {@link DataListManager} is not used in the {@link
    * SelectableAdapter}.
    */
-  public void setSelectedItems(List<M> selectedItems) {
+  public final void setSelectedItems(List<M> selectedItems) {
     if (!(listAdapter instanceof SelectableAdapter)) {
       throw new IllegalStateException(
           "Make sure your adapter extends from com.ahamed.multiviewadapter.SelectableAdapter");
@@ -117,7 +117,7 @@ class BaseDataManager<M> implements ListUpdateCallback {
    *
    * @return Selected item or null
    */
-  @Nullable public M getSelectedItem() {
+  @Nullable public final M getSelectedItem() {
     for (int i = 0; i < size(); i++) {
       if (selectedItems.get(i)) {
         return dataList.get(i);
@@ -131,10 +131,8 @@ class BaseDataManager<M> implements ListUpdateCallback {
    * DataItemManager}. It should be used in conjunction with the {@link SelectableAdapter}.
    * Exception will be thrown if calling {@link DataListManager} is not used in the {@link
    * SelectableAdapter}.
-   *
-   * @return List of selected items or empty list
    */
-  public void setSelectedItem(M selectedItem) {
+  public final void setSelectedItem(M selectedItem) {
     if (!(listAdapter instanceof SelectableAdapter)) {
       throw new IllegalStateException(
           "Make sure your adapter extends from com.ahamed.multiviewadapter.SelectableAdapter");

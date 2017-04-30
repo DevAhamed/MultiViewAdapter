@@ -173,7 +173,7 @@ public class DataListManager<M> extends BaseDataManager<M> {
    * The data manager will be empty after this call returns.  After the elements are removed
    * {@link RecyclerView.ItemAnimator}'s remove animation will be called.
    */
-  public void clear() {
+  public final void clear() {
     if (size() <= 0) {
       return;
     }
