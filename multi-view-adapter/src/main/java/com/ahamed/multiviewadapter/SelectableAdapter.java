@@ -67,6 +67,10 @@ public class SelectableAdapter extends RecyclerAdapter
     lastSelectedIndex = index;
   }
 
+  @SelectionMode int getSelectionMode() {
+    return selectionMode;
+  }
+
   ////////////////////////////////////////
   ///////// Public Methods ///////////////
   ////////////////////////////////////////

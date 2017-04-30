@@ -4,6 +4,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.util.ListUpdateCallback;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseBooleanArray;
+import com.ahamed.multiviewadapter.listener.ItemSelectionChangedListener;
+import com.ahamed.multiviewadapter.listener.MultiSelectionChangedListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +14,8 @@ class BaseDataManager<M> implements ListUpdateCallback {
   private final RecyclerAdapter listAdapter;
   private List<M> dataList = new ArrayList<>();
   private SparseBooleanArray selectedItems = new SparseBooleanArray();
+  private ItemSelectionChangedListener<M> itemSelectionChangedListener;
+  private MultiSelectionChangedListener<M> multiSelectionChangedListener;
 
   BaseDataManager(RecyclerAdapter baseAdapter) {
     this.listAdapter = baseAdapter;
@@ -227,6 +231,26 @@ class BaseDataManager<M> implements ListUpdateCallback {
     return dataList.lastIndexOf(item);
   }
 
+  /**
+   * Set listener to get notification when the selection changes
+   *
+   * @param itemSelectionChangedListener Listener for notify selection changes
+   */
+  public void setItemSelectionChangedListener(
+      ItemSelectionChangedListener<M> itemSelectionChangedListener) {
+    this.itemSelectionChangedListener = itemSelectionChangedListener;
+  }
+
+  /**
+   * Set listener to get notification when the selection changes
+   *
+   * @param multiSelectionChangedListener Listener for notify selection changes
+   */
+  public void setMultiSelectionChangedListener(
+      MultiSelectionChangedListener<M> multiSelectionChangedListener) {
+    this.multiSelectionChangedListener = multiSelectionChangedListener;
+  }
+
   ///////////////////////////////////////////
   /////////// Internal API ahead. ///////////
   ///////////////////////////////////////////
@@ -234,6 +258,25 @@ class BaseDataManager<M> implements ListUpdateCallback {
   void onItemSelectionToggled(int position, boolean isSelected) {
     selectedItems.put(position, isSelected);
     onChanged(position, 1, null);
+    if (listAdapter instanceof SelectableAdapter && (itemSelectionChangedListener != null
+        || multiSelectionChangedListener != null)) {
+      SelectableAdapter adapter = (SelectableAdapter) listAdapter;
+      switch (adapter.getSelectionMode()) {
+        case SelectableAdapter.SELECTION_MODE_MULTIPLE:
+          if (null != multiSelectionChangedListener) {
+            multiSelectionChangedListener.onMultiSelectionChangedListener(getSelectedItems());
+          }
+          break;
+        case SelectableAdapter.SELECTION_MODE_SINGLE:
+        case SelectableAdapter.SELECTION_MODE_SINGLE_OR_NONE:
+          if (null != itemSelectionChangedListener) {
+            itemSelectionChangedListener.onItemSelectionChangedListener(get(position), isSelected);
+          }
+          break;
+        case SelectableAdapter.SELECTION_MODE_NONE:
+          break;
+      }
+    }
   }
 
   List<M> getDataList() {
