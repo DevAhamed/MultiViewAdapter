@@ -7,14 +7,12 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecyclerListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
+public class RecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
-  private List<BaseBinder> binders = new ArrayList<>();
+  private List<ItemBinder> binders = new ArrayList<>();
   private List<BaseDataManager> dataManagers = new ArrayList<>();
-
   private ItemDecorationManager itemDecorationManager;
   private int maxSpanCount = 1;
-
   private final GridLayoutManager.SpanSizeLookup spanSizeLookup =
       new GridLayoutManager.SpanSizeLookup() {
         @Override public int getSpanSize(int position) {
@@ -22,7 +20,7 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
       };
 
-  public RecyclerListAdapter() {
+  protected RecyclerAdapter() {
     this.itemDecorationManager = new ItemDecorationManager(this);
   }
 
@@ -30,97 +28,126 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     return binders.get(viewType).createViewHolder(LayoutInflater.from(parent.getContext()), parent);
   }
 
-  @Override public final void onBindViewHolder(BaseViewHolder holder, int position) {
-    onBindViewHolder(holder, position, null);
+  @Override public final void onBindViewHolder(BaseViewHolder holder, int adapterPosition) {
+    onBindViewHolder(holder, adapterPosition, null);
   }
 
-  @Override
-  public final void onBindViewHolder(BaseViewHolder holder, int position, List<Object> payloads) {
-    BaseBinder baseBinder = binders.get(holder.getItemViewType());
+  @Override public final void onBindViewHolder(BaseViewHolder holder, int adapterPosition,
+      List<Object> payloads) {
+    ItemBinder baseBinder = binders.get(holder.getItemViewType());
 
     int totalCount = 0;
     for (BaseDataManager dataManager : dataManagers) {
       totalCount += dataManager.getCount();
-      if (position < totalCount) {
+      if (adapterPosition < totalCount) {
         //noinspection unchecked
-        holder.setItem(dataManager.getItem(getItemPositionInManager(position)));
+        holder.setItem(dataManager.getItem(getItemPositionInManager(adapterPosition)));
         break;
       }
     }
 
     if (null == payloads) {
       //noinspection unchecked
-      baseBinder.bindViewHolder(holder, holder.getItem(), isItemSelected(position));
+      baseBinder.bindViewHolder(holder, holder.getItem(), isItemSelected(adapterPosition));
     } else {
       //noinspection unchecked
-      baseBinder.bindViewHolder(holder, holder.getItem(), isItemSelected(position), payloads);
+      baseBinder.bindViewHolder(holder, holder.getItem(), isItemSelected(adapterPosition),
+          payloads);
     }
-  }
-
-  boolean isItemSelected(int adapterPosition) {
-    return false;
   }
 
   @Override public final int getItemCount() {
     int itemCount = 0;
     for (int i = 0, size = dataManagers.size(); i < size; i++) {
-      BaseDataManager dataManager = dataManagers.get(i);
-      itemCount += dataManager.getCount();
+      itemCount += dataManagers.get(i).size();
     }
     return itemCount;
   }
 
-  @Override public final int getItemViewType(int position) {
-    BaseBinder baseBinder = getBinderForPosition(position);
+  @Override public final int getItemViewType(int adapterPosition) {
+    ItemBinder baseBinder = getBinderForPosition(adapterPosition);
     if (null != baseBinder) {
       return binders.indexOf(baseBinder);
     }
-    return super.getItemViewType(position);
+    return super.getItemViewType(adapterPosition);
   }
 
+  /**
+   * Sets the number of spans to be laid out.
+   * <p>
+   * Based on the orientation of your {@link GridLayoutManager}'s orientation it can represent rows
+   * or columns.</p>
+   *
+   * @param maxSpanCount The total number of spans in the grid
+   */
   public final void setSpanCount(int maxSpanCount) {
     this.maxSpanCount = maxSpanCount;
   }
 
+  /**
+   * Returns the current {@link GridLayoutManager.SpanSizeLookup} used by the {@link
+   * RecyclerAdapter}.<p> Default implementation sets each item to occupy exactly 1 span.</p>
+   *
+   * @return The {@link GridLayoutManager.SpanSizeLookup} used by the {@link RecyclerAdapter}.
+   */
   public final GridLayoutManager.SpanSizeLookup getSpanSizeLookup() {
     return spanSizeLookup;
-  }
-
-  /*
-  * Position refers to overall list position
-   */
-  BaseBinder getBinderForPosition(int position) {
-    BaseDataManager dataManager = getDataManager(position);
-    for (BaseBinder baseBinder : binders) {
-      if (baseBinder.canBindData(dataManager.getItem(getItemPositionInManager(position)))) {
-        return baseBinder;
-      }
-    }
-    throw new IllegalStateException("Binder not found for position. Position = " + position);
   }
 
   public ItemDecorationManager getItemDecorationManager() {
     return itemDecorationManager;
   }
 
-  int getItemPositionInManager(int position) {
+  /**
+   * To add the {@link DataListManager} to the {@link RecyclerAdapter}
+   *
+   * @param dataManager The DataManager to be added to {@link RecyclerAdapter}
+   */
+  protected final void addDataManager(BaseDataManager dataManager) {
+    dataManagers.add(dataManager);
+  }
+
+  /**
+   * To register the {@link ItemBinder} to the {@link RecyclerAdapter}
+   *
+   * @param binder The ItemBinder to be register with {@link RecyclerAdapter}
+   */
+  protected final void registerBinder(ItemBinder binder) {
+    addBinder(binder);
+  }
+
+  ///////////////////////////////////////////
+  /////////// Internal API ahead. ///////////
+  ///////////////////////////////////////////
+
+  ItemBinder getBinderForPosition(int adapterPosition) {
+    BaseDataManager dataManager = getDataManager(adapterPosition);
+    for (ItemBinder baseBinder : binders) {
+      if (baseBinder.canBindData(dataManager.getItem(getItemPositionInManager(adapterPosition)))) {
+        return baseBinder;
+      }
+    }
+    throw new IllegalStateException("Binder not found for position. Position = " + adapterPosition);
+  }
+
+  int getItemPositionInManager(int adapterPosition) {
     int binderItemCount;
     for (int i = 0, size = dataManagers.size(); i < size; i++) {
       binderItemCount = dataManagers.get(i).getCount();
-      if (position - binderItemCount < 0) {
+      if (adapterPosition - binderItemCount < 0) {
         break;
       }
-      position -= binderItemCount;
+      adapterPosition -= binderItemCount;
     }
-    return position;
+    // adapterPosition now refers to position in manager
+    return adapterPosition;
   }
 
-  // TODO AdapterPosition
-  BaseDataManager getDataManager(int position) {
+  BaseDataManager getDataManager(int adapterPosition) {
     int processedCount = 0;
     for (BaseDataManager dataManager : dataManagers) {
       processedCount += dataManager.getCount();
-      if (position < processedCount) {
+      if (adapterPosition < processedCount) {
         return dataManager;
       }
     }
@@ -138,6 +165,10 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
       position += dataManagers.get(i).getCount();
     }
     return position;
+  }
+
+  boolean isItemSelected(int adapterPosition) {
+    return false;
   }
 
   final void notifyBinderItemRangeChanged(BaseDataManager binder, int positionStart, int itemCount,
@@ -159,26 +190,18 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     notifyItemRangeRemoved(getPosition(binder, positionStart), itemCount);
   }
 
-  protected final void addDataManager(BaseDataManager dataManager) {
-    dataManagers.add(dataManager);
-  }
-
-  protected final void registerBinder(BaseBinder binder) {
-    addBinder(binder);
-  }
-
-  void addBinder(BaseBinder binder) {
+  void addBinder(ItemBinder binder) {
     binders.add(binder);
   }
 
-  boolean isLastItemInManager(int position) {
+  boolean isLastItemInManager(int adapterPosition) {
     int itemsCount;
     for (int i = 0, size = dataManagers.size(); i < size; i++) {
       itemsCount = dataManagers.get(i).getCount();
-      if (position - itemsCount < 0) {
-        return position == itemsCount - 1;
+      if (adapterPosition - itemsCount < 0) {
+        return adapterPosition == itemsCount - 1;
       }
-      position -= itemsCount;
+      adapterPosition -= itemsCount;
     }
     return false;
   }
