@@ -93,6 +93,8 @@ class BaseDataManager<M> implements ListUpdateCallback {
    * DataItemManager}. It should be used in conjunction with the {@link SelectableAdapter}.
    * Exception will be thrown if calling {@link DataListManager} is not used in the {@link
    * SelectableAdapter}.
+   *
+   * @param selectedItems List of selected items
    */
   public final void setSelectedItems(List<M> selectedItems) {
     if (!(adapter instanceof SelectableAdapter)) {
@@ -104,14 +106,13 @@ class BaseDataManager<M> implements ListUpdateCallback {
     }
     SparseBooleanArray oldSelectedItems = this.selectedItems.clone();
     this.selectedItems = new SparseBooleanArray();
-    int i = 0;
     for (M m : selectedItems) {
       boolean isSelected = contains(m);
-      this.selectedItems.put(i, isSelected);
-      if (oldSelectedItems.get(i, false) != isSelected) {
-        onItemSelectionToggled(i, isSelected);
+      int index = indexOf(m);
+      this.selectedItems.put(index, isSelected);
+      if (oldSelectedItems.get(index, false) != isSelected) {
+        onItemSelectionToggled(index, isSelected);
       }
-      i++;
     }
   }
 
@@ -135,6 +136,8 @@ class BaseDataManager<M> implements ListUpdateCallback {
    * DataItemManager}. It should be used in conjunction with the {@link SelectableAdapter}.
    * Exception will be thrown if calling {@link DataListManager} is not used in the {@link
    * SelectableAdapter}.
+   *
+   * @param selectedItem Selected item
    */
   public final void setSelectedItem(M selectedItem) {
     if (!(adapter instanceof SelectableAdapter)) {
