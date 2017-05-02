@@ -12,7 +12,12 @@ if (project.hasProperty("android")) {
   task javadoc(type: Javadoc) {
     source = android.sourceSets.main.java.srcDirs
     classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-    failOnError false
+    failOnError true
+  }
+  afterEvaluate {
+    javadoc.classpath +=
+        files(android.libraryVariants.collect { variant -> variant.javaCompile.classpath.files
+        })
   }
 } else {
   // Java libraries

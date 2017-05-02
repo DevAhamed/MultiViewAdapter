@@ -38,8 +38,8 @@ public abstract class ItemBinder<M, VH extends BaseViewHolder<M>> {
 
   /**
    * @param item The object from the data set
-   * @return boolean value which determines whether the {@link ItemBinder} can bind the {@param
-   * item} to the ViewHolder
+   * @return boolean value which determines whether the {@link ItemBinder} can bind the
+   * item to the ViewHolder
    */
   public abstract boolean canBindData(Object item);
 
@@ -64,6 +64,7 @@ public abstract class ItemBinder<M, VH extends BaseViewHolder<M>> {
    *
    * @param maxSpanCount The maximum span count of the {@link GridLayoutManager} used inside the
    * RecyclerView
+   * @return Returns the span size
    */
   public int getSpanSize(int maxSpanCount) {
     return 1;
