@@ -9,10 +9,10 @@ Helper library for recyclerviews to create composable view holders without boile
 
 ## Gradle Dependency
 
-The Gradle dependency is available via [jCenter](https://bintray.com/devahamed/MultiViewADapter/multi-view-adapter/view).
-jCenter is the default Maven repository used by Android Studio.
+The Gradle dependency is available via [JCenter](https://bintray.com/devahamed/MultiViewAdapter/multi-view-adapter/view).
+JCenter is the default maven repository used by Android Studio.
 
-The minimum API level supported by this library is API 14.
+The minimum API level supported by this library is API 9. **Note :** During next major release, we will bump the minSdk to 14 because of android support library 26.0.0
 
 ```gradle
 dependencies {
@@ -196,11 +196,12 @@ public class CustomDataManager extends DataListManager<GridItem> {
 ```
 
 ## Roadmap
-I am actively working on expanding the feature set of this library. While i don't have a exact timeline, but here are the future plans.
+I am actively working on expanding the feature set of this library. While i don't have a exact timeline, but here are the future plans. All these will be taken up once 1.0 is released.
 1. Add support for StaggeredGrid layout manager
 2. Move diffutil calculation to background thread
 3. Adding support for swipe listeners with composability as priority
 4. Improve the sample app code and api documentation
+5. Expandable item / group
 
 
 ## Changelog
@@ -219,7 +220,7 @@ Kindly make sure your code is formatted with this codestyle - [Square Java code 
 
 ## Alternatives
 This library may not suit your needs or imposes too many restrictions. In that case create an issue/feature request. In the mean time check these awesome alternatives as well.
-1. [MultipleViewTypesAdapter](https://github.com/yqritc/RecyclerView-MultipleViewTypesAdapter) - Original inspiration for this library. By inspiration, we mean that parts of code were "re-used"<br/>
+1. [MultipleViewTypesAdapter](https://github.com/yqritc/RecyclerView-MultipleViewTypesAdapter) - Original inspiration for this library.<br/>
 2. [AdapterDelegates](https://github.com/sockeqwe/AdapterDelegates)
 3. [Groupie](https://github.com/lisawray/groupie)
 4. [Epoxy](https://github.com/airbnb/epoxy)
