@@ -4,18 +4,18 @@ import com.ahamed.multiviewadapter.DataListManager;
 import com.ahamed.multiviewadapter.RecyclerAdapter;
 import java.util.List;
 
-public class SimpleAdapter extends RecyclerAdapter {
+public class QuoteAdapter extends RecyclerAdapter {
 
-  private DataListManager<ItemModel> dataManager;
+  private DataListManager<Quote> dataManager;
 
-  public SimpleAdapter() {
+  public QuoteAdapter() {
     this.dataManager = new DataListManager<>(this);
     addDataManager(dataManager);
 
-    registerBinder(new SimpleItemBinder());
+    registerBinder(new QuoteBinder());
   }
 
-  public void addData(List<ItemModel> dataList) {
+  public void addData(List<Quote> dataList) {
     dataManager.addAll(dataList);
   }
 }
