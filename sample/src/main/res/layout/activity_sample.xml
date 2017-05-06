@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ahamed.sample.simple.SimpleAdapterActivity"
+    tools:context="com.ahamed.sample.SampleActivity"
     >
 
   <android.support.design.widget.AppBarLayout
@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        app:popupTheme="@style/AppTheme.PopupOverlay"
+        app:popupTheme="@style/AppTheme.PopupOverlay.Light"
         >
 
       <Spinner
@@ -27,7 +27,8 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:entries="@array/sample_options"
-          android:theme="@style/AppTheme.PopupOverlay"
+          app:theme="@style/AppTheme.PopupOverlay.Dark"
+          app:popupTheme="@style/AppTheme.PopupOverlay.Light"
           />
 
     </android.support.v7.widget.Toolbar>
