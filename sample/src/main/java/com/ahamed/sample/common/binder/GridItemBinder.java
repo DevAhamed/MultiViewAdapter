@@ -1,10 +1,9 @@
 package com.ahamed.sample.common.binder;
 
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ImageView;
 import android.widget.Toast;
 import com.ahamed.multiviewadapter.SelectableBinder;
 import com.ahamed.multiviewadapter.SelectableViewHolder;
@@ -18,11 +17,12 @@ public class GridItemBinder extends SelectableBinder<GridItem, GridItemBinder.It
   }
 
   @Override public void bind(ItemViewHolder holder, GridItem item, boolean isSelected) {
-    holder.textView.setText(item.getData());
+    holder.itemView.setBackgroundColor(item.getColor());
+    holder.ivIcon.setImageResource(item.getDrawable());
     if (isSelected) {
-      holder.textView.setBackgroundColor(Color.parseColor("#999999"));
+      holder.ivSelectionIndicator.setVisibility(View.VISIBLE);
     } else {
-      holder.textView.setBackgroundColor(Color.parseColor("#00999999"));
+      holder.ivSelectionIndicator.setVisibility(View.GONE);
     }
   }
 
@@ -32,11 +32,15 @@ public class GridItemBinder extends SelectableBinder<GridItem, GridItemBinder.It
 
   static class ItemViewHolder extends SelectableViewHolder<GridItem> {
 
-    private TextView textView;
+    private ImageView ivIcon;
+    private ImageView ivSelectionIndicator;
+    private View itemView;
 
     ItemViewHolder(View itemView) {
       super(itemView);
-      textView = (TextView) itemView.findViewById(R.id.tv_grid_text);
+      ivSelectionIndicator = (ImageView) itemView.findViewById(R.id.iv_selection_indicator);
+      ivIcon = (ImageView) itemView.findViewById(R.id.iv_icon);
+      this.itemView = itemView;
 
       setItemClickListener(new OnItemClickListener<GridItem>() {
         @Override public void onItemClick(View view, GridItem item) {
