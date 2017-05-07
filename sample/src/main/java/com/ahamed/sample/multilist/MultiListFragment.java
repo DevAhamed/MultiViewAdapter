@@ -8,9 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.ahamed.sample.R;
-import com.ahamed.sample.common.model.ItemOne;
-import com.ahamed.sample.common.model.ItemThree;
-import com.ahamed.sample.common.model.ItemTwo;
+import com.ahamed.sample.common.model.Bird;
+import com.ahamed.sample.common.model.Flower;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,23 +31,17 @@ public class MultiListFragment extends Fragment {
     recyclerView.setLayoutManager(llm);
     recyclerView.setAdapter(adapter);
 
-    List<ItemOne> dataListOne = new ArrayList<>();
+    List<Bird> birds = new ArrayList<>();
     for (int i = 0; i < 10; i++) {
-      dataListOne.add(new ItemOne(i, "Item model one " + i));
+      birds.add(new Bird("Bird " + i));
     }
-    adapter.addDataOne(dataListOne);
+    adapter.addBirds(birds);
 
-    List<ItemTwo> dataListTwo = new ArrayList<>();
-    for (int i = 0; i < 5; i++) {
-      dataListTwo.add(new ItemTwo(i, "Item model two " + i));
-    }
-    adapter.addDataTwo(dataListTwo);
-
-    List<ItemThree> dataListThree = new ArrayList<>();
+    List<Flower> flowers = new ArrayList<>();
     for (int i = 0; i < 10; i++) {
-      dataListThree.add(new ItemThree(i, "Item model three " + i));
+      flowers.add(new Flower(i, "Flower " + i));
     }
-    adapter.addDataThree(dataListThree);
+    adapter.addFlowers(flowers);
 
     return view;
   }

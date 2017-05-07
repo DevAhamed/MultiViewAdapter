@@ -45,7 +45,7 @@ public class ComplexListFragment extends Fragment {
 
     List<GridItem> gridDataList = new ArrayList<>();
     for (int i = 0; i < 5; i++) {
-      gridDataList.add(new GridItem(i, "Grid item " + i));
+      gridDataList.add(GridItem.generateGridItem(i));
     }
     adapter.addGridItem(gridDataList);
 
