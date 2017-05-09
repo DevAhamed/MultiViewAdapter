@@ -175,22 +175,34 @@ You can also call `itemSelectionToggled()` to make it selected by yourself. Kind
 Finally, you can call `DataListManager`'s `getSelectedItems()` and `setSelectedItems(List<E> selectedItems)` to get and set selected items respectively.
 
 ### Using DiffUtil and Payload
-DataListManager and DataItemManager will take care of diffutil. There is no special code needed. But to enable the payloads, you have to create custom DataManager and override `areContensSame(Object, Object)`  and `getChangePayload(Object, Object)`.
+DataListManager and DataItemManager will take care of diffutil. There is no special code needed. But to enable the payloads, you have to pass PayloadProvider to DataListManager's constructor.
 
 
 ```java
-public class CustomDataManager extends DataListManager<GridItem> {
+class CarAdapter extends RecyclerAdapter {
 
-  public CustomDataManager(RecyclerAdapter recyclerAdapter) {
-    super(recyclerAdapter);
+  private DataListManager<CarModel> dataManager;
+  private PayloadProvider<M> payloadProvider = new PayloadProvider<CarModel>() {
+      @Override public boolean areContentsTheSame(CarModel oldItem, CarModel newItem) {
+        // Your logic here
+        return oldItem.equals(newItem);
+      }
+
+      @Override public Object getChangePayload(CarModel oldItem, CarModel newItem) {
+        // Your logic here
+        return null;
+      }
+  };
+
+  public CarAdapter() {
+    this.dataManager = new DataListManager<>(this, payloadProvider);
+    addDataManager(dataManager);
+
+    registerBinder(new CarBinder());
   }
 
-  @Override public boolean areContentsTheSame(GridItem oldItem, GridItem newItem) {
-    // own impl
-  }
-
-  @Override public Object getChangePayload(GridItem oldItem, GridItem newItem) {
-    return super.getChangePayload(oldItem, newItem); // Own impl
+  public void addData(List<CarModel> dataList) {
+    dataManager.addAll(dataList);
   }
 }
 ```
