@@ -12,7 +12,7 @@ Helper library for recyclerviews to create composable view holders without boile
 The Gradle dependency is available via [JCenter](https://bintray.com/devahamed/MultiViewAdapter/multi-view-adapter/view).
 JCenter is the default maven repository used by Android Studio.
 
-The minimum API level supported by this library is API 9. **Note :** During next major release, we will bump the minSdk to 14 because of android support library 26.0.0
+The minimum API level supported by this library is API 9.
 
 ```gradle
 dependencies {
@@ -26,7 +26,7 @@ dependencies {
 
 Most of the android apps out there uses recyclerview to display content. 
 As with any other system-level api, recyclerview api is also designed in a generic way. 
-So it needs lot of boilerplate code to be written for displaying a simple list. And it doubles, if you need to display multiple view types.
+So it needs lot of code to be written for displaying a simple list. And it doubles, if you need to display multiple view types.
 MultiViewAdapter library helps you in removing this boilerplate code while allowing you to truly re-use the viewholder code across various adapters.
 
 There are many other libraries, which provides the same feature. But they do enforce the either or all of the following constraints :
@@ -77,7 +77,7 @@ class CarBinder extends ItemBinder<CarModel, CarBinder.CarViewHolder> {
     // Bind the data here
   }
 
-  static class CarViewHolder extends BaseViewHolder<ItemModel> {
+  static class CarViewHolder extends BaseViewHolder<CarModel> {
     // Normal ViewHolder code
   }
 }
@@ -159,8 +159,8 @@ MyItemDecorator will be used with the ItemBinder as follows.
 
 public class CustomItemBinder implements ItemBinder {
 
-  public CustomItemBinder(CustomItemBinder customItemBinder) {
-    super(customItemBinder);
+  public CustomItemBinder(MyItemDecorator myItemDecorator) {
+    super(myItemDecorator);
   }
 }
 
