@@ -3,6 +3,7 @@
 [ ![Core](https://api.bintray.com/packages/devahamed/MultiViewAdapter/multi-view-adapter/images/download.svg) ](https://bintray.com/devahamed/MultiViewAdapter/multi-view-adapter/_latestVersion)
 [![GitHub license](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](https://github.com/DevAhamed/MultiViewAdapter/blob/master/LICENSE)
 
+![Alt text](/images/MultiViewAdapter-Article1.jpg?raw=true)
 
 Helper library for recyclerviews to create composable view holders without boilerplate code.
 
