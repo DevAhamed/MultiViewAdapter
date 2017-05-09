@@ -3,44 +3,36 @@ package com.ahamed.sample.multilist;
 import android.content.Context;
 import com.ahamed.multiviewadapter.DataListManager;
 import com.ahamed.multiviewadapter.RecyclerAdapter;
+import com.ahamed.multiviewadapter.SimpleItemDecoration;
 import com.ahamed.sample.common.ThickItemDecorator;
-import com.ahamed.sample.common.binder.ItemOneBinder;
-import com.ahamed.sample.common.binder.ItemThreeBinder;
-import com.ahamed.sample.common.binder.ItemTwoBinder;
-import com.ahamed.sample.common.model.ItemOne;
-import com.ahamed.sample.common.model.ItemThree;
-import com.ahamed.sample.common.model.ItemTwo;
+import com.ahamed.sample.common.binder.BirdBinder;
+import com.ahamed.sample.common.binder.FlowerBinder;
+import com.ahamed.sample.common.model.Bird;
+import com.ahamed.sample.common.model.Flower;
 import java.util.List;
 
 public class MultiListAdapter extends RecyclerAdapter {
 
-  private DataListManager<ItemOne> modelOneDataManager;
-  private DataListManager<ItemTwo> modelTwoDataManager;
-  private DataListManager<ItemThree> modelThreeDataManager;
+  private DataListManager<Bird> birdDataManager;
+  private DataListManager<Flower> flowerDataManager;
 
   public MultiListAdapter(Context context) {
-    modelOneDataManager = new DataListManager<>(this);
-    modelTwoDataManager = new DataListManager<>(this);
-    modelThreeDataManager = new DataListManager<>(this);
+    birdDataManager = new DataListManager<>(this);
+    flowerDataManager = new DataListManager<>(this);
 
-    addDataManager(modelOneDataManager);
-    addDataManager(modelTwoDataManager);
-    addDataManager(modelThreeDataManager);
+    addDataManager(birdDataManager);
+    addDataManager(flowerDataManager);
 
-    registerBinder(new ItemOneBinder(new ThickItemDecorator(context)));
-    registerBinder(new ItemTwoBinder());
-    registerBinder(new ItemThreeBinder());
+    registerBinder(new BirdBinder(new ThickItemDecorator(context)));
+    registerBinder(
+        new FlowerBinder(new SimpleItemDecoration(context, SimpleItemDecoration.VERTICAL)));
   }
 
-  public void addDataOne(List<ItemOne> dataList) {
-    modelOneDataManager.addAll(dataList);
+  public void addBirds(List<Bird> dataList) {
+    birdDataManager.set(dataList);
   }
 
-  public void addDataTwo(List<ItemTwo> dataList) {
-    modelTwoDataManager.addAll(dataList);
-  }
-
-  public void addDataThree(List<ItemThree> dataList) {
-    modelThreeDataManager.addAll(dataList);
+  public void addFlowers(List<Flower> dataList) {
+    flowerDataManager.addAll(dataList);
   }
 }

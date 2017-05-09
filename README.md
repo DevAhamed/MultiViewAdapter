@@ -9,15 +9,15 @@ Helper library for recyclerviews to create composable view holders without boile
 
 ## Gradle Dependency
 
-The Gradle dependency is available via [jCenter](https://bintray.com/devahamed/MultiViewADapter/multi-view-adapter/view).
-jCenter is the default Maven repository used by Android Studio.
+The Gradle dependency is available via [JCenter](https://bintray.com/devahamed/MultiViewAdapter/multi-view-adapter/view).
+JCenter is the default maven repository used by Android Studio.
 
-The minimum API level supported by this library is API 14.
+The minimum API level supported by this library is API 9.
 
 ```gradle
 dependencies {
 	// ... other dependencies here
-    compile 'com.github.devahamed:multi-view-adapter:0.9.1'
+    compile 'com.github.devahamed:multi-view-adapter:1.0.0'
 }
 ```
 
@@ -26,7 +26,7 @@ dependencies {
 
 Most of the android apps out there uses recyclerview to display content. 
 As with any other system-level api, recyclerview api is also designed in a generic way. 
-So it needs lot of boilerplate code to be written for displaying a simple list. And it doubles, if you need to display multiple view types.
+So it needs lot of code to be written for displaying a simple list. And it doubles, if you need to display multiple view types.
 MultiViewAdapter library helps you in removing this boilerplate code while allowing you to truly re-use the viewholder code across various adapters.
 
 There are many other libraries, which provides the same feature. But they do enforce the either or all of the following constraints :
@@ -77,7 +77,7 @@ class CarBinder extends ItemBinder<CarModel, CarBinder.CarViewHolder> {
     // Bind the data here
   }
 
-  static class CarViewHolder extends BaseViewHolder<ItemModel> {
+  static class CarViewHolder extends BaseViewHolder<CarModel> {
     // Normal ViewHolder code
   }
 }
@@ -159,8 +159,8 @@ MyItemDecorator will be used with the ItemBinder as follows.
 
 public class CustomItemBinder implements ItemBinder {
 
-  public CustomItemBinder(CustomItemBinder customItemBinder) {
-    super(customItemBinder);
+  public CustomItemBinder(MyItemDecorator myItemDecorator) {
+    super(myItemDecorator);
   }
 }
 
@@ -175,32 +175,45 @@ You can also call `itemSelectionToggled()` to make it selected by yourself. Kind
 Finally, you can call `DataListManager`'s `getSelectedItems()` and `setSelectedItems(List<E> selectedItems)` to get and set selected items respectively.
 
 ### Using DiffUtil and Payload
-DataListManager and DataItemManager will take care of diffutil. There is no special code needed. But to enable the payloads, you have to create custom DataManager and override `areContensSame(Object, Object)`  and `getChangePayload(Object, Object)`.
+DataListManager and DataItemManager will take care of diffutil. There is no special code needed. But to enable the payloads, you have to pass PayloadProvider to DataListManager's constructor.
 
 
 ```java
-public class CustomDataManager extends DataListManager<GridItem> {
+class CarAdapter extends RecyclerAdapter {
 
-  public CustomDataManager(RecyclerAdapter recyclerAdapter) {
-    super(recyclerAdapter);
+  private DataListManager<CarModel> dataManager;
+  private PayloadProvider<M> payloadProvider = new PayloadProvider<CarModel>() {
+      @Override public boolean areContentsTheSame(CarModel oldItem, CarModel newItem) {
+        // Your logic here
+        return oldItem.equals(newItem);
+      }
+
+      @Override public Object getChangePayload(CarModel oldItem, CarModel newItem) {
+        // Your logic here
+        return null;
+      }
+  };
+
+  public CarAdapter() {
+    this.dataManager = new DataListManager<>(this, payloadProvider);
+    addDataManager(dataManager);
+
+    registerBinder(new CarBinder());
   }
 
-  @Override public boolean areContentsTheSame(GridItem oldItem, GridItem newItem) {
-    // own impl
-  }
-
-  @Override public Object getChangePayload(GridItem oldItem, GridItem newItem) {
-    return super.getChangePayload(oldItem, newItem); // Own impl
+  public void addData(List<CarModel> dataList) {
+    dataManager.addAll(dataList);
   }
 }
 ```
 
 ## Roadmap
-I am actively working on expanding the feature set of this library. While i don't have a exact timeline, but here are the future plans.
+I am actively working on expanding the feature set of this library. While i don't have a exact timeline, but here are the future plans. All these will be taken up once 1.0 is released.
 1. Add support for StaggeredGrid layout manager
 2. Move diffutil calculation to background thread
 3. Adding support for swipe listeners with composability as priority
 4. Improve the sample app code and api documentation
+5. Expandable item / group
 
 
 ## Changelog
@@ -219,7 +232,7 @@ Kindly make sure your code is formatted with this codestyle - [Square Java code 
 
 ## Alternatives
 This library may not suit your needs or imposes too many restrictions. In that case create an issue/feature request. In the mean time check these awesome alternatives as well.
-1. [MultipleViewTypesAdapter](https://github.com/yqritc/RecyclerView-MultipleViewTypesAdapter) - Original inspiration for this library. By inspiration, we mean that parts of code were "re-used"<br/>
+1. [MultipleViewTypesAdapter](https://github.com/yqritc/RecyclerView-MultipleViewTypesAdapter) - Original inspiration for this library.<br/>
 2. [AdapterDelegates](https://github.com/sockeqwe/AdapterDelegates)
 3. [Groupie](https://github.com/lisawray/groupie)
 4. [Epoxy](https://github.com/airbnb/epoxy)

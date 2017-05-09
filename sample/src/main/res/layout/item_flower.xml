@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="8dp"
+    >
+
+  <ImageView
+      android:layout_width="48dp"
+      android:layout_height="48dp"
+      android:contentDescription="@null"
+      android:padding="8dp"
+      android:src="@drawable/ic_flower"
+      />
+
+  <TextView
+      android:id="@+id/tv_flower_name"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical"
+      android:maxLines="1"
+      android:padding="8dp"
+      android:textColor="?colorPrimaryDark"
+      android:textSize="16sp"
+      tools:text="Flower name"
+      />
+
+</LinearLayout>

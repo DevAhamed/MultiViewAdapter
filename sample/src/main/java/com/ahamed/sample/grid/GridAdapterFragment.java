@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import com.ahamed.sample.R;
 import com.ahamed.sample.common.model.BaseModel;
 import com.ahamed.sample.common.model.GridItem;
@@ -23,6 +24,8 @@ public class GridAdapterFragment extends Fragment {
       Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_base, container, false);
 
+    Toast.makeText(getActivity(), "Long press an item to select!", Toast.LENGTH_LONG).show();
+
     RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rcv_list);
     GridLayoutManager glm = new GridLayoutManager(getContext().getApplicationContext(), 3);
 
@@ -38,7 +41,7 @@ public class GridAdapterFragment extends Fragment {
       if (i % 10 == 0) {
         data.add(new Header("Sample header " + i));
       } else {
-        data.add(new GridItem(i, "Item " + i));
+        data.add(GridItem.generateGridItem(i));
       }
     }
     adapter.addData(data);
