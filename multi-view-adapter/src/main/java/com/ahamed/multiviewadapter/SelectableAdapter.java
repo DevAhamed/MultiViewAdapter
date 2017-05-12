@@ -35,11 +35,9 @@ public class SelectableAdapter extends RecyclerAdapter
           getDataManager(lastSelectedIndex).onItemSelectionToggled(
               getItemPositionInManager(lastSelectedIndex), false);
         }
-        if (lastSelectedIndex != adapterPosition) {
-          getDataManager(adapterPosition).onItemSelectionToggled(
-              getItemPositionInManager(adapterPosition), true);
-          lastSelectedIndex = adapterPosition;
-        }
+        getDataManager(adapterPosition).onItemSelectionToggled(
+            getItemPositionInManager(adapterPosition), lastSelectedIndex != adapterPosition);
+        lastSelectedIndex = lastSelectedIndex != adapterPosition ? adapterPosition : -1;
         break;
       case SELECTION_MODE_MULTIPLE:
         getDataManager(adapterPosition).onItemSelectionToggled(

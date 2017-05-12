@@ -12,7 +12,7 @@ android {
     minSdkVersion 9
     targetSdkVersion 25
     versionCode 1
-    versionName "1.0.0"
+    versionName "1.0.1"
 
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
   }
@@ -43,7 +43,7 @@ ext {
   siteUrl = 'https://github.com/DevAhamed/MultiViewAdapter'
   gitUrl = 'https://github.com/DevAhamed/MultiViewAdapter.git'
 
-  libraryVersion = '1.0.0'
+  libraryVersion = '1.0.1'
 
   developerId = devProperties['devId']
   developerName = devProperties['devName']

@@ -21,7 +21,7 @@ class GridAdapter extends SelectableAdapter {
     registerBinder(new HeaderBinder());
     registerBinder(new GridItemBinder());
 
-    setSelectionMode(SELECTION_MODE_SINGLE);
+    setSelectionMode(SELECTION_MODE_SINGLE_OR_NONE);
 
     dataManager.setItemSelectionChangedListener(new ItemSelectionChangedListener<BaseModel>() {
       @Override public void onItemSelectionChangedListener(BaseModel item, boolean isSelected) {
