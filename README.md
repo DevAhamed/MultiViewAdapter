@@ -7,6 +7,7 @@
 
 Helper library for recyclerviews to create composable view holders without boilerplate code.
 
+![Alt text](/images/MultiViewAdapter-gif.gif?raw=true)
 
 ## Gradle Dependency
 
@@ -47,6 +48,9 @@ Now the advantages of the MultiViewAdapter
 1. RecyclerAdapter - This is the adapter class. It can have multiple ItemBinder and DataManagers. It extends from official RecyclerView.Adapter
 2. ItemBinder - ItemBinder's responsibility is to create and bind viewholders. ItemBinder has type parameter which accepts the  model class need to be displayed. ItemBinder needs to be registered inside RecyclerAdapter. ItemBinder can be registered with multiple adapters.
 3. DataManger - Consider it as a List<E>. But internally it calls necessary animations when the list is modified. There are two DataManagers. <b>DataListManager</b> for list of items. <b>DataItemManager</b> for a single item (Header, Footer etc.,). 
+
+You can read more about this library here in this [Medium article](https://medium.com/@DevAhamed/introducing-multiviewadapter-7f77e5758d3f).
+<br/>
 
 ## Features
 
