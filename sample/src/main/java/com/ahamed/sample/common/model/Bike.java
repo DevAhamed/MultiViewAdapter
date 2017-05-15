@@ -12,10 +12,6 @@ public class Bike extends Vehicle {
     this.description = description;
   }
 
-  public int getBikeId() {
-    return bikeId;
-  }
-
   public String getBikeName() {
     return bikeName;
   }

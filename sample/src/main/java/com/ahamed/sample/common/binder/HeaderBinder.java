@@ -20,7 +20,7 @@ public class HeaderBinder extends ItemBinder<Header, HeaderBinder.HeaderViewHold
   }
 
   @Override public boolean canBindData(Object item) {
-    return item instanceof Header;
+    return item instanceof Header && !((Header) item).isShuffleEnabled();
   }
 
   @Override public int getSpanSize(int maxSpanCount) {

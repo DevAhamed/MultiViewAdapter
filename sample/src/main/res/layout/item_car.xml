@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#FFF"
+    android:orientation="vertical"
+    android:padding="8dp"
+    >
+
+  <ImageView
+      android:id="@+id/iv_car"
+      android:layout_width="96dp"
+      android:layout_height="0dp"
+      android:background="#999"
+      android:padding="16dp"
+      android:src="@drawable/ic_car"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
+  <TextView
+      android:id="@+id/tv_name"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="8dp"
+      android:layout_marginRight="8dp"
+      android:padding="8dp"
+      android:textColor="#333"
+      android:textSize="16sp"
+      app:layout_constraintLeft_toRightOf="@+id/iv_car"
+      app:layout_constraintRight_toRightOf="parent"
+      tools:text="Car Name"
+      />
+
+  <TextView
+      android:id="@+id/tv_year"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="8dp"
+      android:layout_marginRight="8dp"
+      android:padding="8dp"
+      android:textSize="12sp"
+      app:layout_constraintBaseline_toBaselineOf="@+id/tv_make"
+      app:layout_constraintEnd_toEndOf="parent"
+      tools:text="2020"
+      />
+
+  <TextView
+      android:id="@+id/tv_make"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="8dp"
+      android:layout_marginRight="8dp"
+      android:gravity="center"
+      android:padding="8dp"
+      android:textSize="12sp"
+      app:layout_constraintStart_toEndOf="@+id/iv_car"
+      app:layout_constraintTop_toBottomOf="@+id/tv_name"
+      tools:text="Manufacturer"
+      />
+
+</android.support.constraint.ConstraintLayout>

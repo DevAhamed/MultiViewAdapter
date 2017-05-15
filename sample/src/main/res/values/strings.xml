@@ -1,6 +1,5 @@
 <resources>
   <string name="app_name">MultiViewAdapter Sample</string>
-  <string name="title_activity_simple_adapter">SimpleAdapterActivity</string>
 
   <string-array name="sample_options">
     <item>Simple</item>

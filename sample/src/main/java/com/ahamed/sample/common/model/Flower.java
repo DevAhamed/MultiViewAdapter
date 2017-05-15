@@ -10,10 +10,6 @@ public class Flower {
     this.flowerName = flowerName;
   }
 
-  public int getFlowerId() {
-    return flowerId;
-  }
-
   public String getFlowerName() {
     return flowerName;
   }

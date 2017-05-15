@@ -8,11 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.ahamed.sample.R;
-import com.ahamed.sample.common.model.BaseModel;
+import com.ahamed.sample.common.model.Article;
+import com.ahamed.sample.common.model.Bike;
+import com.ahamed.sample.common.model.Car;
 import com.ahamed.sample.common.model.GridItem;
-import com.ahamed.sample.common.model.ItemOne;
-import com.ahamed.sample.common.model.ItemThree;
-import com.ahamed.sample.common.model.ItemTwo;
+import com.ahamed.sample.common.model.Vehicle;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -37,25 +37,26 @@ public class ComplexListFragment extends Fragment {
     recyclerView.setLayoutManager(glm);
     recyclerView.setAdapter(adapter);
 
-    List<ItemThree> dataListThree = new ArrayList<>();
-    for (int i = 0; i < 5; i++) {
-      dataListThree.add(new ItemThree(i, "Item model three " + i));
-    }
+    // Single list
+    List<Article> dataListThree = DummyDataProvider.getArticles();
     adapter.addSingleModelItem(dataListThree);
 
+    // Grid items
     List<GridItem> gridDataList = new ArrayList<>();
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 9; i++) {
       gridDataList.add(GridItem.generateGridItem(i));
     }
     adapter.addGridItem(gridDataList);
 
-    List<BaseModel> multiItemList = new ArrayList<>();
+    // Single list with two binders
+    List<Vehicle> multiItemList = new ArrayList<>();
     Random random = new Random();
-    for (int i = 0; i < 15; i++) {
+    for (int i = 0; i < 10; i++) {
       if (random.nextBoolean()) {
-        multiItemList.add(new ItemOne(i, "Mixed item one " + i));
+        multiItemList.add(new Car(i, "Car " + i, "Manufacturer " + i,
+            String.valueOf(1900 + random.nextInt(100))));
       } else {
-        multiItemList.add(new ItemTwo(i, "Mixed item two " + i));
+        multiItemList.add(new Bike(i, "Bike " + i, "Description of bike" + i));
       }
     }
     adapter.addMultiItem(multiItemList);

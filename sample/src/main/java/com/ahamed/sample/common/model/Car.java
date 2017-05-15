@@ -14,10 +14,6 @@ public class Car extends Vehicle {
     this.year = year;
   }
 
-  public long getCarId() {
-    return carId;
-  }
-
   public String getModelName() {
     return modelName;
   }
