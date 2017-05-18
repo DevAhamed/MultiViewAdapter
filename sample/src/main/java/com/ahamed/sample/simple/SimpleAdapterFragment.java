@@ -30,9 +30,9 @@ public class SimpleAdapterFragment extends Fragment {
     View view = inflater.inflate(R.layout.fragment_base, container, false);
 
     RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rcv_list);
-    LinearLayoutManager llm = new LinearLayoutManager(getContext().getApplicationContext());
-    recyclerView.addItemDecoration(new DividerItemDecoration(getContext().getApplicationContext(),
-        DividerItemDecoration.VERTICAL));
+    LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+    recyclerView.addItemDecoration(
+        new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
 
     QuoteAdapter adapter = new QuoteAdapter();
 

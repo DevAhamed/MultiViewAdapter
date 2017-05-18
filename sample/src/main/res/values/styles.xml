@@ -7,7 +7,7 @@
     <item name="android:windowBackground">@color/background</item>
   </style>
 
-  <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.ActionBar"/>
+  <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
   <style name="AppTheme.PopupOverlay.Dark" parent="ThemeOverlay.AppCompat.Dark"/>
 
