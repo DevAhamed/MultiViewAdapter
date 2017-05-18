@@ -94,7 +94,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     return spanSizeLookup;
   }
 
-  public ItemDecorationManager getItemDecorationManager() {
+  public final ItemDecorationManager getItemDecorationManager() {
     return itemDecorationManager;
   }
 

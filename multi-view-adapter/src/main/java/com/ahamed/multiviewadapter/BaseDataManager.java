@@ -16,8 +16,8 @@ class BaseDataManager<M> implements ListUpdateCallback {
   private ItemSelectionChangedListener<M> itemSelectionChangedListener;
   private MultiSelectionChangedListener<M> multiSelectionChangedListener;
 
-  BaseDataManager(RecyclerAdapter baseAdapter) {
-    this.adapter = baseAdapter;
+  BaseDataManager(RecyclerAdapter adapter) {
+    this.adapter = adapter;
   }
 
   @Override public final void onInserted(int position, int count) {
