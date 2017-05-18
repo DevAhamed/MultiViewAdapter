@@ -5,8 +5,7 @@ import android.widget.RadioGroup;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-public class SelectableAdapter extends RecyclerAdapter
-    implements SelectableViewHolder.OnItemSelectedListener {
+public class SelectableAdapter extends RecyclerAdapter {
 
   public static final int SELECTION_MODE_NONE = -1;
   public static final int SELECTION_MODE_SINGLE = 1;
@@ -16,7 +15,7 @@ public class SelectableAdapter extends RecyclerAdapter
   private int lastSelectedIndex = -1;
   @SelectionMode private int selectionMode = SELECTION_MODE_NONE;
 
-  @Override public final void onItemSelected(int adapterPosition) {
+  @Override void onItemSelectionToggled(int adapterPosition) {
     switch (selectionMode) {
       case SELECTION_MODE_SINGLE:
         if (lastSelectedIndex == adapterPosition) {
@@ -52,13 +51,6 @@ public class SelectableAdapter extends RecyclerAdapter
   @Override boolean isItemSelected(int adapterPosition) {
     return getDataManager(adapterPosition).isItemSelected(
         getItemPositionInManager(adapterPosition));
-  }
-
-  @Override void addBinder(ItemBinder binder) {
-    if (binder instanceof SelectableBinder) {
-      ((SelectableBinder) binder).setListener(this);
-    }
-    super.addBinder(binder);
   }
 
   void setLastSelectedIndex(int index) {

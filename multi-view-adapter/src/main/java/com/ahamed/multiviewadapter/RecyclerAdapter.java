@@ -19,13 +19,20 @@ public class RecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
           return getBinderForPosition(position).getSpanSize(maxSpanCount);
         }
       };
+  private ItemActionListener actionListener = new ItemActionListener() {
+
+    @Override public void onItemSelectionToggled(int position) {
+      RecyclerAdapter.this.onItemSelectionToggled(position);
+    }
+  };
 
   protected RecyclerAdapter() {
     this.itemDecorationManager = new ItemDecorationManager(this);
   }
 
   @Override public final BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-    return binders.get(viewType).createViewHolder(LayoutInflater.from(parent.getContext()), parent);
+    return binders.get(viewType)
+        .createViewHolder(LayoutInflater.from(parent.getContext()), parent, actionListener);
   }
 
   @Override public final void onBindViewHolder(BaseViewHolder holder, int adapterPosition) {
@@ -204,5 +211,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
       adapterPosition -= itemsCount;
     }
     return false;
+  }
+
+  void onItemSelectionToggled(int position) {
+    // Do nothing. Should be handled by SelectableAdapter
   }
 }

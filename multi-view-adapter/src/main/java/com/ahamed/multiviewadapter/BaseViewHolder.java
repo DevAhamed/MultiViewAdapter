@@ -9,6 +9,7 @@ public class BaseViewHolder<M> extends ViewHolder
   private M item;
   private OnItemClickListener<M> itemClickListener;
   private OnItemLongClickListener<M> itemLongClickListener;
+  private ItemActionListener actionListener;
 
   public BaseViewHolder(View itemView) {
     super(itemView);
@@ -27,6 +28,21 @@ public class BaseViewHolder<M> extends ViewHolder
 
   final void setItem(M item) {
     this.item = item;
+  }
+
+  final void setItemActionListener(ItemActionListener actionListener) {
+    this.actionListener = actionListener;
+  }
+
+  /**
+   * Can be called by the child view holders to toggle the selection.
+   *
+   * <p>By default long press of the view holder will toggle the selection. If the selection has to
+   * be toggled for an item in the view holder (ex: Button) this method can be called from the
+   * item's click listener </p>
+   */
+  protected void toggleItemSelection() {
+    actionListener.onItemSelectionToggled(getAdapterPosition());
   }
 
   /**

@@ -82,8 +82,11 @@ public abstract class ItemBinder<M, VH extends BaseViewHolder<M>> {
     bind(holder, item, payloads);
   }
 
-  VH createViewHolder(LayoutInflater inflater, ViewGroup parent) {
-    return create(inflater, parent);
+  VH createViewHolder(LayoutInflater inflater, ViewGroup parent,
+      ItemActionListener actionListener) {
+    VH viewHolder = create(inflater, parent);
+    viewHolder.setItemActionListener(actionListener);
+    return viewHolder;
   }
 
   boolean isItemDecorationEnabled() {
