@@ -48,11 +48,6 @@ public class SelectableAdapter extends RecyclerAdapter {
     }
   }
 
-  @Override boolean isItemSelected(int adapterPosition) {
-    return getDataManager(adapterPosition).isItemSelected(
-        getItemPositionInManager(adapterPosition));
-  }
-
   void setLastSelectedIndex(int index) {
     lastSelectedIndex = index;
   }

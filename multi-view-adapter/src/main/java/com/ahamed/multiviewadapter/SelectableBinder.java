@@ -2,7 +2,8 @@ package com.ahamed.multiviewadapter;
 
 import java.util.List;
 
-public abstract class SelectableBinder<M, VH extends BaseViewHolder<M>> extends ItemBinder<M, VH> {
+@Deprecated public abstract class SelectableBinder<M, VH extends BaseViewHolder<M>>
+    extends ItemBinder<M, VH> {
 
   public SelectableBinder() {
     super();
@@ -13,19 +14,11 @@ public abstract class SelectableBinder<M, VH extends BaseViewHolder<M>> extends 
   }
 
   @Override void bindViewHolder(VH holder, M item, boolean isSelected) {
-    bind(holder, item, isSelected);
+    bind(holder, item, holder.isItemSelected());
   }
 
   @Override void bindViewHolder(VH holder, M item, boolean isSelected, List payloads) {
     bind(holder, item, isSelected);
-  }
-
-  @Override public final void bind(VH holder, M item) {
-    // No-op - Only to finalize the method
-  }
-
-  @Override public final void bind(VH holder, M item, List payloads) {
-    // No-op - Only to finalize the method
   }
 
   ////////////////////////////////////////

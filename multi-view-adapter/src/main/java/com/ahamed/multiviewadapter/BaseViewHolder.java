@@ -74,6 +74,10 @@ public class BaseViewHolder<M> extends ViewHolder
     return null != itemLongClickListener && itemLongClickListener.onItemLongClick(view, getItem());
   }
 
+  public final boolean isItemSelected() {
+    return actionListener.isItemSelected(getAdapterPosition());
+  }
+
   /**
    * Interface definition for a callback to be invoked when a {@link BaseViewHolder} is clicked.
    */

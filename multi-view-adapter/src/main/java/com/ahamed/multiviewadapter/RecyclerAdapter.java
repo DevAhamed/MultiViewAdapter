@@ -24,6 +24,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     @Override public void onItemSelectionToggled(int position) {
       RecyclerAdapter.this.onItemSelectionToggled(position);
     }
+
+    @Override public boolean isItemSelected(int position) {
+      return RecyclerAdapter.this.isItemSelected(position);
+    }
   };
 
   protected RecyclerAdapter() {
@@ -175,7 +179,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
   }
 
   boolean isItemSelected(int adapterPosition) {
-    return false;
+    return getDataManager(adapterPosition).isItemSelected(
+        getItemPositionInManager(adapterPosition));
   }
 
   final void notifyBinderItemRangeChanged(BaseDataManager binder, int positionStart, int itemCount,
