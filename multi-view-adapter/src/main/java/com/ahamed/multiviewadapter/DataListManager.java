@@ -1,31 +1,19 @@
 package com.ahamed.multiviewadapter;
 
 import android.support.annotation.NonNull;
-import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import com.ahamed.multiviewadapter.util.PayloadProvider;
 import java.util.Collection;
 import java.util.List;
 
-public final class DataListManager<M> extends BaseDataManager<M> {
-
-  private final PayloadProvider<M> payloadProvider;
+public final class DataListManager<M> extends DataListUpdateManager<M> {
 
   public DataListManager(RecyclerAdapter adapter) {
-    this(adapter, new PayloadProvider<M>() {
-      @Override public boolean areContentsTheSame(M oldItem, M newItem) {
-        return oldItem.equals(newItem);
-      }
-
-      @Override public Object getChangePayload(M oldItem, M newItem) {
-        return null;
-      }
-    });
+    super(adapter);
   }
 
-  public DataListManager(RecyclerAdapter adapter, PayloadProvider<M> payloadProvider) {
-    super(adapter);
-    this.payloadProvider = payloadProvider;
+  public DataListManager(RecyclerAdapter adapter, @NonNull PayloadProvider<M> payloadProvider) {
+    super(adapter, payloadProvider);
   }
 
   /**
@@ -38,11 +26,7 @@ public final class DataListManager<M> extends BaseDataManager<M> {
    * is not supported by this {@link DataListManager}
    */
   public final boolean add(M item) {
-    boolean result = getDataList().add(item);
-    if (result) {
-      onInserted(getDataList().size() - 1, 1);
-    }
-    return result;
+    return add(item, true);
   }
 
   /**
@@ -61,7 +45,7 @@ public final class DataListManager<M> extends BaseDataManager<M> {
    * @see #add(Object)
    */
   public final boolean addAll(@NonNull Collection<? extends M> items) {
-    return addAll(getDataList().size(), items);
+    return addAll(getDataList().size(), items, true);
   }
 
   /**
@@ -83,11 +67,7 @@ public final class DataListManager<M> extends BaseDataManager<M> {
    * is not supported by this data manager
    */
   public final boolean addAll(int index, @NonNull Collection<? extends M> items) {
-    boolean result = getDataList().addAll(index, items);
-    if (result) {
-      onInserted(index, items.size());
-    }
-    return result;
+    return addAll(index, items, true);
   }
 
   /**
@@ -105,8 +85,7 @@ public final class DataListManager<M> extends BaseDataManager<M> {
    * (<tt>index &lt; 0 || index &gt; size()</tt>)
    */
   public final void add(int index, M item) {
-    getDataList().add(index, item);
-    onInserted(index, 1);
+    add(index, item, true);
   }
 
   /**
@@ -122,9 +101,7 @@ public final class DataListManager<M> extends BaseDataManager<M> {
    * (<tt>index &lt; 0 || index &gt;= size()</tt>)
    */
   public final void set(int index, M item) {
-    M oldItem = getDataList().get(index);
-    getDataList().set(index, item);
-    onChanged(index, 1, payloadProvider.getChangePayload(oldItem, item));
+    set(index, item, true);
   }
 
   /**
@@ -134,18 +111,7 @@ public final class DataListManager<M> extends BaseDataManager<M> {
    * @param dataList list to be stored in the data manager
    */
   public final void set(List<M> dataList) {
-    DiffUtil.DiffResult result =
-        DiffUtil.calculateDiff(new DiffUtilCallback<M>(this.getDataList(), dataList) {
-          @Override public boolean areContentsTheSame(M oldItem, M newItem) {
-            return payloadProvider.areContentsTheSame(oldItem, newItem);
-          }
-
-          @Override public Object getChangePayload(M oldItem, M newItem) {
-            return payloadProvider.getChangePayload(oldItem, newItem);
-          }
-        });
-    setDataList(dataList);
-    result.dispatchUpdatesTo(this);
+    set(dataList, true);
   }
 
   /**
@@ -160,11 +126,7 @@ public final class DataListManager<M> extends BaseDataManager<M> {
    * @param item element to be removed from this data manager, if present
    */
   public final void remove(M item) {
-    int index = getDataList().indexOf(item);
-    boolean result = getDataList().remove(item);
-    if (result) {
-      onRemoved(index, 1);
-    }
+    remove(item, true);
   }
 
   /**
@@ -177,11 +139,7 @@ public final class DataListManager<M> extends BaseDataManager<M> {
    * (<tt>index &lt; 0 || index &gt;= size()</tt>)
    */
   public final void remove(int index) {
-    if (index >= size()) {
-      throw new IndexOutOfBoundsException();
-    }
-    getDataList().remove(index);
-    onRemoved(index, 1);
+    remove(index, true);
   }
 
   /**
@@ -190,11 +148,6 @@ public final class DataListManager<M> extends BaseDataManager<M> {
    * {@link RecyclerView.ItemAnimator}'s remove animation will be called.
    */
   public final void clear() {
-    if (size() <= 0) {
-      return;
-    }
-    int oldSize = getDataList().size();
-    getDataList().clear();
-    onRemoved(0, oldSize);
+    clear(true);
   }
 }
