@@ -90,6 +90,10 @@ public class BaseViewHolder<M> extends ViewHolder
     return actionListener.isItemExpanded(getAdapterPosition());
   }
 
+  public int getSwipeDirections() {
+    return 0;
+  }
+
   /**
    * Interface definition for a callback to be invoked when a {@link BaseViewHolder} is clicked.
    */

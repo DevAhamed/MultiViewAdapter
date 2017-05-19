@@ -2,9 +2,11 @@ package com.ahamed.multiviewadapter;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import com.ahamed.multiviewadapter.util.ItemBinderTouchCallback;
 import com.ahamed.multiviewadapter.annotation.ExpandableMode;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +22,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
   private SparseBooleanArray expandedItems = new SparseBooleanArray();
   private ItemDecorationManager itemDecorationManager;
   private int maxSpanCount = 1;
+  private ItemTouchHelper itemTouchHelper;
   private final GridLayoutManager.SpanSizeLookup spanSizeLookup =
       new GridLayoutManager.SpanSizeLookup() {
         @Override public int getSpanSize(int position) {
@@ -53,7 +56,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
   };
 
   protected RecyclerAdapter() {
-    this.itemDecorationManager = new ItemDecorationManager(this);
+    itemDecorationManager = new ItemDecorationManager(this);
   }
 
   private boolean itemExpanded(int position) {
@@ -111,6 +114,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
       return binders.indexOf(baseBinder);
     }
     return super.getItemViewType(adapterPosition);
+  }
+
+  public ItemTouchHelper getItemTouchHelper() {
+    if (null == itemTouchHelper) {
+      ItemBinderTouchCallback itemBinderTouchCallback = new ItemBinderTouchCallback(this);
+      itemTouchHelper = new ItemTouchHelper(itemBinderTouchCallback);
+    }
+    return itemTouchHelper;
   }
 
   /**
@@ -333,5 +344,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
    */
   public final void setGroupExpandableMode(@ExpandableMode int groupExpandableMode) {
     this.groupExpandableMode = groupExpandableMode;
+  }
+
+  public void onItemDismiss(int adapterPosition) {
+    BaseDataManager baseDataManager = getDataManager(adapterPosition);
+    if (baseDataManager instanceof DataListManager) {
+      ((DataListManager) baseDataManager).remove(getItemPositionInManager(adapterPosition));
+    } else if (baseDataManager instanceof DataItemManager) {
+      ((DataItemManager) baseDataManager).removeItem();
+    }
   }
 }
