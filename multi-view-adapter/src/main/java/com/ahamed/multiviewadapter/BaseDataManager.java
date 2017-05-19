@@ -10,7 +10,7 @@ import java.util.List;
 
 class BaseDataManager<M> implements ListUpdateCallback {
 
-  private final RecyclerAdapter adapter;
+  protected final RecyclerAdapter adapter;
   private List<M> dataList = new ArrayList<>();
   private SparseBooleanArray selectedItems = new SparseBooleanArray();
   private ItemSelectionChangedListener<M> itemSelectionChangedListener;
@@ -244,6 +244,14 @@ class BaseDataManager<M> implements ListUpdateCallback {
           break;
       }
     }
+  }
+
+  void onItemExpansionToggled(int position) {
+    onChanged(position, 1, null);
+  }
+
+  void onGroupExpansionToggled() {
+    // Do nothing. Should be overridden by GroupDataManager
   }
 
   List<M> getDataList() {

@@ -45,6 +45,14 @@ public class BaseViewHolder<M> extends ViewHolder
     actionListener.onItemSelectionToggled(getAdapterPosition());
   }
 
+  protected void toggleItemExpansion() {
+    actionListener.onItemExpansionToggled(getAdapterPosition());
+  }
+
+  protected void toggleGroupExpansion() {
+    actionListener.onGroupExpansionToggled(getAdapterPosition());
+  }
+
   /**
    * Register a callback to be invoked when this {@link BaseViewHolder} is clicked. If this {@link
    * BaseViewHolder} is not clickable, it becomes clickable.
@@ -76,6 +84,10 @@ public class BaseViewHolder<M> extends ViewHolder
 
   public final boolean isItemSelected() {
     return actionListener.isItemSelected(getAdapterPosition());
+  }
+
+  public boolean isItemExpanded() {
+    return actionListener.isItemExpanded(getAdapterPosition());
   }
 
   /**

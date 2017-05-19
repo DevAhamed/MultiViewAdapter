@@ -2,15 +2,22 @@ package com.ahamed.multiviewadapter;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import com.ahamed.multiviewadapter.annotation.ExpandableMode;
 import java.util.ArrayList;
 import java.util.List;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
+  public static final int EXPANDABLE_MODE_NONE = -1;
+  public static final int EXPANDABLE_MODE_SINGLE = 1;
+  public static final int EXPANDABLE_MODE_MULTIPLE = 2;
+
   private List<ItemBinder> binders = new ArrayList<>();
   private List<BaseDataManager> dataManagers = new ArrayList<>();
+  private SparseBooleanArray expandedItems = new SparseBooleanArray();
   private ItemDecorationManager itemDecorationManager;
   private int maxSpanCount = 1;
   private final GridLayoutManager.SpanSizeLookup spanSizeLookup =
@@ -19,19 +26,38 @@ public class RecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
           return getBinderForPosition(position).getSpanSize(maxSpanCount);
         }
       };
+  private int lastExpandedIndex = -1;
+  @ExpandableMode private int expandableMode = EXPANDABLE_MODE_NONE;
+  @ExpandableMode private int groupExpandableMode = EXPANDABLE_MODE_NONE;
   private ItemActionListener actionListener = new ItemActionListener() {
 
     @Override public void onItemSelectionToggled(int position) {
       RecyclerAdapter.this.onItemSelectionToggled(position);
     }
 
+    @Override public void onItemExpansionToggled(int position) {
+      RecyclerAdapter.this.onItemExpansionToggled(position);
+    }
+
+    @Override public void onGroupExpansionToggled(int position) {
+      RecyclerAdapter.this.onGroupExpansionToggled(position);
+    }
+
     @Override public boolean isItemSelected(int position) {
       return RecyclerAdapter.this.isItemSelected(position);
+    }
+
+    @Override public boolean isItemExpanded(int position) {
+      return RecyclerAdapter.this.itemExpanded(position);
     }
   };
 
   protected RecyclerAdapter() {
     this.itemDecorationManager = new ItemDecorationManager(this);
+  }
+
+  private boolean itemExpanded(int position) {
+    return expandedItems.get(position, false);
   }
 
   @Override public final BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -51,6 +77,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     for (BaseDataManager dataManager : dataManagers) {
       totalCount += dataManager.getCount();
       if (adapterPosition < totalCount) {
+        if (dataManager instanceof DataGroupManager) {
+          dataManager = ((DataGroupManager) dataManager).getDataManagerForPosition(
+              getItemPositionInManager(adapterPosition));
+        }
         //noinspection unchecked
         holder.setItem(dataManager.getItem(getItemPositionInManager(adapterPosition)));
         break;
@@ -159,6 +189,22 @@ public class RecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     for (BaseDataManager dataManager : dataManagers) {
       processedCount += dataManager.getCount();
       if (adapterPosition < processedCount) {
+        if (dataManager instanceof DataGroupManager) {
+          return ((DataGroupManager) dataManager).getDataManagerForPosition(
+              getItemPositionInManager(adapterPosition));
+        } else {
+          return dataManager;
+        }
+      }
+    }
+    throw new IllegalStateException("Invalid position for DataManager!");
+  }
+
+  BaseDataManager justGetDataManager(int adapterPosition) {
+    int processedCount = 0;
+    for (BaseDataManager dataManager : dataManagers) {
+      processedCount += dataManager.getCount();
+      if (adapterPosition < processedCount) {
         return dataManager;
       }
     }
@@ -202,7 +248,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     notifyItemRangeRemoved(getPosition(binder, positionStart), itemCount);
   }
 
-  void addBinder(ItemBinder binder) {
+  private void addBinder(ItemBinder binder) {
     binders.add(binder);
   }
 
@@ -220,5 +266,72 @@ public class RecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
   void onItemSelectionToggled(int position) {
     // Do nothing. Should be handled by SelectableAdapter
+  }
+
+  private void onItemExpansionToggled(int adapterPosition) {
+    switch (expandableMode) {
+      case EXPANDABLE_MODE_SINGLE:
+        if (lastExpandedIndex == adapterPosition) {
+          return;
+        }
+        if (lastExpandedIndex != -1) {
+          getDataManager(lastExpandedIndex).onItemExpansionToggled(
+              getItemPositionInManager(lastExpandedIndex));
+        }
+        getDataManager(adapterPosition).onItemExpansionToggled(
+            getItemPositionInManager(adapterPosition));
+        lastExpandedIndex = adapterPosition;
+        break;
+      case EXPANDABLE_MODE_MULTIPLE:
+        expandedItems.put(adapterPosition, !expandedItems.get(adapterPosition, false));
+        getDataManager(adapterPosition).onItemExpansionToggled(
+            getItemPositionInManager(adapterPosition));
+        break;
+      case EXPANDABLE_MODE_NONE:
+      default:
+        break;
+    }
+  }
+
+  private void onGroupExpansionToggled(int adapterPosition) {
+    switch (groupExpandableMode) {
+      case EXPANDABLE_MODE_SINGLE:
+        if (lastExpandedIndex == adapterPosition) {
+          return;
+        }
+        if (lastExpandedIndex != -1) {
+          getDataManager(lastExpandedIndex).onGroupExpansionToggled();
+        }
+        getDataManager(adapterPosition).onGroupExpansionToggled();
+        lastExpandedIndex = adapterPosition;
+        break;
+      case EXPANDABLE_MODE_MULTIPLE:
+        expandedItems.put(adapterPosition, !expandedItems.get(adapterPosition, false));
+        justGetDataManager(adapterPosition).onGroupExpansionToggled();
+        break;
+      case EXPANDABLE_MODE_NONE:
+      default:
+        break;
+    }
+  }
+
+  /**
+   * To set the selection mode for the {@link RecyclerAdapter}
+   *
+   * @param expandableMode The expansion mode to be set
+   * @see ExpandableMode ExpandableMode for possible values
+   */
+  public final void setExpandableMode(@ExpandableMode int expandableMode) {
+    this.expandableMode = expandableMode;
+  }
+
+  /**
+   * To set the selection mode for the {@link SelectableAdapter}
+   *
+   * @param groupExpandableMode The expansion mode to be set
+   * @see ExpandableMode ExpandableMode for possible values
+   */
+  public final void setGroupExpandableMode(@ExpandableMode int groupExpandableMode) {
+    this.groupExpandableMode = groupExpandableMode;
   }
 }
