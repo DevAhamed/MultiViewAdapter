@@ -22,7 +22,11 @@ class ItemDecorationManager extends RecyclerView.ItemDecoration {
   @Override public void getItemOffsets(Rect outRect, View view, RecyclerView parent,
       RecyclerView.State state) {
     boolean isReverseLayout = getIsReverseLayout(parent);
-    ItemBinder binder = adapter.getBinderForPosition(parent.getChildAdapterPosition(view));
+    int adapterPosition = parent.getChildAdapterPosition(view);
+    if (adapterPosition < 0) {
+      return;
+    }
+    ItemBinder binder = adapter.getBinderForPosition(adapterPosition);
     if (binder.isItemDecorationEnabled()) {
       int itemPosition = adapter.getItemPositionInManager(parent.getChildAdapterPosition(view));
       int positionType = getPositionType(parent, view, itemPosition, isReverseLayout);
@@ -35,7 +39,11 @@ class ItemDecorationManager extends RecyclerView.ItemDecoration {
     int childCount = parent.getChildCount();
     for (int i = 0; i < childCount; i++) {
       View child = parent.getChildAt(i);
-      ItemBinder binder = adapter.getBinderForPosition(parent.getChildAdapterPosition(child));
+      int adapterPosition = parent.getChildAdapterPosition(child);
+      if (adapterPosition < 0) {
+        return;
+      }
+      ItemBinder binder = adapter.getBinderForPosition(adapterPosition);
       if (binder.isItemDecorationEnabled()) {
         int itemPosition = adapter.getItemPositionInManager(parent.getChildAdapterPosition(child));
         int positionType = getPositionType(parent, child, itemPosition, isReverseLayout);
