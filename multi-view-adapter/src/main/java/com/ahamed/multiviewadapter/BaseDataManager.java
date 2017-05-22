@@ -278,4 +278,11 @@ class BaseDataManager<M> implements ListUpdateCallback {
   boolean isItemSelected(int dataItemPosition) {
     return selectedItems.get(dataItemPosition);
   }
+
+  void onSwapped(int currentPosition, int targetPosition) {
+    M item = dataList.get(currentPosition);
+    dataList.remove(currentPosition);
+    dataList.add(targetPosition, item);
+    onMoved(currentPosition, targetPosition);
+  }
 }

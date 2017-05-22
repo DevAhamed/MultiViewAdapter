@@ -94,6 +94,10 @@ public class BaseViewHolder<M> extends ViewHolder
     return 0;
   }
 
+  public int getDragDirections() {
+    return 0;
+  }
+
   /**
    * Interface definition for a callback to be invoked when a {@link BaseViewHolder} is clicked.
    */

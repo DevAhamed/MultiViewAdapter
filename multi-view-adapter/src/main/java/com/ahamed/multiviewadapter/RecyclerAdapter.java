@@ -6,8 +6,8 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import com.ahamed.multiviewadapter.util.ItemBinderTouchCallback;
 import com.ahamed.multiviewadapter.annotation.ExpandableMode;
+import com.ahamed.multiviewadapter.util.ItemBinderTouchCallback;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,13 +22,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
   private SparseBooleanArray expandedItems = new SparseBooleanArray();
   private ItemDecorationManager itemDecorationManager;
   private int maxSpanCount = 1;
-  private ItemTouchHelper itemTouchHelper;
   private final GridLayoutManager.SpanSizeLookup spanSizeLookup =
       new GridLayoutManager.SpanSizeLookup() {
         @Override public int getSpanSize(int position) {
           return getBinderForPosition(position).getSpanSize(maxSpanCount);
         }
       };
+  private ItemTouchHelper itemTouchHelper;
   private int lastExpandedIndex = -1;
   @ExpandableMode private int expandableMode = EXPANDABLE_MODE_NONE;
   @ExpandableMode private int groupExpandableMode = EXPANDABLE_MODE_NONE;
@@ -178,6 +178,18 @@ public class RecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
       if (baseBinder.canBindData(dataManager.getItem(getItemPositionInManager(adapterPosition)))) {
         return baseBinder;
       }
+    }
+    throw new IllegalStateException("Binder not found for position. Position = " + adapterPosition);
+  }
+
+  int getBinderIndexForPosition(int adapterPosition) {
+    BaseDataManager dataManager = getDataManager(adapterPosition);
+    int index = 0;
+    for (ItemBinder baseBinder : binders) {
+      if (baseBinder.canBindData(dataManager.getItem(getItemPositionInManager(adapterPosition)))) {
+        return index;
+      }
+      index++;
     }
     throw new IllegalStateException("Binder not found for position. Position = " + adapterPosition);
   }
@@ -352,6 +364,26 @@ public class RecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
       ((DataListManager) baseDataManager).remove(getItemPositionInManager(adapterPosition));
     } else if (baseDataManager instanceof DataItemManager) {
       ((DataItemManager) baseDataManager).removeItem();
+    }
+  }
+
+  public void onMove(int currentPosition, int targetPosition) {
+    if (currentPosition == -1) {
+      return;
+    }
+    BaseDataManager dataManager = getDataManager(currentPosition);
+    BaseDataManager targetDataManager = getDataManager(targetPosition);
+    if (dataManager.equals(targetDataManager)) {
+      dataManager.onSwapped(getItemPositionInManager(currentPosition),
+          getItemPositionInManager(targetPosition));
+    } else {
+      Object obj = dataManager.get(getItemPositionInManager(currentPosition));
+      ((DataListUpdateManager) dataManager).remove(getItemPositionInManager(currentPosition),
+          false);
+      ((DataListUpdateManager) targetDataManager).add(
+          getItemPositionInManager(targetPosition + (targetPosition > currentPosition ? -1 : 0)),
+          obj, false);
+      notifyItemMoved(currentPosition, targetPosition);
     }
   }
 }
