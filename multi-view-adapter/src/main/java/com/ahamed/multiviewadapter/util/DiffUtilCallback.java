@@ -1,16 +1,18 @@
-package com.ahamed.multiviewadapter;
+package com.ahamed.multiviewadapter.util;
 
 import android.support.annotation.Nullable;
+import android.support.annotation.RestrictTo;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import java.util.List;
 
-abstract class DiffUtilCallback<M> extends DiffUtil.Callback {
+@RestrictTo(RestrictTo.Scope.LIBRARY) public abstract class DiffUtilCallback<M>
+    extends DiffUtil.Callback {
 
   private final List<M> oldList;
   private final List<M> newList;
 
-  DiffUtilCallback(List<M> oldList, List<M> newList) {
+  protected DiffUtilCallback(List<M> oldList, List<M> newList) {
     this.oldList = oldList;
     this.newList = newList;
   }

@@ -2,6 +2,7 @@ package com.ahamed.multiviewadapter;
 
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.View;
+import com.ahamed.multiviewadapter.listener.ItemActionListener;
 
 public class BaseViewHolder<M> extends ViewHolder
     implements View.OnClickListener, View.OnLongClickListener {

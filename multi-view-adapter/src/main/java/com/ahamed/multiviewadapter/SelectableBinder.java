@@ -1,5 +1,6 @@
 package com.ahamed.multiviewadapter;
 
+import com.ahamed.multiviewadapter.util.ItemDecorator;
 import java.util.List;
 
 @Deprecated public abstract class SelectableBinder<M, VH extends BaseViewHolder<M>>

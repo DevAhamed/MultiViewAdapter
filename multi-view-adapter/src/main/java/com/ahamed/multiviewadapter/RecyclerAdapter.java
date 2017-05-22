@@ -6,8 +6,9 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import com.ahamed.multiviewadapter.annotation.ExpandableMode;
+import com.ahamed.multiviewadapter.listener.ItemActionListener;
 import com.ahamed.multiviewadapter.util.ItemBinderTouchCallback;
+import com.ahamed.multiviewadapter.annotation.ExpandableMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -223,7 +224,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     throw new IllegalStateException("Invalid position for DataManager!");
   }
 
-  BaseDataManager justGetDataManager(int adapterPosition) {
+  private BaseDataManager justGetDataManager(int adapterPosition) {
     int processedCount = 0;
     for (BaseDataManager dataManager : dataManagers) {
       processedCount += dataManager.getCount();

@@ -2,9 +2,18 @@ package com.ahamed.multiviewadapter;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import com.ahamed.multiviewadapter.annotation.PositionType;
+import com.ahamed.multiviewadapter.util.ItemDecorator;
+
+import static com.ahamed.multiviewadapter.util.ItemDecorator.POSITION_BOTTOM;
+import static com.ahamed.multiviewadapter.util.ItemDecorator.POSITION_LEFT;
+import static com.ahamed.multiviewadapter.util.ItemDecorator.POSITION_MIDDLE;
+import static com.ahamed.multiviewadapter.util.ItemDecorator.POSITION_RIGHT;
+import static com.ahamed.multiviewadapter.util.ItemDecorator.POSITION_TOP;
 
 /**
  * This is an internal class. Should not be extended by client code. Used to manage the different
@@ -29,7 +38,8 @@ class ItemDecorationManager extends RecyclerView.ItemDecoration {
     ItemBinder binder = adapter.getBinderForPosition(adapterPosition);
     if (binder.isItemDecorationEnabled()) {
       int itemPosition = adapter.getItemPositionInManager(parent.getChildAdapterPosition(view));
-      int positionType = getPositionType(parent, view, itemPosition, isReverseLayout);
+      int positionType =
+          getPositionType(parent, view, adapterPosition, itemPosition, isReverseLayout);
       binder.getItemOffsets(outRect, itemPosition, positionType);
     }
   }
@@ -46,7 +56,8 @@ class ItemDecorationManager extends RecyclerView.ItemDecoration {
       ItemBinder binder = adapter.getBinderForPosition(adapterPosition);
       if (binder.isItemDecorationEnabled()) {
         int itemPosition = adapter.getItemPositionInManager(parent.getChildAdapterPosition(child));
-        int positionType = getPositionType(parent, child, itemPosition, isReverseLayout);
+        int positionType =
+            getPositionType(parent, child, adapterPosition, itemPosition, isReverseLayout);
         binder.onDraw(canvas, parent, child, itemPosition, positionType);
       }
     }
@@ -57,14 +68,67 @@ class ItemDecorationManager extends RecyclerView.ItemDecoration {
         .getLayoutManager()).getReverseLayout();
   }
 
-  private @ItemDecorator.PositionType int getPositionType(RecyclerView parent, View child,
+  private @PositionType int getPositionType(RecyclerView parent, View child, int adapterPosition,
       int itemPosition, boolean isReverseLayout) {
     boolean isFirstItem =
         isReverseLayout ? adapter.isLastItemInManager(parent.getChildAdapterPosition(child))
             : itemPosition == 0;
     boolean isLastItem = isReverseLayout ? itemPosition == 0
         : adapter.isLastItemInManager(parent.getChildAdapterPosition(child));
-    return isFirstItem ? ItemDecorator.POSITION_START
-        : isLastItem ? ItemDecorator.POSITION_END : ItemDecorator.POSITION_MIDDLE;
+    if (parent.getLayoutManager() instanceof GridLayoutManager) {
+      GridLayoutManager gridLayoutManager = (GridLayoutManager) parent.getLayoutManager();
+      int totalSpanSize = gridLayoutManager.getSpanCount();
+
+      BaseDataManager dataManager = adapter.getDataManager(adapterPosition);
+      int itemPositionType = 0;
+      int spanCount = 0;
+      boolean isFirstRow = true;
+      for (int looper = 0, item = adapterPosition - itemPosition; looper < dataManager.size();
+          looper++, item++) {
+        int currentSpanCount = gridLayoutManager.getSpanSizeLookup().getSpanSize(item);
+        if (spanCount + currentSpanCount > totalSpanSize) {
+          spanCount = currentSpanCount;
+          isFirstRow = false;
+        } else {
+          spanCount += currentSpanCount;
+        }
+        if (item == itemPosition) {
+          if (spanCount - currentSpanCount == 0) {
+            itemPositionType |= POSITION_LEFT;
+          }
+          if (spanCount == totalSpanSize) {
+            itemPositionType |= POSITION_RIGHT;
+          }
+          if (isFirstItem || isFirstRow) {
+            itemPositionType |= POSITION_TOP;
+          }
+          if (isLastItem) {
+            itemPositionType |= POSITION_BOTTOM;
+          }
+          // FIXME
+          // Third for-loop - Find a better implementation
+          if (!isLastItem && !isFirstRow && (currentSpanCount != totalSpanSize)) {
+            int innerLooper = looper + 1;
+            int innerSpanCount = spanCount;
+            for (; innerLooper < dataManager.size(); innerLooper++) {
+              int nextSpanCount = gridLayoutManager.getSpanSizeLookup().getSpanSize(innerLooper);
+              if (innerSpanCount + nextSpanCount > totalSpanSize) {
+                return itemPositionType;
+              }
+              innerSpanCount += nextSpanCount;
+            }
+            itemPositionType |= POSITION_BOTTOM;
+          }
+          if (itemPositionType == 0) {
+            itemPositionType = POSITION_MIDDLE;
+          }
+          return itemPositionType;
+        }
+      }
+    } else if (parent.getLayoutManager() instanceof LinearLayoutManager) {
+      return isFirstItem ? ItemDecorator.POSITION_FIRST_ITEM
+          : isLastItem ? ItemDecorator.POSITION_LAST_ITEM : ItemDecorator.POSITION_MIDDLE_ITEM;
+    }
+    return ItemDecorator.POSITION_MIDDLE;
   }
 }

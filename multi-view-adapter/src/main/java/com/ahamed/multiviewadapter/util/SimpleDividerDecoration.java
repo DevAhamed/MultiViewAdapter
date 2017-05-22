@@ -12,7 +12,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
-import com.ahamed.multiviewadapter.ItemDecorator;
+import com.ahamed.multiviewadapter.annotation.PositionType;
 
 /**
  * SimpleItemDecoration is a {@link RecyclerView.ItemDecoration} that can be used as a divider
@@ -39,7 +39,7 @@ public class SimpleDividerDecoration implements ItemDecorator {
   }
 
   @Override public void getItemOffsets(Rect outRect, int position, @PositionType int positionType) {
-    if (positionType == POSITION_END) {
+    if (positionType == POSITION_LAST_ITEM) {
       return;
     }
     if (mOrientation == VERTICAL) {
@@ -54,7 +54,7 @@ public class SimpleDividerDecoration implements ItemDecorator {
     if (parent.getLayoutManager() == null) {
       return;
     }
-    if (positionType == POSITION_END) {
+    if (positionType == POSITION_LAST_ITEM) {
       return;
     }
     if (mOrientation == VERTICAL) {

@@ -7,6 +7,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import com.ahamed.multiviewadapter.annotation.PositionType;
+import com.ahamed.multiviewadapter.listener.ItemActionListener;
+import com.ahamed.multiviewadapter.util.ItemDecorator;
 import java.util.List;
 
 public abstract class ItemBinder<M, VH extends BaseViewHolder<M>> {
@@ -93,14 +96,14 @@ public abstract class ItemBinder<M, VH extends BaseViewHolder<M>> {
     return itemDecorator != null;
   }
 
-  void getItemOffsets(Rect outRect, int position, @ItemDecorator.PositionType int positionType) {
+  void getItemOffsets(Rect outRect, int position, @PositionType int positionType) {
     if (null != itemDecorator) {
       itemDecorator.getItemOffsets(outRect, position, positionType);
     }
   }
 
   void onDraw(Canvas canvas, RecyclerView parent, View child, int position,
-      @ItemDecorator.PositionType int positionType) {
+      @PositionType int positionType) {
     if (null != itemDecorator) {
       itemDecorator.onDraw(canvas, parent, child, position, positionType);
     }

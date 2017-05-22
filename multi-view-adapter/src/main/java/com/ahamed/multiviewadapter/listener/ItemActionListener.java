@@ -1,6 +1,6 @@
-package com.ahamed.multiviewadapter;
+package com.ahamed.multiviewadapter.listener;
 
-interface ItemActionListener {
+public interface ItemActionListener {
 
   void onItemSelectionToggled(int position);
 
