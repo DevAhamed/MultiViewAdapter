@@ -66,7 +66,7 @@ public class SelectableAdapter extends RecyclerAdapter {
    * @param selectionMode The selection mode to be set
    * @see SelectionMode SelectionMode for possible values
    */
-  public final void setSelectionMode(int selectionMode) {
+  public final void setSelectionMode(@SelectionMode int selectionMode) {
     this.selectionMode = selectionMode;
   }
 

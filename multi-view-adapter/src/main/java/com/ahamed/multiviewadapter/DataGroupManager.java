@@ -57,7 +57,7 @@ public class DataGroupManager<H, M> extends DataListUpdateManager<M> {
    *
    * @param item item to be added to the
    */
-  public void setItem(M item) {
+  public final void setItem(M item) {
     if (getDataList().size() == 0) {
       getDataList().add(item);
       onInserted(0, 1);
@@ -71,7 +71,7 @@ public class DataGroupManager<H, M> extends DataListUpdateManager<M> {
    * Removes the item from {@link DataItemManager}. This will call the {@link
    * RecyclerView.ItemAnimator}'s remove animation.
    */
-  public void removeGroup() {
+  public final void removeGroup() {
     if (getDataList().size() > 0) {
       getDataList().clear();
       onRemoved(0, 1);

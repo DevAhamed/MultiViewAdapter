@@ -1,6 +1,7 @@
 package com.ahamed.multiviewadapter;
 
 import android.support.annotation.Nullable;
+import android.support.annotation.RestrictTo;
 import android.support.v7.util.ListUpdateCallback;
 import android.util.SparseBooleanArray;
 import com.ahamed.multiviewadapter.listener.ItemSelectionChangedListener;
@@ -20,19 +21,23 @@ class BaseDataManager<M> implements ListUpdateCallback {
     this.adapter = adapter;
   }
 
-  @Override public final void onInserted(int position, int count) {
+  @RestrictTo(RestrictTo.Scope.LIBRARY) @Override
+  public final void onInserted(int position, int count) {
     adapter.notifyBinderItemRangeInserted(this, position, count);
   }
 
-  @Override public final void onRemoved(int position, int count) {
+  @RestrictTo(RestrictTo.Scope.LIBRARY) @Override
+  public final void onRemoved(int position, int count) {
     adapter.notifyBinderItemRangeRemoved(this, position, count);
   }
 
-  @Override public final void onMoved(int fromPosition, int toPosition) {
+  @RestrictTo(RestrictTo.Scope.LIBRARY) @Override
+  public final void onMoved(int fromPosition, int toPosition) {
     adapter.notifyBinderItemMoved(this, fromPosition, toPosition);
   }
 
-  @Override public final void onChanged(int position, int count, Object payload) {
+  @RestrictTo(RestrictTo.Scope.LIBRARY) @Override
+  public final void onChanged(int position, int count, Object payload) {
     adapter.notifyBinderItemRangeChanged(this, position, count, payload);
   }
 
@@ -203,7 +208,7 @@ class BaseDataManager<M> implements ListUpdateCallback {
    *
    * @param itemSelectionChangedListener Listener for notify selection changes
    */
-  public void setItemSelectionChangedListener(
+  public final void setItemSelectionChangedListener(
       ItemSelectionChangedListener<M> itemSelectionChangedListener) {
     this.itemSelectionChangedListener = itemSelectionChangedListener;
   }
@@ -213,7 +218,7 @@ class BaseDataManager<M> implements ListUpdateCallback {
    *
    * @param multiSelectionChangedListener Listener for notify selection changes
    */
-  public void setMultiSelectionChangedListener(
+  public final void setMultiSelectionChangedListener(
       MultiSelectionChangedListener<M> multiSelectionChangedListener) {
     this.multiSelectionChangedListener = multiSelectionChangedListener;
   }

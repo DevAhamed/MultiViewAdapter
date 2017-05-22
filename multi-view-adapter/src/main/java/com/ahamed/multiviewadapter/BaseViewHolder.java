@@ -41,15 +41,15 @@ public class BaseViewHolder<M> extends ViewHolder
    * be toggled for an item in the view holder (ex: Button) this method can be called from the
    * item's click listener </p>
    */
-  protected void toggleItemSelection() {
+  protected final void toggleItemSelection() {
     actionListener.onItemSelectionToggled(getAdapterPosition());
   }
 
-  protected void toggleItemExpansion() {
+  protected final void toggleItemExpansion() {
     actionListener.onItemExpansionToggled(getAdapterPosition());
   }
 
-  protected void toggleGroupExpansion() {
+  protected final void toggleGroupExpansion() {
     actionListener.onGroupExpansionToggled(getAdapterPosition());
   }
 
@@ -86,7 +86,7 @@ public class BaseViewHolder<M> extends ViewHolder
     return actionListener.isItemSelected(getAdapterPosition());
   }
 
-  public boolean isItemExpanded() {
+  public final boolean isItemExpanded() {
     return actionListener.isItemExpanded(getAdapterPosition());
   }
 

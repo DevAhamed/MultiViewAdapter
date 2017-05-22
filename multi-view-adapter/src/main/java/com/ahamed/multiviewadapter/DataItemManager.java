@@ -19,7 +19,7 @@ public final class DataItemManager<M> extends BaseDataManager<M> {
    *
    * @param item item to be added to the
    */
-  public void setItem(M item) {
+  public final void setItem(M item) {
     if (getDataList().size() == 0) {
       getDataList().add(item);
       onInserted(0, 1);
@@ -33,7 +33,7 @@ public final class DataItemManager<M> extends BaseDataManager<M> {
    * Removes the item from {@link DataItemManager}. This will call the {@link
    * RecyclerView.ItemAnimator}'s remove animation.
    */
-  public void removeItem() {
+  public final void removeItem() {
     if (getDataList().size() > 0) {
       getDataList().clear();
       onRemoved(0, 1);
