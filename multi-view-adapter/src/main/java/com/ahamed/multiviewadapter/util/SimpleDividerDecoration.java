@@ -19,9 +19,9 @@ import com.ahamed.multiviewadapter.ItemDecorator;
  * between items of a {@link LinearLayoutManager}. It supports both {@link #HORIZONTAL} and
  * {@link #VERTICAL} orientations.
  *
- * This code has been re-used from official support library's  {@link DividerItemDecoration}
+ * This code has been adapted from official support library's  {@link DividerItemDecoration}
  */
-public class SimpleItemDecoration implements ItemDecorator {
+public class SimpleDividerDecoration implements ItemDecorator {
 
   public static final int HORIZONTAL = LinearLayout.HORIZONTAL;
   public static final int VERTICAL = LinearLayout.VERTICAL;
@@ -31,7 +31,7 @@ public class SimpleItemDecoration implements ItemDecorator {
   private Drawable mDivider;
   private int mOrientation;
 
-  public SimpleItemDecoration(Context context, int orientation) {
+  public SimpleDividerDecoration(Context context, int orientation) {
     final TypedArray a = context.obtainStyledAttributes(ATTRS);
     mDivider = a.getDrawable(0);
     a.recycle();
