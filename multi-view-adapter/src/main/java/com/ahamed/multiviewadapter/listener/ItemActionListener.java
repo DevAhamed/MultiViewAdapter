@@ -11,4 +11,6 @@ public interface ItemActionListener {
   boolean isItemSelected(int position);
 
   boolean isItemExpanded(int adapterPosition);
+
+  boolean isAdapterInContextMode();
 }

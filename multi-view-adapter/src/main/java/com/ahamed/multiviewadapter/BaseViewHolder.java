@@ -18,6 +18,27 @@ public class BaseViewHolder<M> extends ViewHolder
     itemView.setOnLongClickListener(this);
   }
 
+  final void setItem(M item) {
+    this.item = item;
+  }
+
+  final void setItemActionListener(ItemActionListener actionListener) {
+    this.actionListener = actionListener;
+  }
+
+  @Override public final void onClick(View view) {
+    if (null == itemClickListener) return;
+    itemClickListener.onItemClick(view, getItem());
+  }
+
+  @Override public final boolean onLongClick(View view) {
+    return null != itemLongClickListener && itemLongClickListener.onItemLongClick(view, getItem());
+  }
+
+  ////////////////////////////////////////
+  ///////// Public Methods ///////////////
+  ////////////////////////////////////////
+
   /**
    * Returns the item object bounded by this {@link BaseViewHolder}
    *
@@ -25,14 +46,6 @@ public class BaseViewHolder<M> extends ViewHolder
    */
   public final M getItem() {
     return item;
-  }
-
-  final void setItem(M item) {
-    this.item = item;
-  }
-
-  final void setItemActionListener(ItemActionListener actionListener) {
-    this.actionListener = actionListener;
   }
 
   /**
@@ -74,21 +87,16 @@ public class BaseViewHolder<M> extends ViewHolder
     this.itemLongClickListener = itemLongClickListener;
   }
 
-  @Override public final void onClick(View view) {
-    if (null == itemClickListener) return;
-    itemClickListener.onItemClick(view, getItem());
-  }
-
-  @Override public final boolean onLongClick(View view) {
-    return null != itemLongClickListener && itemLongClickListener.onItemLongClick(view, getItem());
-  }
-
   public final boolean isItemSelected() {
     return actionListener.isItemSelected(getAdapterPosition());
   }
 
   public final boolean isItemExpanded() {
     return actionListener.isItemExpanded(getAdapterPosition());
+  }
+
+  public final boolean isInContextMode() {
+    return actionListener.isAdapterInContextMode();
   }
 
   public int getSwipeDirections() {

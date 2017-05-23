@@ -1,11 +1,10 @@
-package com.ahamed.multiviewadapter.util;
+package com.ahamed.multiviewadapter;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import com.ahamed.multiviewadapter.RecyclerAdapter;
 
-public class ItemBinderTouchCallback extends ItemTouchHelper.Callback {
+class ItemBinderTouchCallback extends ItemTouchHelper.Callback {
 
   public static final float ALPHA_FULL = 1.0f;
 

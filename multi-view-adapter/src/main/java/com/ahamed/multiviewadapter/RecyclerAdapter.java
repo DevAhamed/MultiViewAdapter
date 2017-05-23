@@ -79,6 +79,14 @@ public class RecyclerAdapter extends CoreRecyclerAdapter {
     this.groupExpandableMode = groupExpandableMode;
   }
 
+  public void startContextMode() {
+    isInContextMode = true;
+  }
+
+  public void stopContextMode() {
+    isInContextMode = false;
+  }
+
   public void setInfiniteLoadingHelper(InfiniteLoadingHelper infiniteLoadingHelper) {
     registerBinder(infiniteLoadingHelper.getItemBinder());
     DataItemManager<String> dataItemManager = new DataItemManager<>(this, "LoadingItem");
