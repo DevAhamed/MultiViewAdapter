@@ -78,4 +78,11 @@ public class RecyclerAdapter extends CoreRecyclerAdapter {
   public final void setGroupExpandableMode(@ExpandableMode int groupExpandableMode) {
     this.groupExpandableMode = groupExpandableMode;
   }
+
+  public void setInfiniteLoadingHelper(InfiniteLoadingHelper infiniteLoadingHelper) {
+    registerBinder(infiniteLoadingHelper.getItemBinder());
+    DataItemManager<String> dataItemManager = new DataItemManager<>(this, "LoadingItem");
+    addDataManager(dataItemManager);
+    infiniteLoadingHelper.setDataItemManager(dataItemManager);
+  }
 }
