@@ -14,6 +14,10 @@ import java.util.List;
     super(itemDecorator);
   }
 
+  @Override public final void bind(VH holder, M item) {
+    bind(holder, item, holder.isItemSelected());
+  }
+
   @Override void bindViewHolder(VH holder, M item, boolean isSelected) {
     bind(holder, item, holder.isItemSelected());
   }
