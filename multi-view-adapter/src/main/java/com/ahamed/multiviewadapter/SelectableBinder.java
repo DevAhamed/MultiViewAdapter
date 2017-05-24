@@ -3,6 +3,10 @@ package com.ahamed.multiviewadapter;
 import com.ahamed.multiviewadapter.util.ItemDecorator;
 import java.util.List;
 
+/**
+ * @see BaseViewHolder#isItemSelected()
+ * @deprecated Use {@link ItemBinder} instead.
+ */
 @Deprecated public abstract class SelectableBinder<M, VH extends BaseViewHolder<M>>
     extends ItemBinder<M, VH> {
 
@@ -14,16 +18,20 @@ import java.util.List;
     super(itemDecorator);
   }
 
-  @Override public final void bind(VH holder, M item) {
-    bind(holder, item, holder.isItemSelected());
-  }
-
   @Override void bindViewHolder(VH holder, M item, boolean isSelected) {
     bind(holder, item, holder.isItemSelected());
   }
 
   @Override void bindViewHolder(VH holder, M item, boolean isSelected, List payloads) {
-    bind(holder, item, isSelected);
+    bind(holder, item, payloads, isSelected);
+  }
+
+  @Override public final void bind(VH holder, M item) {
+    bind(holder, item, holder.isItemSelected());
+  }
+
+  @Override public final void bind(VH holder, M item, List payloads) {
+    bind(holder, item, holder.isItemSelected());
   }
 
   ////////////////////////////////////////

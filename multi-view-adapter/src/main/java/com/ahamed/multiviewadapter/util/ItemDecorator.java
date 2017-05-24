@@ -17,6 +17,10 @@ public interface ItemDecorator {
    * display
    */
   int POSITION_FIRST_ITEM = 11;
+
+  /**
+   * @deprecated Use {@link ItemDecorator#POSITION_FIRST_ITEM} instead.
+   */
   @Deprecated int POSITION_START = POSITION_FIRST_ITEM;
 
   /**
@@ -29,6 +33,10 @@ public interface ItemDecorator {
    * display
    */
   int POSITION_LAST_ITEM = 13;
+
+  /**
+   * @deprecated Use {@link ItemDecorator#POSITION_LAST_ITEM} instead.
+   */
   @Deprecated int POSITION_END = POSITION_LAST_ITEM;
 
   /**
