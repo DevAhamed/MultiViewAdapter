@@ -1,5 +1,6 @@
 package com.ahamed.multiviewadapter;
 
+import android.support.annotation.RestrictTo;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.View;
 import com.ahamed.multiviewadapter.listener.ItemActionListener;
@@ -18,20 +19,12 @@ public class BaseViewHolder<M> extends ViewHolder
     itemView.setOnLongClickListener(this);
   }
 
-  final void setItem(M item) {
-    this.item = item;
-  }
-
-  final void setItemActionListener(ItemActionListener actionListener) {
-    this.actionListener = actionListener;
-  }
-
-  @Override public final void onClick(View view) {
+  @RestrictTo(RestrictTo.Scope.LIBRARY) @Override public final void onClick(View view) {
     if (null == itemClickListener) return;
     itemClickListener.onItemClick(view, getItem());
   }
 
-  @Override public final boolean onLongClick(View view) {
+  @RestrictTo(RestrictTo.Scope.LIBRARY) @Override public final boolean onLongClick(View view) {
     return null != itemLongClickListener && itemLongClickListener.onItemLongClick(view, getItem());
   }
 
@@ -50,19 +43,23 @@ public class BaseViewHolder<M> extends ViewHolder
 
   /**
    * Can be called by the child view holders to toggle the selection.
-   *
-   * <p>By default long press of the view holder will toggle the selection. If the selection has to
-   * be toggled for an item in the view holder (ex: Button) this method can be called from the
-   * item's click listener </p>
    */
   protected final void toggleItemSelection() {
     actionListener.onItemSelectionToggled(getAdapterPosition());
   }
 
+  /**
+   * Can be called by the child view holders to toggle the {@link BaseViewHolder}'s expansion
+   * status.
+   */
   protected final void toggleItemExpansion() {
     actionListener.onItemExpansionToggled(getAdapterPosition());
   }
 
+  /**
+   * Can be called by the child view holders to toggle the {@link DataGroupManager}'s expansion
+   * status.
+   */
   protected final void toggleGroupExpansion() {
     actionListener.onGroupExpansionToggled(getAdapterPosition());
   }
@@ -87,24 +84,63 @@ public class BaseViewHolder<M> extends ViewHolder
     this.itemLongClickListener = itemLongClickListener;
   }
 
+  /**
+   * @return boolean value indicating whether the viewholder is selected or not.
+   * @see BaseViewHolder#toggleItemSelection()
+   */
   public final boolean isItemSelected() {
     return actionListener.isItemSelected(getAdapterPosition());
   }
 
+  /**
+   * @return boolean value indicating whether the viewholder is expanded or not.
+   * @see BaseViewHolder#toggleItemExpansion()
+   */
   public final boolean isItemExpanded() {
     return actionListener.isItemExpanded(getAdapterPosition());
   }
 
+  /**
+   * @return boolean value indicating whether the adapter is in context mode or not.
+   * @see RecyclerAdapter#startContextMode()
+   * @see RecyclerAdapter#stopContextMode()
+   */
   public final boolean isInContextMode() {
     return actionListener.isAdapterInContextMode();
   }
 
+  /**
+   * Returns the swipe directions for the provided ViewHolder.
+   * Default implementation returns the swipe directions as 0.
+   * This method can be overridden by child classes to provide valid swipe direction flags.
+   *
+   * @return A binary OR of direction flags.
+   */
   public int getSwipeDirections() {
     return 0;
   }
 
+  /**
+   * Returns the drag directions for the provided ViewHolder. Default implementation returns the
+   * drag directions as 0.
+   * This method can be overridden by child classes to provide valid drag direction flags.
+   *
+   * @return A binary OR of direction flags.
+   */
   public int getDragDirections() {
     return 0;
+  }
+
+  ////////////////////////////////////////
+  ///////// Internal Methods ///////////////
+  ////////////////////////////////////////
+
+  final void setItem(M item) {
+    this.item = item;
+  }
+
+  final void setItemActionListener(ItemActionListener actionListener) {
+    this.actionListener = actionListener;
   }
 
   /**

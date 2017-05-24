@@ -2,6 +2,12 @@ package com.ahamed.multiviewadapter;
 
 import android.databinding.ViewDataBinding;
 
+/**
+ * ViewHolder which supports the DataBinding
+ *
+ * @param <M> Refers to the model class
+ * @param <VDB> Refers to the DataBinding class of the model
+ */
 public abstract class BindingViewHolder<M, VDB extends ViewDataBinding> extends BaseViewHolder<M> {
 
   private final VDB binding;
@@ -16,5 +22,9 @@ public abstract class BindingViewHolder<M, VDB extends ViewDataBinding> extends 
     binding.executePendingBindings();
   }
 
+  /**
+   * @param binding Binding for the data model class
+   * @param item Data model
+   */
   public abstract void bind(VDB binding, M item);
 }

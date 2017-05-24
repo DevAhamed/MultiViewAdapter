@@ -7,7 +7,34 @@ import com.ahamed.multiviewadapter.util.InfiniteLoadingHelper;
 
 public class RecyclerAdapter extends CoreRecyclerAdapter {
 
-  public ItemTouchHelper getItemTouchHelper() {
+  /**
+   * Item/Group can not be expanded
+   *
+   * @see ExpandableMode annotation
+   */
+  public static final int EXPANDABLE_MODE_NONE = -1;
+
+  /**
+   * Only one item/group can be expanded at a time
+   *
+   * @see ExpandableMode annotation
+   */
+  public static final int EXPANDABLE_MODE_SINGLE = 1;
+
+  /**
+   * Multiple items/groups can be expanded at a time
+   *
+   * @see ExpandableMode annotation
+   */
+  public static final int EXPANDABLE_MODE_MULTIPLE = 2;
+
+  /**
+   * Get the {@link ItemTouchHelper} which resolves the swipe and drag gestures for the adapter's
+   * individual ItemBinders.
+   *
+   * @return ItemTouchHelper which needs to be attached with RecyclerView
+   */
+  public final ItemTouchHelper getItemTouchHelper() {
     if (null == itemTouchHelper) {
       ItemBinderTouchCallback itemBinderTouchCallback = new ItemBinderTouchCallback(this);
       itemTouchHelper = new ItemTouchHelper(itemBinderTouchCallback);
@@ -79,14 +106,29 @@ public class RecyclerAdapter extends CoreRecyclerAdapter {
     this.groupExpandableMode = groupExpandableMode;
   }
 
-  public void startContextMode() {
+  /**
+   * Helper method to set the adapter is in contextual action mode.
+   *
+   * @see BaseViewHolder To get the state of context mode
+   */
+  public final void startContextMode() {
     isInContextMode = true;
   }
 
-  public void stopContextMode() {
+  /**
+   * Helper method to set the adapter has exited contextual action mode.
+   *
+   * @see BaseViewHolder To get the state of context mode
+   */
+  public final void stopContextMode() {
     isInContextMode = false;
   }
 
+  /**
+   * Set
+   *
+   * @param infiniteLoadingHelper Helper class for bringing infinite loading feature to the adapter
+   */
   public void setInfiniteLoadingHelper(InfiniteLoadingHelper infiniteLoadingHelper) {
     registerBinder(infiniteLoadingHelper.getItemBinder());
     DataItemManager<String> dataItemManager = new DataItemManager<>(this, "LoadingItem");

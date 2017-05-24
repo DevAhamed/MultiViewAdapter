@@ -15,7 +15,7 @@ import android.widget.LinearLayout;
 import com.ahamed.multiviewadapter.annotation.PositionType;
 
 /**
- * SimpleItemDecoration is a {@link RecyclerView.ItemDecoration} that can be used as a divider
+ * SimpleDividerDecoration is a {@link RecyclerView.ItemDecoration} that can be used as a divider
  * between items of a {@link LinearLayoutManager}. It supports both {@link #HORIZONTAL} and
  * {@link #VERTICAL} orientations.
  *

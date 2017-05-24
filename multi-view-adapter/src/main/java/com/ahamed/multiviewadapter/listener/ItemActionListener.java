@@ -1,6 +1,8 @@
 package com.ahamed.multiviewadapter.listener;
 
-public interface ItemActionListener {
+import android.support.annotation.RestrictTo;
+
+@RestrictTo(RestrictTo.Scope.LIBRARY) public interface ItemActionListener {
 
   void onItemSelectionToggled(int position);
 

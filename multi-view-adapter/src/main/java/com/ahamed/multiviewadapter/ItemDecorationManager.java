@@ -22,9 +22,9 @@ import static com.ahamed.multiviewadapter.util.ItemDecorator.POSITION_TOP;
  */
 class ItemDecorationManager extends RecyclerView.ItemDecoration {
 
-  private final RecyclerAdapter adapter;
+  private final CoreRecyclerAdapter adapter;
 
-  ItemDecorationManager(RecyclerAdapter adapter) {
+  ItemDecorationManager(CoreRecyclerAdapter adapter) {
     this.adapter = adapter;
   }
 

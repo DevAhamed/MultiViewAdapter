@@ -1,5 +1,6 @@
 package com.ahamed.multiviewadapter;
 
+import android.support.annotation.RestrictTo;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -11,27 +12,27 @@ import com.ahamed.multiviewadapter.listener.ItemActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.ahamed.multiviewadapter.RecyclerAdapter.EXPANDABLE_MODE_MULTIPLE;
+import static com.ahamed.multiviewadapter.RecyclerAdapter.EXPANDABLE_MODE_NONE;
+import static com.ahamed.multiviewadapter.RecyclerAdapter.EXPANDABLE_MODE_SINGLE;
+
 class CoreRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
-  public static final int EXPANDABLE_MODE_NONE = -1;
-  public static final int EXPANDABLE_MODE_SINGLE = 1;
-  public static final int EXPANDABLE_MODE_MULTIPLE = 2;
-
-  private List<ItemBinder> binders = new ArrayList<>();
   List<BaseDataManager> dataManagers = new ArrayList<>();
-  private SparseBooleanArray expandedItems = new SparseBooleanArray();
   ItemDecorationManager itemDecorationManager;
   int maxSpanCount = 1;
+  ItemTouchHelper itemTouchHelper;
+  boolean isInContextMode = false;
+  @ExpandableMode int expandableMode = EXPANDABLE_MODE_NONE;
+  @ExpandableMode int groupExpandableMode = EXPANDABLE_MODE_NONE;
+  private List<ItemBinder> binders = new ArrayList<>();
   final GridLayoutManager.SpanSizeLookup spanSizeLookup = new GridLayoutManager.SpanSizeLookup() {
     @Override public int getSpanSize(int position) {
       return getBinderForPosition(position).getSpanSize(maxSpanCount);
     }
   };
-  ItemTouchHelper itemTouchHelper;
+  private SparseBooleanArray expandedItems = new SparseBooleanArray();
   private int lastExpandedIndex = -1;
-  boolean isInContextMode = false;
-  @ExpandableMode int expandableMode = EXPANDABLE_MODE_NONE;
-  @ExpandableMode int groupExpandableMode = EXPANDABLE_MODE_NONE;
   private ItemActionListener actionListener = new ItemActionListener() {
 
     @Override public void onItemSelectionToggled(int position) {
@@ -67,16 +68,19 @@ class CoreRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     return expandedItems.get(position, false);
   }
 
-  @Override public final BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+  @RestrictTo(RestrictTo.Scope.LIBRARY) @Override
+  public final BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     return binders.get(viewType)
         .createViewHolder(LayoutInflater.from(parent.getContext()), parent, actionListener);
   }
 
-  @Override public final void onBindViewHolder(BaseViewHolder holder, int adapterPosition) {
+  @RestrictTo(RestrictTo.Scope.LIBRARY) @Override
+  public final void onBindViewHolder(BaseViewHolder holder, int adapterPosition) {
     onBindViewHolder(holder, adapterPosition, null);
   }
 
-  @Override public final void onBindViewHolder(BaseViewHolder holder, int adapterPosition,
+  @RestrictTo(RestrictTo.Scope.LIBRARY) @Override
+  public final void onBindViewHolder(BaseViewHolder holder, int adapterPosition,
       List<Object> payloads) {
     ItemBinder baseBinder = binders.get(holder.getItemViewType());
 
@@ -104,7 +108,7 @@ class CoreRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     }
   }
 
-  @Override public final int getItemCount() {
+  @RestrictTo(RestrictTo.Scope.LIBRARY) @Override public final int getItemCount() {
     int itemCount = 0;
     for (int i = 0, size = dataManagers.size(); i < size; i++) {
       itemCount += dataManagers.get(i).size();
@@ -112,7 +116,8 @@ class CoreRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     return itemCount;
   }
 
-  @Override public final int getItemViewType(int adapterPosition) {
+  @RestrictTo(RestrictTo.Scope.LIBRARY) @Override
+  public final int getItemViewType(int adapterPosition) {
     ItemBinder baseBinder = getBinderForPosition(adapterPosition);
     if (null != baseBinder) {
       return binders.indexOf(baseBinder);
@@ -120,28 +125,12 @@ class CoreRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     return super.getItemViewType(adapterPosition);
   }
 
-  ///////////////////////////////////////////
-  /////////// Internal API ahead. ///////////
-  ///////////////////////////////////////////
-
   ItemBinder getBinderForPosition(int adapterPosition) {
     BaseDataManager dataManager = getDataManager(adapterPosition);
     for (ItemBinder baseBinder : binders) {
       if (baseBinder.canBindData(dataManager.getItem(getItemPositionInManager(adapterPosition)))) {
         return baseBinder;
       }
-    }
-    throw new IllegalStateException("Binder not found for position. Position = " + adapterPosition);
-  }
-
-  int getBinderIndexForPosition(int adapterPosition) {
-    BaseDataManager dataManager = getDataManager(adapterPosition);
-    int index = 0;
-    for (ItemBinder baseBinder : binders) {
-      if (baseBinder.canBindData(dataManager.getItem(getItemPositionInManager(adapterPosition)))) {
-        return index;
-      }
-      index++;
     }
     throw new IllegalStateException("Binder not found for position. Position = " + adapterPosition);
   }

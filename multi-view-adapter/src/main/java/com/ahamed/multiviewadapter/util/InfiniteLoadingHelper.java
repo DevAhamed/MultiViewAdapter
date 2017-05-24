@@ -11,30 +11,107 @@ import com.ahamed.multiviewadapter.BaseViewHolder;
 import com.ahamed.multiviewadapter.DataItemManager;
 import com.ahamed.multiviewadapter.ItemBinder;
 
+/**
+ * Class to add infinite loading feature into the adapter
+ */
 public abstract class InfiniteLoadingHelper {
 
-  private DataItemManager<String> dataItemManager;
   private final InfiniteLoadingBinder itemBinder;
   private final InfiniteScrollListener infiniteScrollListener;
+  private DataItemManager<String> dataItemManager;
   private int totalPageCount;
   private int currentPage;
   private boolean isLoading = false;
   private boolean canLoadMore = false;
 
+  /**
+   * @param layoutId Layout resource id - The layout which needs to be shown when the page is
+   * loading.
+   */
   public InfiniteLoadingHelper(@LayoutRes int layoutId) {
     this(layoutId, Integer.MAX_VALUE);
   }
 
+  /**
+   * @param layoutId Layout resource id - The layout which needs to be shown when the page is
+   * loading.
+   * @param totalPageCount - Total pages that needs to be loaded. By default it will be taken as
+   * {@code Integer.MAX_VALUE}
+   */
   public InfiniteLoadingHelper(@LayoutRes int layoutId, int totalPageCount) {
     this.itemBinder = new InfiniteLoadingBinder(layoutId);
     this.totalPageCount = totalPageCount;
     this.infiniteScrollListener = new InfiniteScrollListener(this);
   }
 
-  public InfiniteLoadingBinder getItemBinder() {
+  /**
+   * Internal method. Should not be used by clients.
+   *
+   * @return ItemBinder which represents the loading indicator
+   */
+  @RestrictTo(RestrictTo.Scope.LIBRARY)
+  public ItemBinder<String, BaseViewHolder<String>> getItemBinder() {
     return itemBinder;
   }
 
+  @RestrictTo(RestrictTo.Scope.LIBRARY)
+  public void setDataItemManager(DataItemManager<String> dataItemManager) {
+    canLoadMore = true;
+    this.dataItemManager = dataItemManager;
+  }
+
+  /**
+   * <p>To set the current page as loaded. The helper class will not call {@code loadNextPage(int)},
+   * unless the current page is marked as loaded. </p>
+   */
+  public void markCurrentPageLoaded() {
+    isLoading = false;
+    if (!canLoadMore) {
+      completeLoading();
+    }
+  }
+
+  /**
+   * To stop the infinite loading. This method will remove the loading indicator from the adapter.
+   */
+  public void markAllPagesLoaded() {
+    completeLoading();
+  }
+
+  /**
+   * @return ScrollListener which should be set as {@link RecyclerView}'s scroll listener
+   */
+  public RecyclerView.OnScrollListener getScrollListener() {
+    return infiniteScrollListener;
+  }
+
+  /**
+   * Abstract callback when the {@link RecyclerView} is scrolled and the next page has to be loaded
+   *
+   * @param page Page number
+   */
+  public abstract void onLoadNextPage(int page);
+
+  ///////////////////////////////////////////
+  /////////// Internal API ahead. ///////////
+  ///////////////////////////////////////////
+
+  private void loadNextPage() {
+    isLoading = true;
+    onLoadNextPage(currentPage++);
+    if (currentPage == totalPageCount) {
+      canLoadMore = false;
+    }
+  }
+
+  private void completeLoading() {
+    canLoadMore = false;
+    dataItemManager.removeItem();
+  }
+
+  /**
+   * ItemBinder class for showing the loading indicator.
+   */
   private static class InfiniteLoadingBinder extends ItemBinder<String, BaseViewHolder<String>> {
 
     @LayoutRes private final int layoutId;
@@ -61,6 +138,9 @@ public abstract class InfiniteLoadingHelper {
     }
   }
 
+  /**
+   * Scroll listener for the recyclerview with necessary callbacks to the adapter.
+   */
   private static class InfiniteScrollListener extends RecyclerView.OnScrollListener {
 
     private InfiniteLoadingHelper loadingHelper;
@@ -89,40 +169,4 @@ public abstract class InfiniteLoadingHelper {
       }
     }
   }
-
-  private void loadNextPage() {
-    isLoading = true;
-    onLoadNextPage(currentPage++);
-    if (currentPage == totalPageCount) {
-      canLoadMore = false;
-    }
-  }
-
-  private void completeLoading() {
-    canLoadMore = false;
-    dataItemManager.removeItem();
-    onAllPagesLoaded();
-  }
-
-  public void markCurrentPageLoaded() {
-    isLoading = false;
-  }
-
-  public void markAllPagesLoaded() {
-    completeLoading();
-  }
-
-  public RecyclerView.OnScrollListener getScrollListener() {
-    return infiniteScrollListener;
-  }
-
-  @RestrictTo(RestrictTo.Scope.LIBRARY)
-  public void setDataItemManager(DataItemManager<String> dataItemManager) {
-    canLoadMore = true;
-    this.dataItemManager = dataItemManager;
-  }
-
-  public abstract void onLoadNextPage(int page);
-
-  public abstract void onAllPagesLoaded();
 }

@@ -7,6 +7,9 @@ import android.view.View;
 import com.ahamed.multiviewadapter.DataListManager;
 import com.ahamed.multiviewadapter.annotation.PositionType;
 
+/**
+ * Interface to draw the item decoration for each view binder
+ */
 public interface ItemDecorator {
 
   /**
@@ -28,10 +31,29 @@ public interface ItemDecorator {
   int POSITION_LAST_ITEM = 13;
   @Deprecated int POSITION_END = POSITION_LAST_ITEM;
 
+  /**
+   * Denotes that the item is lies in the left edge of the grid
+   */
   int POSITION_LEFT = 1;
+
+  /**
+   * Denotes that the item is lies in the top edge of the grid
+   */
   int POSITION_TOP = 2;
+
+  /**
+   * Denotes that the item is lies in the middle of the grid
+   */
   int POSITION_MIDDLE = 4;
+
+  /**
+   * Denotes that the item is lies in the right edge of the grid
+   */
   int POSITION_RIGHT = 8;
+
+  /**
+   * Denotes that the item is lies in the bottom edge of the grid
+   */
   int POSITION_BOTTOM = 16;
 
   /**

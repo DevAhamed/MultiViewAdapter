@@ -1,16 +1,13 @@
 package com.ahamed.multiviewadapter;
 
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 
-class ItemBinderTouchCallback extends ItemTouchHelper.Callback {
-
-  public static final float ALPHA_FULL = 1.0f;
+final class ItemBinderTouchCallback extends ItemTouchHelper.Callback {
 
   private final RecyclerAdapter adapter;
 
-  public ItemBinderTouchCallback(RecyclerAdapter adapter) {
+  ItemBinderTouchCallback(RecyclerAdapter adapter) {
     this.adapter = adapter;
   }
 
@@ -24,16 +21,13 @@ class ItemBinderTouchCallback extends ItemTouchHelper.Callback {
 
   @Override
   public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-    if (recyclerView.getLayoutManager() instanceof GridLayoutManager) {
-      final int dragFlags =
-          ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
-      final int swipeFlags = 0;
-      return makeMovementFlags(dragFlags, swipeFlags);
-    } else {
-      final int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN;
-      final int swipeFlags = ItemTouchHelper.START | ItemTouchHelper.END;
+    if (viewHolder instanceof BaseViewHolder) {
+      BaseViewHolder baseViewHolder = (BaseViewHolder) viewHolder;
+      final int dragFlags = baseViewHolder.getDragDirections();
+      final int swipeFlags = baseViewHolder.getSwipeDirections();
       return makeMovementFlags(dragFlags, swipeFlags);
     }
+    return -1;
   }
 
   @Override public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder source,

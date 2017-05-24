@@ -6,6 +6,13 @@ import com.ahamed.multiviewadapter.util.PayloadProvider;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * DataGroupManger is a section of items with a header and items. It supports group level expansion
+ * and collapsing
+ *
+ * @param <H> Refers to the header model
+ * @param <M> Refers to the item model
+ */
 public class DataGroupManager<H, M> extends DataListUpdateManager<M> {
 
   private final DataItemManager<H> headerItemManager;
@@ -20,10 +27,6 @@ public class DataGroupManager<H, M> extends DataListUpdateManager<M> {
       @NonNull PayloadProvider<M> payloadProvider) {
     super(adapter, payloadProvider);
     headerItemManager = new DataItemManager<>(adapter, headerItem);
-  }
-
-  public void setExpanded(boolean expanded) {
-    isExpanded = expanded;
   }
 
   @Override void onGroupExpansionToggled() {
@@ -51,11 +54,15 @@ public class DataGroupManager<H, M> extends DataListUpdateManager<M> {
     return headerItemManager.size() + (isExpanded ? super.size() : 0);
   }
 
+  public void setExpanded(boolean expanded) {
+    isExpanded = expanded;
+  }
+
   /**
-   * Adds item to the {@link DataItemManager}. This will call the necessary {@link
+   * Set header to the section. This will call the necessary {@link
    * RecyclerView.ItemAnimator}'s animation.
    *
-   * @param item item to be added to the
+   * @param item item to be added as header.
    */
   public final void setItem(M item) {
     if (getDataList().size() == 0) {
@@ -68,24 +75,24 @@ public class DataGroupManager<H, M> extends DataListUpdateManager<M> {
   }
 
   /**
-   * Removes the item from {@link DataItemManager}. This will call the {@link
+   * Removes the entire group from the adapter. This will call the {@link
    * RecyclerView.ItemAnimator}'s remove animation.
    */
   public final void removeGroup() {
     if (getDataList().size() > 0) {
       getDataList().clear();
-      onRemoved(0, 1);
     }
+    headerItemManager.removeItem();
   }
 
   /**
-   * Appends the specified element to the end of {@link DataListManager}. Also calls {@link
+   * Appends the specified element to the end of {@link DataGroupManager}. Also calls {@link
    * RecyclerView.ItemAnimator}'s add animation.
    *
    * @param item element to be appended to this list
    * @return <tt>true</tt> (as specified by {@link Collection#add})
    * @throws UnsupportedOperationException if the <tt>add</tt> operation
-   * is not supported by this {@link DataListManager}
+   * is not supported by this {@link DataGroupManager}
    */
   public final boolean add(M item) {
     return add(item, isExpanded);
@@ -93,7 +100,7 @@ public class DataGroupManager<H, M> extends DataListUpdateManager<M> {
 
   /**
    * Appends all of the elements in the specified collection to the end of
-   * this {@link DataListManager}, in the order that they are returned by the specified
+   * this {@link DataGroupManager}, in the order that they are returned by the specified
    * collection's iterator (optional operation).  The behavior of this
    * operation is undefined if the specified collection is modified while
    * the operation is in progress.  (Note that this will occur if the
@@ -103,7 +110,7 @@ public class DataGroupManager<H, M> extends DataListUpdateManager<M> {
    * @param items collection containing elements to be added to this list
    * @return <tt>true</tt> if this list changed as a result of the call
    * @throws UnsupportedOperationException if the <tt>addAll</tt> operation
-   * is not supported by this {@link DataListManager}
+   * is not supported by this {@link DataGroupManager}
    * @see #add(Object)
    */
   public final boolean addAll(@NonNull Collection<? extends M> items) {

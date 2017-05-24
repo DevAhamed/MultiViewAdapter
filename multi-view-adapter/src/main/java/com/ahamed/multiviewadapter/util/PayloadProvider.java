@@ -2,6 +2,11 @@ package com.ahamed.multiviewadapter.util;
 
 import android.support.v7.widget.RecyclerView;
 
+/**
+ * A Interface class used by DiffUtil while calculating the diff between two lists.
+ *
+ * @param <M> Refers to the model class
+ */
 public interface PayloadProvider<M> {
 
   /**
