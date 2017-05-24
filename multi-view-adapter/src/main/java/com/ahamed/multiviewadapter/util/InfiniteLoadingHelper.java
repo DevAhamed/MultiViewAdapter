@@ -18,8 +18,8 @@ public abstract class InfiniteLoadingHelper {
 
   private final InfiniteLoadingBinder itemBinder;
   private final InfiniteScrollListener infiniteScrollListener;
+  private final int totalPageCount;
   private DataItemManager<String> dataItemManager;
-  private int totalPageCount;
   private int currentPage;
   private boolean isLoading = false;
   private boolean canLoadMore = false;
@@ -143,7 +143,7 @@ public abstract class InfiniteLoadingHelper {
    */
   private static class InfiniteScrollListener extends RecyclerView.OnScrollListener {
 
-    private InfiniteLoadingHelper loadingHelper;
+    private final InfiniteLoadingHelper loadingHelper;
 
     InfiniteScrollListener(InfiniteLoadingHelper loadingHelper) {
       this.loadingHelper = loadingHelper;

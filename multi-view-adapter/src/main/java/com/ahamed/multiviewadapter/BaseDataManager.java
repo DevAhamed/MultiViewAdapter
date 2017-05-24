@@ -11,7 +11,7 @@ import java.util.List;
 
 class BaseDataManager<M> implements ListUpdateCallback {
 
-  protected final RecyclerAdapter adapter;
+  final RecyclerAdapter adapter;
   private List<M> dataList = new ArrayList<>();
   private SparseBooleanArray selectedItems = new SparseBooleanArray();
   private ItemSelectionChangedListener<M> itemSelectionChangedListener;

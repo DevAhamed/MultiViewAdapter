@@ -28,7 +28,7 @@ public class SimpleDividerDecoration implements ItemDecorator {
 
   private static final int[] ATTRS = new int[] { android.R.attr.listDivider };
   private final Rect mBounds = new Rect();
-  private Drawable mDivider;
+  private final Drawable mDivider;
   private int mOrientation;
 
   public SimpleDividerDecoration(Context context, int orientation) {

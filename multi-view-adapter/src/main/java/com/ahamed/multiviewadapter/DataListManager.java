@@ -151,7 +151,6 @@ public final class DataListManager<M> extends DataListUpdateManager<M> {
     clear(true);
   }
 
-
   /**
    * @deprecated Use {@link com.ahamed.multiviewadapter.util.PayloadProvider} instead.
    */

@@ -41,8 +41,7 @@ ext {
   libraryName = devProperties['repoName']
   artifact = devProperties['artifactId']
 
-  libraryDescription =
-      'Recyclerview Adapter library to create composable view holders'
+  libraryDescription = 'Recyclerview Adapter library to create composable view holders'
 
   siteUrl = 'https://github.com/DevAhamed/MultiViewAdapter'
   gitUrl = 'https://github.com/DevAhamed/MultiViewAdapter.git'

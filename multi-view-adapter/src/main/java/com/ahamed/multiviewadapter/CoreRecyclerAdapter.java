@@ -18,22 +18,22 @@ import static com.ahamed.multiviewadapter.RecyclerAdapter.EXPANDABLE_MODE_SINGLE
 
 class CoreRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
-  List<BaseDataManager> dataManagers = new ArrayList<>();
-  ItemDecorationManager itemDecorationManager;
+  final List<BaseDataManager> dataManagers = new ArrayList<>();
+  final ItemDecorationManager itemDecorationManager;
+  private final List<ItemBinder> binders = new ArrayList<>();
+  private final SparseBooleanArray expandedItems = new SparseBooleanArray();
   int maxSpanCount = 1;
-  ItemTouchHelper itemTouchHelper;
-  boolean isInContextMode = false;
-  @ExpandableMode int expandableMode = EXPANDABLE_MODE_NONE;
-  @ExpandableMode int groupExpandableMode = EXPANDABLE_MODE_NONE;
-  private List<ItemBinder> binders = new ArrayList<>();
   final GridLayoutManager.SpanSizeLookup spanSizeLookup = new GridLayoutManager.SpanSizeLookup() {
     @Override public int getSpanSize(int position) {
       return getBinderForPosition(position).getSpanSize(maxSpanCount);
     }
   };
-  private SparseBooleanArray expandedItems = new SparseBooleanArray();
+  ItemTouchHelper itemTouchHelper;
+  boolean isInContextMode = false;
+  @ExpandableMode int expandableMode = EXPANDABLE_MODE_NONE;
+  @ExpandableMode int groupExpandableMode = EXPANDABLE_MODE_NONE;
   private int lastExpandedIndex = -1;
-  private ItemActionListener actionListener = new ItemActionListener() {
+  private final ItemActionListener actionListener = new ItemActionListener() {
 
     @Override public void onItemSelectionToggled(int position) {
       CoreRecyclerAdapter.this.onItemSelectionToggled(position);

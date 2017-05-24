@@ -41,6 +41,10 @@ public class BaseViewHolder<M> extends ViewHolder
     return item;
   }
 
+  final void setItem(M item) {
+    this.item = item;
+  }
+
   /**
    * Can be called by the child view holders to toggle the selection.
    */
@@ -120,6 +124,10 @@ public class BaseViewHolder<M> extends ViewHolder
     return 0;
   }
 
+  ////////////////////////////////////////
+  ///////// Internal Methods ///////////////
+  ////////////////////////////////////////
+
   /**
    * Returns the drag directions for the provided ViewHolder. Default implementation returns the
    * drag directions as 0.
@@ -129,14 +137,6 @@ public class BaseViewHolder<M> extends ViewHolder
    */
   public int getDragDirections() {
     return 0;
-  }
-
-  ////////////////////////////////////////
-  ///////// Internal Methods ///////////////
-  ////////////////////////////////////////
-
-  final void setItem(M item) {
-    this.item = item;
   }
 
   final void setItemActionListener(ItemActionListener actionListener) {
