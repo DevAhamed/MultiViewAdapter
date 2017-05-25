@@ -1,13 +1,9 @@
 package com.ahamed.sample.complex;
 
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import com.ahamed.sample.R;
+import com.ahamed.sample.common.BaseActivity;
 import com.ahamed.sample.common.model.Article;
 import com.ahamed.sample.common.model.Bike;
 import com.ahamed.sample.common.model.Car;
@@ -17,19 +13,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class ComplexListFragment extends Fragment {
+public class ComplexListActivity extends BaseActivity {
 
-  public ComplexListFragment() {
+  public static void start(Context context) {
+    Intent starter = new Intent(context, ComplexListActivity.class);
+    context.startActivity(starter);
   }
 
-  @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
-      Bundle savedInstanceState) {
-    View view = inflater.inflate(R.layout.fragment_base, container, false);
+  @Override protected void setUpAdapter() {
+    GridLayoutManager glm = new GridLayoutManager(getApplicationContext(), 3);
 
-    RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rcv_list);
-    GridLayoutManager glm = new GridLayoutManager(getContext().getApplicationContext(), 3);
-
-    ComplexListAdapter adapter = new ComplexListAdapter(getActivity());
+    ComplexListAdapter adapter = new ComplexListAdapter(this);
     adapter.setSpanCount(3);
 
     glm.setSpanSizeLookup(adapter.getSpanSizeLookup());
@@ -60,7 +54,5 @@ public class ComplexListFragment extends Fragment {
       }
     }
     adapter.addMultiItem(multiItemList);
-
-    return view;
   }
 }

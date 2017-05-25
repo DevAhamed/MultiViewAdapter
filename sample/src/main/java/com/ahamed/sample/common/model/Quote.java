@@ -1,4 +1,4 @@
-package com.ahamed.sample.simple;
+package com.ahamed.sample.common.model;
 
 public class Quote {
 

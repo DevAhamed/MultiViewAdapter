@@ -15,6 +15,30 @@
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
     </activity>
+    <activity
+        android:name=".simple.SimpleAdapterActivity"
+        android:label="@string/label_simple_adapter"/>
+    <activity
+        android:name=".grid.GridAdapterActivity"
+        android:label="@string/label_simple_grid"/>
+    <activity
+        android:name=".multilist.MultiListActivity"
+        android:label="@string/label_multi_set"/>
+    <activity
+        android:name=".data.binding.DataBindingActivity"
+        android:label="@string/label_data_binding"/>
+    <activity
+        android:name=".contextual.action.mode.ContextualActionModeActivity"
+        android:label="@string/label_action_mode"/>
+    <activity
+        android:name=".complex.ComplexListActivity"
+        android:label="@string/label_complex"/>
+    <activity
+        android:name=".swipetodismiss.SwipeToDismissActivity"
+        android:label="@string/label_swipe_to_dismiss"/>
+    <activity
+        android:name=".infinite.scroll.InfiniteScrollActivity"
+        android:label="@string/label_infinite"/>
   </application>
 
 </manifest>

@@ -1,65 +1,76 @@
 package com.ahamed.sample;
 
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Spinner;
-import com.ahamed.sample.complex.ComplexListFragment;
-import com.ahamed.sample.grid.GridAdapterFragment;
-import com.ahamed.sample.multilist.MultiListFragment;
-import com.ahamed.sample.simple.SimpleAdapterFragment;
+import com.ahamed.multiviewadapter.BaseViewHolder;
+import com.ahamed.sample.common.BaseActivity;
+import com.ahamed.sample.data.binding.DataBindingActivity;
+import com.ahamed.sample.grid.GridAdapterActivity;
+import com.ahamed.sample.infinite.scroll.InfiniteScrollActivity;
+import com.ahamed.sample.multilist.MultiListActivity;
+import com.ahamed.sample.simple.SimpleAdapterActivity;
+import com.ahamed.sample.swipetodismiss.SwipeToDismissActivity;
+import java.util.ArrayList;
+import java.util.List;
 
-public class SampleActivity extends AppCompatActivity {
+public class SampleActivity extends BaseActivity {
 
-  @Override protected void onCreate(Bundle savedInstanceState) {
-    // uncomment while testing performance
-    //TinyDancer.create()
-    //    .redFlagPercentage(.1f)
-    //    .startingGravity(Gravity.TOP)
-    //    .startingXPosition(200)
-    //    .startingYPosition(600)
-    //    .show(this);
+  private List<String> dataList;
 
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_sample);
+  @Override protected void setUpAdapter() {
+    if (null != getSupportActionBar()) {
+      getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+    }
 
-    Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-    setSupportActionBar(toolbar);
+    SampleAdapter sampleAdapter =
+        new SampleAdapter(new BaseViewHolder.OnItemClickListener<String>() {
+          @Override public void onItemClick(View view, String item) {
+            gotoNextActivity(dataList.indexOf(item));
+          }
+        });
 
-    Spinner spinner = (Spinner) findViewById(R.id.spinner_sample);
-    spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+    recyclerView.setLayoutManager(linearLayoutManager);
+    recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+    recyclerView.setAdapter(sampleAdapter);
 
-      @Override
-      public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        showFragment(position);
-      }
-
-      @Override public void onNothingSelected(AdapterView<?> parent) {
-      }
-    });
+    sampleAdapter.setDataList(populateData());
   }
 
-  private void showFragment(int position) {
-    getSupportFragmentManager().beginTransaction()
-        .replace(R.id.fragment_container, getFragment(position))
-        .commit();
+  private List<String> populateData() {
+    dataList = new ArrayList<>();
+
+    dataList.add(getString(R.string.label_simple_adapter));
+    dataList.add(getString(R.string.label_simple_grid));
+    dataList.add("Multiple data set");
+    dataList.add(getString(R.string.label_data_binding));
+    dataList.add("Swipe to dismiss");
+    dataList.add("Infinite scrolling");
+    dataList.add("Contextual action mode");
+    return dataList;
   }
 
-  private Fragment getFragment(int position) {
+  private void gotoNextActivity(int position) {
     switch (position) {
       case 0:
-        return new SimpleAdapterFragment();
+        SimpleAdapterActivity.start(this);
+        break;
       case 1:
-        return new MultiListFragment();
+        GridAdapterActivity.start(this);
+        break;
       case 2:
-        return new GridAdapterFragment();
+        MultiListActivity.start(this);
+        break;
       case 3:
-        return new ComplexListFragment();
-      default:
-        return new SimpleAdapterFragment();
+        DataBindingActivity.start(this);
+        break;
+      case 4:
+        SwipeToDismissActivity.start(this);
+        break;
+      case 5:
+        InfiniteScrollActivity.start(this);
+        break;
     }
   }
 }

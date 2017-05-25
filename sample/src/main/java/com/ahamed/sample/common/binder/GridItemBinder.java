@@ -5,21 +5,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
-import com.ahamed.multiviewadapter.BaseViewHolder;
-import com.ahamed.multiviewadapter.ItemBinder;
+import com.ahamed.multiviewadapter.SelectableBinder;
+import com.ahamed.multiviewadapter.SelectableViewHolder;
 import com.ahamed.sample.R;
+import com.ahamed.sample.common.decorator.ArticleItemDecorator;
 import com.ahamed.sample.common.model.GridItem;
 
-public class GridItemBinder extends ItemBinder<GridItem, GridItemBinder.ItemViewHolder> {
+public class GridItemBinder extends SelectableBinder<GridItem, GridItemBinder.ItemViewHolder> {
+
+  public GridItemBinder() {
+    super(new ArticleItemDecorator());
+  }
 
   @Override public ItemViewHolder create(LayoutInflater layoutInflater, ViewGroup parent) {
     return new ItemViewHolder(layoutInflater.inflate(R.layout.item_grid, parent, false));
   }
 
-  @Override public void bind(ItemViewHolder holder, GridItem item) {
+  @Override public void bind(ItemViewHolder holder, GridItem item, boolean isSelected) {
     holder.itemView.setBackgroundColor(item.getColor());
     holder.ivIcon.setImageResource(item.getDrawable());
-    if (holder.isItemSelected()) {
+    if (isSelected) {
       holder.ivSelectionIndicator.setVisibility(View.VISIBLE);
     } else {
       holder.ivSelectionIndicator.setVisibility(View.GONE);
@@ -30,7 +35,7 @@ public class GridItemBinder extends ItemBinder<GridItem, GridItemBinder.ItemView
     return item instanceof GridItem;
   }
 
-  static class ItemViewHolder extends BaseViewHolder<GridItem> {
+  static class ItemViewHolder extends SelectableViewHolder<GridItem> {
 
     private ImageView ivIcon;
     private ImageView ivSelectionIndicator;
@@ -45,13 +50,6 @@ public class GridItemBinder extends ItemBinder<GridItem, GridItemBinder.ItemView
       setItemClickListener(new OnItemClickListener<GridItem>() {
         @Override public void onItemClick(View view, GridItem item) {
           Toast.makeText(view.getContext(), item.getData(), Toast.LENGTH_SHORT).show();
-        }
-      });
-
-      setItemLongClickListener(new OnItemLongClickListener<GridItem>() {
-        @Override public boolean onItemLongClick(View view, GridItem item) {
-          toggleItemSelection();
-          return true;
         }
       });
     }

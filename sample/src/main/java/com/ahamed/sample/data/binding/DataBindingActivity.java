@@ -1,15 +1,13 @@
-package com.ahamed.sample.simple;
+package com.ahamed.sample.data.binding;
 
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import com.ahamed.sample.R;
+import com.ahamed.sample.common.BaseActivity;
+import com.ahamed.sample.common.adapter.QuoteAdapter;
+import com.ahamed.sample.common.model.Quote;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -18,37 +16,33 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class SimpleAdapterFragment extends Fragment {
+public class DataBindingActivity extends BaseActivity {
 
-  private static final String TAG = "SimpleAdapterFragment";
+  private static final String TAG = "DataBindingActivity";
 
-  public SimpleAdapterFragment() {
+  public static void start(Context context) {
+    Intent starter = new Intent(context, DataBindingActivity.class);
+    context.startActivity(starter);
   }
 
-  @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
-      Bundle savedInstanceState) {
-    View view = inflater.inflate(R.layout.fragment_base, container, false);
-
-    RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rcv_list);
-    LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+  @Override protected void setUpAdapter() {
+    LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
     recyclerView.addItemDecoration(
-        new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
+        new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL));
 
-    QuoteAdapter adapter = new QuoteAdapter();
+    QuoteAdapter adapter = new QuoteAdapter(true);
 
     recyclerView.setLayoutManager(llm);
     recyclerView.setAdapter(adapter);
 
     List<Quote> quotes = getQuotes();
     adapter.addData(quotes);
-
-    return view;
   }
 
   private String loadJSONFromAsset() {
     String json;
     try {
-      InputStream is = getActivity().getAssets().open("quotes.json");
+      InputStream is = getAssets().open("quotes.json");
       int size = is.available();
       byte[] buffer = new byte[size];
       //noinspection ResultOfMethodCallIgnored

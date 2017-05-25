@@ -5,7 +5,7 @@ import com.ahamed.multiviewadapter.DataItemManager;
 import com.ahamed.multiviewadapter.DataListManager;
 import com.ahamed.multiviewadapter.RecyclerAdapter;
 import com.ahamed.multiviewadapter.SimpleItemDecoration;
-import com.ahamed.sample.common.ArticleItemDecorator;
+import com.ahamed.sample.common.decorator.ArticleItemDecorator;
 import com.ahamed.sample.common.binder.AdvertisementBinder;
 import com.ahamed.sample.common.binder.ArticleBinder;
 import com.ahamed.sample.common.binder.BikeBinder;

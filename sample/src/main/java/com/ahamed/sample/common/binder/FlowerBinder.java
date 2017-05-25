@@ -1,12 +1,13 @@
 package com.ahamed.sample.common.binder;
 
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.ahamed.multiviewadapter.BaseViewHolder;
 import com.ahamed.multiviewadapter.ItemBinder;
-import com.ahamed.multiviewadapter.ItemDecorator;
+import com.ahamed.multiviewadapter.util.ItemDecorator;
 import com.ahamed.sample.R;
 import com.ahamed.sample.common.model.Flower;
 
@@ -28,10 +29,6 @@ public class FlowerBinder extends ItemBinder<Flower, FlowerBinder.ViewHolder> {
     return item instanceof Flower;
   }
 
-  @Override public int getSpanSize(int maxSpanCount) {
-    return maxSpanCount;
-  }
-
   static class ViewHolder extends BaseViewHolder<Flower> {
 
     private TextView textView;
@@ -39,6 +36,10 @@ public class FlowerBinder extends ItemBinder<Flower, FlowerBinder.ViewHolder> {
     ViewHolder(View itemView) {
       super(itemView);
       textView = (TextView) itemView.findViewById(R.id.tv_flower_name);
+    }
+
+    @Override public int getSwipeDirections() {
+      return ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
     }
   }
 }

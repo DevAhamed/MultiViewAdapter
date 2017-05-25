@@ -20,21 +20,12 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         app:contentInsetEnd="16dp"
-        >
-
-      <Spinner
-          android:id="@+id/spinner_sample"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:entries="@array/sample_options"
-          />
-
-    </android.support.v7.widget.Toolbar>
+        />
 
   </android.support.design.widget.AppBarLayout>
 
-  <FrameLayout
-      android:id="@+id/fragment_container"
+  <android.support.v7.widget.RecyclerView
+      android:id="@+id/rcv_list"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       app:layout_behavior="@string/appbar_scrolling_view_behavior"

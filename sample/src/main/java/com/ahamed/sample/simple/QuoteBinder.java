@@ -1,33 +1,38 @@
 package com.ahamed.sample.simple;
 
-import android.databinding.DataBindingUtil;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
-import com.ahamed.multiviewadapter.BindingViewHolder;
-import com.ahamed.multiviewadapter.DataBinder;
+import android.widget.TextView;
+import com.ahamed.multiviewadapter.BaseViewHolder;
+import com.ahamed.multiviewadapter.ItemBinder;
 import com.ahamed.sample.R;
-import com.ahamed.sample.databinding.ItemQuoteBinding;
+import com.ahamed.sample.common.model.Quote;
 
-public class QuoteBinder extends DataBinder<Quote, ItemQuoteBinding, QuoteBinder.ItemViewHolder> {
+public class QuoteBinder extends ItemBinder<Quote, QuoteBinder.ItemViewHolder> {
 
   @Override public ItemViewHolder create(LayoutInflater layoutInflater, ViewGroup parent) {
-    ItemQuoteBinding binding =
-        DataBindingUtil.inflate(layoutInflater, R.layout.item_quote, parent, false);
-    return new ItemViewHolder(binding);
+    return new ItemViewHolder(layoutInflater.inflate(R.layout.item_quote, parent, false));
   }
 
   @Override public boolean canBindData(Object item) {
     return item instanceof Quote;
   }
 
-  static class ItemViewHolder extends BindingViewHolder<Quote, ItemQuoteBinding> {
+  @Override public void bind(ItemViewHolder holder, Quote item) {
+    holder.tvQuotes.setText(item.getQuote());
+    holder.tvAuthor.setText(item.getAuthor());
+  }
 
-    ItemViewHolder(ItemQuoteBinding binding) {
-      super(binding);
-    }
+  static class ItemViewHolder extends BaseViewHolder<Quote> {
 
-    @Override public void bind(ItemQuoteBinding binding, Quote item) {
-      binding.setQuote(item);
+    private TextView tvQuotes;
+    private TextView tvAuthor;
+
+    ItemViewHolder(View itemView) {
+      super(itemView);
+      tvQuotes = (TextView) itemView.findViewById(R.id.tv_quotes);
+      tvAuthor = (TextView) itemView.findViewById(R.id.tv_author);
     }
   }
 }

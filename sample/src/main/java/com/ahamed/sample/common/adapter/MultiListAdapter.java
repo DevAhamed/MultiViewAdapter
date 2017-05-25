@@ -1,12 +1,12 @@
-package com.ahamed.sample.multilist;
+package com.ahamed.sample.common.adapter;
 
 import android.content.Context;
 import com.ahamed.multiviewadapter.DataListManager;
 import com.ahamed.multiviewadapter.RecyclerAdapter;
-import com.ahamed.multiviewadapter.SimpleItemDecoration;
-import com.ahamed.sample.common.ThickItemDecorator;
+import com.ahamed.multiviewadapter.util.SimpleDividerDecoration;
 import com.ahamed.sample.common.binder.BirdBinder;
 import com.ahamed.sample.common.binder.FlowerBinder;
+import com.ahamed.sample.common.decorator.ThickItemDecorator;
 import com.ahamed.sample.common.model.Bird;
 import com.ahamed.sample.common.model.Flower;
 import java.util.List;
@@ -25,7 +25,7 @@ public class MultiListAdapter extends RecyclerAdapter {
 
     registerBinder(new BirdBinder(new ThickItemDecorator(context)));
     registerBinder(
-        new FlowerBinder(new SimpleItemDecoration(context, SimpleItemDecoration.VERTICAL)));
+        new FlowerBinder(new SimpleDividerDecoration(context, SimpleDividerDecoration.VERTICAL)));
   }
 
   public void addBirds(List<Bird> dataList) {
