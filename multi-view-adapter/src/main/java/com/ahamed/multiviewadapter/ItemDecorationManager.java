@@ -107,7 +107,7 @@ class ItemDecorationManager extends RecyclerView.ItemDecoration {
           }
           // FIXME
           // Third for-loop - Find a better implementation
-          if (!isLastItem && !isFirstRow && (currentSpanCount != totalSpanSize)) {
+          if (!isLastItem && (currentSpanCount != totalSpanSize)) {
             int innerLooper = looper + 1;
             int innerSpanCount = spanCount;
             for (; innerLooper < dataManager.size(); innerLooper++) {
