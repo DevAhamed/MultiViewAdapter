@@ -7,4 +7,5 @@
                    to="${escapeXmlAttribute(resOut)}/layout/${item_layout}.xml" />
 
 	<open file="${srcOut}/${binderName}.java"/>
+	<open file="${resOut}/layout/${item_layout}.xml"/>
 </recipe>

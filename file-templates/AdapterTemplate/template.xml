@@ -17,10 +17,10 @@
       type="string"/>
 
   <parameter constraints="package|exists|nonempty"
-      default="${packageName}"
       help="The package where the model class is present"
       id="packageNameOfModel"
       name="Package of model class"
+      suggest="${packageName}"
       type="string"/>
 
   <parameter constraints="class|nonempty"
