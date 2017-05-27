@@ -17,18 +17,40 @@
 package com.ahamed.multiviewadapter;
 
 import android.databinding.ViewDataBinding;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
 
 /**
  * {@link ItemBinder} which supports the DataBinding
  *
  * @param <M> Refers to the model class
  * @param <VDB> Refers to the view binding of the model class
- * @param <VH> Refers to the view holder which supports the data binding
  */
-public abstract class ItemDataBinder<M, VDB extends ViewDataBinding, VH extends BindingViewHolder<M, VDB>>
-    extends ItemBinder<M, VH> {
+public abstract class ItemDataBinder<M, VDB extends ViewDataBinding>
+    extends ItemBinder<M, ItemDataBinder.ViewHolder<M, VDB>> {
 
-  @Override public final void bind(VH holder, M item) {
-    holder.bindModel(item);
+  @Override public final ViewHolder<M, VDB> create(LayoutInflater inflater, ViewGroup parent) {
+    return createViewHolder(createBinding(inflater, parent));
+  }
+
+  protected ViewHolder<M, VDB> createViewHolder(VDB binding) {
+    return new ViewHolder<>(binding);
+  }
+
+  @Override public final void bind(ViewHolder<M, VDB> holder, M item) {
+    bindModel(item, holder.getBinding());
+    holder.getBinding().executePendingBindings();
+  }
+
+  protected abstract void bindModel(M item, VDB binding);
+
+  protected abstract VDB createBinding(LayoutInflater inflater, ViewGroup parent);
+
+  protected static class ViewHolder<M, VDB extends ViewDataBinding>
+      extends BindingViewHolder<M, VDB> {
+
+    public ViewHolder(VDB binding) {
+      super(binding);
+    }
   }
 }

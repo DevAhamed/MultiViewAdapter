@@ -33,14 +33,7 @@ public abstract class BindingViewHolder<M, VDB extends ViewDataBinding> extends 
     this.binding = binding;
   }
 
-  void bindModel(M item) {
-    bind(binding, item);
-    binding.executePendingBindings();
+  public VDB getBinding() {
+    return binding;
   }
-
-  /**
-   * @param binding Binding for the data model class
-   * @param item Data model
-   */
-  public abstract void bind(VDB binding, M item);
 }
