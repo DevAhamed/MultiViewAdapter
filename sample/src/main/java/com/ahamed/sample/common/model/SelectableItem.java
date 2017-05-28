@@ -14,25 +14,19 @@
  * limitations under the License.
  */
 
-package com.ahamed.sample.contextual.action.mode;
+package com.ahamed.sample.common.model;
 
-import com.ahamed.multiviewadapter.DataListManager;
-import com.ahamed.multiviewadapter.RecyclerAdapter;
-import com.ahamed.sample.common.model.Mail;
-import java.util.List;
+public class SelectableItem {
 
-public class MailAdapter extends RecyclerAdapter {
+  private int id;
+  private String content;
 
-  private DataListManager<Mail> mailListManager;
-
-  public MailAdapter() {
-    this.mailListManager = new DataListManager<>(this);
-    addDataManager(mailListManager);
-
-    registerBinder(new MailBinder());
+  public SelectableItem(int id, String content) {
+    this.id = id;
+    this.content = content;
   }
 
-  public void setMailList(List<Mail> dataList) {
-    mailListManager.set(dataList);
+  public String getContent() {
+    return content;
   }
 }

@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright 2017 Riyaz Ahamed
   ~
@@ -15,10 +14,12 @@
   ~ limitations under the License.
   -->
 
-<resources>
-  <color name="colorPrimary">#00BCD4</color>
-  <color name="colorPrimaryDark">#343B49</color>
-  <color name="colorActionMode">#353C50</color>
-  <color name="colorAccent">#F8A018</color>
-  <color name="background">#FAFAFA</color>
-</resources>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:height="24dp"
+    android:viewportHeight="24.0"
+    android:viewportWidth="24.0"
+    android:width="24dp">
+  <path
+      android:fillColor="#FF000000"
+      android:pathData="M12,8l-6,6 1.41,1.41L12,10.83l4.59,4.58L18,14z"/>
+</vector>

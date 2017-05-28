@@ -55,6 +55,12 @@
     <activity
         android:name=".infinite.scroll.InfiniteScrollActivity"
         android:label="@string/label_infinite"/>
+    <activity
+        android:name=".expandable.item.ExpandableItemActivity"
+        android:label="@string/label_expandable_item"/>
+    <activity
+        android:name=".expandable.group.ExpandableGroupActivity"
+        android:label="@string/label_expandable_group"/>
   </application>
 
 </manifest>

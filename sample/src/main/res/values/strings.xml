@@ -24,6 +24,8 @@
   <string name="label_simple_adapter">Simple adapter</string>
   <string name="label_simple_grid">Simple grid</string>
   <string name="label_multi_set">Multiple data set</string>
+  <string name="label_expandable_item">Expandable item</string>
+  <string name="label_expandable_group">Expandable group</string>
 
   <string-array name="sample_options">
     <item>Simple</item>

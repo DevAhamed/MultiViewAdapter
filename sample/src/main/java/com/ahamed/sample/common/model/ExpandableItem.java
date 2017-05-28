@@ -14,7 +14,12 @@
  * limitations under the License.
  */
 
-package com.ahamed.sample.contextual.action.mode;
+package com.ahamed.sample.common.model;
 
-public class ContextualAdapter {
+public class ExpandableItem {
+
+  public String name;
+
+
+
 }

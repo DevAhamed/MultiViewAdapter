@@ -21,7 +21,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import com.ahamed.multiviewadapter.BaseViewHolder;
 import com.ahamed.sample.common.BaseActivity;
+import com.ahamed.sample.contextual.action.mode.ContextualActionModeActivity;
 import com.ahamed.sample.data.binding.DataBindingActivity;
+import com.ahamed.sample.expandable.group.ExpandableGroupActivity;
+import com.ahamed.sample.expandable.item.ExpandableItemActivity;
 import com.ahamed.sample.grid.GridAdapterActivity;
 import com.ahamed.sample.infinite.scroll.InfiniteScrollActivity;
 import com.ahamed.sample.multilist.MultiListActivity;
@@ -59,11 +62,13 @@ public class SampleActivity extends BaseActivity {
 
     dataList.add(getString(R.string.label_simple_adapter));
     dataList.add(getString(R.string.label_simple_grid));
-    dataList.add("Multiple data set");
+    dataList.add(getString(R.string.label_multi_set));
     dataList.add(getString(R.string.label_data_binding));
-    dataList.add("Swipe to dismiss");
-    dataList.add("Infinite scrolling");
-    dataList.add("Contextual action mode");
+    dataList.add(getString(R.string.label_swipe_to_dismiss));
+    dataList.add(getString(R.string.label_infinite));
+    dataList.add(getString(R.string.label_expandable_item));
+    dataList.add(getString(R.string.label_expandable_group));
+    dataList.add(getString(R.string.label_action_mode));
     return dataList;
   }
 
@@ -86,6 +91,15 @@ public class SampleActivity extends BaseActivity {
         break;
       case 5:
         InfiniteScrollActivity.start(this);
+        break;
+      case 6:
+        ExpandableItemActivity.start(this);
+        break;
+      case 7:
+        ExpandableGroupActivity.start(this);
+        break;
+      case 8:
+        ContextualActionModeActivity.start(this);
         break;
     }
   }
