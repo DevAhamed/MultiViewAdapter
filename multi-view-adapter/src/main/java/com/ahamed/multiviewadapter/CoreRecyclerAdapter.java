@@ -45,7 +45,7 @@ class CoreRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     }
   };
   ItemTouchHelper itemTouchHelper;
-  boolean isInContextMode = false;
+  boolean isInActionMode = false;
   @ExpandableMode int expandableMode = EXPANDABLE_MODE_NONE;
   @ExpandableMode int groupExpandableMode = EXPANDABLE_MODE_NONE;
   private int lastExpandedIndex = -1;
@@ -71,8 +71,8 @@ class CoreRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
       return CoreRecyclerAdapter.this.itemExpanded(position);
     }
 
-    @Override public boolean isAdapterInContextMode() {
-      return isInContextMode;
+    @Override public boolean isAdapterInActionMode() {
+      return isInActionMode;
     }
   };
 
@@ -251,13 +251,16 @@ class CoreRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
   private void onItemExpansionToggled(int adapterPosition) {
     switch (expandableMode) {
       case EXPANDABLE_MODE_SINGLE:
-        if (lastExpandedIndex == adapterPosition) {
-          return;
-        }
         if (lastExpandedIndex != -1) {
+          expandedItems.put(lastExpandedIndex, false);
           getDataManager(lastExpandedIndex).onItemExpansionToggled(
               getItemPositionInManager(lastExpandedIndex));
         }
+        if (lastExpandedIndex == adapterPosition) {
+          lastExpandedIndex = -1;
+          return;
+        }
+        expandedItems.put(adapterPosition, true);
         getDataManager(adapterPosition).onItemExpansionToggled(
             getItemPositionInManager(adapterPosition));
         lastExpandedIndex = adapterPosition;

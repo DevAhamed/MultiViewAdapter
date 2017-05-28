@@ -122,11 +122,11 @@ public class BaseViewHolder<M> extends ViewHolder
 
   /**
    * @return boolean value indicating whether the adapter is in context mode or not.
-   * @see RecyclerAdapter#startContextMode()
-   * @see RecyclerAdapter#stopContextMode()
+   * @see RecyclerAdapter#startActionMode() ()
+   * @see RecyclerAdapter#stopActionMode() ()
    */
-  public final boolean isInContextMode() {
-    return actionListener.isAdapterInContextMode();
+  public final boolean isInActionMode() {
+    return actionListener.isAdapterInActionMode();
   }
 
   /**

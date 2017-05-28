@@ -89,7 +89,7 @@ public class RecyclerAdapter extends CoreRecyclerAdapter {
    *
    * @param dataManager The DataManager to be added to {@link RecyclerAdapter}
    */
-  protected final void addDataManager(BaseDataManager dataManager) {
+  public final void addDataManager(BaseDataManager dataManager) {
     dataManagers.add(dataManager);
   }
 
@@ -98,7 +98,7 @@ public class RecyclerAdapter extends CoreRecyclerAdapter {
    *
    * @param binder The ItemBinder to be register with {@link RecyclerAdapter}
    */
-  protected final void registerBinder(ItemBinder binder) {
+  public final void registerBinder(ItemBinder binder) {
     addBinder(binder);
   }
 
@@ -125,19 +125,19 @@ public class RecyclerAdapter extends CoreRecyclerAdapter {
   /**
    * Helper method to set the adapter is in contextual action mode.
    *
-   * @see BaseViewHolder To get the state of context mode
+   * @see BaseViewHolder To get the state of action mode
    */
-  public final void startContextMode() {
-    isInContextMode = true;
+  public final void startActionMode() {
+    isInActionMode = true;
   }
 
   /**
    * Helper method to set the adapter has exited contextual action mode.
    *
-   * @see BaseViewHolder To get the state of context mode
+   * @see BaseViewHolder To get the state of action mode
    */
-  public final void stopContextMode() {
-    isInContextMode = false;
+  public final void stopActionMode() {
+    isInActionMode = false;
   }
 
   /**

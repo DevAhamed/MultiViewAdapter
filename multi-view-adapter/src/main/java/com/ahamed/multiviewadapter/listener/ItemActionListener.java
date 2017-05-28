@@ -30,5 +30,5 @@ import android.support.annotation.RestrictTo;
 
   boolean isItemExpanded(int adapterPosition);
 
-  boolean isAdapterInContextMode();
+  boolean isAdapterInActionMode();
 }

@@ -16,6 +16,7 @@
 
 package com.ahamed.multiviewadapter;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RestrictTo;
 import android.support.v7.util.ListUpdateCallback;
@@ -81,7 +82,7 @@ class BaseDataManager<M> implements ListUpdateCallback {
    *
    * @param selectedItems List of selected items
    */
-  public final void setSelectedItems(List<M> selectedItems) {
+  public final void setSelectedItems(@NonNull List<M> selectedItems) {
     if (!(adapter instanceof SelectableAdapter)) {
       throw new IllegalStateException(
           "Make sure your adapter extends from com.ahamed.multiviewadapter.SelectableAdapter");
@@ -99,6 +100,24 @@ class BaseDataManager<M> implements ListUpdateCallback {
         onItemSelectionToggled(index, isSelected);
       }
     }
+  }
+
+  /**
+   * This method is used to clear the selected items in a {@link DataListManager} or {@link
+   * DataItemManager}. It should be used in conjunction with the {@link SelectableAdapter}.
+   * Exception will be thrown if calling {@link DataListManager} is not used in the {@link
+   * SelectableAdapter}.
+   */
+  public final void clearSelectedItems() {
+    if (!(adapter instanceof SelectableAdapter)) {
+      throw new IllegalStateException(
+          "Make sure your adapter extends from com.ahamed.multiviewadapter.SelectableAdapter");
+    }
+    if (size() < 0) {
+      return;
+    }
+    this.selectedItems = new SparseBooleanArray();
+    onChanged(0, size(), null);
   }
 
   /**
