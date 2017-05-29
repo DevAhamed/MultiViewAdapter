@@ -25,12 +25,13 @@ public class SelectableAdapter extends RecyclerAdapter {
   public static final int SELECTION_MODE_SINGLE_OR_NONE = 2;
   public static final int SELECTION_MODE_MULTIPLE = 3;
 
-  private int lastSelectedIndex = -1;
   private int selectionMode = SELECTION_MODE_NONE;
 
   @Override void onItemSelectionToggled(int adapterPosition) {
+    int lastSelectedIndex;
     switch (selectionMode) {
       case SELECTION_MODE_SINGLE:
+        lastSelectedIndex = getLastSelectedIndex();
         if (lastSelectedIndex == adapterPosition) {
           return;
         }
@@ -40,16 +41,15 @@ public class SelectableAdapter extends RecyclerAdapter {
         }
         getDataManager(adapterPosition).onItemSelectionToggled(
             getItemPositionInManager(adapterPosition), true);
-        lastSelectedIndex = adapterPosition;
         break;
       case SELECTION_MODE_SINGLE_OR_NONE:
+        lastSelectedIndex = getLastSelectedIndex();
         if (lastSelectedIndex != -1) {
           getDataManager(lastSelectedIndex).onItemSelectionToggled(
               getItemPositionInManager(lastSelectedIndex), false);
         }
         getDataManager(adapterPosition).onItemSelectionToggled(
             getItemPositionInManager(adapterPosition), lastSelectedIndex != adapterPosition);
-        lastSelectedIndex = lastSelectedIndex != adapterPosition ? adapterPosition : -1;
         break;
       case SELECTION_MODE_MULTIPLE:
         getDataManager(adapterPosition).onItemSelectionToggled(
@@ -61,8 +61,13 @@ public class SelectableAdapter extends RecyclerAdapter {
     }
   }
 
-  void setLastSelectedIndex(int index) {
-    lastSelectedIndex = index;
+  private int getLastSelectedIndex() {
+    for (BaseDataManager baseDataManager : dataManagers) {
+      if (baseDataManager.getSelectedIndex() != -1) {
+        return getPosition(baseDataManager, baseDataManager.getSelectedIndex());
+      }
+    }
+    return -1;
   }
 
   @SelectionMode int getSelectionMode() {

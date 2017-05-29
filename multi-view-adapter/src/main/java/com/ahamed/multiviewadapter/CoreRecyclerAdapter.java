@@ -109,7 +109,7 @@ class CoreRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
               getItemPositionInManager(adapterPosition));
         }
         //noinspection unchecked
-        holder.setItem(dataManager.getItem(getItemPositionInManager(adapterPosition)));
+        holder.setItem(dataManager.get(getItemPositionInManager(adapterPosition)));
         break;
       }
     }
@@ -144,7 +144,7 @@ class CoreRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
   ItemBinder getBinderForPosition(int adapterPosition) {
     BaseDataManager dataManager = getDataManager(adapterPosition);
     for (ItemBinder baseBinder : binders) {
-      if (baseBinder.canBindData(dataManager.getItem(getItemPositionInManager(adapterPosition)))) {
+      if (baseBinder.canBindData(dataManager.get(getItemPositionInManager(adapterPosition)))) {
         return baseBinder;
       }
     }
@@ -191,7 +191,7 @@ class CoreRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     throw new IllegalStateException("Invalid position for DataManager!");
   }
 
-  private int getPosition(BaseDataManager dataManager, int binderPosition) {
+  int getPosition(BaseDataManager dataManager, int binderPosition) {
     int viewType = dataManagers.indexOf(dataManager);
     if (viewType < 0) {
       throw new IllegalStateException("DataManager does not exist in adapter");
@@ -209,23 +209,23 @@ class CoreRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         getItemPositionInManager(adapterPosition));
   }
 
-  final void notifyBinderItemRangeChanged(BaseDataManager binder, int positionStart, int itemCount,
-      Object payload) {
-    notifyItemRangeChanged(getPosition(binder, positionStart), itemCount, payload);
+  final void notifyBinderItemRangeChanged(BaseDataManager dataManager, int positionStart,
+      int itemCount, Object payload) {
+    notifyItemRangeChanged(getPosition(dataManager, positionStart), itemCount, payload);
   }
 
-  final void notifyBinderItemMoved(BaseDataManager binder, int fromPosition, int toPosition) {
-    notifyItemMoved(getPosition(binder, fromPosition), getPosition(binder, toPosition));
+  final void notifyBinderItemMoved(BaseDataManager dataManager, int fromPosition, int toPosition) {
+    notifyItemMoved(getPosition(dataManager, fromPosition), getPosition(dataManager, toPosition));
   }
 
-  final void notifyBinderItemRangeInserted(BaseDataManager binder, int positionStart,
+  final void notifyBinderItemRangeInserted(BaseDataManager dataManager, int positionStart,
       int itemCount) {
-    notifyItemRangeInserted(getPosition(binder, positionStart), itemCount);
+    notifyItemRangeInserted(getPosition(dataManager, positionStart), itemCount);
   }
 
-  final void notifyBinderItemRangeRemoved(BaseDataManager binder, int positionStart,
+  final void notifyBinderItemRangeRemoved(BaseDataManager dataManager, int positionStart,
       int itemCount) {
-    notifyItemRangeRemoved(getPosition(binder, positionStart), itemCount);
+    notifyItemRangeRemoved(getPosition(dataManager, positionStart), itemCount);
   }
 
   void addBinder(ItemBinder binder) {

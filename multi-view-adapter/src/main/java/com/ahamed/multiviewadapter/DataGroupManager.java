@@ -48,9 +48,9 @@ public class DataGroupManager<H, M> extends DataListUpdateManager<M> {
   @Override void onGroupExpansionToggled() {
     isExpanded = !isExpanded;
     if (isExpanded) {
-      adapter.notifyBinderItemRangeInserted(this, 1, getDataList().size());
+      onInserted(1, getDataList().size());
     } else {
-      adapter.notifyBinderItemRangeRemoved(this, 1, getDataList().size());
+      onRemoved(1, getDataList().size());
     }
   }
 
