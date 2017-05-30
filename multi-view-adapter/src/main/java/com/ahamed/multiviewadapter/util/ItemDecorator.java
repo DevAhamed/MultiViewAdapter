@@ -68,17 +68,17 @@ public interface ItemDecorator {
   /**
    * Denotes that the item is lies in the middle of the grid
    */
-  int POSITION_MIDDLE = 4;
+  int POSITION_RIGHT = 4;
 
   /**
    * Denotes that the item is lies in the right edge of the grid
    */
-  int POSITION_RIGHT = 8;
+  int POSITION_BOTTOM = 8;
 
   /**
    * Denotes that the item is lies in the bottom edge of the grid
    */
-  int POSITION_BOTTOM = 16;
+  int POSITION_MIDDLE = 16;
 
   /**
    * Retrieve any offsets for the given position. Each field of <code>outRect</code> specifies
