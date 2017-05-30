@@ -1,1 +1,1 @@
-include ':sample', ':multi-view-adapter'
+include ':sample', ':multi-view-adapter', ':multi-view-adapter-databinding'
