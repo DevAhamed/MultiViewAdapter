@@ -36,18 +36,14 @@ class CoreRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
   final List<BaseDataManager> dataManagers = new ArrayList<>();
   final ItemDecorationManager itemDecorationManager;
-  private final List<ItemBinder> binders = new ArrayList<>();
-  private final SparseBooleanArray expandedItems = new SparseBooleanArray();
-  int maxSpanCount = 1;
   final GridLayoutManager.SpanSizeLookup spanSizeLookup = new GridLayoutManager.SpanSizeLookup() {
     @Override public int getSpanSize(int position) {
       return getBinderForPosition(position).getSpanSize(maxSpanCount);
     }
   };
-  ItemTouchHelper itemTouchHelper;
-  boolean isInActionMode = false;
-  @ExpandableMode int expandableMode = EXPANDABLE_MODE_NONE;
-  @ExpandableMode int groupExpandableMode = EXPANDABLE_MODE_NONE;
+
+  private final List<ItemBinder> binders = new ArrayList<>();
+  private final SparseBooleanArray expandedItems = new SparseBooleanArray();
   private int lastExpandedIndex = -1;
   private final ItemActionListener actionListener = new ItemActionListener() {
 
@@ -75,6 +71,12 @@ class CoreRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
       return isInActionMode;
     }
   };
+
+  int maxSpanCount = 1;
+  ItemTouchHelper itemTouchHelper;
+  boolean isInActionMode = false;
+  @ExpandableMode int expandableMode = EXPANDABLE_MODE_NONE;
+  @ExpandableMode int groupExpandableMode = EXPANDABLE_MODE_NONE;
 
   CoreRecyclerAdapter() {
     itemDecorationManager = new ItemDecorationManager(this);
@@ -104,12 +106,12 @@ class CoreRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     for (BaseDataManager dataManager : dataManagers) {
       totalCount += dataManager.getCount();
       if (adapterPosition < totalCount) {
+        int itemPosition = getItemPositionInManager(adapterPosition);
         if (dataManager instanceof DataGroupManager) {
-          dataManager = ((DataGroupManager) dataManager).getDataManagerForPosition(
-              getItemPositionInManager(adapterPosition));
+          dataManager = ((DataGroupManager) dataManager).getDataManagerForPosition(itemPosition);
         }
         //noinspection unchecked
-        holder.setItem(dataManager.get(getItemPositionInManager(adapterPosition)));
+        holder.setItem(dataManager.get(itemPosition));
         break;
       }
     }
@@ -126,8 +128,8 @@ class CoreRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
   @RestrictTo(RestrictTo.Scope.LIBRARY) @Override public final int getItemCount() {
     int itemCount = 0;
-    for (int i = 0, size = dataManagers.size(); i < size; i++) {
-      itemCount += dataManagers.get(i).size();
+    for (BaseDataManager dataManager : dataManagers) {
+      itemCount += dataManager.size();
     }
     return itemCount;
   }
@@ -152,13 +154,13 @@ class CoreRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
   }
 
   int getItemPositionInManager(int adapterPosition) {
-    int binderItemCount;
-    for (int i = 0, size = dataManagers.size(); i < size; i++) {
-      binderItemCount = dataManagers.get(i).getCount();
-      if (adapterPosition - binderItemCount < 0) {
+    int itemCount;
+    for (BaseDataManager dataManager : dataManagers) {
+      itemCount = dataManager.getCount();
+      if (adapterPosition - itemCount < 0) {
         break;
       }
-      adapterPosition -= binderItemCount;
+      adapterPosition -= itemCount;
     }
     // adapterPosition now refers to position in manager
     return adapterPosition;
@@ -191,14 +193,14 @@ class CoreRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     throw new IllegalStateException("Invalid position for DataManager!");
   }
 
-  int getPosition(BaseDataManager dataManager, int binderPosition) {
-    int viewType = dataManagers.indexOf(dataManager);
-    if (viewType < 0) {
+  int getPositionInAdapter(BaseDataManager dataManager, int binderPosition) {
+    int dataManagerIndex = dataManagers.indexOf(dataManager);
+    if (dataManagerIndex < 0) {
       throw new IllegalStateException("DataManager does not exist in adapter");
     }
 
     int position = binderPosition;
-    for (int i = 0; i < viewType; i++) {
+    for (int i = 0; i < dataManagerIndex; i++) {
       position += dataManagers.get(i).getCount();
     }
     return position;
@@ -211,21 +213,22 @@ class CoreRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
   final void notifyBinderItemRangeChanged(BaseDataManager dataManager, int positionStart,
       int itemCount, Object payload) {
-    notifyItemRangeChanged(getPosition(dataManager, positionStart), itemCount, payload);
+    notifyItemRangeChanged(getPositionInAdapter(dataManager, positionStart), itemCount, payload);
   }
 
   final void notifyBinderItemMoved(BaseDataManager dataManager, int fromPosition, int toPosition) {
-    notifyItemMoved(getPosition(dataManager, fromPosition), getPosition(dataManager, toPosition));
+    notifyItemMoved(getPositionInAdapter(dataManager, fromPosition),
+        getPositionInAdapter(dataManager, toPosition));
   }
 
   final void notifyBinderItemRangeInserted(BaseDataManager dataManager, int positionStart,
       int itemCount) {
-    notifyItemRangeInserted(getPosition(dataManager, positionStart), itemCount);
+    notifyItemRangeInserted(getPositionInAdapter(dataManager, positionStart), itemCount);
   }
 
   final void notifyBinderItemRangeRemoved(BaseDataManager dataManager, int positionStart,
       int itemCount) {
-    notifyItemRangeRemoved(getPosition(dataManager, positionStart), itemCount);
+    notifyItemRangeRemoved(getPositionInAdapter(dataManager, positionStart), itemCount);
   }
 
   void addBinder(ItemBinder binder) {
@@ -233,15 +236,7 @@ class CoreRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
   }
 
   boolean isLastItemInManager(int adapterPosition) {
-    int itemsCount;
-    for (int i = 0, size = dataManagers.size(); i < size; i++) {
-      itemsCount = dataManagers.get(i).getCount();
-      if (adapterPosition - itemsCount < 0) {
-        return adapterPosition == itemsCount - 1;
-      }
-      adapterPosition -= itemsCount;
-    }
-    return false;
+    return getDataManager(adapterPosition).size() - 1 == adapterPosition;
   }
 
   void onItemSelectionToggled(int position) {
@@ -313,17 +308,29 @@ class CoreRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     }
     BaseDataManager dataManager = getDataManager(currentPosition);
     BaseDataManager targetDataManager = getDataManager(targetPosition);
+    int currentPositionInManager = getItemPositionInManager(currentPosition);
+    int targetPositionInManager = getItemPositionInManager(targetPosition);
     if (dataManager.equals(targetDataManager)) {
-      dataManager.onSwapped(getItemPositionInManager(currentPosition),
-          getItemPositionInManager(targetPosition));
+      dataManager.onSwapped(currentPositionInManager, targetPositionInManager);
     } else {
-      Object obj = dataManager.get(getItemPositionInManager(currentPosition));
-      ((DataListUpdateManager) dataManager).remove(getItemPositionInManager(currentPosition),
-          false);
+      Object obj = dataManager.get(currentPositionInManager);
+      ((DataListUpdateManager) dataManager).remove(currentPositionInManager, false);
       ((DataListUpdateManager) targetDataManager).add(
           getItemPositionInManager(targetPosition + (targetPosition > currentPosition ? -1 : 0)),
           obj, false);
       notifyItemMoved(currentPosition, targetPosition);
+    }
+  }
+
+  void resetExpandedItems() {
+    if (expandableMode != EXPANDABLE_MODE_NONE) {
+      boolean notify = expandedItems.size() > 0;
+      expandedItems.clear();
+      lastExpandedIndex = -1;
+      if (!notify) return;
+      for (BaseDataManager dataManager : dataManagers) {
+        notifyBinderItemRangeChanged(dataManager, 0, dataManager.size(), null);
+      }
     }
   }
 }

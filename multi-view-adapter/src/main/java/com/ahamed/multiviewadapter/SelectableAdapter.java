@@ -64,7 +64,7 @@ public class SelectableAdapter extends RecyclerAdapter {
   private int getLastSelectedIndex() {
     for (BaseDataManager baseDataManager : dataManagers) {
       if (baseDataManager.getSelectedIndex() != -1) {
-        return getPosition(baseDataManager, baseDataManager.getSelectedIndex());
+        return getPositionInAdapter(baseDataManager, baseDataManager.getSelectedIndex());
       }
     }
     return -1;
