@@ -17,6 +17,8 @@
 package com.ahamed.sample.complex;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.util.DisplayMetrics;
 import com.ahamed.multiviewadapter.DataItemManager;
 import com.ahamed.multiviewadapter.DataListManager;
 import com.ahamed.multiviewadapter.RecyclerAdapter;
@@ -65,7 +67,7 @@ public class ComplexListAdapter extends RecyclerAdapter {
     addDataManager(new DataItemManager<>(this, DummyDataProvider.getAdvertisementThree()));
 
     registerBinder(new HeaderBinder());
-    registerBinder(new GridItemBinder());
+    registerBinder(new GridItemBinder(convertDpToPixel(4, context)));
     registerBinder(new CarBinder(simpleItemDecoration));
     registerBinder(new BikeBinder(simpleItemDecoration));
     registerBinder(new FeaturedArticleBinder(new ArticleItemDecorator()));
@@ -90,5 +92,11 @@ public class ComplexListAdapter extends RecyclerAdapter {
 
   public void addSingleModelItem(List<Article> dataList) {
     singleModelManager.addAll(dataList);
+  }
+
+  public static int convertDpToPixel(float dp, Context context) {
+    Resources resources = context.getResources();
+    DisplayMetrics metrics = resources.getDisplayMetrics();
+    return (int) (dp * (metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT));
   }
 }

@@ -20,7 +20,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RestrictTo;
 import android.support.v7.util.ListUpdateCallback;
-import android.util.SparseBooleanArray;
 import com.ahamed.multiviewadapter.listener.ItemSelectionChangedListener;
 import com.ahamed.multiviewadapter.listener.MultiSelectionChangedListener;
 import java.util.ArrayList;
@@ -30,7 +29,7 @@ class BaseDataManager<M> implements ListUpdateCallback {
 
   final RecyclerAdapter adapter;
   private List<M> dataList = new ArrayList<>();
-  private SparseBooleanArray selectedItems = new SparseBooleanArray();
+  private List<M> selectedItems = new ArrayList<>();
   private ItemSelectionChangedListener<M> itemSelectionChangedListener;
   private MultiSelectionChangedListener<M> multiSelectionChangedListener;
 
@@ -66,11 +65,12 @@ class BaseDataManager<M> implements ListUpdateCallback {
    */
   public final List<M> getSelectedItems() {
     List<M> selectedItemsList = new ArrayList<>();
-    for (int i = 0; i < size(); i++) {
-      if (selectedItems.get(i)) {
-        selectedItemsList.add(dataList.get(i));
+    for (M m : selectedItems) {
+      if (contains(m)) {
+        selectedItemsList.add(m);
       }
     }
+    selectedItems = selectedItemsList;
     return selectedItemsList;
   }
 
@@ -90,14 +90,18 @@ class BaseDataManager<M> implements ListUpdateCallback {
     if (size() < 0) {
       return;
     }
-    SparseBooleanArray oldSelectedItems = this.selectedItems.clone();
-    this.selectedItems = new SparseBooleanArray();
+    List<M> oldSelectedItems = new ArrayList<>(this.selectedItems);
+    this.selectedItems.clear();
     for (M m : selectedItems) {
-      boolean isSelected = contains(m);
       int index = indexOf(m);
-      this.selectedItems.put(index, isSelected);
-      if (oldSelectedItems.get(index, false) != isSelected) {
-        onItemSelectionToggled(index, isSelected);
+      if (!oldSelectedItems.contains(m)) {
+        onItemSelectionToggled(index, true);
+      }
+    }
+    for (M m : oldSelectedItems) {
+      int index = indexOf(m);
+      if (!selectedItems.contains(m)) {
+        onItemSelectionToggled(index, false);
       }
     }
   }
@@ -116,7 +120,7 @@ class BaseDataManager<M> implements ListUpdateCallback {
     if (size() < 0) {
       return;
     }
-    this.selectedItems = new SparseBooleanArray();
+    this.selectedItems.clear();
     onChanged(0, size(), null);
   }
 
@@ -127,10 +131,8 @@ class BaseDataManager<M> implements ListUpdateCallback {
    * @return Selected item or null
    */
   @Nullable public final M getSelectedItem() {
-    for (int i = 0; i < size(); i++) {
-      if (selectedItems.get(i)) {
-        return dataList.get(i);
-      }
+    if (selectedItems.size() > 0) {
+      return dataList.get(0);
     }
     return null;
   }
@@ -153,12 +155,10 @@ class BaseDataManager<M> implements ListUpdateCallback {
     }
     M previousSelectedItem = getSelectedItem();
     int index = indexOf(selectedItem);
-    if (index != -1) {
-      this.selectedItems.put(index, true);
+    if (index != -1 && !selectedItem.equals(previousSelectedItem)) {
       onItemSelectionToggled(index, true);
-      ((SelectableAdapter) adapter).setLastSelectedIndex(index);
     }
-    if (null != previousSelectedItem && indexOf(previousSelectedItem) != -1) {
+    if (null != previousSelectedItem && !previousSelectedItem.equals(selectedItem)) {
       onItemSelectionToggled(indexOf(previousSelectedItem), false);
     }
   }
@@ -205,7 +205,7 @@ class BaseDataManager<M> implements ListUpdateCallback {
    * (<tt>index &lt; 0 || index &gt;= size()</tt>)
    */
   public final M get(int index) {
-    return dataList.get(index);
+    return getItem(index);
   }
 
   /**
@@ -263,7 +263,11 @@ class BaseDataManager<M> implements ListUpdateCallback {
   ///////////////////////////////////////////
 
   void onItemSelectionToggled(int position, boolean isSelected) {
-    selectedItems.put(position, isSelected);
+    if (isSelected) {
+      selectedItems.add(get(position));
+    } else {
+      selectedItems.remove(get(position));
+    }
     onChanged(position, 1, null);
     if (adapter instanceof SelectableAdapter && (itemSelectionChangedListener != null
         || multiSelectionChangedListener != null)) {
@@ -311,7 +315,7 @@ class BaseDataManager<M> implements ListUpdateCallback {
   }
 
   boolean isItemSelected(int dataItemPosition) {
-    return selectedItems.get(dataItemPosition);
+    return selectedItems.contains(get(dataItemPosition));
   }
 
   void onSwapped(int currentPosition, int targetPosition) {
@@ -319,5 +323,13 @@ class BaseDataManager<M> implements ListUpdateCallback {
     dataList.remove(currentPosition);
     dataList.add(targetPosition, item);
     onMoved(currentPosition, targetPosition);
+  }
+
+  int getSelectedIndex() {
+    if (selectedItems.size() > 0 && contains(selectedItems.get(0))) {
+      return indexOf(selectedItems.get(0));
+    }
+    selectedItems.clear();
+    return -1;
   }
 }

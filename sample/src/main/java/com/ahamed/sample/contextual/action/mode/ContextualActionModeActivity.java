@@ -107,6 +107,7 @@ public class ContextualActionModeActivity extends BaseActivity {
         @Override public void onDestroyActionMode(ActionMode mode) {
           adapter.stopActionMode();
           selectableItemDataListManager.clearSelectedItems();
+          actionMode = null;
         }
       });
     } else {

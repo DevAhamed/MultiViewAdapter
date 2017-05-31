@@ -44,6 +44,7 @@ android {
 
 dependencies {
   compile project(':multi-view-adapter')
+  compile project(':multi-view-adapter-databinding')
 
   compile 'com.android.support:appcompat-v7:25.3.1'
   compile 'com.android.support:recyclerview-v7:25.3.1'
