@@ -21,7 +21,6 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.support.v7.widget.GridLayoutManager;
 import android.util.DisplayMetrics;
-import com.ahamed.multiviewadapter.SelectableAdapter;
 import com.ahamed.sample.common.BaseActivity;
 import com.ahamed.sample.common.model.BaseModel;
 import com.ahamed.sample.common.model.GridItem;

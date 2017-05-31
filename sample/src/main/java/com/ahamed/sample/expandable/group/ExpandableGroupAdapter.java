@@ -19,7 +19,6 @@ package com.ahamed.sample.expandable.group;
 import com.ahamed.multiviewadapter.DataGroupManager;
 import com.ahamed.multiviewadapter.RecyclerAdapter;
 import com.ahamed.multiviewadapter.util.ItemDecorator;
-import com.ahamed.sample.common.binder.BikeBinder;
 import com.ahamed.sample.common.binder.BirdBinder;
 import com.ahamed.sample.common.binder.FlowerBinder;
 import com.ahamed.sample.common.model.Bird;
