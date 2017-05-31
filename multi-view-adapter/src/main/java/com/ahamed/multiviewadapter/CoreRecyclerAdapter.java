@@ -167,19 +167,13 @@ class CoreRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
   }
 
   BaseDataManager getDataManager(int adapterPosition) {
-    int processedCount = 0;
-    for (BaseDataManager dataManager : dataManagers) {
-      processedCount += dataManager.getCount();
-      if (adapterPosition < processedCount) {
-        if (dataManager instanceof DataGroupManager) {
-          return ((DataGroupManager) dataManager).getDataManagerForPosition(
-              getItemPositionInManager(adapterPosition));
-        } else {
-          return dataManager;
-        }
-      }
+    BaseDataManager dataManager = justGetDataManager(adapterPosition);
+    if (dataManager instanceof DataGroupManager) {
+      return ((DataGroupManager) dataManager).getDataManagerForPosition(
+          getItemPositionInManager(adapterPosition));
+    } else {
+      return dataManager;
     }
-    throw new IllegalStateException("Invalid position for DataManager!");
   }
 
   private BaseDataManager justGetDataManager(int adapterPosition) {
@@ -315,6 +309,7 @@ class CoreRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     } else {
       Object obj = dataManager.get(currentPositionInManager);
       ((DataListUpdateManager) dataManager).remove(currentPositionInManager, false);
+      //noinspection unchecked
       ((DataListUpdateManager) targetDataManager).add(
           getItemPositionInManager(targetPosition + (targetPosition > currentPosition ? -1 : 0)),
           obj, false);
