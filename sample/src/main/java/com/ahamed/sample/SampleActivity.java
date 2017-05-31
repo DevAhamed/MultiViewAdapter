@@ -31,6 +31,7 @@ import com.ahamed.sample.grid.GridAdapterActivity;
 import com.ahamed.sample.infinite.scroll.InfiniteScrollActivity;
 import com.ahamed.sample.multilist.MultiListActivity;
 import com.ahamed.sample.payload.PayloadActivity;
+import com.ahamed.sample.selectable.adapter.SelectionModeActivity;
 import com.ahamed.sample.simple.SimpleAdapterActivity;
 import com.ahamed.sample.swipetodismiss.SwipeToDismissActivity;
 import java.util.ArrayList;
@@ -73,6 +74,7 @@ public class SampleActivity extends BaseActivity {
     dataList.add(getString(R.string.label_expandable_group));
     dataList.add(getString(R.string.label_action_mode));
     dataList.add(getString(R.string.label_drag_drop));
+    dataList.add(getString(R.string.label_selection));
     dataList.add(getString(R.string.label_payload));
     dataList.add(getString(R.string.label_complex));
     return dataList;
@@ -111,9 +113,12 @@ public class SampleActivity extends BaseActivity {
         DragAndDropActivity.start(this);
         break;
       case 10:
-        PayloadActivity.start(this);
+        SelectionModeActivity.start(this);
         break;
       case 11:
+        PayloadActivity.start(this);
+        break;
+      case 12:
         ComplexListActivity.start(this);
         break;
     }

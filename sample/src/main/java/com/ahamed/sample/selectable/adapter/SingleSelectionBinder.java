@@ -65,9 +65,7 @@ public class SingleSelectionBinder
 
       setItemClickListener(new OnItemClickListener<SelectableItem>() {
         @Override public void onItemClick(View view, SelectableItem item) {
-          if (isInActionMode()) {
-            toggleItemSelection();
-          }
+          toggleItemSelection();
         }
       });
     }

@@ -28,6 +28,7 @@
   <string name="label_expandable_group">Expandable group</string>
   <string name="label_drag_drop">Drag and drop</string>
   <string name="label_payload"><![CDATA[Payload & Diffutil]]></string>
+  <string name="label_selection">Selection mode</string>
 
   <string-array name="sample_options">
     <item>Simple</item>
