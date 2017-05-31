@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
-package com.ahamed.sample.grid;
+package com.ahamed.sample.drag.and.drop;
 
 import com.ahamed.multiviewadapter.DataListManager;
-import com.ahamed.multiviewadapter.RecyclerAdapter;
+import com.ahamed.multiviewadapter.SelectableAdapter;
 import com.ahamed.sample.common.binder.GridItemBinder;
 import com.ahamed.sample.common.binder.HeaderBinder;
 import com.ahamed.sample.common.model.BaseModel;
 import java.util.List;
 
-class GridAdapter extends RecyclerAdapter {
+class DragAndDropAdapter extends SelectableAdapter {
 
   private DataListManager<BaseModel> dataManager;
 
-  GridAdapter(int insetInPixels) {
+  DragAndDropAdapter(int insetInPixels) {
     dataManager = new DataListManager<>(this);
     addDataManager(dataManager);
 

@@ -21,13 +21,16 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import com.ahamed.multiviewadapter.BaseViewHolder;
 import com.ahamed.sample.common.BaseActivity;
+import com.ahamed.sample.complex.ComplexListActivity;
 import com.ahamed.sample.contextual.action.mode.ContextualActionModeActivity;
 import com.ahamed.sample.data.binding.DataBindingActivity;
+import com.ahamed.sample.drag.and.drop.DragAndDropActivity;
 import com.ahamed.sample.expandable.group.ExpandableGroupActivity;
 import com.ahamed.sample.expandable.item.ExpandableItemActivity;
 import com.ahamed.sample.grid.GridAdapterActivity;
 import com.ahamed.sample.infinite.scroll.InfiniteScrollActivity;
 import com.ahamed.sample.multilist.MultiListActivity;
+import com.ahamed.sample.payload.PayloadActivity;
 import com.ahamed.sample.simple.SimpleAdapterActivity;
 import com.ahamed.sample.swipetodismiss.SwipeToDismissActivity;
 import java.util.ArrayList;
@@ -69,6 +72,9 @@ public class SampleActivity extends BaseActivity {
     dataList.add(getString(R.string.label_expandable_item));
     dataList.add(getString(R.string.label_expandable_group));
     dataList.add(getString(R.string.label_action_mode));
+    dataList.add(getString(R.string.label_drag_drop));
+    dataList.add(getString(R.string.label_payload));
+    dataList.add(getString(R.string.label_complex));
     return dataList;
   }
 
@@ -100,6 +106,15 @@ public class SampleActivity extends BaseActivity {
         break;
       case 8:
         ContextualActionModeActivity.start(this);
+        break;
+      case 9:
+        DragAndDropActivity.start(this);
+        break;
+      case 10:
+        PayloadActivity.start(this);
+        break;
+      case 11:
+        ComplexListActivity.start(this);
         break;
     }
   }
