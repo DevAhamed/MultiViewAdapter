@@ -116,13 +116,12 @@ class CoreRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
       }
     }
 
-    if (null == payloads) {
+    if (null == payloads || payloads.size() == 0) {
       //noinspection unchecked
-      baseBinder.bindViewHolder(holder, holder.getItem(), isItemSelected(adapterPosition));
+      baseBinder.bindViewHolder(holder, holder.getItem());
     } else {
       //noinspection unchecked
-      baseBinder.bindViewHolder(holder, holder.getItem(), isItemSelected(adapterPosition),
-          payloads);
+      baseBinder.bindViewHolder(holder, holder.getItem(), payloads);
     }
   }
 

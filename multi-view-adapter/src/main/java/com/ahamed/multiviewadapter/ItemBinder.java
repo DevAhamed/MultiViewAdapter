@@ -93,11 +93,11 @@ public abstract class ItemBinder<M, VH extends BaseViewHolder<M>> {
   /////////// Internal API ahead. ///////////
   ///////////////////////////////////////////
 
-  void bindViewHolder(VH holder, M item, boolean isSelected) {
+  void bindViewHolder(VH holder, M item) {
     bind(holder, item);
   }
 
-  void bindViewHolder(VH holder, M item, boolean isSelected, List payloads) {
+  void bindViewHolder(VH holder, M item, List payloads) {
     bind(holder, item, payloads);
   }
 

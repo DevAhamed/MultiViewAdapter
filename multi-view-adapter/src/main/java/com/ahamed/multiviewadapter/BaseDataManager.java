@@ -156,7 +156,6 @@ class BaseDataManager<M> implements ListUpdateCallback {
     M previousSelectedItem = getSelectedItem();
     int index = indexOf(selectedItem);
     if (index != -1 && !selectedItem.equals(previousSelectedItem)) {
-      this.selectedItems.add(0, selectedItem);
       onItemSelectionToggled(index, true);
     }
     if (null != previousSelectedItem && !previousSelectedItem.equals(selectedItem)) {
