@@ -54,8 +54,7 @@ class ItemDecorationManager extends RecyclerView.ItemDecoration {
     ItemBinder binder = adapter.getBinderForPosition(adapterPosition);
     if (binder.isItemDecorationEnabled()) {
       int itemPosition = adapter.getItemPositionInManager(parent.getChildAdapterPosition(view));
-      int positionType =
-          getPositionType(parent, view, adapterPosition, itemPosition, isReverseLayout);
+      int positionType = getPositionType(parent, adapterPosition, itemPosition, isReverseLayout);
       binder.getItemOffsets(outRect, itemPosition, positionType);
     }
   }
@@ -72,8 +71,7 @@ class ItemDecorationManager extends RecyclerView.ItemDecoration {
       ItemBinder binder = adapter.getBinderForPosition(adapterPosition);
       if (binder.isItemDecorationEnabled()) {
         int itemPosition = adapter.getItemPositionInManager(parent.getChildAdapterPosition(child));
-        int positionType =
-            getPositionType(parent, child, adapterPosition, itemPosition, isReverseLayout);
+        int positionType = getPositionType(parent, adapterPosition, itemPosition, isReverseLayout);
         binder.onDraw(canvas, parent, child, itemPosition, positionType);
       }
     }
@@ -84,67 +82,71 @@ class ItemDecorationManager extends RecyclerView.ItemDecoration {
         .getLayoutManager()).getReverseLayout();
   }
 
-  private @PositionType int getPositionType(RecyclerView parent, View child, int adapterPosition,
+  private @PositionType int getPositionType(RecyclerView parent, int adapterPosition,
       int itemPosition, boolean isReverseLayout) {
-    boolean isFirstItem =
-        isReverseLayout ? adapter.isLastItemInManager(parent.getChildAdapterPosition(child))
-            : itemPosition == 0;
-    boolean isLastItem = isReverseLayout ? itemPosition == 0
-        : adapter.isLastItemInManager(parent.getChildAdapterPosition(child));
     if (parent.getLayoutManager() instanceof GridLayoutManager) {
-      GridLayoutManager gridLayoutManager = (GridLayoutManager) parent.getLayoutManager();
-      int totalSpanSize = gridLayoutManager.getSpanCount();
-
-      BaseDataManager dataManager = adapter.getDataManager(adapterPosition);
-      int itemPositionType = 0;
-      int spanCount = 0;
-      boolean isFirstRow = true;
-      for (int looper = 0, item = adapterPosition - itemPosition; looper < dataManager.size();
-          looper++, item++) {
-        int currentSpanCount = gridLayoutManager.getSpanSizeLookup().getSpanSize(item);
-        if (spanCount + currentSpanCount > totalSpanSize) {
-          spanCount = currentSpanCount;
-          isFirstRow = false;
-        } else {
-          spanCount += currentSpanCount;
-        }
-        if (item == itemPosition) {
-          if (spanCount - currentSpanCount == 0) {
-            itemPositionType |= POSITION_LEFT;
-          }
-          if (spanCount == totalSpanSize) {
-            itemPositionType |= POSITION_RIGHT;
-          }
-          if (isFirstItem || isFirstRow) {
-            itemPositionType |= POSITION_TOP;
-          }
-          if (isLastItem) {
-            itemPositionType |= POSITION_BOTTOM;
-          }
-          // FIXME
-          // Third for-loop - Find a better implementation
-          if (!isLastItem && (currentSpanCount != totalSpanSize)) {
-            int innerLooper = looper + 1;
-            int innerSpanCount = spanCount;
-            for (; innerLooper < dataManager.size(); innerLooper++) {
-              int nextSpanCount = gridLayoutManager.getSpanSizeLookup().getSpanSize(innerLooper);
-              if (innerSpanCount + nextSpanCount > totalSpanSize) {
-                return itemPositionType;
-              }
-              innerSpanCount += nextSpanCount;
-            }
-            itemPositionType |= POSITION_BOTTOM;
-          }
-          if (itemPositionType == 0) {
-            itemPositionType = POSITION_MIDDLE;
-          }
-          return itemPositionType;
-        }
-      }
+      return getPositionTypeGrid(parent, adapterPosition);
     } else if (parent.getLayoutManager() instanceof LinearLayoutManager) {
-      return isFirstItem ? ItemDecorator.POSITION_FIRST_ITEM
-          : isLastItem ? ItemDecorator.POSITION_LAST_ITEM : ItemDecorator.POSITION_MIDDLE_ITEM;
+      return getPositionTypeLinear(itemPosition, adapterPosition, isReverseLayout);
     }
     return ItemDecorator.POSITION_MIDDLE;
+  }
+
+  private @PositionType int getPositionTypeGrid(RecyclerView parent, int adapterPosition) {
+    GridLayoutManager gridLayoutManager = (GridLayoutManager) parent.getLayoutManager();
+    int spanSize = gridLayoutManager.getSpanCount();
+
+    int itemPositionType = POSITION_MIDDLE;
+    int totalSpanCount = 0;
+    boolean isFirstRow = true;
+
+    for (int looper = 0; looper <= adapterPosition; looper++) {
+      int currentSpanCount = gridLayoutManager.getSpanSizeLookup().getSpanSize(looper);
+      if (totalSpanCount + currentSpanCount > spanSize) {
+        totalSpanCount = currentSpanCount;
+        isFirstRow = false;
+      } else {
+        totalSpanCount += currentSpanCount;
+      }
+
+      if (looper == adapterPosition) {
+        if (totalSpanCount - currentSpanCount == 0) {
+          itemPositionType |= POSITION_LEFT;
+        }
+        if (totalSpanCount == spanSize) {
+          itemPositionType |= POSITION_RIGHT;
+        }
+        if (isFirstRow) {
+          itemPositionType |= POSITION_TOP;
+        }
+        if (isLastRow(gridLayoutManager, adapterPosition, totalSpanCount, spanSize)) {
+          itemPositionType |= POSITION_BOTTOM;
+        }
+      }
+    }
+    return itemPositionType;
+  }
+
+  private boolean isLastRow(GridLayoutManager gridLayoutManager, int adapterPosition,
+      int totalSpanCount, int spanSize) {
+    for (int looper = adapterPosition + 1; looper < adapter.getItemCount(); looper++) {
+      int currentSpanCount = gridLayoutManager.getSpanSizeLookup().getSpanSize(looper);
+      if (totalSpanCount + currentSpanCount > spanSize) {
+        return false;
+      } else {
+        totalSpanCount += currentSpanCount;
+      }
+    }
+    return true;
+  }
+
+  private @PositionType int getPositionTypeLinear(int itemPosition, int adapterPosition,
+      boolean isReverseLayout) {
+    boolean isFirstItem =
+        isReverseLayout ? adapter.isLastItemInManager(adapterPosition) : itemPosition == 0;
+    boolean isLastItem =
+        isReverseLayout ? itemPosition == 0 : adapter.isLastItemInManager(adapterPosition);
+    return isFirstItem ? ItemDecorator.POSITION_FIRST_ITEM
+        : isLastItem ? ItemDecorator.POSITION_LAST_ITEM : ItemDecorator.POSITION_MIDDLE_ITEM;
   }
 }

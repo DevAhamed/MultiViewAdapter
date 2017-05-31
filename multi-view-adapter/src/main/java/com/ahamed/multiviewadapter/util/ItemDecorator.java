@@ -32,7 +32,7 @@ public interface ItemDecorator {
    * Denotes that the item is the first element in the {@link DataListManager} by the order of
    * display
    */
-  int POSITION_FIRST_ITEM = 11;
+  int POSITION_FIRST_ITEM = 101;
 
   /**
    * @deprecated Use {@link ItemDecorator#POSITION_FIRST_ITEM} instead.
@@ -42,13 +42,13 @@ public interface ItemDecorator {
   /**
    * Denotes that the item is neither first element nor last element in the {@link DataListManager}.
    */
-  int POSITION_MIDDLE_ITEM = 12;
+  int POSITION_MIDDLE_ITEM = 102;
 
   /**
    * Denotes that the item is the last element in the {@link DataListManager} by the order of
    * display
    */
-  int POSITION_LAST_ITEM = 13;
+  int POSITION_LAST_ITEM = 103;
 
   /**
    * @deprecated Use {@link ItemDecorator#POSITION_LAST_ITEM} instead.
@@ -78,7 +78,7 @@ public interface ItemDecorator {
   /**
    * Denotes that the item is lies in the bottom edge of the grid
    */
-  int POSITION_MIDDLE = 16;
+  int POSITION_MIDDLE = 0;
 
   /**
    * Retrieve any offsets for the given position. Each field of <code>outRect</code> specifies
