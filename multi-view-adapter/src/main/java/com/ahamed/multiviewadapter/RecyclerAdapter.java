@@ -151,4 +151,12 @@ public class RecyclerAdapter extends CoreRecyclerAdapter {
     addDataManager(dataItemManager);
     infiniteLoadingHelper.setDataItemManager(dataItemManager);
   }
+
+  /**
+   * If the adapter has valid {@link RecyclerAdapter#expandableMode} then this method can be used to
+   * collapse all items.
+   */
+  public void collapseAll() {
+    resetExpandedItems();
+  }
 }

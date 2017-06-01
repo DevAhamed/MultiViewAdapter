@@ -16,6 +16,7 @@
 
 package com.ahamed.sample.common.binder;
 
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,13 +25,13 @@ import android.widget.Toast;
 import com.ahamed.multiviewadapter.SelectableBinder;
 import com.ahamed.multiviewadapter.SelectableViewHolder;
 import com.ahamed.sample.R;
-import com.ahamed.sample.common.decorator.ArticleItemDecorator;
+import com.ahamed.sample.common.decorator.GridInsetDecoration;
 import com.ahamed.sample.common.model.GridItem;
 
 public class GridItemBinder extends SelectableBinder<GridItem, GridItemBinder.ItemViewHolder> {
 
-  public GridItemBinder() {
-    super(new ArticleItemDecorator());
+  public GridItemBinder(int insetInPixels) {
+    super(new GridInsetDecoration(insetInPixels));
   }
 
   @Override public ItemViewHolder create(LayoutInflater layoutInflater, ViewGroup parent) {
@@ -55,19 +56,25 @@ public class GridItemBinder extends SelectableBinder<GridItem, GridItemBinder.It
 
     private ImageView ivIcon;
     private ImageView ivSelectionIndicator;
-    private View itemView;
 
     ItemViewHolder(View itemView) {
       super(itemView);
       ivSelectionIndicator = (ImageView) itemView.findViewById(R.id.iv_selection_indicator);
       ivIcon = (ImageView) itemView.findViewById(R.id.iv_icon);
-      this.itemView = itemView;
 
       setItemClickListener(new OnItemClickListener<GridItem>() {
         @Override public void onItemClick(View view, GridItem item) {
+          toggleItemSelection();
           Toast.makeText(view.getContext(), item.getData(), Toast.LENGTH_SHORT).show();
         }
       });
+    }
+
+    @Override public int getDragDirections() {
+      return ItemTouchHelper.LEFT
+          | ItemTouchHelper.UP
+          | ItemTouchHelper.RIGHT
+          | ItemTouchHelper.DOWN;
     }
   }
 }

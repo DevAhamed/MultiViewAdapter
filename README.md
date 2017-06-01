@@ -19,7 +19,7 @@ The minimum API level supported by this library is API 9.
 ```gradle
 dependencies {
 	// ... other dependencies here
-    compile 'com.github.devahamed:multi-view-adapter:1.0.1'
+    compile 'com.github.devahamed:multi-view-adapter:1.1.0'
 }
 ```
 
@@ -61,164 +61,7 @@ You can read more about this library here in this [Medium article](https://mediu
 
 ## Usage
 To get some idea about the MultiViewAdapter features kindly look at sample app code.
-
-### Simple adapters
-Let us display list of cars. No fuss. Here is the entire code.
-
-<b>CarBinder</b>
- 
-```java
-class CarBinder extends ItemBinder<CarModel, CarBinder.CarViewHolder> {
-
-  @Override public CarViewHolder create(LayoutInflater inflater, ViewGroup parent) {
-    return new CarViewHolder(inflater.inflate(R.layout.item_car, parent, false));
-  }
-
-  @Override public boolean canBindData(Object item) {
-    return item instanceof CarModel;
-  }
-
-  @Override public void bind(CarViewHolder holder, CarModel item) {
-    // Bind the data here
-  }
-
-  static class CarViewHolder extends BaseViewHolder<CarModel> {
-    // Normal ViewHolder code
-  }
-}
-```
-
-<b>CarAdapter</b>
-
-```java
-class CarAdapter extends RecyclerAdapter {
-
-  private DataListManager<CarModel> dataManager;
-
-  public SimpleAdapter() {
-    this.dataManager = new DataListManager<>(this);
-    addDataManager(dataManager);
-
-    registerBinder(new CarBinder());
-  }
-
-  public void addData(List<CarModel> dataList) {
-    dataManager.addAll(dataList);
-  }
-}
-```
-
-Now you are good to go. Just create the CarAdapter object and set it to your recyclerview. When addData() method is called it will show the items in recyclerview.
-<br/>
-If you want to show multiple viewtypes just create multiple ItemBinders and register inside the adapter.
- 
-### For different span count in GridLayoutManager
-If the GridLayoutManager has different span count for different view types, then override the getSpanSize() method inside ItemBinder.
-
-```
-
-  @Override public int getSpanSize(int maxSpanCount) {
-    return 1; // Return any number which is less than maxSpanCount 
-  }
-
-```
-
-Also don't forget to set span size lookup in GridLayoutManager. Adapter has default span size lookup object. Use that object.
-
-```
-layoutManager.setSpanSizeLookup(adapter.getSpanSizeLookup());
-```
-
-### ItemDecoration support
-Create your own item decoration class implementing ItemDecorator. It goes like this,
-
-
-```java
-
-public class MyItemDecorator implements ItemDecorator {
-
-  public MyItemDecorator() {
-    // Any initialization code
-  }
-
-  @Override public void getItemOffsets(Rect outRect, int position, int positionType) {
-    // Set item offset for each item
-    // outRect.set(0, 0, 0, 0);
-  }
-
-  @Override public void onDraw(Canvas canvas, RecyclerView parent, View child, int position,
-      int positionType) {
-    // Canvas drawing code implementation
-    // Unlike default ItemDecoration, this method will be called for individual items. Do not create objects here.
-  }
-}
-
-```
-
-The methods, getItemOffsets and onDraw will be called for each item. So avoid creating objects there.
-<br/> 
-MyItemDecorator will be used with the ItemBinder as follows.
-
-
-```java
-
-public class CustomItemBinder implements ItemBinder {
-
-  public CustomItemBinder(MyItemDecorator myItemDecorator) {
-    super(myItemDecorator);
-  }
-}
-
-```
-
-### Making RecyclerView selectable
-Just extend your adapter from SelectableAdapter instead of RecyclerAdapter. Now the adapter is selectable. 
-To make an ItemBinder as selectable, extend it from SelectableBinder and also extend ViewHolder from SelectableViewHolder. 
-By default, on long press ViewHolder will be selectable if it extends from SelectableViewHolder. 
-You can also call `itemSelectionToggled()` to make it selected by yourself. Kindly go through the sample repo implementation.
-<br/>
-Finally, you can call `DataListManager`'s `getSelectedItems()` and `setSelectedItems(List<E> selectedItems)` to get and set selected items respectively.
-
-### Using DiffUtil and Payload
-DataListManager and DataItemManager will take care of diffutil. There is no special code needed. But to enable the payloads, you have to pass PayloadProvider to DataListManager's constructor.
-
-
-```java
-class CarAdapter extends RecyclerAdapter {
-
-  private DataListManager<CarModel> dataManager;
-  private PayloadProvider<M> payloadProvider = new PayloadProvider<CarModel>() {
-      @Override public boolean areContentsTheSame(CarModel oldItem, CarModel newItem) {
-        // Your logic here
-        return oldItem.equals(newItem);
-      }
-
-      @Override public Object getChangePayload(CarModel oldItem, CarModel newItem) {
-        // Your logic here
-        return null;
-      }
-  };
-
-  public CarAdapter() {
-    this.dataManager = new DataListManager<>(this, payloadProvider);
-    addDataManager(dataManager);
-
-    registerBinder(new CarBinder());
-  }
-
-  public void addData(List<CarModel> dataList) {
-    dataManager.addAll(dataList);
-  }
-}
-```
-
-## Roadmap
-I am actively working on expanding the feature set of this library. While i don't have a exact timeline, but here are the future plans. All these will be taken up once 1.0 is released.
-1. Add support for StaggeredGrid layout manager
-2. Move diffutil calculation to background thread
-3. Adding support for swipe listeners with composability as priority
-4. Improve the sample app code and api documentation
-5. Expandable item / group
+Also we have comprehensive wiki pages as well. Take a look at [JCenter](https://github.com/DevAhamed/MultiViewAdapter/wiki).
 
 
 ## Changelog
@@ -236,7 +79,7 @@ Kindly make sure your code is formatted with this codestyle - [Square Java code 
 
 
 ## Alternatives
-This library may not suit your needs or imposes too many restrictions. In that case create an issue/feature request. In the mean time check these awesome alternatives as well.
+This library may not suit your needs or imposes too many restrictions. In that case create an issue/feature request. Mean time check these awesome alternatives as well.
 1. [MultipleViewTypesAdapter](https://github.com/yqritc/RecyclerView-MultipleViewTypesAdapter) - Original inspiration for this library.<br/>
 2. [AdapterDelegates](https://github.com/sockeqwe/AdapterDelegates)
 3. [Groupie](https://github.com/lisawray/groupie)

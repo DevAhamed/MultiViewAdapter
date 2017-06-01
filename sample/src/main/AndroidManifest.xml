@@ -61,6 +61,15 @@
     <activity
         android:name=".expandable.group.ExpandableGroupActivity"
         android:label="@string/label_expandable_group"/>
+    <activity
+        android:name=".selectable.adapter.SelectionModeActivity"
+        android:label="@string/label_selection"/>
+    <activity
+        android:name=".drag.and.drop.DragAndDropActivity"
+        android:label="@string/label_drag_drop"/>
+    <activity
+        android:name=".payload.PayloadActivity"
+        android:label="@string/label_payload"/>
   </application>
 
 </manifest>

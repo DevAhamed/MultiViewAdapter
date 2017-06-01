@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-package com.ahamed.sample.grid;
+package com.ahamed.sample.drag.and.drop;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.support.v7.widget.GridLayoutManager;
 import android.util.DisplayMetrics;
+import com.ahamed.multiviewadapter.SelectableAdapter;
 import com.ahamed.sample.common.BaseActivity;
 import com.ahamed.sample.common.model.BaseModel;
 import com.ahamed.sample.common.model.GridItem;
@@ -28,20 +29,22 @@ import com.ahamed.sample.common.model.Header;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GridAdapterActivity extends BaseActivity {
+public class DragAndDropActivity extends BaseActivity {
 
   public static void start(Context context) {
-    Intent starter = new Intent(context, GridAdapterActivity.class);
+    Intent starter = new Intent(context, DragAndDropActivity.class);
     context.startActivity(starter);
   }
 
   @Override protected void setUpAdapter() {
     GridLayoutManager glm = new GridLayoutManager(getApplicationContext(), 3);
 
-    GridAdapter adapter = new GridAdapter(convertDpToPixel(4, this));
+    DragAndDropAdapter adapter = new DragAndDropAdapter(convertDpToPixel(4, this));
     adapter.setSpanCount(3);
 
     recyclerView.addItemDecoration(adapter.getItemDecorationManager());
+    adapter.getItemTouchHelper().attachToRecyclerView(recyclerView);
+    adapter.setSelectionMode(SelectableAdapter.SELECTION_MODE_MULTIPLE);
 
     glm.setSpanSizeLookup(adapter.getSpanSizeLookup());
     recyclerView.setLayoutManager(glm);

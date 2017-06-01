@@ -24,15 +24,11 @@ android {
   compileSdkVersion 25
   buildToolsVersion "25.0.3"
 
-  dataBinding {
-    enabled = true
-  }
-
   defaultConfig {
     minSdkVersion 9
     targetSdkVersion 25
     versionCode 1
-    versionName "1.1.0"
+    versionName "1.0"
 
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
   }
@@ -45,7 +41,13 @@ android {
 }
 
 dependencies {
-  compile 'com.android.support:recyclerview-v7:25.3.1'
+  compile project(':multi-view-adapter')
+  provided('com.android.databinding:library:1.3.1') {
+    transitive = false
+  }
+  provided('com.android.databinding:baseLibrary:2.3.2') {
+    transitive = false
+  }
 }
 
 ext {
@@ -55,9 +57,9 @@ ext {
 
   publishedGroupId = devProperties['groupId']
   libraryName = devProperties['repoName']
-  artifact = devProperties['artifactId']
+  artifact = devProperties['artifactIdDataBinding']
 
-  libraryDescription = 'Recyclerview Adapter library to create composable view holders'
+  libraryDescription = 'Additional DataBinding support for MultiViewAdapter'
 
   siteUrl = 'https://github.com/DevAhamed/MultiViewAdapter'
   gitUrl = 'https://github.com/DevAhamed/MultiViewAdapter.git'

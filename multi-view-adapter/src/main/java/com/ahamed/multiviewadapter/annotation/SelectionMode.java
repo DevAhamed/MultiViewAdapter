@@ -31,12 +31,12 @@ import static com.ahamed.multiviewadapter.SelectableAdapter.SELECTION_MODE_SINGL
  * Represents the selection mode of the adapter.
  *
  * <p>Possible values : </p>
- * <li>SELECTION_MODE_NONE - Default value. No {@link RecyclerAdapter} is not selectable </li>
- * <li>SELECTION_MODE_SINGLE - Single selection. You cannot deselect the item without selecting
- * other item. Similar to a {@link RadioGroup} </li>
- * <li>SELECTION_MODE_SINGLE_OR_NONE - Single selection. You can deselect the item previously
- * selected item</li>
- * <li>SELECTION_MODE_MULTIPLE - Multiple selection</li>
+ * <p>SELECTION_MODE_NONE - Default value. {@link RecyclerAdapter} is not selectable </p>
+ * <p>SELECTION_MODE_SINGLE - Single selection. You cannot deselect the item without selecting
+ * other item. Similar to a {@link RadioGroup} </p>
+ * <p>SELECTION_MODE_SINGLE_OR_NONE - Single selection. You can deselect the item previously
+ * selected item</p>
+ * <p>SELECTION_MODE_MULTIPLE - Multiple selection</p>
  */
 @Retention(RetentionPolicy.SOURCE) @IntDef({
     SELECTION_MODE_NONE, SELECTION_MODE_SINGLE, SELECTION_MODE_SINGLE_OR_NONE,
