@@ -19,7 +19,7 @@ The minimum API level supported by this library is API 9.
 ```gradle
 dependencies {
 	// ... other dependencies here
-    compile 'com.github.devahamed:multi-view-adapter:1.0.1'
+    compile 'com.github.devahamed:multi-view-adapter:1.1.0'
 }
 ```
 
