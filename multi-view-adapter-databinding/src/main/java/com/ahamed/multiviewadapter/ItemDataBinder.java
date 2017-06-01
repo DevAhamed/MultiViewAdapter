@@ -21,7 +21,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 /**
- * {@link ItemBinder} which supports the DataBinding
+ * ItemBinder which supports the DataBinding
  *
  * @param <M> Refers to the model class
  * @param <VDB> Refers to the view binding of the model class
