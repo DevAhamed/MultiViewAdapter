@@ -228,8 +228,8 @@ class CoreRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     binders.add(binder);
   }
 
-  boolean isLastItemInManager(int adapterPosition) {
-    return getDataManager(adapterPosition).size() - 1 == adapterPosition;
+  boolean isLastItemInManager(int adapterPosition, int itemPosition) {
+    return getDataManager(adapterPosition).size() - 1 == itemPosition;
   }
 
   void onItemSelectionToggled(int position) {

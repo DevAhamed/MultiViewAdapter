@@ -143,9 +143,10 @@ class ItemDecorationManager extends RecyclerView.ItemDecoration {
   private @PositionType int getPositionTypeLinear(int itemPosition, int adapterPosition,
       boolean isReverseLayout) {
     boolean isFirstItem =
-        isReverseLayout ? adapter.isLastItemInManager(adapterPosition) : itemPosition == 0;
-    boolean isLastItem =
-        isReverseLayout ? itemPosition == 0 : adapter.isLastItemInManager(adapterPosition);
+        isReverseLayout ? adapter.isLastItemInManager(adapterPosition, itemPosition)
+            : itemPosition == 0;
+    boolean isLastItem = isReverseLayout ? itemPosition == 0
+        : adapter.isLastItemInManager(adapterPosition, itemPosition);
     return isFirstItem ? ItemDecorator.POSITION_FIRST_ITEM
         : isLastItem ? ItemDecorator.POSITION_LAST_ITEM : ItemDecorator.POSITION_MIDDLE_ITEM;
   }
