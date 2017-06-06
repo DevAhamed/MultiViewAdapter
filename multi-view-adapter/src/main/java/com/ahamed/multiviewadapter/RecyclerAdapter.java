@@ -20,6 +20,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import com.ahamed.multiviewadapter.annotation.ExpandableMode;
 import com.ahamed.multiviewadapter.util.InfiniteLoadingHelper;
+import java.util.Collections;
 
 public class RecyclerAdapter extends CoreRecyclerAdapter {
 
@@ -94,12 +95,30 @@ public class RecyclerAdapter extends CoreRecyclerAdapter {
   }
 
   /**
+   * To add multiple {@link DataListManager} to the {@link RecyclerAdapter}
+   *
+   * @param baseDataManagers The DataManagers to be added to {@link RecyclerAdapter}
+   */
+  public final void addDataManagers(BaseDataManager... baseDataManagers) {
+    Collections.addAll(dataManagers, baseDataManagers);
+  }
+
+  /**
    * To register the {@link ItemBinder} to the {@link RecyclerAdapter}
    *
    * @param binder The ItemBinder to be register with {@link RecyclerAdapter}
    */
   public final void registerBinder(ItemBinder binder) {
-    addBinder(binder);
+    binders.add(binder);
+  }
+
+  /**
+   * To register multiple {@link ItemBinder} to the {@link RecyclerAdapter}
+   *
+   * @param itemBinders The ItemBinders to be register with {@link RecyclerAdapter}
+   */
+  public final void registerBinders(ItemBinder itemBinders) {
+    Collections.addAll(binders, itemBinders);
   }
 
   /**

@@ -42,7 +42,7 @@ class CoreRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     }
   };
 
-  private final List<ItemBinder> binders = new ArrayList<>();
+  final List<ItemBinder> binders = new ArrayList<>();
   private final SparseBooleanArray expandedItems = new SparseBooleanArray();
   private int lastExpandedIndex = -1;
   private final ItemActionListener actionListener = new ItemActionListener() {
@@ -222,10 +222,6 @@ class CoreRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
   final void notifyBinderItemRangeRemoved(BaseDataManager dataManager, int positionStart,
       int itemCount) {
     notifyItemRangeRemoved(getPositionInAdapter(dataManager, positionStart), itemCount);
-  }
-
-  void addBinder(ItemBinder binder) {
-    binders.add(binder);
   }
 
   boolean isLastItemInManager(int adapterPosition, int itemPosition) {
