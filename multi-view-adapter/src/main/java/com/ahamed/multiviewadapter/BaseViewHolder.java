@@ -44,6 +44,10 @@ public class BaseViewHolder<M> extends ViewHolder
     return null != itemLongClickListener && itemLongClickListener.onItemLongClick(view, getItem());
   }
 
+  final void setItemActionListener(ItemActionListener actionListener) {
+    this.actionListener = actionListener;
+  }
+
   ////////////////////////////////////////
   ///////// Public Methods ///////////////
   ////////////////////////////////////////
@@ -140,10 +144,6 @@ public class BaseViewHolder<M> extends ViewHolder
     return 0;
   }
 
-  ////////////////////////////////////////
-  ///////// Internal Methods ///////////////
-  ////////////////////////////////////////
-
   /**
    * Returns the drag directions for the provided ViewHolder. Default implementation returns the
    * drag directions as 0.
@@ -155,8 +155,11 @@ public class BaseViewHolder<M> extends ViewHolder
     return 0;
   }
 
-  final void setItemActionListener(ItemActionListener actionListener) {
-    this.actionListener = actionListener;
+  /**
+   * The method lets the user to start dragging the viewholder
+   */
+  public final void startDrag() {
+    actionListener.onStartDrag(this);
   }
 
   /**

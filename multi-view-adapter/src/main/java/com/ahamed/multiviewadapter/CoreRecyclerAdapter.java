@@ -70,6 +70,10 @@ class CoreRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     @Override public boolean isAdapterInActionMode() {
       return isInActionMode;
     }
+
+    @Override public void onStartDrag(BaseViewHolder viewHolder) {
+      itemTouchHelper.startDrag(viewHolder);
+    }
   };
 
   int maxSpanCount = 1;
