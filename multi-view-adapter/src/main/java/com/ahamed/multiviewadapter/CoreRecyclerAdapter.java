@@ -289,7 +289,7 @@ class CoreRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
   void onItemDismiss(int adapterPosition) {
     BaseDataManager baseDataManager = getDataManager(adapterPosition);
     if (baseDataManager instanceof DataListManager) {
-      ((DataListManager) baseDataManager).remove(getItemPositionInManager(adapterPosition));
+      ((DataListManager) baseDataManager).onSwiped(getItemPositionInManager(adapterPosition));
     } else if (baseDataManager instanceof DataItemManager) {
       ((DataItemManager) baseDataManager).removeItem();
     }
