@@ -48,6 +48,10 @@ public class BaseViewHolder<M> extends ViewHolder
     this.actionListener = actionListener;
   }
 
+  final void setItem(M item) {
+    this.item = item;
+  }
+
   ////////////////////////////////////////
   ///////// Public Methods ///////////////
   ////////////////////////////////////////
@@ -59,10 +63,6 @@ public class BaseViewHolder<M> extends ViewHolder
    */
   public final M getItem() {
     return item;
-  }
-
-  final void setItem(M item) {
-    this.item = item;
   }
 
   /**
