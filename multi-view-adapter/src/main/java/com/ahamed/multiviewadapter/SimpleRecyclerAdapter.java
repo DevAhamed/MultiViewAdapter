@@ -24,11 +24,11 @@ import java.util.List;
  * @param <M> Model class to be displayed
  * @param <B> ItemBinder class
  */
-public final class SimpleAdapter<M, B extends ItemBinder> extends SelectableAdapter {
+public final class SimpleRecyclerAdapter<M, B extends ItemBinder> extends SelectableAdapter {
 
   private final DataListManager<M> dataListManager = new DataListManager<>(this);
 
-  public SimpleAdapter(B binder) {
+  public SimpleRecyclerAdapter(B binder) {
     addDataManager(dataListManager);
     registerBinder(binder);
   }
