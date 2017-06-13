@@ -36,14 +36,18 @@ class CoreRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
   final List<BaseDataManager> dataManagers = new ArrayList<>();
   final ItemDecorationManager itemDecorationManager;
+  final List<ItemBinder> binders = new ArrayList<>();
+  private final SparseBooleanArray expandedItems = new SparseBooleanArray();
+  int maxSpanCount = 1;
   final GridLayoutManager.SpanSizeLookup spanSizeLookup = new GridLayoutManager.SpanSizeLookup() {
     @Override public int getSpanSize(int position) {
       return getBinderForPosition(position).getSpanSize(maxSpanCount);
     }
   };
-
-  final List<ItemBinder> binders = new ArrayList<>();
-  private final SparseBooleanArray expandedItems = new SparseBooleanArray();
+  ItemTouchHelper itemTouchHelper;
+  boolean isInActionMode = false;
+  @ExpandableMode int expandableMode = EXPANDABLE_MODE_NONE;
+  @ExpandableMode int groupExpandableMode = EXPANDABLE_MODE_NONE;
   private int lastExpandedIndex = -1;
   private final ItemActionListener actionListener = new ItemActionListener() {
 
@@ -75,12 +79,6 @@ class CoreRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
       itemTouchHelper.startDrag(viewHolder);
     }
   };
-
-  int maxSpanCount = 1;
-  ItemTouchHelper itemTouchHelper;
-  boolean isInActionMode = false;
-  @ExpandableMode int expandableMode = EXPANDABLE_MODE_NONE;
-  @ExpandableMode int groupExpandableMode = EXPANDABLE_MODE_NONE;
 
   CoreRecyclerAdapter() {
     itemDecorationManager = new ItemDecorationManager(this);

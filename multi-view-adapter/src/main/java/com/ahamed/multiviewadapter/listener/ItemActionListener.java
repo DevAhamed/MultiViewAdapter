@@ -34,5 +34,4 @@ import com.ahamed.multiviewadapter.BaseViewHolder;
   boolean isAdapterInActionMode();
 
   void onStartDrag(BaseViewHolder viewHolder);
-
 }

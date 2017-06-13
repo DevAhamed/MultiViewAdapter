@@ -35,6 +35,12 @@ public class GridAdapterActivity extends BaseActivity {
     context.startActivity(starter);
   }
 
+  public static int convertDpToPixel(float dp, Context context) {
+    Resources resources = context.getResources();
+    DisplayMetrics metrics = resources.getDisplayMetrics();
+    return (int) (dp * (metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT));
+  }
+
   @Override protected void setUpAdapter() {
     GridLayoutManager glm = new GridLayoutManager(getApplicationContext(), 3);
 
@@ -56,11 +62,5 @@ public class GridAdapterActivity extends BaseActivity {
       }
     }
     adapter.addData(data);
-  }
-
-  public static int convertDpToPixel(float dp, Context context) {
-    Resources resources = context.getResources();
-    DisplayMetrics metrics = resources.getDisplayMetrics();
-    return (int) (dp * (metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT));
   }
 }

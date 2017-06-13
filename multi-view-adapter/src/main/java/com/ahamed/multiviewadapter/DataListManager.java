@@ -172,6 +172,7 @@ public final class DataListManager<M> extends DataListUpdateManager<M> {
 
   /**
    * Sets the SwipeToDismissListener
+   *
    * @param swipeToDismissListener Listener to be set
    * @see SwipeToDismissListener
    */

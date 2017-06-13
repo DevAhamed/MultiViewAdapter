@@ -81,6 +81,12 @@ public class ComplexListAdapter extends RecyclerAdapter {
     }));
   }
 
+  public static int convertDpToPixel(float dp, Context context) {
+    Resources resources = context.getResources();
+    DisplayMetrics metrics = resources.getDisplayMetrics();
+    return (int) (dp * (metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT));
+  }
+
   public void addMultiItem(List<Vehicle> dataList) {
     multiItemsManager.addAll(dataList);
   }
@@ -92,11 +98,5 @@ public class ComplexListAdapter extends RecyclerAdapter {
 
   public void addSingleModelItem(List<Article> dataList) {
     singleModelManager.addAll(dataList);
-  }
-
-  public static int convertDpToPixel(float dp, Context context) {
-    Resources resources = context.getResources();
-    DisplayMetrics metrics = resources.getDisplayMetrics();
-    return (int) (dp * (metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT));
   }
 }
