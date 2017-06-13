@@ -21,7 +21,7 @@ import android.content.Intent;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
-import com.ahamed.multiviewadapter.SimpleAdapter;
+import com.ahamed.multiviewadapter.SimpleRecyclerAdapter;
 import com.ahamed.sample.common.BaseActivity;
 import com.ahamed.sample.common.model.Quote;
 import java.io.IOException;
@@ -46,7 +46,8 @@ public class SimpleAdapterActivity extends BaseActivity {
     recyclerView.addItemDecoration(
         new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL));
 
-    SimpleAdapter<Quote, QuoteBinder> adapter = new SimpleAdapter<>(new QuoteBinder());
+    SimpleRecyclerAdapter<Quote, QuoteBinder> adapter =
+        new SimpleRecyclerAdapter<>(new QuoteBinder());
 
     recyclerView.setLayoutManager(llm);
     recyclerView.setAdapter(adapter);
