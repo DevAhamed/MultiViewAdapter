@@ -14,10 +14,13 @@
  * limitations under the License.
  */
 
-package com.ahamed.multiviewadapter;
+package com.ahamed.multiviewadapter.listener;
 
 /**
- * @deprecated Use {@link com.ahamed.multiviewadapter.util.ItemDecorator} instead.
+ * Listener to listen when an item is dismissed by swipe gesture.
+ *
+ * @param <M> Refers to the model class
  */
-@Deprecated public interface ItemDecorator extends com.ahamed.multiviewadapter.util.ItemDecorator {
+public interface SwipeToDismissListener<M> {
+  void onItemDismissed(int position, M item);
 }

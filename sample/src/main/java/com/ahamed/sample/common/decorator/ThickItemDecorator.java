@@ -25,7 +25,7 @@ import android.graphics.drawable.Drawable;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import com.ahamed.multiviewadapter.ItemDecorator;
+import com.ahamed.multiviewadapter.util.ItemDecorator;
 
 public class ThickItemDecorator implements ItemDecorator {
 
@@ -40,7 +40,7 @@ public class ThickItemDecorator implements ItemDecorator {
   }
 
   @Override public void getItemOffsets(Rect outRect, int position, int positionType) {
-    if (positionType == POSITION_END) {
+    if (positionType == POSITION_LAST_ITEM) {
       return;
     }
     outRect.set(0, 0, 0, mDivider.getIntrinsicHeight() * 4);
@@ -51,7 +51,7 @@ public class ThickItemDecorator implements ItemDecorator {
     if (parent.getLayoutManager() == null) {
       return;
     }
-    if (positionType == POSITION_END) {
+    if (positionType == POSITION_LAST_ITEM) {
       return;
     }
     drawVertical(canvas, parent, child);

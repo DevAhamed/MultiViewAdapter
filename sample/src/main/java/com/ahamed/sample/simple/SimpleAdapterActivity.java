@@ -21,8 +21,8 @@ import android.content.Intent;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
+import com.ahamed.multiviewadapter.SimpleAdapter;
 import com.ahamed.sample.common.BaseActivity;
-import com.ahamed.sample.common.adapter.QuoteAdapter;
 import com.ahamed.sample.common.model.Quote;
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,13 +46,13 @@ public class SimpleAdapterActivity extends BaseActivity {
     recyclerView.addItemDecoration(
         new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL));
 
-    QuoteAdapter adapter = new QuoteAdapter(false);
+    SimpleAdapter<Quote, QuoteBinder> adapter = new SimpleAdapter<>(new QuoteBinder());
 
     recyclerView.setLayoutManager(llm);
     recyclerView.setAdapter(adapter);
 
     List<Quote> quotes = getQuotes();
-    adapter.addData(quotes);
+    adapter.setData(quotes);
   }
 
   private String loadJSONFromAsset() {

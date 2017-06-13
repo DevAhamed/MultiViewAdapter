@@ -22,7 +22,7 @@ import android.util.DisplayMetrics;
 import com.ahamed.multiviewadapter.DataItemManager;
 import com.ahamed.multiviewadapter.DataListManager;
 import com.ahamed.multiviewadapter.RecyclerAdapter;
-import com.ahamed.multiviewadapter.SimpleItemDecoration;
+import com.ahamed.multiviewadapter.util.SimpleDividerDecoration;
 import com.ahamed.sample.common.binder.AdvertisementBinder;
 import com.ahamed.sample.common.binder.ArticleBinder;
 import com.ahamed.sample.common.binder.BikeBinder;
@@ -47,10 +47,10 @@ public class ComplexListAdapter extends RecyclerAdapter {
 
   private List<GridItem> gridDataList;
 
-  private SimpleItemDecoration simpleItemDecoration;
+  private SimpleDividerDecoration simpleItemDecoration;
 
   public ComplexListAdapter(Context context) {
-    simpleItemDecoration = new SimpleItemDecoration(context, SimpleItemDecoration.VERTICAL);
+    simpleItemDecoration = new SimpleDividerDecoration(context, SimpleDividerDecoration.VERTICAL);
 
     singleModelManager = new DataListManager<>(this);
     gridItemsManager = new DataListManager<>(this);

@@ -42,7 +42,7 @@ class CoreRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     }
   };
 
-  private final List<ItemBinder> binders = new ArrayList<>();
+  final List<ItemBinder> binders = new ArrayList<>();
   private final SparseBooleanArray expandedItems = new SparseBooleanArray();
   private int lastExpandedIndex = -1;
   private final ItemActionListener actionListener = new ItemActionListener() {
@@ -69,6 +69,10 @@ class CoreRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     @Override public boolean isAdapterInActionMode() {
       return isInActionMode;
+    }
+
+    @Override public void onStartDrag(BaseViewHolder viewHolder) {
+      itemTouchHelper.startDrag(viewHolder);
     }
   };
 
@@ -224,12 +228,8 @@ class CoreRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     notifyItemRangeRemoved(getPositionInAdapter(dataManager, positionStart), itemCount);
   }
 
-  void addBinder(ItemBinder binder) {
-    binders.add(binder);
-  }
-
-  boolean isLastItemInManager(int adapterPosition) {
-    return getDataManager(adapterPosition).size() - 1 == adapterPosition;
+  boolean isLastItemInManager(int adapterPosition, int itemPosition) {
+    return getDataManager(adapterPosition).size() - 1 == itemPosition;
   }
 
   void onItemSelectionToggled(int position) {
@@ -289,7 +289,7 @@ class CoreRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
   void onItemDismiss(int adapterPosition) {
     BaseDataManager baseDataManager = getDataManager(adapterPosition);
     if (baseDataManager instanceof DataListManager) {
-      ((DataListManager) baseDataManager).remove(getItemPositionInManager(adapterPosition));
+      ((DataListManager) baseDataManager).onSwiped(getItemPositionInManager(adapterPosition));
     } else if (baseDataManager instanceof DataItemManager) {
       ((DataItemManager) baseDataManager).removeItem();
     }

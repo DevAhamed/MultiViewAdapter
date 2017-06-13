@@ -35,11 +35,6 @@ public interface ItemDecorator {
   int POSITION_FIRST_ITEM = 101;
 
   /**
-   * @deprecated Use {@link ItemDecorator#POSITION_FIRST_ITEM} instead.
-   */
-  @Deprecated int POSITION_START = POSITION_FIRST_ITEM;
-
-  /**
    * Denotes that the item is neither first element nor last element in the {@link DataListManager}.
    */
   int POSITION_MIDDLE_ITEM = 102;
@@ -49,11 +44,6 @@ public interface ItemDecorator {
    * display
    */
   int POSITION_LAST_ITEM = 103;
-
-  /**
-   * @deprecated Use {@link ItemDecorator#POSITION_LAST_ITEM} instead.
-   */
-  @Deprecated int POSITION_END = POSITION_LAST_ITEM;
 
   /**
    * Denotes that the item is lies in the left edge of the grid
