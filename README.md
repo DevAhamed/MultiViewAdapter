@@ -18,8 +18,10 @@ The minimum API level supported by this library is API 9.
 
 ```gradle
 dependencies {
-	// ... other dependencies here
-    compile 'com.github.devahamed:multi-view-adapter:1.1.0'
+    compile 'com.github.devahamed:multi-view-adapter:1.2.0'
+    
+    // If you want to use data binding
+    compile 'com.github.devahamed:multi-view-adapter-databinding:1.2.0'
 }
 ```
 
@@ -54,15 +56,72 @@ You can read more about this library here in this [Medium article](https://mediu
 
 ## Features
 
-1. Supports different span count for different ItemBinders.
-2. Adds different ItemDecoration for different ItemBinders.
-3. Items can be selected - Single and Multiple selection options are available.
-4. Out of the box support for DiffUtil.
+1. Multiple data set can be added to the adapter. [WikiDoc](https://github.com/DevAhamed/MultiViewAdapter/wiki/Multiple-Data-Set)
+2. Adds different ItemDecoration for different ItemBinders. [WikiDoc](https://github.com/DevAhamed/MultiViewAdapter/wiki/Custom-Item-Decoration)
+3. Single and Multiple selection options are available. [WikiDoc](https://github.com/DevAhamed/MultiViewAdapter/wiki/Choice-Modes)
+4. Out of the box support for DiffUtil. [WikiDoc](https://github.com/DevAhamed/MultiViewAdapter/wiki/DiffUtil-and-Payload)
+5. Custom span count for every binder. [WikiDoc](https://github.com/DevAhamed/MultiViewAdapter/wiki/Grid-Adapter)
+6. Data binding support. [WikiDoc](https://github.com/DevAhamed/MultiViewAdapter/wiki/Data-Binding)
+7. Advanced drag and drop support. [WikiDoc](https://github.com/DevAhamed/MultiViewAdapter/wiki/Drag-and-Drop)
+8. Swipe to dismiss. [WikiDoc](https://github.com/DevAhamed/MultiViewAdapter/wiki/Swipe-To-Dismiss)
+9. Infinite scrolling. [WikiDoc](https://github.com/DevAhamed/MultiViewAdapter/wiki/Infinite-Scrolling)
+10. Helper class for contextual action mode. [WikiDoc](https://github.com/DevAhamed/MultiViewAdapter/wiki/Contextual-Action-Mode)
+11. Items can be expanded/collapsed. [WikiDoc](https://github.com/DevAhamed/MultiViewAdapter/wiki/Expandable-Item)
+12. Groups can be expanded/collapsed. [WikiDoc](https://github.com/DevAhamed/MultiViewAdapter/wiki/Expandable-Group)
+
+## File Templates
+
+This library has default file templates for creating Adapters, ItemBinders for given model name. Take a look at wiki page for using the file templates. [Wiki page](https://github.com/DevAhamed/MultiViewAdapter/wiki/File-Templates)
 
 ## Usage
-To get some idea about the MultiViewAdapter features kindly look at sample app code.
-Also we have comprehensive wiki pages as well. Take a look at [JCenter](https://github.com/DevAhamed/MultiViewAdapter/wiki).
+Let us display list of cars. No fuss. Here is the entire code.
 
+
+<b>CarBinder</b>
+ 
+```java
+class CarBinder extends ItemBinder<CarModel, CarBinder.CarViewHolder> {
+
+  @Override public CarViewHolder create(LayoutInflater inflater, ViewGroup parent) {
+    return new CarViewHolder(inflater.inflate(R.layout.item_car, parent, false));
+  }
+
+  @Override public boolean canBindData(Object item) {
+    return item instanceof CarModel;
+  }
+
+  @Override public void bind(CarViewHolder holder, CarModel item) {
+    // Bind the data here
+  }
+
+  static class CarViewHolder extends BaseViewHolder<CarModel> {
+    // Normal ViewHolder code
+  }
+}
+```
+
+<b>In your Activity/Fragment</b>
+
+```java
+class CarListActivity extends Activity {
+
+  private RecyclerView recyclerView;
+  private List<CarModel> cars;
+
+  public void initViews() {
+    SimpleRecyclerAdapter<CarModel, CarBinder> adapter =
+        new SimpleRecyclerAdapter<>(new CarBinder());
+
+    recyclerView.setAdapter(adapter);
+    adapter.setDataList(cars);
+  }
+}
+```
+Now you are good to go.
+<br/>
+<br/>
+For advanced usage and features kindly take a look at sample app code.
+Also we have comprehensive wiki pages as well. Take a look at [Wiki home](https://github.com/DevAhamed/MultiViewAdapter/wiki).
 
 ## Changelog
 See the project's Releases page for a list of versions with their changelog. [View Releases](https://github.com/DevAhamed/MultiViewAdapter/releases)<br/>
