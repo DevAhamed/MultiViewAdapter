@@ -26,17 +26,18 @@ import android.view.ViewGroup;
 import com.ahamed.multiviewadapter.annotation.PositionType;
 import com.ahamed.multiviewadapter.listener.ItemActionListener;
 import com.ahamed.multiviewadapter.util.ItemDecorator;
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class ItemBinder<M, VH extends BaseViewHolder<M>> {
 
-  private ItemDecorator itemDecorator;
+  private List<ItemDecorator> itemDecorators;
 
   public ItemBinder() {
   }
 
   public ItemBinder(ItemDecorator itemDecorator) {
-    this.itemDecorator = itemDecorator;
+    addDecorator(itemDecorator);
   }
 
   /**
@@ -89,6 +90,33 @@ public abstract class ItemBinder<M, VH extends BaseViewHolder<M>> {
     return 1;
   }
 
+  /**
+   * Used to add {@link ItemDecorator} for the binder
+   *
+   * @param itemDecorator {@link ItemDecorator} that needs to be added
+   */
+  public final void addDecorator(ItemDecorator itemDecorator) {
+    addDecorator(itemDecorator, -1);
+  }
+
+  /**
+   * Used to add {@link ItemDecorator} for the binder with priority
+   *
+   * @param itemDecorator {@link ItemDecorator} to be added
+   * @param priority Position in the decoration chain to insert this decoration at. If this value
+   * is negative the decoration will be added at the end.
+   */
+  public final void addDecorator(ItemDecorator itemDecorator, int priority) {
+    if (null == itemDecorator) {
+      itemDecorators = new ArrayList<>();
+    }
+    if (priority >= 0 && itemDecorators.size() > priority) {
+      itemDecorators.add(priority, itemDecorator);
+    } else {
+      itemDecorators.add(itemDecorator);
+    }
+  }
+
   ///////////////////////////////////////////
   /////////// Internal API ahead. ///////////
   ///////////////////////////////////////////
@@ -109,18 +137,24 @@ public abstract class ItemBinder<M, VH extends BaseViewHolder<M>> {
   }
 
   boolean isItemDecorationEnabled() {
-    return itemDecorator != null;
+    return itemDecorators != null;
   }
 
   void getItemOffsets(Rect outRect, int position, @PositionType int positionType) {
-    if (null != itemDecorator) {
+    if (null == itemDecorators) {
+      return;
+    }
+    for (ItemDecorator itemDecorator : itemDecorators) {
       itemDecorator.getItemOffsets(outRect, position, positionType);
     }
   }
 
   void onDraw(Canvas canvas, RecyclerView parent, View child, int position,
       @PositionType int positionType) {
-    if (null != itemDecorator) {
+    if (null == itemDecorators) {
+      return;
+    }
+    for (ItemDecorator itemDecorator : itemDecorators) {
       itemDecorator.onDraw(canvas, parent, child, position, positionType);
     }
   }

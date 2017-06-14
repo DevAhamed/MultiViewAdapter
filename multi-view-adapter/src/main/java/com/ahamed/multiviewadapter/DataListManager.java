@@ -18,10 +18,13 @@ package com.ahamed.multiviewadapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import com.ahamed.multiviewadapter.listener.SwipeToDismissListener;
 import java.util.Collection;
 import java.util.List;
 
 public final class DataListManager<M> extends DataListUpdateManager<M> {
+
+  private SwipeToDismissListener<M> swipeToDismissListener;
 
   public DataListManager(RecyclerAdapter adapter) {
     super(adapter);
@@ -168,9 +171,20 @@ public final class DataListManager<M> extends DataListUpdateManager<M> {
   }
 
   /**
-   * @deprecated Use {@link com.ahamed.multiviewadapter.util.PayloadProvider} instead.
+   * Sets the SwipeToDismissListener
+   *
+   * @param swipeToDismissListener Listener to be set
+   * @see SwipeToDismissListener
    */
-  @Deprecated public interface PayloadProvider<M>
-      extends com.ahamed.multiviewadapter.util.PayloadProvider<M> {
+  public void setSwipeToDismissListener(SwipeToDismissListener<M> swipeToDismissListener) {
+    this.swipeToDismissListener = swipeToDismissListener;
+  }
+
+  void onSwiped(int itemPositionInManager) {
+    M item = get(itemPositionInManager);
+    remove(itemPositionInManager, true);
+    if (null != swipeToDismissListener) {
+      swipeToDismissListener.onItemDismissed(itemPositionInManager, item);
+    }
   }
 }

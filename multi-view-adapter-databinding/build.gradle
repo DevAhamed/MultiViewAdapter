@@ -15,10 +15,16 @@
  */
 
 apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
 
-def devPropertiesFile = rootProject.file("developer.properties");
-def devProperties = new Properties()
-devProperties.load(new FileInputStream(devPropertiesFile))
+buildscript {
+  repositories {
+    jcenter()
+  }
+  dependencies {
+    classpath 'com.novoda:bintray-release:0.5.0'
+  }
+}
 
 android {
   compileSdkVersion 25
@@ -28,7 +34,7 @@ android {
     minSdkVersion 9
     targetSdkVersion 25
     versionCode 1
-    versionName "1.0"
+    versionName "1.2.0"
 
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
   }
@@ -50,30 +56,47 @@ dependencies {
   }
 }
 
-ext {
-
-  bintrayRepo = devProperties['repoName']
-  bintrayName = devProperties['artifactId']
-
-  publishedGroupId = devProperties['groupId']
-  libraryName = devProperties['repoName']
-  artifact = devProperties['artifactIdDataBinding']
-
-  libraryDescription = 'Additional DataBinding support for MultiViewAdapter'
-
-  siteUrl = 'https://github.com/DevAhamed/MultiViewAdapter'
-  gitUrl = 'https://github.com/DevAhamed/MultiViewAdapter.git'
-
-  libraryVersion = '1.1.0'
-
-  developerId = devProperties['devId']
-  developerName = devProperties['devName']
-  developerEmail = devProperties['devEmail']
-
-  licenseName = 'The Apache Software License, Version 2.0'
-  licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-  allLicenses = ["Apache-2.0"]
+publish {
+  userOrg = 'devahamed'
+  groupId = 'com.github.devahamed'
+  artifactId = 'multi-view-adapter-databinding'
+  publishVersion = '1.2.0'
+  repoName = 'MultiViewAdapter'
+  desc = 'Additional DataBinding support for MultiViewAdapter'
+  website = 'https://github.com/DevAhamed/MultiViewAdapter'
 }
 
-apply from: '../install.gradle'
-apply from: '../bintray.gradle'
+if (project.hasProperty("android")) {
+  // Android libraries
+  task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from android.sourceSets.main.java.srcDirs
+  }
+
+  task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    failOnError true
+  }
+  afterEvaluate {
+    javadoc.classpath +=
+        files(android.libraryVariants.collect { variant -> variant.javaCompile.classpath.files
+        })
+  }
+} else {
+  // Java libraries
+  task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+  }
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+  classifier = 'javadoc'
+  from javadoc.destinationDir
+}
+
+artifacts {
+  archives javadocJar
+  archives sourcesJar
+}

@@ -23,7 +23,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.ahamed.multiviewadapter.BaseViewHolder;
 import com.ahamed.multiviewadapter.ItemBinder;
-import com.ahamed.multiviewadapter.ItemDecorator;
+import com.ahamed.multiviewadapter.util.ItemDecorator;
 import com.ahamed.sample.R;
 import com.ahamed.sample.common.model.Article;
 

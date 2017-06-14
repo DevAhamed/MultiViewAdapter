@@ -17,6 +17,7 @@
 package com.ahamed.multiviewadapter.listener;
 
 import android.support.annotation.RestrictTo;
+import com.ahamed.multiviewadapter.BaseViewHolder;
 
 @RestrictTo(RestrictTo.Scope.LIBRARY) public interface ItemActionListener {
 
@@ -31,4 +32,6 @@ import android.support.annotation.RestrictTo;
   boolean isItemExpanded(int adapterPosition);
 
   boolean isAdapterInActionMode();
+
+  void onStartDrag(BaseViewHolder viewHolder);
 }
