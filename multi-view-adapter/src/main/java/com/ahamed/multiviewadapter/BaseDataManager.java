@@ -96,6 +96,8 @@ class BaseDataManager<M> implements ListUpdateCallback {
       int index = indexOf(m);
       if (!oldSelectedItems.contains(m)) {
         onItemSelectionToggled(index, true);
+      } else {
+        this.selectedItems.add(m);
       }
     }
     for (M m : oldSelectedItems) {
@@ -132,7 +134,7 @@ class BaseDataManager<M> implements ListUpdateCallback {
    */
   @Nullable public final M getSelectedItem() {
     if (selectedItems.size() > 0) {
-      return dataList.get(0);
+      return selectedItems.get(0);
     }
     return null;
   }
@@ -145,7 +147,7 @@ class BaseDataManager<M> implements ListUpdateCallback {
    *
    * @param selectedItem Selected item
    */
-  public final void setSelectedItem(M selectedItem) {
+  public final void setSelectedItem(@NonNull M selectedItem) {
     if (!(adapter instanceof SelectableAdapter)) {
       throw new IllegalStateException(
           "Make sure your adapter extends from com.ahamed.multiviewadapter.SelectableAdapter");

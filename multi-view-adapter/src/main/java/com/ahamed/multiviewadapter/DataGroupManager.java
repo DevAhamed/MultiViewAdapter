@@ -74,6 +74,10 @@ public class DataGroupManager<H, M> extends DataListUpdateManager<M> {
     isExpanded = expanded;
   }
 
+  public boolean isExpanded() {
+    return isExpanded;
+  }
+
   /**
    * Set header to the section. This will call the necessary {@link
    * RecyclerView.ItemAnimator}'s animation.

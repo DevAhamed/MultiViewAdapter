@@ -49,7 +49,7 @@ class CoreRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
   @ExpandableMode int expandableMode = EXPANDABLE_MODE_NONE;
   @ExpandableMode int groupExpandableMode = EXPANDABLE_MODE_NONE;
   private int lastExpandedIndex = -1;
-  private final ItemActionListener actionListener = new ItemActionListener() {
+  final ItemActionListener actionListener = new ItemActionListener() {
 
     @Override public void onItemSelectionToggled(int position) {
       CoreRecyclerAdapter.this.onItemSelectionToggled(position);
