@@ -51,4 +51,28 @@ public final class SimpleRecyclerAdapter<M, B extends ItemBinder> extends Select
   public final void setData(List<M> dataList) {
     dataListManager.set(dataList);
   }
+
+  /**
+   * Adds an header to the adapter.
+   *
+   * @param itemBinder ItemBinder for the header
+   * @param header Header to be added
+   */
+  public final <H, VH extends BaseViewHolder<H>> void addHeader(ItemBinder<H, VH> itemBinder,
+      H header) {
+    registerBinder(itemBinder);
+    addDataManager(0, new DataItemManager<>(this, header));
+  }
+
+  /**
+   * Adds an footer to the adapter.
+   *
+   * @param itemBinder ItemBinder for the footer
+   * @param footer Footer to be added
+   */
+  public final <F, VH extends BaseViewHolder<F>> void addFooter(ItemBinder<F, VH> itemBinder,
+      F footer) {
+    registerBinder(itemBinder);
+    addDataManager(new DataItemManager<>(this, footer));
+  }
 }
