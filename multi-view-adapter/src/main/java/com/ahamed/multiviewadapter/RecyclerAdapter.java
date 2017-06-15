@@ -95,12 +95,15 @@ public class RecyclerAdapter extends CoreRecyclerAdapter {
   }
 
   /**
-   * To add multiple {@link DataListManager} to the {@link RecyclerAdapter}
+   * To add the {@link DataListManager} to the {@link RecyclerAdapter} in particular index
    *
-   * @param baseDataManagers The DataManagers to be added to {@link RecyclerAdapter}
+   * @param dataManager The DataManager to be added to {@link RecyclerAdapter}
+   * @param index Index where the DataManager should be added
+   * @throws IndexOutOfBoundsException if the index is out of range
+   * (<tt>index &lt; 0 || index &gt; size()</tt>)
    */
-  public final void addDataManagers(BaseDataManager... baseDataManagers) {
-    Collections.addAll(dataManagers, baseDataManagers);
+  public final void addDataManager(int index, BaseDataManager dataManager) {
+    dataManagers.add(index, dataManager);
   }
 
   /**
@@ -109,7 +112,9 @@ public class RecyclerAdapter extends CoreRecyclerAdapter {
    * @param binder The ItemBinder to be register with {@link RecyclerAdapter}
    */
   public final void registerBinder(ItemBinder binder) {
-    binders.add(binder);
+    if (!binders.contains(binder)) {
+      binders.add(binder);
+    }
   }
 
   /**
@@ -117,7 +122,7 @@ public class RecyclerAdapter extends CoreRecyclerAdapter {
    *
    * @param itemBinders The ItemBinders to be register with {@link RecyclerAdapter}
    */
-  public final void registerBinders(ItemBinder itemBinders) {
+  public final void registerBinders(ItemBinder... itemBinders) {
     Collections.addAll(binders, itemBinders);
   }
 

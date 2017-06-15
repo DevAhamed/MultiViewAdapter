@@ -107,7 +107,7 @@ public abstract class ItemBinder<M, VH extends BaseViewHolder<M>> {
    * is negative the decoration will be added at the end.
    */
   public final void addDecorator(ItemDecorator itemDecorator, int priority) {
-    if (null == itemDecorator) {
+    if (null == itemDecorators) {
       itemDecorators = new ArrayList<>();
     }
     if (priority >= 0 && itemDecorators.size() > priority) {
