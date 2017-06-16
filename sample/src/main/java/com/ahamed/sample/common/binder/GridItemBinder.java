@@ -68,6 +68,12 @@ public class GridItemBinder extends ItemBinder<GridItem, GridItemBinder.ItemView
           Toast.makeText(view.getContext(), item.getData(), Toast.LENGTH_SHORT).show();
         }
       });
+      setItemLongClickListener(new OnItemLongClickListener<GridItem>() {
+        @Override public boolean onItemLongClick(View view, GridItem item) {
+          startDrag();
+          return true;
+        }
+      });
     }
 
     @Override public int getDragDirections() {

@@ -32,18 +32,18 @@ public interface ItemDecorator {
    * Denotes that the item is the first element in the {@link DataListManager} by the order of
    * display
    */
-  int POSITION_FIRST_ITEM = 101;
+  int POSITION_FIRST_ITEM = 16;
 
   /**
    * Denotes that the item is neither first element nor last element in the {@link DataListManager}.
    */
-  int POSITION_MIDDLE_ITEM = 102;
+  int POSITION_MIDDLE_ITEM = 32;
 
   /**
    * Denotes that the item is the last element in the {@link DataListManager} by the order of
    * display
    */
-  int POSITION_LAST_ITEM = 103;
+  int POSITION_LAST_ITEM = 64;
 
   /**
    * Denotes that the item is lies in the left edge of the grid
