@@ -83,12 +83,12 @@ public class PayloadActivity extends BaseActivity {
 
   public void add(View view) {
     Flower flower = new Flower(itemIndex, "Flower " + itemIndex);
-    if (random.nextBoolean()) {
+    //if (random.nextBoolean()) {
       dataListManager.add(flower);
-    } else {
-      int indexToAdd = random.nextInt(dataListManager.getCount() - 1);
-      dataListManager.add(indexToAdd, flower);
-    }
+    //} else {
+    //  int indexToAdd = random.nextInt(dataListManager.getCount() - 1);
+    //  dataListManager.add(indexToAdd, flower);
+    //}
     itemIndex++;
   }
 

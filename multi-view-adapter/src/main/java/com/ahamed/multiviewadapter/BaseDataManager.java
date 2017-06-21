@@ -33,7 +33,7 @@ class BaseDataManager<M> implements ListUpdateCallback {
   private ItemSelectionChangedListener<M> itemSelectionChangedListener;
   private MultiSelectionChangedListener<M> multiSelectionChangedListener;
 
-  BaseDataManager(RecyclerAdapter adapter) {
+  BaseDataManager(@NonNull RecyclerAdapter adapter) {
     this.adapter = adapter;
   }
 

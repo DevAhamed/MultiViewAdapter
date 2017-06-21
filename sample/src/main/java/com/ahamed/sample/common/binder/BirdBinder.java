@@ -28,12 +28,20 @@ import com.ahamed.sample.common.model.Bird;
 
 public class BirdBinder extends ItemBinder<Bird, BirdBinder.ViewHolder> {
 
+  BaseViewHolder.OnItemClickListener<Bird> listener;
+
   public BirdBinder(ItemDecorator itemDecorator) {
     super(itemDecorator);
   }
 
+  public BirdBinder(ItemDecorator itemDecorator,
+      BaseViewHolder.OnItemClickListener<Bird> listener) {
+    super(itemDecorator);
+    this.listener = listener;
+  }
+
   @Override public BirdBinder.ViewHolder create(LayoutInflater layoutInflater, ViewGroup parent) {
-    return new ViewHolder(layoutInflater.inflate(R.layout.item_bird, parent, false));
+    return new ViewHolder(layoutInflater.inflate(R.layout.item_bird, parent, false), listener);
   }
 
   @Override public void bind(ViewHolder holder, Bird item) {
@@ -52,9 +60,10 @@ public class BirdBinder extends ItemBinder<Bird, BirdBinder.ViewHolder> {
 
     private TextView textView;
 
-    ViewHolder(View itemView) {
+    ViewHolder(View itemView, OnItemClickListener<Bird> listener) {
       super(itemView);
       textView = (TextView) itemView.findViewById(R.id.tv_bird_name);
+      setItemClickListener(listener);
     }
   }
 }

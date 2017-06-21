@@ -133,6 +133,7 @@ public class RecyclerAdapter extends CoreRecyclerAdapter {
    * @see ExpandableMode ExpandableMode for possible values
    */
   public final void setExpandableMode(@ExpandableMode int expandableMode) {
+    expandedItems.clear();
     this.expandableMode = expandableMode;
   }
 

@@ -25,9 +25,9 @@ import java.util.List;
 
 class DataListUpdateManager<M> extends BaseDataManager<M> {
 
-  private final PayloadProvider<M> payloadProvider;
+  final PayloadProvider<M> payloadProvider;
 
-  DataListUpdateManager(RecyclerAdapter adapter) {
+  DataListUpdateManager(@NonNull RecyclerAdapter adapter) {
     this(adapter, new PayloadProvider<M>() {
       @Override public boolean areContentsTheSame(M oldItem, M newItem) {
         return oldItem.equals(newItem);
@@ -39,7 +39,8 @@ class DataListUpdateManager<M> extends BaseDataManager<M> {
     });
   }
 
-  DataListUpdateManager(RecyclerAdapter adapter, @NonNull PayloadProvider<M> payloadProvider) {
+  DataListUpdateManager(@NonNull RecyclerAdapter adapter,
+      @NonNull PayloadProvider<M> payloadProvider) {
     super(adapter);
     this.payloadProvider = payloadProvider;
   }

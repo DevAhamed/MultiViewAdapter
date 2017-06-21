@@ -54,10 +54,6 @@ public class DataGroupManager<H, M> extends DataListUpdateManager<M> {
     }
   }
 
-  @Override M getItem(int dataItemPosition) {
-    return super.getItem(dataItemPosition - 1);
-  }
-
   BaseDataManager getDataManagerForPosition(int itemPositionInManager) {
     if (itemPositionInManager == 0) {
       return headerItemManager;
@@ -100,7 +96,7 @@ public class DataGroupManager<H, M> extends DataListUpdateManager<M> {
    */
   public final void removeGroup() {
     if (getDataList().size() > 0) {
-      getDataList().clear();
+      clear();
     }
     headerItemManager.removeItem();
   }
@@ -115,7 +111,11 @@ public class DataGroupManager<H, M> extends DataListUpdateManager<M> {
    * is not supported by this {@link DataGroupManager}
    */
   public final boolean add(M item) {
-    return add(item, isExpanded);
+    boolean result = add(item, false);
+    if (result && isExpanded) {
+      onInserted(getDataList().size(), 1);
+    }
+    return result;
   }
 
   /**
@@ -134,7 +134,11 @@ public class DataGroupManager<H, M> extends DataListUpdateManager<M> {
    * @see #add(Object)
    */
   public final boolean addAll(@NonNull Collection<? extends M> items) {
-    return addAll(getDataList().size(), items, isExpanded);
+    boolean result = addAll(items, false);
+    if (result && isExpanded) {
+      onInserted(getDataList().size() - items.size() + 1, items.size());
+    }
+    return result;
   }
 
   /**
@@ -156,7 +160,11 @@ public class DataGroupManager<H, M> extends DataListUpdateManager<M> {
    * is not supported by this data manager
    */
   public final boolean addAll(int index, @NonNull Collection<? extends M> items) {
-    return addAll(index, items, isExpanded);
+    boolean result = addAll(index, items, false);
+    if (isExpanded) {
+      onInserted(index + 1, items.size());
+    }
+    return result;
   }
 
   /**
@@ -174,7 +182,10 @@ public class DataGroupManager<H, M> extends DataListUpdateManager<M> {
    * (<tt>index &lt; 0 || index &gt; size()</tt>)
    */
   public final void add(int index, M item) {
-    add(index, item, isExpanded);
+    add(index, item, false);
+    if (isExpanded) {
+      onInserted(index + 1, 1);
+    }
   }
 
   /**
@@ -190,7 +201,11 @@ public class DataGroupManager<H, M> extends DataListUpdateManager<M> {
    * (<tt>index &lt; 0 || index &gt;= size()</tt>)
    */
   public final void set(int index, M item) {
-    set(index, item, isExpanded);
+    M oldItem = getDataList().get(index);
+    set(index, item, false);
+    if (isExpanded) {
+      onChanged(index + 1, 1, payloadProvider.getChangePayload(oldItem, item));
+    }
   }
 
   /**
@@ -215,7 +230,11 @@ public class DataGroupManager<H, M> extends DataListUpdateManager<M> {
    * @param item element to be removed from this data manager, if present
    */
   public final void remove(M item) {
-    remove(item, isExpanded);
+    int index = getDataList().indexOf(item);
+    boolean result = getDataList().remove(item);
+    if (result && isExpanded) {
+      onRemoved(index + 1, 1);
+    }
   }
 
   /**
@@ -228,7 +247,10 @@ public class DataGroupManager<H, M> extends DataListUpdateManager<M> {
    * (<tt>index &lt; 0 || index &gt;= size()</tt>)
    */
   public final void remove(int index) {
-    remove(index, isExpanded);
+    remove(index, false);
+    if (isExpanded) {
+      onRemoved(index + 1, 1);
+    }
   }
 
   /**
@@ -237,6 +259,10 @@ public class DataGroupManager<H, M> extends DataListUpdateManager<M> {
    * {@link RecyclerView.ItemAnimator}'s remove animation will be called.
    */
   public final void clear() {
-    clear(isExpanded);
+    int oldSize = getDataList().size();
+    clear(false);
+    if (isExpanded) {
+      onRemoved(1, oldSize);
+    }
   }
 }
