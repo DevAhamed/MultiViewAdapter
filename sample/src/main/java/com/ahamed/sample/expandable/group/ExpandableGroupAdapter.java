@@ -16,6 +16,8 @@
 
 package com.ahamed.sample.expandable.group;
 
+import android.view.View;
+import com.ahamed.multiviewadapter.BaseViewHolder;
 import com.ahamed.multiviewadapter.DataGroupManager;
 import com.ahamed.multiviewadapter.RecyclerAdapter;
 import com.ahamed.multiviewadapter.util.ItemDecorator;
@@ -27,7 +29,8 @@ import com.ahamed.sample.common.model.Header;
 import com.ahamed.sample.expandable.ExpandableItemBinder;
 import java.util.List;
 
-public class ExpandableGroupAdapter extends RecyclerAdapter {
+public class ExpandableGroupAdapter extends RecyclerAdapter
+    implements BaseViewHolder.OnItemClickListener<Bird> {
 
   private DataGroupManager<Header, Bird> birdsGroup;
   private DataGroupManager<Header, Flower> flowerGroup;
@@ -44,7 +47,7 @@ public class ExpandableGroupAdapter extends RecyclerAdapter {
 
     registerBinder(new ExpandableHeaderBinder());
     registerBinder(new ExpandableItemBinder());
-    registerBinder(new BirdBinder(dividerDecoration));
+    registerBinder(new BirdBinder(dividerDecoration, this));
     registerBinder(new FlowerBinder(dividerDecoration));
   }
 
@@ -56,7 +59,15 @@ public class ExpandableGroupAdapter extends RecyclerAdapter {
     flowerGroup.set(dataList);
   }
 
+  void addFlower(Flower dataList) {
+    flowerGroup.add(2, dataList);
+  }
+
   void addItems(List<String> dataList) {
     expandableItemGroup.set(dataList);
+  }
+
+  @Override public void onItemClick(View view, Bird item) {
+    addFlower(new Flower(100, "New Flower"));
   }
 }

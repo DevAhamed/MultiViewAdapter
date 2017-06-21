@@ -58,7 +58,7 @@ public class ExpandableGroupActivity extends BaseActivity {
     }
     adapter.addFlowers(flowers);
     List<String> dataList = new ArrayList<>();
-    for (int i = 1; i <= 35; i++) {
+    for (int i = 1; i <= 5; i++) {
       dataList.add("Item " + i);
     }
     adapter.addItems(dataList);
