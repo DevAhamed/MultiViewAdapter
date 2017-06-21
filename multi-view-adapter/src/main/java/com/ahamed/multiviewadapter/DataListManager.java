@@ -19,6 +19,7 @@ package com.ahamed.multiviewadapter;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import com.ahamed.multiviewadapter.listener.SwipeToDismissListener;
+import com.ahamed.multiviewadapter.util.PayloadProvider;
 import java.util.Collection;
 import java.util.List;
 
@@ -26,12 +27,11 @@ public final class DataListManager<M> extends DataListUpdateManager<M> {
 
   private SwipeToDismissListener<M> swipeToDismissListener;
 
-  public DataListManager(RecyclerAdapter adapter) {
+  public DataListManager(@NonNull RecyclerAdapter adapter) {
     super(adapter);
   }
 
-  public DataListManager(RecyclerAdapter adapter,
-      @NonNull com.ahamed.multiviewadapter.util.PayloadProvider<M> payloadProvider) {
+  public DataListManager(@NonNull RecyclerAdapter adapter, @NonNull PayloadProvider<M> payloadProvider) {
     super(adapter, payloadProvider);
   }
 
@@ -64,7 +64,7 @@ public final class DataListManager<M> extends DataListUpdateManager<M> {
    * @see #add(Object)
    */
   public final boolean addAll(@NonNull Collection<? extends M> items) {
-    return addAll(getDataList().size(), items, true);
+    return addAll(items, true);
   }
 
   /**

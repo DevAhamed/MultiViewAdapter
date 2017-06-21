@@ -37,7 +37,7 @@ class CoreRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
   final List<BaseDataManager> dataManagers = new ArrayList<>();
   final ItemDecorationManager itemDecorationManager;
   final List<ItemBinder> binders = new ArrayList<>();
-  private final SparseBooleanArray expandedItems = new SparseBooleanArray();
+  final SparseBooleanArray expandedItems = new SparseBooleanArray();
   int maxSpanCount = 1;
   final GridLayoutManager.SpanSizeLookup spanSizeLookup = new GridLayoutManager.SpanSizeLookup() {
     @Override public int getSpanSize(int position) {
@@ -177,7 +177,7 @@ class CoreRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     }
   }
 
-  private BaseDataManager justGetDataManager(int adapterPosition) {
+  BaseDataManager justGetDataManager(int adapterPosition) {
     int processedCount = 0;
     for (BaseDataManager dataManager : dataManagers) {
       processedCount += dataManager.getCount();
