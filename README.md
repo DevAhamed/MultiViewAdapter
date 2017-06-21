@@ -1,7 +1,9 @@
 # MultiViewAdapter
 
-[ ![Core](https://api.bintray.com/packages/devahamed/MultiViewAdapter/multi-view-adapter/images/download.svg) ](https://bintray.com/devahamed/MultiViewAdapter/multi-view-adapter/_latestVersion)
+[![Version](https://api.bintray.com/packages/devahamed/MultiViewAdapter/multi-view-adapter/images/download.svg) ](https://bintray.com/devahamed/MultiViewAdapter/multi-view-adapter/_latestVersion)
 [![GitHub license](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](https://github.com/DevAhamed/MultiViewAdapter/blob/master/LICENSE)
+[![Code coverage](https://codecov.io/gh/DevAhamed/MultiViewAdapter/branch/master/graph/badge.svg)](https://codecov.io/gh/DevAhamed/MultiViewAdapter)
+[![Build Status](https://www.bitrise.io/app/7f9137a2f1df08c1/status.svg?token=bm8ERviCGI3BrqG_AEo9sA&branch=master)](https://www.bitrise.io/app/7f9137a2f1df08c1)
 
 ![Alt text](/images/MultiViewAdapter-Article-1.jpg?raw=true)
 
