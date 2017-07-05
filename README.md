@@ -20,10 +20,10 @@ The minimum API level supported by this library is API 9.
 
 ```gradle
 dependencies {
-    compile 'com.github.devahamed:multi-view-adapter:1.2.1'
+    compile 'com.github.devahamed:multi-view-adapter:1.2.2'
     
     // If you want to use data binding
-    compile 'com.github.devahamed:multi-view-adapter-databinding:1.2.1'
+    compile 'com.github.devahamed:multi-view-adapter-databinding:1.2.2'
 }
 ```
 
