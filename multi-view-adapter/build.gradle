@@ -54,7 +54,7 @@ android {
     minSdkVersion 9
     targetSdkVersion 25
     versionCode 1
-    versionName "1.2.0"
+    versionName "1.2.1"
 
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
   }
@@ -93,7 +93,7 @@ publish {
   groupId = 'com.github.devahamed'
   artifactId = 'multi-view-adapter'
   repoName = 'MultiViewAdapter'
-  publishVersion = '1.2.0'
+  publishVersion = '1.2.1'
   desc = 'Recyclerview Adapter library to create composable view holders'
   website = 'https://github.com/DevAhamed/MultiViewAdapter'
 }
