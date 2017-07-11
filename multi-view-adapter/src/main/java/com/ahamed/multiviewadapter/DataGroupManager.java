@@ -62,6 +62,10 @@ public class DataGroupManager<H, M> extends DataListUpdateManager<M> {
     }
   }
 
+  @Override M getItem(int dataItemPosition) {
+    return super.getItem(dataItemPosition - 1);
+  }
+
   @Override int size() {
     return headerItemManager.size() + (isExpanded ? super.size() : 0);
   }

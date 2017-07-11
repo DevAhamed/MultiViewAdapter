@@ -78,7 +78,7 @@ import static junit.framework.Assert.assertTrue;
     dummyOneDataListManager.remove(0);
     dummyTwoDataListManager.remove(0);
 
-    assertEquals(dummyTwoDataListManager.get(0).getData(), "DummyTwo 1");
+    assertEquals(dummyTwoDataListManager.get(1).getData(), "DummyTwo 1");
     assertEquals(adapter.getItemCount(), 20);
   }
 
