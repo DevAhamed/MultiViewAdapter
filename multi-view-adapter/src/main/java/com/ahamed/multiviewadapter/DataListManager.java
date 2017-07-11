@@ -181,7 +181,7 @@ public final class DataListManager<M> extends DataListUpdateManager<M> {
   }
 
   void onSwiped(int itemPositionInManager) {
-    M item = get(itemPositionInManager);
+    M item = getItem(itemPositionInManager);
     remove(itemPositionInManager, true);
     if (null != swipeToDismissListener) {
       swipeToDismissListener.onItemDismissed(itemPositionInManager, item);

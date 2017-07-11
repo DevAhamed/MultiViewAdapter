@@ -113,7 +113,7 @@ class CoreRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
           dataManager = ((DataGroupManager) dataManager).getDataManagerForPosition(itemPosition);
         }
         //noinspection unchecked
-        holder.setItem(dataManager.get(itemPosition));
+        holder.setItem(dataManager.getItem(itemPosition));
         break;
       }
     }
@@ -147,7 +147,7 @@ class CoreRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
   ItemBinder getBinderForPosition(int adapterPosition) {
     BaseDataManager dataManager = getDataManager(adapterPosition);
     for (ItemBinder baseBinder : binders) {
-      if (baseBinder.canBindData(dataManager.get(getItemPositionInManager(adapterPosition)))) {
+      if (baseBinder.canBindData(dataManager.getItem(getItemPositionInManager(adapterPosition)))) {
         return baseBinder;
       }
     }
@@ -304,7 +304,7 @@ class CoreRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     if (dataManager.equals(targetDataManager)) {
       dataManager.onSwapped(currentPositionInManager, targetPositionInManager);
     } else {
-      Object obj = dataManager.get(currentPositionInManager);
+      Object obj = dataManager.getItem(currentPositionInManager);
       ((DataListUpdateManager) dataManager).remove(currentPositionInManager, false);
       //noinspection unchecked
       ((DataListUpdateManager) targetDataManager).add(
