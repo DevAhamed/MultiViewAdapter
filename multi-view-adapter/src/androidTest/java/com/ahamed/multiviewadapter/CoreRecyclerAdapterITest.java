@@ -188,12 +188,12 @@ import static junit.framework.Assert.assertTrue;
     adapter.setSelectionMode(SelectableAdapter.SELECTION_MODE_SINGLE_OR_NONE);
 
     adapter.onItemSelectionToggled(12);
-    assertEquals(adapter.getDataManager(12).get(adapter.getItemPositionInManager(12)),
+    assertEquals(adapter.getDataManager(12).getItem(adapter.getItemPositionInManager(12)),
         dummyTwoDataListManager.getSelectedItem());
 
     adapter.onItemSelectionToggled(25);
     dummyTwoDataListManager.onGroupExpansionToggled();
-    assertEquals(adapter.getDataManager(15).get(adapter.getItemPositionInManager(15)),
+    assertEquals(adapter.getDataManager(15).getItem(adapter.getItemPositionInManager(15)),
         dummyThreeDataListManager.getSelectedItem());
   }
 
@@ -218,7 +218,7 @@ import static junit.framework.Assert.assertTrue;
         .contains(adapter.getDataManager(8).get(adapter.getItemPositionInManager(8))));
 
     adapter.onItemSelectionToggled(15);
-    assertTrue(dummyTwoDataListManager.getSelectedItems().contains(dummyTwoDataListManager.get(5)));
+    assertTrue(dummyTwoDataListManager.getSelectedItems().contains(dummyTwoDataListManager.get(4)));
 
     assertTrue(adapter.getDataManager(22)
         .getSelectedItems()
@@ -238,7 +238,7 @@ import static junit.framework.Assert.assertTrue;
         .getSelectedItems()
         .contains(adapter.getDataManager(8).get(adapter.getItemPositionInManager(8))));
 
-    assertTrue(dummyTwoDataListManager.getSelectedItems().contains(dummyTwoDataListManager.get(5)));
+    assertTrue(dummyTwoDataListManager.getSelectedItems().contains(dummyTwoDataListManager.get(4)));
 
     assertTrue(adapter.getDataManager(22)
         .getSelectedItems()

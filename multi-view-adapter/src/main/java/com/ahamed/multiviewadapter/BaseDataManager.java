@@ -207,7 +207,7 @@ class BaseDataManager<M> implements ListUpdateCallback {
    * (<tt>index &lt; 0 || index &gt;= size()</tt>)
    */
   public final M get(int index) {
-    return getItem(index);
+    return dataList.get(index);
   }
 
   /**
@@ -266,9 +266,9 @@ class BaseDataManager<M> implements ListUpdateCallback {
 
   void onItemSelectionToggled(int position, boolean isSelected) {
     if (isSelected) {
-      selectedItems.add(get(position));
+      selectedItems.add(getItem(position));
     } else {
-      selectedItems.remove(get(position));
+      selectedItems.remove(getItem(position));
     }
     onChanged(position, 1, null);
     if (adapter instanceof SelectableAdapter && (itemSelectionChangedListener != null
@@ -283,7 +283,8 @@ class BaseDataManager<M> implements ListUpdateCallback {
         case SelectableAdapter.SELECTION_MODE_SINGLE:
         case SelectableAdapter.SELECTION_MODE_SINGLE_OR_NONE:
           if (null != itemSelectionChangedListener) {
-            itemSelectionChangedListener.onItemSelectionChangedListener(get(position), isSelected);
+            itemSelectionChangedListener.onItemSelectionChangedListener(getItem(position),
+                isSelected);
           }
           break;
         case SelectableAdapter.SELECTION_MODE_NONE:
@@ -313,11 +314,11 @@ class BaseDataManager<M> implements ListUpdateCallback {
   }
 
   M getItem(int dataItemPosition) {
-    return dataList.get(dataItemPosition);
+    return get(dataItemPosition);
   }
 
   boolean isItemSelected(int dataItemPosition) {
-    return selectedItems.contains(get(dataItemPosition));
+    return selectedItems.contains(getItem(dataItemPosition));
   }
 
   void onSwapped(int currentPosition, int targetPosition) {
