@@ -56,17 +56,17 @@ public interface ItemDecorator {
   int POSITION_TOP = 2;
 
   /**
-   * Denotes that the item is lies in the middle of the grid
+   * Denotes that the item is lies in the right edge of the grid
    */
   int POSITION_RIGHT = 4;
 
   /**
-   * Denotes that the item is lies in the right edge of the grid
+   * Denotes that the item is lies in the bottom edge of the grid
    */
   int POSITION_BOTTOM = 8;
 
   /**
-   * Denotes that the item is lies in the bottom edge of the grid
+   * Denotes that the item is lies in the middle of the grid
    */
   int POSITION_MIDDLE = 0;
 
