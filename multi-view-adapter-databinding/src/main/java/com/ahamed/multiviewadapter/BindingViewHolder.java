@@ -24,7 +24,7 @@ import android.databinding.ViewDataBinding;
  * @param <M> Refers to the model class
  * @param <VDB> Refers to the DataBinding class of the model
  */
-abstract class BindingViewHolder<M, VDB extends ViewDataBinding> extends BaseViewHolder<M> {
+abstract class BindingViewHolder<M, VDB extends ViewDataBinding> extends ItemViewHolder<M> {
 
   private final VDB binding;
 

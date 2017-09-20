@@ -58,7 +58,7 @@ public final class SimpleRecyclerAdapter<M, B extends ItemBinder> extends Select
    * @param itemBinder ItemBinder for the header
    * @param header Header to be added
    * @param <H> Model class of header
-   * @param <VH> ViewHolder for header
+   * @param <VH> ItemViewHolder for header
    */
   public final <H, VH extends BaseViewHolder<H>> void addHeader(ItemBinder<H, VH> itemBinder,
       H header) {
@@ -72,7 +72,7 @@ public final class SimpleRecyclerAdapter<M, B extends ItemBinder> extends Select
    * @param itemBinder ItemBinder for the footer
    * @param footer Footer to be added
    * @param <F> Model class of footer
-   * @param <VH> ViewHolder for footer
+   * @param <VH> ItemViewHolder for footer
    */
   public final <F, VH extends BaseViewHolder<F>> void addFooter(ItemBinder<F, VH> itemBinder,
       F footer) {
