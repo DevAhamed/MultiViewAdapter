@@ -150,7 +150,7 @@ public class RecyclerAdapter extends CoreRecyclerAdapter {
   /**
    * Helper method to set the adapter is in contextual action mode.
    *
-   * @see BaseViewHolder To get the state of action mode
+   * @see ItemViewHolder To get the state of action mode
    */
   public final void startActionMode() {
     isInActionMode = true;
@@ -159,7 +159,7 @@ public class RecyclerAdapter extends CoreRecyclerAdapter {
   /**
    * Helper method to set the adapter has exited contextual action mode.
    *
-   * @see BaseViewHolder To get the state of action mode
+   * @see ItemViewHolder To get the state of action mode
    */
   public final void stopActionMode() {
     isInActionMode = false;

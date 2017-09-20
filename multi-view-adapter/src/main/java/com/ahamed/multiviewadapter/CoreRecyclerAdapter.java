@@ -32,7 +32,7 @@ import static com.ahamed.multiviewadapter.RecyclerAdapter.EXPANDABLE_MODE_MULTIP
 import static com.ahamed.multiviewadapter.RecyclerAdapter.EXPANDABLE_MODE_NONE;
 import static com.ahamed.multiviewadapter.RecyclerAdapter.EXPANDABLE_MODE_SINGLE;
 
-class CoreRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
+class CoreRecyclerAdapter extends RecyclerView.Adapter<ItemViewHolder> {
 
   final List<BaseDataManager> dataManagers = new ArrayList<>();
   final ItemDecorationManager itemDecorationManager;
@@ -75,7 +75,7 @@ class CoreRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
       return isInActionMode;
     }
 
-    @Override public void onStartDrag(BaseViewHolder viewHolder) {
+    @Override public void onStartDrag(ItemViewHolder viewHolder) {
       itemTouchHelper.startDrag(viewHolder);
     }
   };
@@ -89,18 +89,18 @@ class CoreRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
   }
 
   @RestrictTo(RestrictTo.Scope.LIBRARY) @Override
-  public final BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+  public final ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     return binders.get(viewType)
         .createViewHolder(LayoutInflater.from(parent.getContext()), parent, actionListener);
   }
 
   @RestrictTo(RestrictTo.Scope.LIBRARY) @Override
-  public final void onBindViewHolder(BaseViewHolder holder, int adapterPosition) {
+  public final void onBindViewHolder(ItemViewHolder holder, int adapterPosition) {
     onBindViewHolder(holder, adapterPosition, null);
   }
 
   @RestrictTo(RestrictTo.Scope.LIBRARY) @Override
-  public final void onBindViewHolder(BaseViewHolder holder, int adapterPosition,
+  public final void onBindViewHolder(ItemViewHolder holder, int adapterPosition,
       List<Object> payloads) {
     ItemBinder baseBinder = binders.get(holder.getItemViewType());
 

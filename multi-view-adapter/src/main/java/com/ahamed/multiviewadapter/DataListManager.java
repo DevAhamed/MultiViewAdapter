@@ -31,7 +31,8 @@ public final class DataListManager<M> extends DataListUpdateManager<M> {
     super(adapter);
   }
 
-  public DataListManager(@NonNull RecyclerAdapter adapter, @NonNull PayloadProvider<M> payloadProvider) {
+  public DataListManager(@NonNull RecyclerAdapter adapter,
+      @NonNull PayloadProvider<M> payloadProvider) {
     super(adapter, payloadProvider);
   }
 

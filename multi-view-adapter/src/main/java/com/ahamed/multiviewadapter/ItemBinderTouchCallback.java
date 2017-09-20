@@ -37,10 +37,10 @@ final class ItemBinderTouchCallback extends ItemTouchHelper.Callback {
 
   @Override
   public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-    if (viewHolder instanceof BaseViewHolder) {
-      BaseViewHolder baseViewHolder = (BaseViewHolder) viewHolder;
-      final int dragFlags = baseViewHolder.getDragDirections();
-      final int swipeFlags = baseViewHolder.getSwipeDirections();
+    if (viewHolder instanceof ItemViewHolder) {
+      ItemViewHolder itemViewHolder = (ItemViewHolder) viewHolder;
+      final int dragFlags = itemViewHolder.getDragDirections();
+      final int swipeFlags = itemViewHolder.getSwipeDirections();
       return makeMovementFlags(dragFlags, swipeFlags);
     }
     return -1;

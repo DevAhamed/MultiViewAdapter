@@ -70,12 +70,12 @@ public class DataGroupManager<H, M> extends DataListUpdateManager<M> {
     return headerItemManager.size() + (isExpanded ? super.size() : 0);
   }
 
-  public void setExpanded(boolean expanded) {
-    isExpanded = expanded;
-  }
-
   public boolean isExpanded() {
     return isExpanded;
+  }
+
+  public void setExpanded(boolean expanded) {
+    isExpanded = expanded;
   }
 
   /**

@@ -29,7 +29,7 @@ import com.ahamed.multiviewadapter.util.ItemDecorator;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class ItemBinder<M, VH extends BaseViewHolder<M>> {
+public abstract class ItemBinder<M, VH extends ItemViewHolder<M>> {
 
   private List<ItemDecorator> itemDecorators;
 
@@ -44,32 +44,34 @@ public abstract class ItemBinder<M, VH extends BaseViewHolder<M>> {
    * @param inflater LayoutInflater to inflate view
    * @param parent The ViewGroup into which the new View will be added after it is bound to
    * an adapter position.
-   * @return A new ViewHolder that holds a View for the given {@link ItemBinder}.
+   * @return A new ItemViewHolder that holds a View for the given {@link ItemBinder}.
    */
   public abstract VH create(LayoutInflater inflater, ViewGroup parent);
 
   /**
-   * @param holder holder The ViewHolder which should be updated to represent the contents of the
+   * @param holder holder The ItemViewHolder which should be updated to represent the contents of
+   * the
    * item at the given position in the data set.
    * @param item The object which holds the data
-   * @see #bind(BaseViewHolder, Object, List)
+   * @see #bind(ItemViewHolder, Object, List)
    */
   public abstract void bind(VH holder, M item);
 
   /**
    * @param item The object from the data set
    * @return boolean value which determines whether the {@link ItemBinder} can bind the
-   * item to the ViewHolder
+   * item to the ItemViewHolder
    */
   public abstract boolean canBindData(Object item);
 
   /**
-   * @param holder holder The ViewHolder which should be updated to represent the contents of the
+   * @param holder holder The ItemViewHolder which should be updated to represent the contents of
+   * the
    * item at the given position in the data set.
    * @param item The object which holds the data
    * @param payloads A non-null list of merged payloads. Can be empty list if requires full
    * update.
-   * @see #bind(BaseViewHolder, Object)
+   * @see #bind(ItemViewHolder, Object)
    */
   public void bind(VH holder, M item, List payloads) {
     bind(holder, item);

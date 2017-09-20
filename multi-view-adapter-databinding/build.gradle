@@ -34,7 +34,7 @@ android {
     minSdkVersion 9
     targetSdkVersion 25
     versionCode 1
-    versionName "1.2.2"
+    versionName "1.2.3"
 
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
   }
@@ -60,7 +60,7 @@ publish {
   userOrg = 'devahamed'
   groupId = 'com.github.devahamed'
   artifactId = 'multi-view-adapter-databinding'
-  publishVersion = '1.2.2'
+  publishVersion = '1.2.3'
   repoName = 'MultiViewAdapter'
   desc = 'Additional DataBinding support for MultiViewAdapter'
   website = 'https://github.com/DevAhamed/MultiViewAdapter'
