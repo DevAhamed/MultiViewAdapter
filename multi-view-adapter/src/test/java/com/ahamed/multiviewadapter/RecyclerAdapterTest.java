@@ -32,10 +32,9 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class) public class RecyclerAdapterTest {
 
   @Mock RecyclerView recyclerView;
-  private RecyclerAdapter recyclerAdapter = new RecyclerAdapter();
-
   @Mock ItemBinder dummyBinder;
   @Mock InfiniteLoadingHelper infiniteLoadingHelper;
+  private RecyclerAdapter recyclerAdapter = new RecyclerAdapter();
 
   @Before public void setUp() {
     recyclerAdapter.registerBinder(new DummyOneBinder());

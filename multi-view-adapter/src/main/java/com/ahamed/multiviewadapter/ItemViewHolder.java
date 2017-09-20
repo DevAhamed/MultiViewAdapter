@@ -25,8 +25,8 @@ public class ItemViewHolder<M> extends RecyclerView.ViewHolder
     implements View.OnClickListener, View.OnLongClickListener {
 
   private M item;
-  private BaseViewHolder.OnItemClickListener<M> itemClickListener;
-  private BaseViewHolder.OnItemLongClickListener<M> itemLongClickListener;
+  private OnItemClickListener<M> itemClickListener;
+  private OnItemLongClickListener<M> itemLongClickListener;
   private ItemActionListener actionListener;
 
   public ItemViewHolder(View itemView) {
@@ -48,21 +48,21 @@ public class ItemViewHolder<M> extends RecyclerView.ViewHolder
     this.actionListener = actionListener;
   }
 
-  final void setItem(M item) {
-    this.item = item;
+  /**
+   * Returns the item object bounded by this {@link ItemViewHolder}
+   *
+   * @return item bounded by this {@link ItemViewHolder}
+   */
+  public final M getItem() {
+    return item;
   }
 
   ////////////////////////////////////////
   ///////// Public Methods ///////////////
   ////////////////////////////////////////
 
-  /**
-   * Returns the item object bounded by this {@link BaseViewHolder}
-   *
-   * @return item bounded by this {@link BaseViewHolder}
-   */
-  public final M getItem() {
-    return item;
+  final void setItem(M item) {
+    this.item = item;
   }
 
   /**
@@ -73,7 +73,7 @@ public class ItemViewHolder<M> extends RecyclerView.ViewHolder
   }
 
   /**
-   * Can be called by the child view holders to toggle the {@link BaseViewHolder}'s expansion
+   * Can be called by the child view holders to toggle the {@link ItemViewHolder}'s expansion
    * status.
    */
   protected final void toggleItemExpansion() {
@@ -89,30 +89,28 @@ public class ItemViewHolder<M> extends RecyclerView.ViewHolder
   }
 
   /**
-   * Register a callback to be invoked when this {@link BaseViewHolder} is clicked. If this {@link
-   * BaseViewHolder} is not clickable, it becomes clickable.
+   * Register a callback to be invoked when this {@link ItemViewHolder} is clicked. If this {@link
+   * ItemViewHolder} is not clickable, it becomes clickable.
    *
    * @param itemClickListener The callback that will run
    */
-  protected final void setItemClickListener(
-      BaseViewHolder.OnItemClickListener<M> itemClickListener) {
+  protected final void setItemClickListener(OnItemClickListener<M> itemClickListener) {
     this.itemClickListener = itemClickListener;
   }
 
   /**
-   * Register a callback to be invoked when this {@link BaseViewHolder} is clicked and held. If this
-   * {@link BaseViewHolder} is not long clickable, it becomes long clickable.
+   * Register a callback to be invoked when this {@link ItemViewHolder} is clicked and held. If this
+   * {@link ItemViewHolder} is not long clickable, it becomes long clickable.
    *
    * @param itemLongClickListener The callback that will run
    */
-  protected final void setItemLongClickListener(
-      BaseViewHolder.OnItemLongClickListener<M> itemLongClickListener) {
+  protected final void setItemLongClickListener(OnItemLongClickListener<M> itemLongClickListener) {
     this.itemLongClickListener = itemLongClickListener;
   }
 
   /**
    * @return boolean value indicating whether the viewholder is selected or not.
-   * @see BaseViewHolder#toggleItemSelection()
+   * @see ItemViewHolder#toggleItemSelection()
    */
   public final boolean isItemSelected() {
     return actionListener.isItemSelected(getAdapterPosition());
@@ -120,7 +118,7 @@ public class ItemViewHolder<M> extends RecyclerView.ViewHolder
 
   /**
    * @return boolean value indicating whether the viewholder is expanded or not.
-   * @see BaseViewHolder#toggleItemExpansion()
+   * @see ItemViewHolder#toggleItemExpansion()
    */
   public final boolean isItemExpanded() {
     return actionListener.isItemExpanded(getAdapterPosition());
@@ -165,28 +163,28 @@ public class ItemViewHolder<M> extends RecyclerView.ViewHolder
   }
 
   /**
-   * Interface definition for a callback to be invoked when a {@link BaseViewHolder} is clicked.
+   * Interface definition for a callback to be invoked when a {@link ItemViewHolder} is clicked.
    */
   public interface OnItemClickListener<M> {
     /**
-     * Called when a {@link BaseViewHolder} has been clicked.
+     * Called when a {@link ItemViewHolder} has been clicked.
      *
      * @param view The view that was clicked.
-     * @param item Item that is bounded by the {@link BaseViewHolder}
+     * @param item Item that is bounded by the {@link ItemViewHolder}
      */
     void onItemClick(View view, M item);
   }
 
   /**
-   * Interface definition for a callback to be invoked when a {@link BaseViewHolder} has been
+   * Interface definition for a callback to be invoked when a {@link ItemViewHolder} has been
    * clicked and held.
    */
   public interface OnItemLongClickListener<M> {
     /**
-     * Called when a {@link BaseViewHolder} has been clicked and held.
+     * Called when a {@link ItemViewHolder} has been clicked and held.
      *
      * @param view The view that was clicked and held.
-     * @param item Item that is bounded by the {@link BaseViewHolder}
+     * @param item Item that is bounded by the {@link ItemViewHolder}
      * @return true if the callback consumed the long click, false otherwise.
      */
     boolean onItemLongClick(View view, M item);

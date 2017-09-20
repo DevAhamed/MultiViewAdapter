@@ -23,9 +23,9 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import com.ahamed.multiviewadapter.BaseViewHolder;
 import com.ahamed.multiviewadapter.DataItemManager;
 import com.ahamed.multiviewadapter.ItemBinder;
+import com.ahamed.multiviewadapter.ItemViewHolder;
 
 /**
  * Class to add infinite loading feature into the adapter
@@ -66,7 +66,7 @@ public abstract class InfiniteLoadingHelper {
    * @return ItemBinder which represents the loading indicator
    */
   @RestrictTo(RestrictTo.Scope.LIBRARY)
-  public ItemBinder<String, BaseViewHolder<String>> getItemBinder() {
+  public ItemBinder<String, ItemViewHolder<String>> getItemBinder() {
     return itemBinder;
   }
 
@@ -128,7 +128,7 @@ public abstract class InfiniteLoadingHelper {
   /**
    * ItemBinder class for showing the loading indicator.
    */
-  private static class InfiniteLoadingBinder extends ItemBinder<String, BaseViewHolder<String>> {
+  private static class InfiniteLoadingBinder extends ItemBinder<String, ItemViewHolder<String>> {
 
     @LayoutRes private final int layoutId;
 
@@ -137,11 +137,11 @@ public abstract class InfiniteLoadingHelper {
     }
 
     @Override
-    public final BaseViewHolder<String> create(LayoutInflater inflater, ViewGroup parent) {
-      return new BaseViewHolder<>(inflater.inflate(layoutId, parent, false));
+    public final ItemViewHolder<String> create(LayoutInflater inflater, ViewGroup parent) {
+      return new ItemViewHolder<>(inflater.inflate(layoutId, parent, false));
     }
 
-    @Override public final void bind(BaseViewHolder holder, String item) {
+    @Override public final void bind(ItemViewHolder holder, String item) {
       // No-op
     }
 

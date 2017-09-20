@@ -49,7 +49,8 @@ public abstract class ItemBinder<M, VH extends ItemViewHolder<M>> {
   public abstract VH create(LayoutInflater inflater, ViewGroup parent);
 
   /**
-   * @param holder holder The ItemViewHolder which should be updated to represent the contents of the
+   * @param holder holder The ItemViewHolder which should be updated to represent the contents of
+   * the
    * item at the given position in the data set.
    * @param item The object which holds the data
    * @see #bind(ItemViewHolder, Object, List)
@@ -64,7 +65,8 @@ public abstract class ItemBinder<M, VH extends ItemViewHolder<M>> {
   public abstract boolean canBindData(Object item);
 
   /**
-   * @param holder holder The ItemViewHolder which should be updated to represent the contents of the
+   * @param holder holder The ItemViewHolder which should be updated to represent the contents of
+   * the
    * item at the given position in the data set.
    * @param item The object which holds the data
    * @param payloads A non-null list of merged payloads. Can be empty list if requires full

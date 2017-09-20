@@ -30,11 +30,10 @@ import static org.mockito.Mockito.verify;
 
 @RunWith(AndroidJUnit4.class) public class RecyclerAdapterITest {
 
-  private RecyclerAdapter recyclerAdapter = new RecyclerAdapter();
-  private SelectableAdapter selectableAdapter = new SelectableAdapter();
-
   @Mock ItemSelectionChangedListener<DummyOne> itemSelectionChangedListener;
   @Mock MultiSelectionChangedListener<DummyOne> multiSelectionChangedListener;
+  private RecyclerAdapter recyclerAdapter = new RecyclerAdapter();
+  private SelectableAdapter selectableAdapter = new SelectableAdapter();
 
   @Test public void setExpandableModeTest() {
     recyclerAdapter.setExpandableMode(RecyclerAdapter.EXPANDABLE_MODE_MULTIPLE);
