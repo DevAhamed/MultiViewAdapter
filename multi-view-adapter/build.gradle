@@ -48,7 +48,6 @@ task jacocoTestReport(type: JacocoReport,
 
 android {
   compileSdkVersion 25
-  buildToolsVersion "25.0.3"
 
   defaultConfig {
     minSdkVersion 9
