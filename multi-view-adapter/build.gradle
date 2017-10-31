@@ -27,6 +27,9 @@ buildscript {
 }
 apply plugin: 'jacoco'
 
+jacoco {
+  toolVersion = "0.7.4.201502262128"
+}
 task jacocoTestReport(type: JacocoReport,
     dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
 
@@ -80,11 +83,11 @@ dependencies {
   compile 'com.android.support:recyclerview-v7:25.3.1'
 
   testCompile 'junit:junit:4.12'
-  testCompile 'org.mockito:mockito-core:2.7.7'
+  testCompile 'org.mockito:mockito-core:2.9.0'
 
   androidTestCompile 'org.mockito:mockito-android:2.7.22'
-  androidTestCompile "com.android.support.test:runner:0.5"
-  androidTestCompile "com.android.support.test:rules:0.5"
+  androidTestCompile "com.android.support.test:runner:1.0.1"
+  androidTestCompile "com.android.support.test:rules:1.0.1"
 }
 
 publish {
