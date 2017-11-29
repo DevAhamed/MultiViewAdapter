@@ -269,9 +269,9 @@ class CoreRecyclerAdapter extends RecyclerView.Adapter<ItemViewHolder> {
           return;
         }
         if (lastExpandedIndex != -1) {
-          getDataManager(lastExpandedIndex).onGroupExpansionToggled();
+          justGetDataManager(lastExpandedIndex).onGroupExpansionToggled();
         }
-        getDataManager(adapterPosition).onGroupExpansionToggled();
+        justGetDataManager(adapterPosition).onGroupExpansionToggled();
         lastExpandedIndex = adapterPosition;
         break;
       case EXPANDABLE_MODE_MULTIPLE:
