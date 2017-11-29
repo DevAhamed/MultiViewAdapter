@@ -70,6 +70,14 @@ public class DataGroupManager<H, M> extends DataListUpdateManager<M> {
     return headerItemManager.size() + (isExpanded ? super.size() : 0);
   }
 
+  @Override int getSelectedIndex() {
+    int selectedPosition = super.getSelectedIndex();
+    if (selectedPosition < 0) {
+      return selectedPosition;
+    }
+    return selectedPosition + 1;
+  }
+
   public boolean isExpanded() {
     return isExpanded;
   }
