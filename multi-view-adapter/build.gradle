@@ -56,7 +56,7 @@ android {
     minSdkVersion 9
     targetSdkVersion 25
     versionCode 1
-    versionName "1.2.3"
+    versionName "1.2.6"
 
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
   }
@@ -95,42 +95,58 @@ publish {
   groupId = 'com.github.devahamed'
   artifactId = 'multi-view-adapter'
   repoName = 'MultiViewAdapter'
-  publishVersion = '1.2.3'
+  publishVersion = '1.2.6'
   desc = 'Recyclerview Adapter library to create composable view holders'
   website = 'https://github.com/DevAhamed/MultiViewAdapter'
 }
 
-if (project.hasProperty("android")) {
-  // Android libraries
-  task sourcesJar(type: Jar) {
-    classifier = 'sources'
-    from android.sourceSets.main.java.srcDirs
+afterEvaluate { project ->
+
+  if (project.getPlugins().hasPlugin('com.android.application') ||
+      project.getPlugins().hasPlugin('com.android.library')) {
+
+    task androidJavadocs(type: Javadoc) {
+      source = android.sourceSets.main.java.source
+      classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    }
+
+    task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
+      classifier = 'javadoc'
+      from androidJavadocs.destinationDir
+    }
+
+    task androidSourcesJar(type: Jar) {
+      classifier = 'sources'
+      from android.sourceSets.main.java.source
+    }
+  } else {
+    task sourcesJar(type: Jar, dependsOn:classes) {
+      classifier = 'sources'
+      from sourceSets.main.allSource
+    }
+
+    task javadocJar(type: Jar, dependsOn:javadoc) {
+      classifier = 'javadoc'
+      from javadoc.destinationDir
+    }
   }
 
-  task javadoc(type: Javadoc) {
-    source = android.sourceSets.main.java.srcDirs
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-    failOnError true
+  if (JavaVersion.current().isJava8Compatible()) {
+    allprojects {
+      tasks.withType(Javadoc) {
+        options.addStringOption('Xdoclint:none', '-quiet')
+      }
+    }
   }
-  afterEvaluate {
-    javadoc.classpath +=
-        files(android.libraryVariants.collect { variant -> variant.javaCompile.classpath.files
-        })
-  }
-} else {
-  // Java libraries
-  task sourcesJar(type: Jar, dependsOn: classes) {
-    classifier = 'sources'
-    from sourceSets.main.allSource
-  }
-}
 
-task javadocJar(type: Jar, dependsOn: javadoc) {
-  classifier = 'javadoc'
-  from javadoc.destinationDir
-}
-
-artifacts {
-  archives javadocJar
-  archives sourcesJar
+  artifacts {
+    if (project.getPlugins().hasPlugin('com.android.application') ||
+        project.getPlugins().hasPlugin('com.android.library')) {
+      archives androidSourcesJar
+      archives androidJavadocsJar
+    } else {
+      archives sourcesJar
+      archives javadocJar
+    }
+  }
 }

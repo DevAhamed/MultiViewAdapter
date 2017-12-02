@@ -39,7 +39,7 @@ public class ExpandableGroupActivity extends BaseActivity {
         new SimpleDividerDecoration(this, SimpleDividerDecoration.VERTICAL));
 
     adapter.setExpandableMode(RecyclerAdapter.EXPANDABLE_MODE_MULTIPLE);
-    adapter.setGroupExpandableMode(RecyclerAdapter.EXPANDABLE_MODE_MULTIPLE);
+    adapter.setGroupExpandableMode(RecyclerAdapter.EXPANDABLE_MODE_SINGLE);
 
     LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
     recyclerView.addItemDecoration(adapter.getItemDecorationManager());
