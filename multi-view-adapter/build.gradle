@@ -14,18 +14,15 @@
  * limitations under the License.
  */
 
+import gradle.Config
+
 apply plugin: 'com.android.library'
 apply plugin: 'com.novoda.bintray-release'
-
-buildscript {
-  repositories {
-    jcenter()
-  }
-  dependencies {
-    classpath 'com.novoda:bintray-release:0.5.0'
-  }
-}
 apply plugin: 'jacoco'
+
+jacoco {
+  toolVersion = "0.7.4.201502262128"
+}
 
 task jacocoTestReport(type: JacocoReport,
     dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
@@ -47,14 +44,13 @@ task jacocoTestReport(type: JacocoReport,
 }
 
 android {
-  compileSdkVersion 25
-  buildToolsVersion "25.0.3"
+  compileSdkVersion Config.COMPILE_SDK
 
   defaultConfig {
-    minSdkVersion 9
-    targetSdkVersion 25
-    versionCode 1
-    versionName "1.2.3"
+    minSdkVersion Config.MIN_SDK
+    targetSdkVersion Config.TARGET_SDK
+    versionCode Config.VERSION_CODE
+    versionName Config.VERSION_NAME
 
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
   }
@@ -78,57 +74,73 @@ android {
 }
 
 dependencies {
-  compile 'com.android.support:recyclerview-v7:25.3.1'
+  implementation Config.RECYCLER_VIEW
 
-  testCompile 'junit:junit:4.12'
-  testCompile 'org.mockito:mockito-core:2.7.7'
+  testImplementation 'junit:junit:4.12'
+  testImplementation 'org.mockito:mockito-core:2.9.0'
 
-  androidTestCompile 'org.mockito:mockito-android:2.7.22'
-  androidTestCompile "com.android.support.test:runner:0.5"
-  androidTestCompile "com.android.support.test:rules:0.5"
+  androidTestImplementation 'org.mockito:mockito-android:2.8.47'
+  androidTestImplementation "com.android.support.test:runner:1.0.1"
+  androidTestImplementation "com.android.support.test:rules:1.0.1"
 }
 
 publish {
-  userOrg = 'devahamed'
-  groupId = 'com.github.devahamed'
-  artifactId = 'multi-view-adapter'
-  repoName = 'MultiViewAdapter'
-  publishVersion = '1.2.3'
-  desc = 'Recyclerview Adapter library to create composable view holders'
-  website = 'https://github.com/DevAhamed/MultiViewAdapter'
+  userOrg = Config.USER_ORG
+  groupId = Config.GROUP_ID
+  artifactId = Config.ARTIFACT_ID_CORE
+  publishVersion = Config.PUBLISH_VERSION
+  repoName = Config.REPO_NAME
+  desc = Config.DESC
+  website = Config.WEBSITE
 }
 
-if (project.hasProperty("android")) {
-  // Android libraries
-  task sourcesJar(type: Jar) {
-    classifier = 'sources'
-    from android.sourceSets.main.java.srcDirs
+afterEvaluate { project ->
+
+  if (project.getPlugins().hasPlugin('com.android.application') || project.getPlugins().
+      hasPlugin('com.android.library')) {
+
+    task androidJavadocs(type: Javadoc) {
+      source = android.sourceSets.main.java.source
+      classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    }
+
+    task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
+      classifier = 'javadoc'
+      from androidJavadocs.destinationDir
+    }
+
+    task androidSourcesJar(type: Jar) {
+      classifier = 'sources'
+      from android.sourceSets.main.java.source
+    }
+  } else {
+    task sourcesJar(type: Jar, dependsOn: classes) {
+      classifier = 'sources'
+      from sourceSets.main.allSource
+    }
+
+    task javadocJar(type: Jar, dependsOn: javadoc) {
+      classifier = 'javadoc'
+      from javadoc.destinationDir
+    }
   }
 
-  task javadoc(type: Javadoc) {
-    source = android.sourceSets.main.java.srcDirs
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-    failOnError true
+  if (JavaVersion.current().isJava8Compatible()) {
+    allprojects {
+      tasks.withType(Javadoc) {
+        options.addStringOption('Xdoclint:none', '-quiet')
+      }
+    }
   }
-  afterEvaluate {
-    javadoc.classpath +=
-        files(android.libraryVariants.collect { variant -> variant.javaCompile.classpath.files
-        })
-  }
-} else {
-  // Java libraries
-  task sourcesJar(type: Jar, dependsOn: classes) {
-    classifier = 'sources'
-    from sourceSets.main.allSource
-  }
-}
 
-task javadocJar(type: Jar, dependsOn: javadoc) {
-  classifier = 'javadoc'
-  from javadoc.destinationDir
-}
-
-artifacts {
-  archives javadocJar
-  archives sourcesJar
+  artifacts {
+    if (project.getPlugins().hasPlugin('com.android.application') || project.getPlugins().
+        hasPlugin('com.android.library')) {
+      archives androidSourcesJar
+      archives androidJavadocsJar
+    } else {
+      archives sourcesJar
+      archives javadocJar
+    }
+  }
 }

@@ -42,7 +42,7 @@ import static org.mockito.Mockito.verify;
     dummyOneBinder = new DummyOneBinder(itemDecorator);
 
     // No item decoration for dummyTwoBinder
-    assertFalse(dummyTwoBinder.isItemDecorationEnabled());
+    assertTrue(dummyTwoBinder.isItemDecorationEnabled());
 
     assertTrue(dummyOneBinder.isItemDecorationEnabled());
     dummyOneBinder.addDecorator(itemDecoratorTwo);

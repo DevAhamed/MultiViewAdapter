@@ -25,8 +25,7 @@ import com.ahamed.multiviewadapter.listener.MultiSelectionChangedListener;
 import java.util.ArrayList;
 import java.util.List;
 
-@RestrictTo(RestrictTo.Scope.LIBRARY) public abstract class BaseDataManager<M>
-    implements ListUpdateCallback {
+public abstract class BaseDataManager<M> implements ListUpdateCallback {
 
   final RecyclerAdapter adapter;
   private List<M> dataList = new ArrayList<>();
@@ -34,7 +33,7 @@ import java.util.List;
   private ItemSelectionChangedListener<M> itemSelectionChangedListener;
   private MultiSelectionChangedListener<M> multiSelectionChangedListener;
 
-  BaseDataManager(@NonNull RecyclerAdapter adapter) {
+  @RestrictTo(RestrictTo.Scope.LIBRARY) BaseDataManager(@NonNull RecyclerAdapter adapter) {
     this.adapter = adapter;
   }
 
