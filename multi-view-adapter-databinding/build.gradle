@@ -14,26 +14,19 @@
  * limitations under the License.
  */
 
+import gradle.Config
+
 apply plugin: 'com.android.library'
 apply plugin: 'com.novoda.bintray-release'
 
-buildscript {
-  repositories {
-    jcenter()
-  }
-  dependencies {
-    classpath 'com.novoda:bintray-release:0.5.0'
-  }
-}
-
 android {
-  compileSdkVersion 25
+  compileSdkVersion Config.COMPILE_SDK
 
   defaultConfig {
-    minSdkVersion 9
-    targetSdkVersion 25
-    versionCode 1
-    versionName "1.2.6"
+    minSdkVersion Config.MIN_SDK
+    targetSdkVersion Config.TARGET_SDK
+    versionCode Config.VERSION_CODE
+    versionName Config.VERSION_NAME
 
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
   }
@@ -46,29 +39,30 @@ android {
 }
 
 dependencies {
-  compile project(':multi-view-adapter')
-  provided('com.android.databinding:library:1.3.1') {
+  implementation project(':multi-view-adapter')
+
+  compileOnly('com.android.databinding:library:1.3.1') {
     transitive = false
   }
-  provided('com.android.databinding:baseLibrary:2.3.2') {
+  compileOnly('com.android.databinding:baseLibrary:2.3.2') {
     transitive = false
   }
 }
 
 publish {
-  userOrg = 'devahamed'
-  groupId = 'com.github.devahamed'
-  artifactId = 'multi-view-adapter-databinding'
-  publishVersion = '1.2.6'
-  repoName = 'MultiViewAdapter'
-  desc = 'Additional DataBinding support for MultiViewAdapter'
-  website = 'https://github.com/DevAhamed/MultiViewAdapter'
+  userOrg = Config.USER_ORG
+  groupId = Config.GROUP_ID
+  artifactId = Config.ARTIFACT_ID_DATA_BINDING
+  publishVersion = Config.PUBLISH_VERSION
+  repoName = Config.REPO_NAME
+  desc = Config.DESC
+  website = Config.WEBSITE
 }
 
 afterEvaluate { project ->
 
-  if (project.getPlugins().hasPlugin('com.android.application') ||
-      project.getPlugins().hasPlugin('com.android.library')) {
+  if (project.getPlugins().hasPlugin('com.android.application') || project.getPlugins().
+      hasPlugin('com.android.library')) {
 
     task androidJavadocs(type: Javadoc) {
       source = android.sourceSets.main.java.source
@@ -85,12 +79,12 @@ afterEvaluate { project ->
       from android.sourceSets.main.java.source
     }
   } else {
-    task sourcesJar(type: Jar, dependsOn:classes) {
+    task sourcesJar(type: Jar, dependsOn: classes) {
       classifier = 'sources'
       from sourceSets.main.allSource
     }
 
-    task javadocJar(type: Jar, dependsOn:Javadoc) {
+    task javadocJar(type: Jar, dependsOn: Javadoc) {
       classifier = 'javadoc'
       from Javadoc.destinationDir
     }
@@ -105,8 +99,8 @@ afterEvaluate { project ->
   }
 
   artifacts {
-    if (project.getPlugins().hasPlugin('com.android.application') ||
-        project.getPlugins().hasPlugin('com.android.library')) {
+    if (project.getPlugins().hasPlugin('com.android.application') || project.getPlugins().
+        hasPlugin('com.android.library')) {
       archives androidSourcesJar
       archives androidJavadocsJar
     } else {
