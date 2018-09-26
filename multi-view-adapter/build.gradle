@@ -21,7 +21,11 @@ apply plugin: 'com.novoda.bintray-release'
 apply plugin: 'jacoco'
 
 jacoco {
-  toolVersion = "0.7.4.201502262128"
+    toolVersion = "0.8.1"
+}
+
+tasks.withType(Test) {
+    jacoco.includeNoLocationClasses = true
 }
 
 task jacocoTestReport(type: JacocoReport,
@@ -65,10 +69,8 @@ android {
   }
 
   testOptions {
-    unitTests.all {
-      jacoco {
-        includeNoLocationClasses = true
-      }
+    unitTests {
+      includeAndroidResources = true
     }
   }
 }

@@ -18,14 +18,14 @@ package gradle;
 
 public class Config {
 
-  public static final int MIN_SDK = 9;
-  public static final int COMPILE_SDK = 25;
+  public static final int MIN_SDK = 14;
+  public static final int COMPILE_SDK = 28;
   public static final int TARGET_SDK = COMPILE_SDK;
 
-  public static final String VERSION_NAME = "1.2.6";
-  public static final int VERSION_CODE = 126;
+  public static final String VERSION_NAME = "1.3.0";
+  public static final int VERSION_CODE = 130;
 
-  private static final String SUPPORT_LIB_VERSION = "25.4.0";
+  private static final String SUPPORT_LIB_VERSION = "28.0.0";
   private static final String SUPPORT = "com.android.support:";
 
   public static final String APP_COMPAT = SUPPORT + "appcompat-v7:" + SUPPORT_LIB_VERSION;
