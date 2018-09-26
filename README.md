@@ -16,14 +16,14 @@ Helper library for recyclerviews to create composable view holders without boile
 The Gradle dependency is available via [JCenter](https://bintray.com/devahamed/MultiViewAdapter/multi-view-adapter/view).
 JCenter is the default maven repository used by Android Studio.
 
-The minimum API level supported by this library is API 9.
+The minimum API level supported by this library is API 14.
 
 ```gradle
 dependencies {
-    compile 'com.github.devahamed:multi-view-adapter:1.2.3'
+    compile 'com.github.devahamed:multi-view-adapter:1.3.0'
     
     // If you want to use data binding
-    compile 'com.github.devahamed:multi-view-adapter-databinding:1.2.3'
+    compile 'com.github.devahamed:multi-view-adapter-databinding:1.3.0'
 }
 ```
 
