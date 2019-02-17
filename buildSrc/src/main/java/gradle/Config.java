@@ -22,8 +22,8 @@ public class Config {
   public static final int COMPILE_SDK = 28;
   public static final int TARGET_SDK = COMPILE_SDK;
 
-  public static final String VERSION_NAME = "1.3.0";
-  public static final int VERSION_CODE = 130;
+  public static final String VERSION_NAME = "2.0.0-alpha01";
+  public static final int VERSION_CODE = 200;
 
   private static final String SUPPORT_LIB_VERSION = "28.0.0";
   private static final String SUPPORT = "com.android.support:";
