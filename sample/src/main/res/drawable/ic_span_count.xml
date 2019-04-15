@@ -1,0 +1,25 @@
+<!--
+  ~ Copyright 2017 Riyaz Ahamed
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~    http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:height="24dp"
+    android:viewportHeight="24.0"
+    android:viewportWidth="24.0"
+    android:width="24dp">
+  <path
+      android:fillColor="#FF000000"
+      android:pathData="M3,9h4L7,5L3,5v4zM3,14h4v-4L3,10v4zM8,14h4v-4L8,10v4zM13,14h4v-4h-4v4zM8,9h4L12,5L8,5v4zM13,5v4h4L17,5h-4zM18,14h4v-4h-4v4zM3,19h4v-4L3,15v4zM8,19h4v-4L8,15v4zM13,19h4v-4h-4v4zM18,19h4v-4h-4v4zM18,5v4h4L22,5h-4z"/>
+</vector>

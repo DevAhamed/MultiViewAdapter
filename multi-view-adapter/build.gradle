@@ -18,14 +18,15 @@ import gradle.Config
 
 apply plugin: 'com.android.library'
 apply plugin: 'com.novoda.bintray-release'
+//apply plugin: 'guru.stefma.artifactorypublish'
 apply plugin: 'jacoco'
 
 jacoco {
-    toolVersion = "0.8.1"
+  toolVersion = "0.8.2"
 }
 
 tasks.withType(Test) {
-    jacoco.includeNoLocationClasses = true
+  jacoco.includeNoLocationClasses = true
 }
 
 task jacocoTestReport(type: JacocoReport,
@@ -37,7 +38,8 @@ task jacocoTestReport(type: JacocoReport,
   }
 
   def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*']
-  def debugTree = fileTree(dir: "$project.buildDir/intermediates/classes/debug",
+  def debugTree = fileTree(
+      dir: "$project.buildDir/intermediates/javac/debug/compileDebugJavaWithJavac/classes",
       excludes: fileFilter)
   def mainSrc = "$project.projectDir/src/main/java"
 
@@ -53,10 +55,6 @@ android {
   defaultConfig {
     minSdkVersion Config.MIN_SDK
     targetSdkVersion Config.TARGET_SDK
-    versionCode Config.VERSION_CODE
-    versionName Config.VERSION_NAME
-
-    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
   }
   buildTypes {
     debug {
@@ -79,70 +77,25 @@ dependencies {
   implementation Config.RECYCLER_VIEW
 
   testImplementation 'junit:junit:4.12'
-  testImplementation 'org.mockito:mockito-core:2.9.0'
-
-  androidTestImplementation 'org.mockito:mockito-android:2.8.47'
-  androidTestImplementation "com.android.support.test:runner:1.0.1"
-  androidTestImplementation "com.android.support.test:rules:1.0.1"
+  testImplementation 'org.mockito:mockito-core:2.18.3'
 }
 
 publish {
   userOrg = Config.USER_ORG
   groupId = Config.GROUP_ID
   artifactId = Config.ARTIFACT_ID_CORE
-  publishVersion = Config.PUBLISH_VERSION
+  publishVersion = Config.PRODUCTION_VERSION
   repoName = Config.REPO_NAME
   desc = Config.DESC
   website = Config.WEBSITE
 }
 
-afterEvaluate { project ->
-
-  if (project.getPlugins().hasPlugin('com.android.application') || project.getPlugins().
-      hasPlugin('com.android.library')) {
-
-    task androidJavadocs(type: Javadoc) {
-      source = android.sourceSets.main.java.source
-      classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-    }
-
-    task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
-      classifier = 'javadoc'
-      from androidJavadocs.destinationDir
-    }
-
-    task androidSourcesJar(type: Jar) {
-      classifier = 'sources'
-      from android.sourceSets.main.java.source
-    }
-  } else {
-    task sourcesJar(type: Jar, dependsOn: classes) {
-      classifier = 'sources'
-      from sourceSets.main.allSource
-    }
-
-    task javadocJar(type: Jar, dependsOn: javadoc) {
-      classifier = 'javadoc'
-      from javadoc.destinationDir
-    }
-  }
-
-  if (JavaVersion.current().isJava8Compatible()) {
-    allprojects {
-      tasks.withType(Javadoc) {
-        options.addStringOption('Xdoclint:none', '-quiet')
-      }
-    }
-  }
-
-  artifacts {
-    if (project.getPlugins().hasPlugin('com.android.application') || project.getPlugins().
-        hasPlugin('com.android.library')) {
-      archives androidSourcesJar
-      archives androidJavadocsJar
-    } else {
-      archives sourcesJar
-      archives javadocJar
-    }
-  }
-}
+//version = Config.SNAPSHOT_VERSION
+//group = Config.GROUP_ID
+//
+//artifactoryPublish {
+//  artifactId = Config.ARTIFACT_ID_CORE
+//  artifactoryRepo = "oss-snapshot-local"
+//  artifactoryUrl = "https://oss.jfrog.org/artifactory/"
+//  publications = ["releaseAar"]
+//}

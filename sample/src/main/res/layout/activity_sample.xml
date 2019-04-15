@@ -17,34 +17,42 @@
 
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ahamed.sample.SampleActivity"
+    android:orientation="vertical"
     >
 
-  <android.support.design.widget.AppBarLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:theme="@style/AppTheme.AppBarOverlay"
-      >
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:contentInsetEnd="16dp"
-        />
-
-  </android.support.design.widget.AppBarLayout>
-
-  <android.support.v7.widget.RecyclerView
-      android:id="@+id/rcv_list"
+  <FrameLayout
+      android:id="@+id/content_layout"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      app:layout_behavior="@string/appbar_scrolling_view_behavior"
+      android:layout_marginBottom="?actionBarSize"
       />
+
+  <android.support.v7.widget.Toolbar
+      android:id="@+id/toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="?actionBarSize"
+      android:layout_gravity="bottom"
+      android:background="@color/mva_primary_100"
+      android:elevation="16dp"
+      >
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        >
+
+      <Spinner
+          android:id="@+id/sample_selector"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_vertical"
+          android:entries="@array/sample_section"
+          />
+
+    </FrameLayout>
+
+  </android.support.v7.widget.Toolbar>
 
 </android.support.design.widget.CoordinatorLayout>

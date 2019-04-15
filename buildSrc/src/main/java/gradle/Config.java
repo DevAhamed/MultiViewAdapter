@@ -16,33 +16,35 @@
 
 package gradle;
 
-public class Config {
+public interface Config {
 
-  public static final int MIN_SDK = 14;
-  public static final int COMPILE_SDK = 28;
-  public static final int TARGET_SDK = COMPILE_SDK;
+  int MIN_SDK = 14;
+  int COMPILE_SDK = 28;
+  int TARGET_SDK = COMPILE_SDK;
 
-  public static final String VERSION_NAME = "2.0.0-alpha01";
-  public static final int VERSION_CODE = 200;
+  String VERSION = "2.0.0";
+  String APP_VERSION = VERSION + ".0";
+  String PRODUCTION_VERSION = VERSION + "-alpha01";
+  String SNAPSHOT_VERSION = VERSION + "-SNAPSHOT";
+  int VERSION_CODE = 210200001;
 
-  private static final String SUPPORT_LIB_VERSION = "28.0.0";
-  private static final String SUPPORT = "com.android.support:";
+  String APP_COMPAT = "com.android.support:appcompat-v7:28.0.0";
+  String DESIGN = "com.android.support:design:28.0.0";
+  String RECYCLER_VIEW = "com.android.support:recyclerview-v7:28.0.0";
+  String CARD_VIEW = "com.android.support:cardview-v7:28.0.0";
+  String SUPPORT_ANNOTATION = "com.android.support:support-annotations:28.0.0";
 
-  public static final String APP_COMPAT = SUPPORT + "appcompat-v7:" + SUPPORT_LIB_VERSION;
-  public static final String DESIGN = SUPPORT + "design:" + SUPPORT_LIB_VERSION;
-  public static final String RECYCLER_VIEW = SUPPORT + "recyclerview-v7:" + SUPPORT_LIB_VERSION;
-  public static final String CARD_VIEW = SUPPORT + "cardview-v7:" + SUPPORT_LIB_VERSION;
-  public static final String SUPPORT_ANNOTATION =
-      SUPPORT + "support-annotations:" + SUPPORT_LIB_VERSION;
+  String RX_JAVA = "io.reactivex.rxjava2:rxjava:2.2.4";
+  String RX_ANDROID = "io.reactivex.rxjava2:rxandroid:2.1.0";
 
-  public static final String USER_ORG = "devahamed";
-  public static final String GROUP_ID = "com.github.devahamed";
-  public static final String REPO_NAME = "MultiViewAdapter";
-  public static final String PUBLISH_VERSION = VERSION_NAME;
-  public static final String DESC =
-      "Recyclerview Adapter library to create composable view holders";
-  public static final String WEBSITE = "https://github.com/DevAhamed/MultiViewAdapter";
+  String USER_ORG = "devahamed";
+  String GROUP_ID = "dev.ahamed.mva2";
+  String REPO_NAME = "MVA2";
+  String DESC = "Easily create complex recyclerview adapters in android";
+  String WEBSITE = "https://github.com/DevAhamed/MultiViewAdapter";
 
-  public static final String ARTIFACT_ID_CORE = "multi-view-adapter";
-  public static final String ARTIFACT_ID_DATA_BINDING = "multi-view-adapter-databinding";
+  String ARTIFACT_ID_CORE = "adapter";
+  String ARTIFACT_ID_DATA_BINDING = "ext-databinding";
+  String ARTIFACT_ID_DECORATOR = "ext-decorator";
+  String ARTIFACT_ID_DIFFUTIL_RX = "ext-diffutil-rx";
 }

@@ -1,0 +1,63 @@
+/*
+ * Copyright 2017 Riyaz Ahamed
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import gradle.Config
+
+apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
+//apply plugin: 'guru.stefma.artifactorypublish'
+
+android {
+  compileSdkVersion Config.COMPILE_SDK
+
+  defaultConfig {
+    minSdkVersion Config.MIN_SDK
+    targetSdkVersion Config.TARGET_SDK
+
+    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+  }
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+  }
+}
+
+dependencies {
+  implementation project(':multi-view-adapter')
+  implementation Config.RECYCLER_VIEW
+}
+
+publish {
+  userOrg = Config.USER_ORG
+  groupId = Config.GROUP_ID
+  artifactId = Config.ARTIFACT_ID_DECORATOR
+  publishVersion = Config.PRODUCTION_VERSION
+  repoName = Config.REPO_NAME
+  desc = Config.DESC
+  website = Config.WEBSITE
+}
+
+//version = Config.SNAPSHOT_VERSION
+//group = Config.GROUP_ID
+//
+//artifactoryPublish {
+//  artifactId = Config.ARTIFACT_ID_DECORATOR
+//  artifactoryRepo = "oss-snapshot-local"
+//  artifactoryUrl = "https://oss.jfrog.org/artifactory/"
+//  publications = ["releaseAar"]
+//}

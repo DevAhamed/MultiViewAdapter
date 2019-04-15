@@ -1,1 +1,12 @@
-include ':sample', ':multi-view-adapter', ':multi-view-adapter-databinding'
+// Core Library
+include ':multi-view-adapter'
+
+// Sample
+include ':sample'
+
+// Extensions
+include ':mva-databinding', ':mva-decorator', ':mva-diffutil-rx'
+
+project(':mva-databinding').projectDir = new File(rootDir, 'extensions/databinding')
+project(':mva-decorator').projectDir = new File(rootDir, 'extensions/decorator')
+project(':mva-diffutil-rx').projectDir = new File(rootDir, 'extensions/diffutil-rx')

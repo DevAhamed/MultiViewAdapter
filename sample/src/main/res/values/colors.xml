@@ -16,9 +16,45 @@
   -->
 
 <resources>
-  <color name="colorPrimary">#00BCD4</color>
-  <color name="colorPrimaryDark">#343B49</color>
-  <color name="colorActionMode">#353C50</color>
-  <color name="colorAccent">#F8A018</color>
-  <color name="background">#FAFAFA</color>
+  <color name="colorPrimary">@color/mva_primary_500</color>
+  <color name="colorPrimaryDark">@color/mva_primary_900</color>
+  <color name="colorAccent">@color/mva_secondary_500</color>
+
+  <color name="body_text_primary">#404040</color>
+  <color name="body_text_secondary">#606060</color>
+  <color name="body_text_subtle">#66606060</color>
+
+  <color name="sample_color_three">#EF9A9A</color>
+  <color name="sample_color_one">#B39DDB</color>
+  <color name="sample_color_two">#FFCC80</color>
+
+  <color name="mva_primary_50">#E9EDEE</color>
+  <color name="mva_primary_100">#C9D1D5</color>
+  <color name="mva_primary_200">#A5B2B9</color>
+  <color name="mva_primary_300">#80939C</color>
+  <color name="mva_primary_400">#657C87</color>
+  <color name="mva_primary_500">#4A6572</color>
+  <color name="mva_primary_600">#435D6A</color>
+  <color name="mva_primary_700">#3A535F</color>
+  <color name="mva_primary_800">#324955</color>
+  <color name="mva_primary_900">#223742</color>
+
+  <color name="mva_secondary_50">#FFFEFB</color>
+  <color name="mva_secondary_100">#FFECB5</color>
+  <color name="mva_secondary_200">#FFE083</color>
+  <color name="mva_secondary_300">#FFD451</color>
+  <color name="mva_secondary_400">#FFCA2C</color>
+  <color name="mva_secondary_500">#FFC107</color>
+  <color name="mva_secondary_600">#FFBB06</color>
+  <color name="mva_secondary_700">#FFB305</color>
+  <color name="mva_secondary_800">#FFAB04</color>
+  <color name="mva_secondary_900">#FF9E02</color>
+
+  <color name="grey_0">#FFFFFF</color>
+  <color name="grey_100">#f8f9fa</color>
+  <color name="grey_200">#f1f3f5</color>
+  <color name="grey_300">#e9ecef</color>
+  <color name="grey_400">#dee2e6</color>
+  <color name="grey_500">#ced4da</color>
+
 </resources>

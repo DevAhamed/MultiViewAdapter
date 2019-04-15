@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2017 Riyaz Ahamed
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~    http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    >
+
+  <android.support.v4.widget.NestedScrollView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_marginBottom="80dp"
+      >
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+      <TextView
+          android:id="@+id/label_header"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
+          android:padding="16dp"
+          android:text="@string/configuration"
+          android:textAppearance="?textAppearanceHeadline5"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          />
+
+      <CheckedTextView
+          android:id="@+id/cb_header_decoration"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+          android:gravity="center_vertical"
+          android:padding="16dp"
+          android:text="@string/header_decoration"
+          android:textAppearance="?textAppearanceBody2"
+          app:layout_constraintLeft_toLeftOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/label_header"
+          />
+
+      <CheckedTextView
+          android:id="@+id/cb_movie_decoration"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+          android:gravity="center_vertical"
+          android:padding="16dp"
+          android:text="@string/movie_item_decoration"
+          android:textAppearance="?textAppearanceBody2"
+          app:layout_constraintLeft_toLeftOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/cb_header_decoration"
+          />
+
+      <CheckedTextView
+          android:id="@+id/cb_trending_decoration"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+          android:gravity="center_vertical"
+          android:padding="16dp"
+          android:text="@string/trendingmovie_section_decoration"
+          android:textAppearance="?textAppearanceBody2"
+          app:layout_constraintLeft_toLeftOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/cb_movie_decoration"
+          />
+
+      <CheckedTextView
+          android:id="@+id/cb_latest_decoration"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+          android:gravity="center_vertical"
+          android:padding="16dp"
+          android:text="@string/latestmovie_section_decoration"
+          android:textAppearance="?textAppearanceBody2"
+          app:layout_constraintLeft_toLeftOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/cb_trending_decoration"
+          />
+
+      <CheckedTextView
+          android:id="@+id/cb_upcoming_decoration"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+          android:gravity="center_vertical"
+          android:padding="16dp"
+          android:text="@string/upcomingmovie_section_decoration"
+          android:textAppearance="?textAppearanceBody2"
+          app:layout_constraintLeft_toLeftOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/cb_latest_decoration"
+          />
+
+      <TextView
+          android:id="@+id/label_decoration_style"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
+          android:padding="16dp"
+          android:text="@string/decoration_style"
+          android:textAppearance="?textAppearanceSubtitle2"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/cb_upcoming_decoration"
+          />
+
+      <CheckedTextView
+          android:id="@+id/cb_enable_borders"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+          android:gravity="center_vertical"
+          android:padding="16dp"
+          android:text="@string/border"
+          android:textAppearance="?textAppearanceBody2"
+          app:layout_constraintLeft_toLeftOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/label_decoration_style"
+          />
+
+      <CheckedTextView
+          android:id="@+id/cb_enable_inset"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+          android:gravity="center_vertical"
+          android:padding="16dp"
+          android:text="@string/inset"
+          android:textAppearance="?textAppearanceBody2"
+          app:layout_constraintLeft_toLeftOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/cb_enable_borders"
+          />
+
+    </android.support.constraint.ConstraintLayout>
+
+  </android.support.v4.widget.NestedScrollView>
+
+  <include
+      layout="@layout/include_config_button_panel"/>
+
+</FrameLayout>

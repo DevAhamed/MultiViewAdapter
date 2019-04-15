@@ -20,38 +20,49 @@ apply plugin: 'com.android.application'
 
 android {
   compileSdkVersion Config.TARGET_SDK
-
   defaultConfig {
-    applicationId "com.ahamed.sample"
-    minSdkVersion 16
+    applicationId "dev.ahamed.mva.sample"
+    minSdkVersion 21
     targetSdkVersion Config.TARGET_SDK
     versionCode Config.VERSION_CODE
-    versionName Config.VERSION_NAME
-
-    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    versionName Config.APP_VERSION
+  }
+  signingConfigs {
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+    config {
+      keyAlias properties.getProperty("alias")
+      keyPassword properties.getProperty("password")
+      storeFile file(properties.getProperty("keypath"))
+      storePassword properties.getProperty("password")
+    }
   }
   buildTypes {
     release {
+      signingConfig signingConfigs.config
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
   }
-
-  dataBinding {
-    enabled = true
+//  dataBinding {
+//    enabled = true
+//  }
+  compileOptions {
+    targetCompatibility 1.8
+    sourceCompatibility 1.8
   }
 }
 
 dependencies {
   implementation project(':multi-view-adapter')
-  implementation project(':multi-view-adapter-databinding')
+  implementation project(':mva-decorator')
+  implementation project(':mva-diffutil-rx')
 
   implementation Config.APP_COMPAT
   implementation Config.RECYCLER_VIEW
   implementation Config.CARD_VIEW
   implementation Config.DESIGN
+  implementation Config.RX_JAVA
+  implementation Config.RX_ANDROID
   implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-
-  debugImplementation "com.github.brianPlummer:tinydancer:0.1.0"
-  releaseImplementation "com.github.brianPlummer:tinydancer-noop:0.1.0"
 }
