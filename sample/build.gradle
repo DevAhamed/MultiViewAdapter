@@ -27,26 +27,26 @@ android {
     versionCode Config.VERSION_CODE
     versionName Config.APP_VERSION
   }
-  signingConfigs {
-    Properties properties = new Properties()
-    properties.load(project.rootProject.file('local.properties').newDataInputStream())
-    config {
-      keyAlias properties.getProperty("alias")
-      keyPassword properties.getProperty("password")
-      storeFile file(properties.getProperty("keypath"))
-      storePassword properties.getProperty("password")
-    }
-  }
+  //  signingConfigs {
+  //    Properties properties = new Properties()
+  //    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+  //    config {
+  //      keyAlias properties.getProperty("alias")
+  //      keyPassword properties.getProperty("password")
+  //      storeFile file(properties.getProperty("keypath"))
+  //      storePassword properties.getProperty("password")
+  //    }
+  //  }
   buildTypes {
     release {
-      signingConfig signingConfigs.config
+      //      signingConfig signingConfigs.config
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
   }
-//  dataBinding {
-//    enabled = true
-//  }
+  //  dataBinding {
+  //    enabled = true
+  //  }
   compileOptions {
     targetCompatibility 1.8
     sourceCompatibility 1.8
