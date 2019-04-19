@@ -1,8 +1,7 @@
-# Basic Sample
+![Basic Usage](images/basic-cover.jpg)
 
-Lets create an adapter which displays a list of cars. This the expected output for us :
+Lets create an adapter which displays a list of cars.
 
-> TODO Add image here
 
 1. You need to create an ItemBinder for your model. ItemBinder is reponsible for creating and binding your view holders. Following is the code snippet of ItemBinder for CarModel class.
 

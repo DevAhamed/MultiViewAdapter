@@ -1,4 +1,4 @@
-![Spans](../images/spans.jpg)
+![Spans](image/spans-cover.jpg)
 
 ### Basic Usage
 

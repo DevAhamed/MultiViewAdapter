@@ -1,4 +1,4 @@
-# Infinite Scrolling
+![Infinite Scrolling](image/infinite-cover.jpg)
 
 Infinite loading is a composable feature available in MultiViewAdapter ie., you don't need to create a separate adapter. You just need to create an ``InfiniteLoadingHelper`` object and set it to adapter.
 

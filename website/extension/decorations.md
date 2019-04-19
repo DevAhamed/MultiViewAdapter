@@ -1,4 +1,4 @@
-# Decorators
+![Decorations](images/ext-decorator-cover.jpg)
 
 'Decorations' is a simple extension which gives you some basic decorations for your ItemBinders and Sections. It has two decorations as follows :
 

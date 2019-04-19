@@ -1,4 +1,4 @@
-# DiffUtil and Payload
+![DiffUtil and Payload](image/payload-cover.jpg)
 
 The library takes advantage of payload and diffutil from the recyclerview and calls the correct item animation. With use of RxDiffUtil extension, you can run DiffUtil in the background. 
 

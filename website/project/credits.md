@@ -1,4 +1,4 @@
-# Credits
+![Credits](images/credits-cover.jpg)
 
 We would like to acknowledge the following services/libraries/resources which helped us in creating this project. Without these credited works this project is not possible. The credits are listed alphabetically. 
 

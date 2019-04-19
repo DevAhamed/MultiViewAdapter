@@ -1,4 +1,4 @@
-![MultiViewAdapter](https://raw.githubusercontent.com/DevAhamed/MultiViewAdapter/1.x/images/swipe-to-dismiss.gif)
+![Swipe to dismiss](image/swipe-cover.jpg)
 
 ### Usage
 

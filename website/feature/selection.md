@@ -1,4 +1,4 @@
-![MultiViewAdapter](/image/MultiViewAdapter-Article-5.jpg)
+![Selection](image/selection-cover.jpg)
 
 ## Table of contents
 

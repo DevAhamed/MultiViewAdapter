@@ -1,4 +1,4 @@
-![MultiViewAdapter](https://raw.githubusercontent.com/DevAhamed/MultiViewAdapter/1.x/images/drag-and-drop.gif)
+![Drag and Drop](image/drag-cover.jpg)
 
 ### Usage
 

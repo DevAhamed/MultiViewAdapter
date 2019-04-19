@@ -1,4 +1,4 @@
-![RxDiffUtil](/images/ext-rx.jpg)
+![RxDiffUtil](images/ext-rx-cover.jpg)
 
 'RxDiffUtil' is a lightweight reactive wrapper around DiffUtil from RecyclerView library.
 

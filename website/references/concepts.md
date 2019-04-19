@@ -1,4 +1,4 @@
-# Concepts
+![Concepts](images/concept-cover.jpg)
 
 Core mantra of MultiViewAdapter - Seperation of view logic from data management logic. You get two different components which are :
 

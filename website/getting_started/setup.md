@@ -1,6 +1,4 @@
-# Library Setup
-<!-- 
-[![Core](https://api.bintray.com/packages/devahamed/MultiViewAdapter/multi-view-adapter/images/download.svg)](https://bintray.com/devahamed/MultiViewAdapter/multi-view-adapter/_latestVersion) -->
+![Setup](images/download-cover.jpg)
 
 The library is available via [JCenter](https://bintray.com/devahamed/MultiViewAdapter/multi-view-adapter/view) and Maven Central. The minimum API level supported by this library is API 16.
 

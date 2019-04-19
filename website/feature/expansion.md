@@ -1,4 +1,4 @@
-# Expansion 
+![Expansion](image/expanded-cover.jpg)
 
 MultiViewAdapter allows you to expand/collapse a single item or an entire section. There are four types of expansion mode available.
 

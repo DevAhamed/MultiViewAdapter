@@ -1,4 +1,4 @@
-![MultiViewAdapter](https://raw.githubusercontent.com/DevAhamed/MultiViewAdapter/1.x/images/multi-list.gif)
+![Decoration](image/decoration-cover.jpg)
 
 In the gif you might see that each view type has its own ItemDecoration. This is one of the main advantages of the MultiViewAdapter library. It provides a api to draw the item decoration.
 

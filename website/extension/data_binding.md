@@ -1,4 +1,4 @@
-# DataBinding
+![Data Binding](images/ext-db-cover.jpg)
 
 Data binding support is provided as an extension to the adapter. Currently library supports the DataBindingV2.
 

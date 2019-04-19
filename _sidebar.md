@@ -35,7 +35,7 @@
 - References
 
   - [Concepts](website/references/concepts.md)
-  - [JavaDoc](../javadocs/index.html)
+  - [License](https://devahamed.github.io/MultiViewAdapter/javadocs/index.html)
 
 
 <!-- - Cookbook
