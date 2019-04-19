@@ -36,7 +36,6 @@
 
   - [Concepts](website/references/concepts.md)
   - [JavaDoc](../javadocs/index.html)
-  - <a href="../javadocs/index.html" target="_blank">JavaDoc</a>
 
 
 <!-- - Cookbook
