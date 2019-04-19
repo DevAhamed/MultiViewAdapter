@@ -651,7 +651,7 @@ section.cover blockquote>p>a:hover {
 
 .app-name-link::before {
     content: '';
-    background-image: url('/logo-s.png');
+    background-image: url('logo-s.png');
     background-repeat: no-repeat;
     background-position: 50%50%;
     background-size: 5rem 5rem;
