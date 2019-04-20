@@ -1,6 +1,13 @@
 # MultiViewAdapter
 
-[![Version](https://api.bintray.com/packages/devahamed/MultiViewAdapter/multi-view-adapter/images/download.svg) ](https://bintray.com/devahamed/MultiViewAdapter/multi-view-adapter/_latestVersion)
+## Deprecation Notice
+
+Version 1.x of this library is deprecated and no further updates will be done for this branch and version. No further support will be provided for this version. Kindly update to 2.x/3.x version for latest features. 3.x includes support for AndroidX. Since this version is deprecated, wiki docs for this version has been pulled down from Github. Visit the 2.x/3.x for upgrade information.
+
+Version 2.x - https://github.com/DevAhamed/MultiViewAdapter/tree/2.x
+Version 3.x - https://github.com/DevAhamed/MultiViewAdapter/tree/3.x
+
+
 [![GitHub license](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](https://github.com/DevAhamed/MultiViewAdapter/blob/master/LICENSE)
 [![Code coverage](https://codecov.io/gh/DevAhamed/MultiViewAdapter/branch/master/graph/badge.svg)](https://codecov.io/gh/DevAhamed/MultiViewAdapter)
 [![Build Status](https://app.bitrise.io/app/7f9137a2f1df08c1/status.svg?token=bm8ERviCGI3BrqG_AEo9sA)](https://www.bitrise.io/app/7f9137a2f1df08c1)
