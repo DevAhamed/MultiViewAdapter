@@ -1,150 +1,279 @@
-# MultiViewAdapter
+![Alt text](images/cover.png)
 
-[![Version](https://api.bintray.com/packages/devahamed/MultiViewAdapter/multi-view-adapter/images/download.svg) ](https://bintray.com/devahamed/MultiViewAdapter/multi-view-adapter/_latestVersion)
 [![GitHub license](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](https://github.com/DevAhamed/MultiViewAdapter/blob/master/LICENSE)
-[![Code coverage](https://codecov.io/gh/DevAhamed/MultiViewAdapter/branch/master/graph/badge.svg)](https://codecov.io/gh/DevAhamed/MultiViewAdapter)
+[![Code coverage](https://codecov.io/gh/DevAhamed/MultiViewAdapter/branch/2.x/graph/badge.svg)](https://codecov.io/gh/DevAhamed/MultiViewAdapter)
 [![Build Status](https://app.bitrise.io/app/7f9137a2f1df08c1/status.svg?token=bm8ERviCGI3BrqG_AEo9sA)](https://www.bitrise.io/app/7f9137a2f1df08c1)
 
-![Alt text](/images/MultiViewAdapter-Article-1.jpg?raw=true)
+Recyclerview is one of the powerful widgets inside android framework. But creating adapters with multiple view types is always exhausting. Not anymore. MultiViewAdapter makes it easy for you to create adapter with multiple view types easily. Using the library you will be able to build composable view holders, which can be re-used across your app. Apart from this, MultiViewAdapter adds many other useful features into the library as add-ons.
 
-Helper library for recyclerviews to create composable view holders without boilerplate code.
+# Contents
 
-![Alt text](/images/MultiViewAdapter-gif.gif?raw=true)
+1. [Why this library](#why-this-library)
+2. [Feature Showcase](#feature-showcase)
+3. [Gradle Dependency](#gradle-dependency)
+4. [Core Concepts](#core-concepts)
+5. [Basic Usage](#basic-usage)
+6. [Learn More](#learn-more)
+7. [Changelog](#changelog)
+8. [Contribution](#contribution)
+9. [Credits](#credits)
+10. [License](#license)
 
-## Gradle Dependency
 
-The Gradle dependency is available via [JCenter](https://bintray.com/devahamed/MultiViewAdapter/multi-view-adapter/view).
-JCenter is the default maven repository used by Android Studio.
 
-The minimum API level supported by this library is API 14.
-
-```gradle
-dependencies {
-    compile 'com.github.devahamed:multi-view-adapter:1.3.0'
-    
-    // If you want to use data binding
-    compile 'com.github.devahamed:multi-view-adapter-databinding:1.3.0'
-}
-```
 
 
 ## Why this library?
 
-Most of the android apps out there uses recyclerview to display content. 
-As with any other system-level api, recyclerview api is also designed in a generic way. 
-So it needs lot of code to be written for displaying a simple list. And it doubles, if you need to display multiple view types.
-MultiViewAdapter library helps you in removing this boilerplate code while allowing you to truly re-use the viewholder code across various adapters.
+Have you ever displayed multiple view types inside a single adapter? Have you ever added selection mode to an adapter? Have you ever set different span size to different items inside a single adapter? Have you ever added swipe-to-dismiss / drag & drop / infinite scrolling features to your adapter?
 
-There are many other libraries, which provides the same feature. But they do enforce the either or all of the following constraints :
+If the answer was yes, then you must know how hard it is to do any one of these. What if you had to all of these inside a single adapter. Phew.
 
-1. Your POJO classes should extend/implement some Base classes. This forces us to make changes in model level.
-2. Forces you to implement some boilerplate code - like managing view types by yourself.
-3. Doesn't utilise diffutil or payloads from recyclerview api
+#### Problems with default adapter
 
-Now the advantages of the MultiViewAdapter
+ 1. In default adapter approach, code is not re-usable as it is.
+ 2. If you have to add multiple viewtypes the code grows painfully.
+ 3. If the data needs to be updated, its hard to write the updation logic and call the correct notify method.
+ 
+#### Problems with similar libraries
 
-1. No restrictions on POJO class' parent/hierarchy. Now, your model classes can truly reside inside data layer.
-2. No need to cast your models, no need for switch/if-else cases when you are having multiple view types.
-3. Takes advantage of diffutil and allows payload while notifying adapter.
+To solve the above problems, you can also use a different library. But all such libraries have a common restrictions - Your data model will be polluted with the view logic.
 
-## Key concepts
+1. Your data objects should be extended/implement from library's model, which can interfere with your object modeling.
+2. View holder creation and binding has to be written inside the data model. You are forced to keep layout and view references inside the model class itself.
+3. For complex lists, generic notifyDataSetChanged method will be called during updation. Also these libraries don’t take advantage of DiffUtil.
+4. You have to write switch cases, if you want to have different item-decorations/span-size/selection-modes/expansion for different view types.
+5. You lose the type information when accessing objects ie., you need to cast the object every time you need it.
 
-1. RecyclerAdapter - This is the adapter class. It can have multiple ItemBinder and DataManagers. It extends from official RecyclerView.Adapter
-2. ItemBinder - ItemBinder's responsibility is to create and bind viewholders. ItemBinder has type parameter which accepts the  model class need to be displayed. ItemBinder needs to be registered inside RecyclerAdapter. ItemBinder can be registered with multiple adapters.
-3. DataManger - Consider it as a List<E>. But internally it calls necessary animations when the list is modified. There are two DataManagers. <b>DataListManager</b> for list of items. <b>DataItemManager</b> for a single item (Header, Footer etc.,). 
 
-You can read more about this library here in this [Medium article](https://medium.com/@DevAhamed/introducing-multiviewadapter-7f77e5758d3f).
-<br/>
+MultiViewAdapter solves all of these requirements. The library was specifically designed in a way to not interfere with your object modeling and hierarchy.
 
-## Features
 
-1. Multiple data set can be added to the adapter. [WikiDoc](https://github.com/DevAhamed/MultiViewAdapter/wiki/Multiple-Data-Set)
-2. Adds different ItemDecoration for different ItemBinders. [WikiDoc](https://github.com/DevAhamed/MultiViewAdapter/wiki/Custom-Item-Decoration)
-3. Single and Multiple selection options are available. [WikiDoc](https://github.com/DevAhamed/MultiViewAdapter/wiki/Choice-Modes)
-4. Out of the box support for DiffUtil. [WikiDoc](https://github.com/DevAhamed/MultiViewAdapter/wiki/DiffUtil-and-Payload)
-5. Custom span count for every binder. [WikiDoc](https://github.com/DevAhamed/MultiViewAdapter/wiki/Grid-Adapter)
-6. Data binding support. [WikiDoc](https://github.com/DevAhamed/MultiViewAdapter/wiki/Data-Binding)
-7. Advanced drag and drop support. [WikiDoc](https://github.com/DevAhamed/MultiViewAdapter/wiki/Drag-and-Drop)
-8. Swipe to dismiss. [WikiDoc](https://github.com/DevAhamed/MultiViewAdapter/wiki/Swipe-To-Dismiss)
-9. Infinite scrolling. [WikiDoc](https://github.com/DevAhamed/MultiViewAdapter/wiki/Infinite-Scrolling)
-10. Helper class for contextual action mode. [WikiDoc](https://github.com/DevAhamed/MultiViewAdapter/wiki/Contextual-Action-Mode)
-11. Items can be expanded/collapsed. [WikiDoc](https://github.com/DevAhamed/MultiViewAdapter/wiki/Expandable-Item)
-12. Groups can be expanded/collapsed. [WikiDoc](https://github.com/DevAhamed/MultiViewAdapter/wiki/Expandable-Group)
 
-## File Templates
 
-This library has default file templates for creating Adapters, ItemBinders for given model name. Take a look at wiki page for using the file templates. [Wiki page](https://github.com/DevAhamed/MultiViewAdapter/wiki/File-Templates)
+## Feature Showcase
 
-## Usage
-Let us display list of cars. No fuss. Here is the entire code.
+Here are the few features which are possible with this library.
 
+Multiple Viewtypes | Multiple Spans | Other Features
+-------------------- | -------------------- | --------------------
+![Multiple Viewtypes](images/multi-view-min.gif) | ![Multiple Span](images/multi-view-min.gif) | ![Other](images/other-features-min.gif)
+
+
+Selection | Item Expansion | Section Expansion
+-------------------- | -------------------- | --------------------
+![Selection](images/selection-min.gif) | ![Item Expansion](images/item-expansion-min.gif) | ![Section Expansion](images/section-expansion-min.gif)
+
+
+
+
+## Gradle Dependency
+
+The Gradle dependency is available via JCenter. JCenter is the default maven repository used by Android Studio. The minimum API level supported by this library is API 14.
+
+#### Adding Library
+
+[![Core](https://api.bintray.com/packages/devahamed/MVA2/adapter/images/download.svg)](https://bintray.com/devahamed/MVA2/adapter/_latestVersion)
+
+```gradle
+dependencies {
+    implementation 'dev.ahamed.mva2:adapter:2.0.0-alpha01'
+}
+```
+
+#### Adding Extension
+
+```gradle
+dependencies {
+    implementation 'dev.ahamed.mva2:ext-data-binding:2.0.0-alpha01' // DataBinding
+    implementation 'dev.ahamed.mva2:ext-decorators:2.0.0-alpha01'   // Decorators
+    implementation 'dev.ahamed.mva2:ext-rxdiffutil:2.0.0-alpha01'   // RxDiffUtil
+}
+```
+
+#### Using Snapshot Version
+
+Just add '-SNAPSHOT' to the version name
+
+```gradle
+dependencies {
+    implementation 'dev.ahamed.mva2:adapter:2.0.0-SNAPSHOT' // Library
+}
+```
+
+To use the above snapshot version add the following to your project's gradle file
+
+```gradle
+allprojects {
+    repositories {
+        maven {
+            url 'https://oss.jfrog.org/artifactory/oss-snapshot-local'
+        }
+    }
+}
+```
+
+
+
+
+## Core Concepts
+
+Core mantra of MultiViewAdapter - Separation of view logic from data management logic. You get two different components which are :
+
+1. Section - Component to hold your data. All data related updates will run here and proper notify method will be called on the adapter.
+2. ItemBinder - Component which creates and binds your view holder. All view related logic should go here.
+
+
+#### Section
+
+Section is the building block for MultiViewAdapter. Section will hold your data which needs to be displayed inside the recyclerview -  data can be a single item or list of items. When the underlying data is changed the section will calculate the diff and call the correct notify method inside the adapter. You can add as many as Section to an adapter.
+
+![How Section Works GIF](images/how-section-works.gif)
+
+There are different types of sections.
+
+|Name|Description|
+|---|---|
+|ItemSection|Section to display single item|
+|ListSection|Section to display list of items|
+|HeaderSection|Section to display list of items along with a header|
+|NestedSection|Section which can host other section|
+|TreeSection|Section which can display items in tree fashion. Ex: Comment list|
+
+#### ItemBinder
+
+ItemBinder is the class where all view related code should be written. ItemBinder is responsible for creating and binding view holders. The method signatures are kept close to the default ```RecyclerView.Adapter``` method signatures. For each viewtype inside the recyclerview, you need to create an ItemBinder. 
+
+ItemBinder allows you to have different decoration for different view types. Apart from this, by using an ItemBinder you will be able to add Swipe-to-dismiss, drag and drop features.
+
+
+## Basic Usage
+
+
+Lets create an adapter which displays a list of cars. Follow these steps.
+
+1. You need to create an ItemBinder for your model. ItemBinder is responsible for creating and binding your view holders. Following is the code snippet of ItemBinder for CarModel class.
 
 <b>CarBinder</b>
  
 ```java
-class CarBinder extends ItemBinder<CarModel, CarBinder.CarViewHolder> {
+public class CarBinder extends ItemBinder<CarModel, CarBinder.CarViewHolder> {
 
-  @Override public CarViewHolder create(LayoutInflater inflater, ViewGroup parent) {
-    return new CarViewHolder(inflater.inflate(R.layout.item_car, parent, false));
+  @Override public CarViewHolder createViewHolder(ViewGroup parent) {
+      return new CarViewHolder(inflate(R.layout.item_car, parent));
   }
 
   @Override public boolean canBindData(Object item) {
-    return item instanceof CarModel;
+      return item instanceof CarModel;
   }
 
-  @Override public void bind(CarViewHolder holder, CarModel item) {
-    // Bind the data here
+  @Override public void bindViewHolder(CarViewHolder holder, CarModel item) {
+      holder.tvCarName.setText(item.getName());
   }
 
-  static class CarViewHolder extends BaseViewHolder<CarModel> {
-    // Normal ViewHolder code
+  static class CarViewHolder extends ItemViewHolder<CarModel> {
+    
+    TextView tvCarName;
+
+    public CarViewHolder(View itemView) {
+        super(itemView);
+        tvCarName = findViewById(R.id.tv_car_name);
+    }
   }
 }
 ```
+
+2. Now create an adapter and use the ItemBinder created above. Since we are displaying a list of items we need to create an ListSection object and add the data items to it. Add the section to adapter. Done.
 
 <b>In your Activity/Fragment</b>
 
 ```java
 class CarListActivity extends Activity {
-
   private RecyclerView recyclerView;
   private List<CarModel> cars;
 
   public void initViews() {
-    SimpleRecyclerAdapter<CarModel, CarBinder> adapter =
-        new SimpleRecyclerAdapter<>(new CarBinder());
 
-    recyclerView.setAdapter(adapter);
-    adapter.setDataList(cars);
+      // Create Adapter
+      MultiViewAdapter adapter = new MultiViewAdapter();
+      recyclerView.setAdapter(adapter);
+
+      // Register Binder
+      adapter.registerBinders(new CarItemBinder());
+
+      // Create Section and add items
+      ListSection<YourModel> listSection = new ListSection<>();
+      listSection.addAll(cars);
+
+      // Add Section to the adapter
+      adapter.addSection(listSection);
   }
 }
 ```
-Now you are good to go.
-<br/>
-<br/>
-For advanced usage and features kindly take a look at sample app code.
-Also we have comprehensive wiki pages as well. Take a look at [Wiki home](https://github.com/DevAhamed/MultiViewAdapter/wiki).
+
+Yay!! We are done.
+
+
+
+
+## Learn More
+
+1. [Documentation Website](https://devahamed.github.io/MultiViewAdapter) - If you would like to learn more about various other features, kindly read the documentation. All features are documented with sample code which should help you set-up complex recyclerview adapters.
+2. [Sample App](https://play.google.com/apps/testing/dev.ahamed.mva.sample) - Sample app showcases all the features of the adapter. Also it is an excellent reference for creating most complex usecases
+3. [JavaDocs](https://devahamed.github.io/javadocs/index.html)
+
+
+
+
 
 ## Changelog
 See the project's Releases page for a list of versions with their changelog. [View Releases](https://github.com/DevAhamed/MultiViewAdapter/releases)<br/>
 If you watch this repository, GitHub will send you an email every time there is an update.
 
 
+
+
+
 ## Contribution
-Contributing to this library is simple, 
-1. Clone the repo
-2. Make the changes
-3. Make a pull request to develop branch
-<br/><br/>The only requirement is whatever changes you make should be backward compatible. Also make sure its not a too specific feature which maynot be useful for everyone.
-Kindly make sure your code is formatted with this codestyle - [Square Java code style](https://github.com/square/java-code-styles)
+
+We welcome any contribution to the library. This project has a good infrastructure which should make you comfortable to push any changes. CI builds the project nightly and on every pull request, so you will know whether the build has breaking changes. CI also reports the code coverage difference on each pull request.
+
+You can contribute to any of the following modules:
+
+1. Core Library
+2. Library Extensions
+3. Sample App
+4. Documentation
+5. Design assets
 
 
-## Alternatives
-This library may not suit your needs or imposes too many restrictions. In that case create an issue/feature request. Mean time check these awesome alternatives as well.
-1. [MultipleViewTypesAdapter](https://github.com/yqritc/RecyclerView-MultipleViewTypesAdapter) - Original inspiration for this library.<br/>
+
+
+## Credits
+
+This project stands on the shoulders of open source community. It is a must to credit where it is due.
+
+1. AOSP - Android Open Source Project
+2. Artifactory OSS - Repository manager to host snapshot builds
+3. Bintray - Distribution platform
+4. Bitrise - CI & CD service
+5. Codecov - Code coverage hosting service
+6. Docsify - Documentation generator
+7. Github - Version control & project maanagement platform
+
+Also this library uses following open source gradle plugins
+
+1. [Bintray Release](https://github.com/novoda/bintray-release) - Plugin to release the library artifacts to bintray
+2. [Artifactory Publish](https://github.com/StefMa/ArtifactoryPublish) - Plugin to release snapshots to artifactory oss
+
+If this library does not suit your needs create an issue/feature request. Meanwhile check these awesome alternatives as well.
+
+1. [MultipleViewTypesAdapter](https://github.com/yqritc/RecyclerView-MultipleViewTypesAdapter) - Original inspiration for this library  
 2. [AdapterDelegates](https://github.com/sockeqwe/AdapterDelegates)
 3. [Groupie](https://github.com/lisawray/groupie)
 4. [Epoxy](https://github.com/airbnb/epoxy)
+
+
 
 
 ## License
