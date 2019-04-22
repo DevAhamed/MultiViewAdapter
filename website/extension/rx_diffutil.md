@@ -5,10 +5,10 @@
 
 ### Download
 
-Latest Version [![RxDiffUtil Version](https://api.bintray.com/packages/devahamed/MultiViewAdapter/multi-view-adapter-databinding/images/download.svg)](https://bintray.com/devahamed/MultiViewAdapter/multi-view-adapter/_latestVersion)
+![RxDiffUtil Version](https://api.bintray.com/packages/devahamed/MVA2/ext-diffutil-rx/images/download.svg)
 
 ```groovy
-implementation 'me.riyazahamed:mva-rxdiffutil:x.y.z'
+implementation 'dev.ahamed.mva2:ext-diffutil-rx:2.0.0-alpha01'
 ```
 
 ### Usage

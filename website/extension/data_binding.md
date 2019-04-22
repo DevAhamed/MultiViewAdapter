@@ -5,10 +5,10 @@ Data binding support is provided as an extension to the adapter. Currently libra
 
 ### Download
 
-Latest Version [![DataBinding Version](https://api.bintray.com/packages/devahamed/MultiViewAdapter/multi-view-adapter-databinding/images/download.svg)](https://bintray.com/devahamed/MultiViewAdapter/multi-view-adapter/_latestVersion)
+![DataBinding Version](https://api.bintray.com/packages/devahamed/MVA2/ext-databinding/images/download.svg)
 
 ```groovy
-implementation 'me.riyazahamed:mva-data-binding:x.y.z'
+implementation 'dev.ahamed.mva2:ext-databinding:2.0.0-alpha01'
 ```
 
 ### Usage

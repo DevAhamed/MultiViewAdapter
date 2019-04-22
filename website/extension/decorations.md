@@ -7,10 +7,10 @@
 
 ### Download
 
-Latest Version [![Decorators Version](https://api.bintray.com/packages/devahamed/MultiViewAdapter/multi-view-adapter-databinding/images/download.svg)](https://bintray.com/devahamed/MultiViewAdapter/multi-view-adapter/_latestVersion)
+![Decorators Version](https://api.bintray.com/packages/devahamed/MVA2/ext-decorator/images/download.svg)
 
 ```groovy
-implementation 'me.riyazahamed:mva-decorators:x.y.z'
+implementation 'dev.ahamed.mva2:ext-decorator:2.0.0-alpha01'
 ```
 
 ### Usage

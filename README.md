@@ -60,7 +60,7 @@ Not all features can be added to the core library. Some niche features can be ad
 Contains the technical reference for API's and concepts behind the adapter in-depth.
 
   - [Concepts](website/references/concepts.md) - Learn about the core parts of the library.
-  - [JavaDoc](website/references/javadoc.md) - JavaDocs to learn more about the API's.
+  - [JavaDoc](https://devahamed.github.io/MultiViewAdapter/javadocs/index.html) - JavaDocs to learn more about the API's.
 
 
 #### Project
