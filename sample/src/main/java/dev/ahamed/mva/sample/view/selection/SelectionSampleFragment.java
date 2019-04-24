@@ -35,8 +35,6 @@ import static mva2.adapter.util.Mode.SINGLE;
 
 public class SelectionSampleFragment extends BaseFragment {
 
-  private SelectionConfig selectionConfig = new SelectionConfig();
-
   private HeaderSection<Header, SelectableItem> listSectionOne;
   private HeaderSection<Header, SelectableItem> listSectionTwo;
   private ItemSection<Header> headerSection;
@@ -66,7 +64,6 @@ public class SelectionSampleFragment extends BaseFragment {
     spinnerWebsitesSelectionMode = view.findViewById(R.id.spinner_web_mode);
 
     setUpAdapter();
-    resetConfiguration();
   }
 
   @Override public int layoutId() {
@@ -86,28 +83,23 @@ public class SelectionSampleFragment extends BaseFragment {
   }
 
   @Override public void updateConfiguration() {
-    selectionConfig.adapterSelectionMode =
-        getMode(spinnerAdapterSelectionMode.getSelectedItemPosition());
-    selectionConfig.languageSelectionMode =
-        getMode(spinnerLanguageSelectionMode.getSelectedItemPosition());
-    selectionConfig.topicSelectionMode =
-        getMode(spinnerTopicSelectionMode.getSelectedItemPosition());
-    selectionConfig.sourcesSelectionMode =
-        getMode(spinnerSourcesSelectionMode.getSelectedItemPosition());
-    selectionConfig.newsPapersSelectionMode =
+    Mode adapterSelectionMode = getMode(spinnerAdapterSelectionMode.getSelectedItemPosition());
+    Mode languageSelectionMode = getMode(spinnerLanguageSelectionMode.getSelectedItemPosition());
+    Mode topicSelectionMode = getMode(spinnerTopicSelectionMode.getSelectedItemPosition());
+    Mode sourcesSelectionMode = getMode(spinnerSourcesSelectionMode.getSelectedItemPosition());
+    Mode newsPapersSelectionMode =
         getMode(spinnerNewsPapersSelectionMode.getSelectedItemPosition());
-    selectionConfig.newsChannelsSelectionMode =
+    Mode newsChannelsSelectionMode =
         getMode(spinnerNewsChannelsSelectionMode.getSelectedItemPosition());
-    selectionConfig.websitesSelectionMode =
-        getMode(spinnerWebsitesSelectionMode.getSelectedItemPosition());
+    Mode websitesSelectionMode = getMode(spinnerWebsitesSelectionMode.getSelectedItemPosition());
 
-    adapter.setSelectionMode(selectionConfig.adapterSelectionMode);
-    listSectionOne.setSelectionMode(selectionConfig.languageSelectionMode);
-    listSectionTwo.setSelectionMode(selectionConfig.topicSelectionMode);
-    nestedSection.setSelectionMode(selectionConfig.sourcesSelectionMode);
-    listSectionThree.setSelectionMode(selectionConfig.newsPapersSelectionMode);
-    listSectionFour.setSelectionMode(selectionConfig.newsChannelsSelectionMode);
-    listSectionFive.setSelectionMode(selectionConfig.websitesSelectionMode);
+    adapter.setSelectionMode(adapterSelectionMode);
+    listSectionOne.setSelectionMode(languageSelectionMode);
+    listSectionTwo.setSelectionMode(topicSelectionMode);
+    nestedSection.setSelectionMode(sourcesSelectionMode);
+    listSectionThree.setSelectionMode(newsPapersSelectionMode);
+    listSectionFour.setSelectionMode(newsChannelsSelectionMode);
+    listSectionFive.setSelectionMode(websitesSelectionMode);
 
     adapter.clearAllSelections();
   }
@@ -166,16 +158,5 @@ public class SelectionSampleFragment extends BaseFragment {
     listSectionThree.getListSection().setOnSelectionChangedListener(selectionChangedListener);
     listSectionFour.getListSection().setOnSelectionChangedListener(selectionChangedListener);
     listSectionFive.getListSection().setOnSelectionChangedListener(selectionChangedListener);
-  }
-
-  static class SelectionConfig {
-
-    Mode adapterSelectionMode;
-    Mode languageSelectionMode;
-    Mode topicSelectionMode;
-    Mode sourcesSelectionMode;
-    Mode newsPapersSelectionMode;
-    Mode newsChannelsSelectionMode;
-    Mode websitesSelectionMode;
   }
 }

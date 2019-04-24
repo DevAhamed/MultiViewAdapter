@@ -89,5 +89,10 @@ public abstract class BaseFragment extends Fragment {
     });
 
     initViews(view);
+    if(savedInstanceState == null) {
+      resetConfiguration();
+    } else {
+      updateConfiguration();
+    }
   }
 }

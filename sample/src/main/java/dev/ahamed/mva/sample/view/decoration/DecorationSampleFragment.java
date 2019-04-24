@@ -32,7 +32,6 @@ public class DecorationSampleFragment extends BaseFragment {
 
   private final MoviePosterItemBinder moviePosterBinder = new MoviePosterItemBinder();
   private final HeaderItemBinder decoratedHeaderBinder = new HeaderItemBinder();
-  private final DecorationConfig decorationConfig = new DecorationConfig();
   private HeaderSection<Header, MoviePosterItem> trendingMovies;
   private HeaderSection<Header, MoviePosterItem> latestMovies;
   private HeaderSection<Header, MoviePosterItem> upcomingMovies;
@@ -72,7 +71,6 @@ public class DecorationSampleFragment extends BaseFragment {
     cbEnableInset.setOnClickListener(onClickListener);
 
     setUpAdapter();
-    resetConfiguration();
   }
 
   @Override public int layoutId() {
@@ -100,32 +98,29 @@ public class DecorationSampleFragment extends BaseFragment {
     moviePosterBinder.removeAllDecorators();
     decoratedHeaderBinder.removeAllDecorators();
 
-    decorationConfig.enableTrendingMoviesDecoration = cbEnableTrendingSectionDecoration.isChecked();
-    decorationConfig.enableLatestMoviesDecoration = cbEnableLatestSectionDecoration.isChecked();
-    decorationConfig.enableUpcomingMoviesDecoration = cbEnableUpcomingSectionDecoration.isChecked();
-    decorationConfig.enableItemDecoration = cbEnableItemDecoration.isChecked();
-    decorationConfig.enableHeaderDecoration = cbEnableHeaderDecoration.isChecked();
-    decorationConfig.showBorders = cbEnableBorder.isChecked();
-    decorationConfig.addInset = cbEnableInset.isChecked();
+    boolean enableTrendingMoviesDecoration = cbEnableTrendingSectionDecoration.isChecked();
+    boolean enableLatestMoviesDecoration = cbEnableLatestSectionDecoration.isChecked();
+    boolean enableUpcomingMoviesDecoration = cbEnableUpcomingSectionDecoration.isChecked();
+    boolean enableItemDecoration = cbEnableItemDecoration.isChecked();
+    boolean enableHeaderDecoration = cbEnableHeaderDecoration.isChecked();
+    boolean showBorders = cbEnableBorder.isChecked();
+    boolean addInset = cbEnableInset.isChecked();
 
-    if (decorationConfig.enableTrendingMoviesDecoration) {
-      trendingMovies.addDecorator(new MovieSectionDecoration(adapter, decorationConfig.addInset,
-          decorationConfig.showBorders));
+    if (enableTrendingMoviesDecoration) {
+      trendingMovies.addDecorator(new MovieSectionDecoration(adapter, addInset, showBorders));
     }
-    if (decorationConfig.enableLatestMoviesDecoration) {
-      latestMovies.addDecorator(new MovieSectionDecoration(adapter, decorationConfig.addInset,
-          decorationConfig.showBorders));
+    if (enableLatestMoviesDecoration) {
+      latestMovies.addDecorator(new MovieSectionDecoration(adapter, addInset, showBorders));
     }
-    if (decorationConfig.enableUpcomingMoviesDecoration) {
-      upcomingMovies.addDecorator(new MovieSectionDecoration(adapter, decorationConfig.addInset,
-          decorationConfig.showBorders));
+    if (enableUpcomingMoviesDecoration) {
+      upcomingMovies.addDecorator(new MovieSectionDecoration(adapter, addInset, showBorders));
     }
 
-    if (decorationConfig.enableItemDecoration) {
+    if (enableItemDecoration) {
       moviePosterBinder.addDecorator(new InsetDecoration(adapter, SampleActivity.DP_EIGHT));
     }
 
-    if (decorationConfig.enableHeaderDecoration) {
+    if (enableHeaderDecoration) {
       decoratedHeaderBinder.addDecorator(new InsetDecoration(adapter, SampleActivity.DP_EIGHT));
     }
   }
@@ -153,18 +148,5 @@ public class DecorationSampleFragment extends BaseFragment {
     trendingMovies.getListSection().set(dataManager.getMovies());
     latestMovies.getListSection().set(dataManager.getMovies());
     upcomingMovies.getListSection().set(dataManager.getMovies());
-  }
-
-  static class DecorationConfig {
-
-    boolean enableTrendingMoviesDecoration;
-    boolean enableLatestMoviesDecoration;
-    boolean enableUpcomingMoviesDecoration;
-
-    boolean enableItemDecoration;
-    boolean enableHeaderDecoration;
-
-    boolean showBorders;
-    boolean addInset;
   }
 }

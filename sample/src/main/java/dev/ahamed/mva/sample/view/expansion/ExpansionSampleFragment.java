@@ -29,8 +29,6 @@ import mva2.adapter.util.Mode;
 
 public class ExpansionSampleFragment extends BaseFragment {
 
-  private ExpansionConfig expansionConfig = new ExpansionConfig();
-
   private HeaderSection<Header, FaqItem> expandableHeaderSectionOne;
   private HeaderSection<Header, FaqItem> expandableHeaderSectionTwo;
   private HeaderSection<Header, FaqItem> expandableHeaderSectionThree;
@@ -52,7 +50,6 @@ public class ExpansionSampleFragment extends BaseFragment {
     spinnerSectionThreeMode = view.findViewById(R.id.spinner_section_three_mode);
 
     setUpAdapter();
-    resetConfiguration();
   }
 
   @Override public int layoutId() {
@@ -70,26 +67,21 @@ public class ExpansionSampleFragment extends BaseFragment {
   }
 
   @Override public void updateConfiguration() {
-    expansionConfig.adapterItemExpansionMode =
-        getMode(spinnerAdapterItemMode.getSelectedItemPosition());
-    expansionConfig.adapterSectionExpansionMode =
-        getMode(spinnerAdapterSectionMode.getSelectedItemPosition());
-    expansionConfig.section1ExpansionMode =
-        getMode(spinnerSectionOneMode.getSelectedItemPosition());
-    expansionConfig.section2ExpansionMode =
-        getMode(spinnerSectionTwoMode.getSelectedItemPosition());
-    expansionConfig.section3ExpansionMode =
-        getMode(spinnerSectionThreeMode.getSelectedItemPosition());
+    Mode adapterItemExpansionMode = getMode(spinnerAdapterItemMode.getSelectedItemPosition());
+    Mode adapterSectionExpansionMode = getMode(spinnerAdapterSectionMode.getSelectedItemPosition());
+    Mode section1ExpansionMode = getMode(spinnerSectionOneMode.getSelectedItemPosition());
+    Mode section2ExpansionMode = getMode(spinnerSectionTwoMode.getSelectedItemPosition());
+    Mode section3ExpansionMode = getMode(spinnerSectionThreeMode.getSelectedItemPosition());
 
     adapter.collapseAllSections();
     adapter.collapseAllItems();
 
-    adapter.setSectionExpansionMode(expansionConfig.adapterSectionExpansionMode);
+    adapter.setSectionExpansionMode(adapterSectionExpansionMode);
 
-    adapter.setExpansionMode(expansionConfig.adapterItemExpansionMode);
-    expandableHeaderSectionOne.setExpansionMode(expansionConfig.section1ExpansionMode);
-    expandableHeaderSectionTwo.setExpansionMode(expansionConfig.section2ExpansionMode);
-    expandableHeaderSectionThree.setExpansionMode(expansionConfig.section3ExpansionMode);
+    adapter.setExpansionMode(adapterItemExpansionMode);
+    expandableHeaderSectionOne.setExpansionMode(section1ExpansionMode);
+    expandableHeaderSectionTwo.setExpansionMode(section2ExpansionMode);
+    expandableHeaderSectionThree.setExpansionMode(section3ExpansionMode);
   }
 
   private Mode getMode(int position) {
@@ -128,14 +120,5 @@ public class ExpansionSampleFragment extends BaseFragment {
     adapter.addSection(expandableHeaderSectionOne);
     adapter.addSection(expandableHeaderSectionTwo);
     adapter.addSection(expandableHeaderSectionThree);
-  }
-
-  static class ExpansionConfig {
-
-    Mode adapterItemExpansionMode;
-    Mode section1ExpansionMode;
-    Mode section2ExpansionMode;
-    Mode section3ExpansionMode;
-    Mode adapterSectionExpansionMode;
   }
 }

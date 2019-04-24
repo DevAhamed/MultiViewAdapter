@@ -42,7 +42,6 @@ import java.util.List;
 import mva2.adapter.ItemSection;
 import mva2.adapter.ListSection;
 import mva2.adapter.util.InfiniteLoadingHelper;
-import mva2.adapter.util.SwipeToDismissListener;
 import mva2.extension.decorator.InsetDecoration;
 
 public class AdvancedFragment extends BaseFragment
@@ -53,7 +52,6 @@ public class AdvancedFragment extends BaseFragment
   private ListSection<NumberItem> infiniteSection;
   private InfiniteLoadingHelper infiniteLoadingHelper;
 
-  private AdvancedConfig advancedConfig = new AdvancedConfig();
   private Runnable bgLoadingProcess;
   @SuppressLint("HandlerLeak") private Handler handler = new Handler() {
     @Override public void handleMessage(Message msg) {
@@ -98,7 +96,7 @@ public class AdvancedFragment extends BaseFragment
 
     recyclerView.setAdapter(adapter);
 
-    layoutManager = new GridLayoutManager(getContext(), advancedConfig.getTotalSpan());
+    layoutManager = new GridLayoutManager(getContext(), 12);
     layoutManager.setSpanSizeLookup(adapter.getSpanSizeLookup());
 
     recyclerView.setHasFixedSize(true);
@@ -133,10 +131,8 @@ public class AdvancedFragment extends BaseFragment
     infiniteSection = new ListSection<>();
     infiniteSection.setSpanCount(1);
 
-    listSectionTwo.setSwipeToDismissListener(new SwipeToDismissListener<ColoredItem>() {
-      @Override public void onItemDismissed(int position, ColoredItem item) {
+    listSectionTwo.setSwipeToDismissListener((position, item) -> {
 
-      }
     });
 
     adapter.addSection(itemSectionOne);
@@ -181,8 +177,6 @@ public class AdvancedFragment extends BaseFragment
         recyclerView.invalidateItemDecorations();
       }
     });
-
-    resetConfiguration();
   }
 
   @Override public int layoutId() {
@@ -203,21 +197,17 @@ public class AdvancedFragment extends BaseFragment
   }
 
   @Override public void updateConfiguration() {
-    advancedConfig.sectionOneSpan = sectionOneSpanCount.getSelectedItemPosition() + 2;
-    advancedConfig.sectionTwoSpan = sectionTwoSpanCount.getSelectedItemPosition() + 2;
-    advancedConfig.dragAndDropEnabled = enableDragAndDrop.isChecked();
-    advancedConfig.swipeToDismissEnabled = enableSwipeToDismiss.isChecked();
-    advancedConfig.infiniteLoadingEnabled = enableInfiniteLoading.isChecked();
-    advancedConfig.pagesCount = getPageCount(totalPagesCount.getSelectedItemPosition());
+    int sectionOneSpan = sectionOneSpanCount.getSelectedItemPosition() + 2;
+    int sectionTwoSpan = sectionTwoSpanCount.getSelectedItemPosition() + 2;
 
-    layoutManager.setSpanCount(advancedConfig.getTotalSpan());
-    adapter.setSpanCount(advancedConfig.getTotalSpan());
+    layoutManager.setSpanCount(sectionOneSpan * sectionTwoSpan);
+    adapter.setSpanCount(sectionOneSpan * sectionTwoSpan);
 
-    listSectionOne.setSpanCount(advancedConfig.sectionOneSpan);
-    listSectionTwo.setSpanCount(advancedConfig.sectionTwoSpan);
+    listSectionOne.setSpanCount(sectionOneSpan);
+    listSectionTwo.setSpanCount(sectionTwoSpan);
 
-    if (advancedConfig.infiniteLoadingEnabled) {
-      infiniteLoadingHelper.setPageCount(advancedConfig.pagesCount);
+    if (enableInfiniteLoading.isChecked()) {
+      infiniteLoadingHelper.setPageCount(getPageCount(totalPagesCount.getSelectedItemPosition()));
     } else {
       infiniteLoadingHelper.markAllPagesLoaded();
     }
@@ -238,11 +228,11 @@ public class AdvancedFragment extends BaseFragment
   }
 
   @Override public boolean isDragAndDropEnabled() {
-    return advancedConfig.dragAndDropEnabled;
+    return enableDragAndDrop.isChecked();
   }
 
   @Override public boolean isSwipeToDismissEnabled() {
-    return advancedConfig.swipeToDismissEnabled;
+    return enableSwipeToDismiss.isEnabled();
   }
 
   private void loadMore(final int page) {
@@ -269,20 +259,5 @@ public class AdvancedFragment extends BaseFragment
       return 20;
     }
     return Integer.MAX_VALUE;
-  }
-
-  public static class AdvancedConfig {
-    int sectionOneSpan = 3;
-    int sectionTwoSpan = 4;
-
-    boolean dragAndDropEnabled;
-    boolean swipeToDismissEnabled;
-    boolean infiniteLoadingEnabled;
-
-    int pagesCount;
-
-    int getTotalSpan() {
-      return sectionOneSpan * sectionTwoSpan;
-    }
   }
 }

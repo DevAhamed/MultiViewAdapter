@@ -27,12 +27,7 @@ import dev.ahamed.mva.sample.view.common.BaseFragment;
 import java.util.List;
 import mva2.adapter.ListSection;
 
-import static android.support.v7.widget.LinearLayoutManager.HORIZONTAL;
-import static android.support.v7.widget.LinearLayoutManager.VERTICAL;
-
 public class BasicSampleFragment extends BaseFragment {
-
-  private BasicConfig basicConfig = new BasicConfig();
 
   private Spinner spinnerLayoutManager;
   private Spinner spinnerOrientation;
@@ -47,8 +42,6 @@ public class BasicSampleFragment extends BaseFragment {
     spinnerLayoutManager = view.findViewById(R.id.spinner_layout_manager);
     spinnerOrientation = view.findViewById(R.id.spinner_orientation);
     spinnerReverseLayout = view.findViewById(R.id.spinner_reverse_layout);
-
-    updateConfiguration();
   }
 
   @Override public int layoutId() {
@@ -64,27 +57,24 @@ public class BasicSampleFragment extends BaseFragment {
   }
 
   @Override public void updateConfiguration() {
-    basicConfig.layoutManager = spinnerLayoutManager.getSelectedItemPosition();
-    basicConfig.orientation =
-        spinnerOrientation.getSelectedItemPosition() == 0 ? VERTICAL : HORIZONTAL;
-    basicConfig.reverseLayout = spinnerReverseLayout.getSelectedItemPosition() == 1;
-    basicConfig.spanCount = (spinnerSpanCount.getSelectedItemPosition() + 2);
     setUpAdapter();
   }
 
   private void setUpAdapter() {
+    int spanCount = (spinnerSpanCount.getSelectedItemPosition() + 2);
     recyclerView.setAdapter(adapter);
     LinearLayoutManager layoutManager;
-    if (basicConfig.layoutManager == 0) {
+    if (spinnerLayoutManager.getSelectedItemPosition() == 0) {
       layoutManager = new CustomLayoutManager(getContext());
     } else {
-      layoutManager = new GridLayoutManager(getContext(), basicConfig.spanCount);
-      adapter.setSpanCount(basicConfig.spanCount);
+      layoutManager = new GridLayoutManager(getContext(), spanCount);
+      adapter.setSpanCount(spanCount);
       ((GridLayoutManager) layoutManager).setSpanSizeLookup(adapter.getSpanSizeLookup());
     }
     layoutManager.setOrientation(
-        basicConfig.orientation == VERTICAL ? RecyclerView.VERTICAL : RecyclerView.HORIZONTAL);
-    layoutManager.setReverseLayout(basicConfig.reverseLayout);
+        spinnerOrientation.getSelectedItemPosition() == 0 ? RecyclerView.VERTICAL
+            : RecyclerView.HORIZONTAL);
+    layoutManager.setReverseLayout(spinnerReverseLayout.getSelectedItemPosition() == 1);
 
     recyclerView.setLayoutManager(layoutManager);
 
@@ -100,14 +90,5 @@ public class BasicSampleFragment extends BaseFragment {
 
     List<NumberItem> list = dataManager.getNumberItems(10000);
     listSection.addAll(list);
-  }
-
-  static class BasicConfig {
-
-    // 0 - Linear | 1 - Grid
-    int layoutManager = 0;
-    int spanCount = 2;
-    int orientation = VERTICAL;
-    boolean reverseLayout = false;
   }
 }

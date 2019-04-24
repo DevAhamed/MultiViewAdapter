@@ -41,11 +41,14 @@ import dev.ahamed.mva.sample.view.selection.SelectionSampleFragment;
 
 public class SampleActivity extends AppCompatActivity {
 
+  private static final String STATE_SELECTED_POSITION = "state_selected_position";
+
   public static float DP = 0;
   public static int DP_FOUR = 0;
   public static int DP_EIGHT = 0;
 
   private Spinner spinner;
+  private int selectedPosition;
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {
     if (spinner.getSelectedItemPosition() == 6) {
@@ -79,15 +82,17 @@ public class SampleActivity extends AppCompatActivity {
 
     if (null == savedInstanceState) {
       spinner.setSelection(6);
+    } else {
+      selectedPosition = savedInstanceState.getInt(STATE_SELECTED_POSITION);
     }
 
     setUpDeviceMetrics();
     setUpToolbar();
+    setUpSpinner();
   }
 
   @Override protected void onResume() {
     super.onResume();
-    setUpSpinner();
   }
 
   private void setUpDeviceMetrics() {
@@ -120,6 +125,11 @@ public class SampleActivity extends AppCompatActivity {
     });
   }
 
+  @Override protected void onSaveInstanceState(Bundle outState) {
+    super.onSaveInstanceState(outState);
+    outState.putInt(STATE_SELECTED_POSITION, selectedPosition);
+  }
+
   private void setUpToolbar() {
     Toolbar toolbar = findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
@@ -129,6 +139,10 @@ public class SampleActivity extends AppCompatActivity {
   }
 
   private void switchFragment(int position) {
+    if (selectedPosition == position) {
+      return;
+    }
+    selectedPosition = position;
     Fragment fragment;
     switch (position) {
       case 0:

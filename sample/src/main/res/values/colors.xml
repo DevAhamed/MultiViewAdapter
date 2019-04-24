@@ -22,7 +22,7 @@
 
   <color name="body_text_primary">#404040</color>
   <color name="body_text_secondary">#606060</color>
-  <color name="body_text_subtle">#66606060</color>
+  <color name="body_text_subtle">#AA606060</color>
 
   <color name="sample_color_three">#EF9A9A</color>
   <color name="sample_color_one">#B39DDB</color>

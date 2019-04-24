@@ -27,19 +27,11 @@ android {
     versionCode Config.VERSION_CODE
     versionName Config.APP_VERSION
   }
-  //  signingConfigs {
-  //    Properties properties = new Properties()
-  //    properties.load(project.rootProject.file('local.properties').newDataInputStream())
-  //    config {
-  //      keyAlias properties.getProperty("alias")
-  //      keyPassword properties.getProperty("password")
-  //      storeFile file(properties.getProperty("keypath"))
-  //      storePassword properties.getProperty("password")
-  //    }
-  //  }
   buildTypes {
+    debug {
+      applicationIdSuffix ".debug"
+    }
     release {
-//            signingConfig signingConfigs.config
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
