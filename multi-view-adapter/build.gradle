@@ -18,7 +18,7 @@ import gradle.Config
 
 apply plugin: 'com.android.library'
 apply plugin: 'com.novoda.bintray-release'
-//apply plugin: 'guru.stefma.artifactorypublish'
+apply plugin: 'guru.stefma.artifactorypublish'
 apply plugin: 'jacoco'
 
 jacoco {
@@ -90,12 +90,12 @@ publish {
   website = Config.WEBSITE
 }
 
-//version = Config.SNAPSHOT_VERSION
-//group = Config.GROUP_ID
-//
-//artifactoryPublish {
-//  artifactId = Config.ARTIFACT_ID_CORE
-//  artifactoryRepo = "oss-snapshot-local"
-//  artifactoryUrl = "https://oss.jfrog.org/artifactory/"
-//  publications = ["releaseAar"]
-//}
+version = Config.SNAPSHOT_VERSION
+group = Config.GROUP_ID
+
+artifactoryPublish {
+  artifactId = Config.ARTIFACT_ID_CORE
+  artifactoryRepo = "oss-snapshot-local"
+  artifactoryUrl = "https://oss.jfrog.org/artifactory/"
+  publications = ["releaseAar"]
+}
