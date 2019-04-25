@@ -16,17 +16,17 @@
 
 package dev.ahamed.mva.sample.view.newsfeed;
 
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import dev.ahamed.mva.sample.R;
 import dev.ahamed.mva.sample.data.model.NewsItem;
 import java.util.List;
-import mva2.adapter.ItemBinder;
-import mva2.adapter.ItemViewHolder;
-import mva2.adapter.ListSection;
-import mva2.adapter.MultiViewAdapter;
+import mva3.adapter.ItemBinder;
+import mva3.adapter.ItemViewHolder;
+import mva3.adapter.ListSection;
+import mva3.adapter.MultiViewAdapter;
 
 public class NewsGroupItemBinder
     extends ItemBinder<List<NewsItem>, NewsGroupItemBinder.ViewHolder> {

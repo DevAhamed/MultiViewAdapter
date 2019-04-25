@@ -24,12 +24,12 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
-import android.support.v4.view.ViewCompat;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.core.view.ViewCompat;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
-import mva2.adapter.MultiViewAdapter;
-import mva2.adapter.decorator.Decorator;
+import mva3.adapter.MultiViewAdapter;
+import mva3.adapter.decorator.Decorator;
 
 public class OfflineNewsDecorator extends Decorator {
 

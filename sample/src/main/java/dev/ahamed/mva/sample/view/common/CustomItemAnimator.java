@@ -16,7 +16,7 @@
 
 package dev.ahamed.mva.sample.view.common;
 
-import android.support.v7.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 
 public class CustomItemAnimator extends DefaultItemAnimator {
 

@@ -21,8 +21,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import dev.ahamed.mva.sample.R;
 import dev.ahamed.mva.sample.data.model.MoviePosterItem;
-import mva2.adapter.ItemBinder;
-import mva2.adapter.ItemViewHolder;
+import mva3.adapter.ItemBinder;
+import mva3.adapter.ItemViewHolder;
 
 public class MoviePosterItemBinder
     extends ItemBinder<MoviePosterItem, MoviePosterItemBinder.ViewHolder> {

@@ -27,7 +27,7 @@ android {
     minSdkVersion Config.MIN_SDK
     targetSdkVersion Config.TARGET_SDK
 
-    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
   }
   buildTypes {
     release {
@@ -41,10 +41,10 @@ dependencies {
   implementation project(':multi-view-adapter')
   implementation Config.RECYCLER_VIEW
 
-  compileOnly('com.android.databinding:library:3.2.0') {
+  compileOnly('androidx.databinding:databinding-runtime:3.2.0-alpha16') {
     transitive = false
   }
-  compileOnly('com.android.databinding:baseLibrary:3.2.0') {
+  compileOnly('androidx.databinding:databinding-common:3.2.0-alpha16') {
     transitive = false
   }
 }

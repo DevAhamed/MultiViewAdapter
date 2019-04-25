@@ -14,4 +14,4 @@
   ~ limitations under the License.
   -->
 
-<manifest package="mva2.extension.databinding"/>
+<manifest package="mva3.extension.databinding"/>

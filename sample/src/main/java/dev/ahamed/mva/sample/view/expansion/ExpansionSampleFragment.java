@@ -16,7 +16,7 @@
 
 package dev.ahamed.mva.sample.view.expansion;
 
-import android.support.v7.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.Spinner;
 import dev.ahamed.mva.sample.R;
@@ -24,8 +24,8 @@ import dev.ahamed.mva.sample.data.model.FaqItem;
 import dev.ahamed.mva.sample.data.model.Header;
 import dev.ahamed.mva.sample.view.common.BaseFragment;
 import dev.ahamed.mva.sample.view.common.CustomItemAnimator;
-import mva2.adapter.HeaderSection;
-import mva2.adapter.util.Mode;
+import mva3.adapter.HeaderSection;
+import mva3.adapter.util.Mode;
 
 public class ExpansionSampleFragment extends BaseFragment {
 

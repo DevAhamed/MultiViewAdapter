@@ -22,8 +22,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import dev.ahamed.mva.sample.R;
 import dev.ahamed.mva.sample.data.model.NewsItem;
-import mva2.adapter.ItemBinder;
-import mva2.adapter.ItemViewHolder;
+import mva3.adapter.ItemBinder;
+import mva3.adapter.ItemViewHolder;
 
 public class NewsFeedItemBinder extends ItemBinder<NewsItem, NewsFeedItemBinder.ViewHolder> {
 

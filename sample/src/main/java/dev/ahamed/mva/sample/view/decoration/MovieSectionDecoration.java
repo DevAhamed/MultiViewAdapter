@@ -20,13 +20,13 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import dev.ahamed.mva.sample.view.SampleActivity;
-import mva2.adapter.MultiViewAdapter;
-import mva2.adapter.decorator.Decorator;
-import mva2.adapter.decorator.SectionPositionType;
+import mva3.adapter.MultiViewAdapter;
+import mva3.adapter.decorator.Decorator;
+import mva3.adapter.decorator.SectionPositionType;
 
 public class MovieSectionDecoration extends Decorator {
 

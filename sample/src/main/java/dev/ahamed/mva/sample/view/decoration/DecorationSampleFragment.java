@@ -16,7 +16,7 @@
 
 package dev.ahamed.mva.sample.view.decoration;
 
-import android.support.v7.widget.GridLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import android.view.View;
 import android.widget.CheckedTextView;
 import dev.ahamed.mva.sample.R;
@@ -25,8 +25,8 @@ import dev.ahamed.mva.sample.data.model.MoviePosterItem;
 import dev.ahamed.mva.sample.view.SampleActivity;
 import dev.ahamed.mva.sample.view.common.BaseFragment;
 import dev.ahamed.mva.sample.view.common.HeaderItemBinder;
-import mva2.adapter.HeaderSection;
-import mva2.extension.decorator.InsetDecoration;
+import mva3.adapter.HeaderSection;
+import mva3.extension.decorator.InsetDecoration;
 
 public class DecorationSampleFragment extends BaseFragment {
 

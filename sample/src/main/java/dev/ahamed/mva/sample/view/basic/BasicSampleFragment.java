@@ -16,16 +16,16 @@
 
 package dev.ahamed.mva.sample.view.basic;
 
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.Spinner;
 import dev.ahamed.mva.sample.R;
 import dev.ahamed.mva.sample.data.model.NumberItem;
 import dev.ahamed.mva.sample.view.common.BaseFragment;
 import java.util.List;
-import mva2.adapter.ListSection;
+import mva3.adapter.ListSection;
 
 public class BasicSampleFragment extends BaseFragment {
 

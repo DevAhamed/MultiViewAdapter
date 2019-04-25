@@ -16,7 +16,7 @@
 
 package dev.ahamed.mva.sample.view.selection;
 
-import android.support.v7.widget.GridLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Spinner;
@@ -25,13 +25,13 @@ import dev.ahamed.mva.sample.data.model.Header;
 import dev.ahamed.mva.sample.data.model.SelectableItem;
 import dev.ahamed.mva.sample.view.common.BaseFragment;
 import dev.ahamed.mva.sample.view.common.HeaderItemBinder;
-import mva2.adapter.HeaderSection;
-import mva2.adapter.ItemSection;
-import mva2.adapter.NestedSection;
-import mva2.adapter.util.Mode;
-import mva2.adapter.util.OnSelectionChangedListener;
+import mva3.adapter.HeaderSection;
+import mva3.adapter.ItemSection;
+import mva3.adapter.NestedSection;
+import mva3.adapter.util.Mode;
+import mva3.adapter.util.OnSelectionChangedListener;
 
-import static mva2.adapter.util.Mode.SINGLE;
+import static mva3.adapter.util.Mode.SINGLE;
 
 public class SelectionSampleFragment extends BaseFragment {
 

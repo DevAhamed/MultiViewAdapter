@@ -21,9 +21,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import dev.ahamed.mva.sample.R;
 import dev.ahamed.mva.sample.widget.FeatureHeader;
-import mva2.adapter.ItemBinder;
-import mva2.adapter.ItemViewHolder;
-import mva2.adapter.decorator.Decorator;
+import mva3.adapter.ItemBinder;
+import mva3.adapter.ItemViewHolder;
+import mva3.adapter.decorator.Decorator;
 
 public class FeatureItemBinder extends ItemBinder<Feature, FeatureItemBinder.ViewHolder> {
 

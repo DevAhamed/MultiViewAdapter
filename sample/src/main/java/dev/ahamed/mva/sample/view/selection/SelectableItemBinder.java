@@ -16,8 +16,8 @@
 
 package dev.ahamed.mva.sample.view.selection;
 
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.CardView;
+import androidx.core.content.ContextCompat;
+import androidx.cardview.widget.CardView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -25,8 +25,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import dev.ahamed.mva.sample.R;
 import dev.ahamed.mva.sample.data.model.SelectableItem;
-import mva2.adapter.ItemBinder;
-import mva2.adapter.ItemViewHolder;
+import mva3.adapter.ItemBinder;
+import mva3.adapter.ItemViewHolder;
 
 public class SelectableItemBinder
     extends ItemBinder<SelectableItem, SelectableItemBinder.ViewHolder> {

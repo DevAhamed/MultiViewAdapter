@@ -21,8 +21,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import dev.ahamed.mva.sample.R;
 import dev.ahamed.mva.sample.data.model.Header;
-import mva2.adapter.ItemBinder;
-import mva2.adapter.ItemViewHolder;
+import mva3.adapter.ItemBinder;
+import mva3.adapter.ItemViewHolder;
 
 public class HeaderItemBinder extends ItemBinder<Header, HeaderItemBinder.ViewHolder> {
 

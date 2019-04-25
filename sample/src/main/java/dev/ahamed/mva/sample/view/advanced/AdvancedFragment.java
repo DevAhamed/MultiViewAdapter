@@ -20,9 +20,9 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.CheckedTextView;
 import android.widget.Spinner;
@@ -39,10 +39,10 @@ import dev.ahamed.mva.sample.view.common.HeaderItemBinder;
 import dev.ahamed.mva.sample.view.common.ShufflingHeaderItemBinder;
 import java.util.Collections;
 import java.util.List;
-import mva2.adapter.ItemSection;
-import mva2.adapter.ListSection;
-import mva2.adapter.util.InfiniteLoadingHelper;
-import mva2.extension.decorator.InsetDecoration;
+import mva3.adapter.ItemSection;
+import mva3.adapter.ListSection;
+import mva3.adapter.util.InfiniteLoadingHelper;
+import mva3.extension.decorator.InsetDecoration;
 
 public class AdvancedFragment extends BaseFragment
     implements ShufflingHeaderItemBinder.ShuffleListener, TextItemBinder.SettingsProvider {

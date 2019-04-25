@@ -15,7 +15,7 @@
   ~ limitations under the License.
   -->
 
-<android.support.v7.widget.CardView
+<androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -26,7 +26,7 @@
     app:cardElevation="1dp"
     >
 
-  <android.support.constraint.ConstraintLayout
+  <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:padding="8dp"
@@ -63,7 +63,7 @@
         tools:text="Some Article with \n three lines\n of title"
         />
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         android:id="@+id/card_image"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -83,7 +83,7 @@
           android:padding="16dp"
           />
 
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/tv_news_date"
@@ -102,6 +102,6 @@
         tools:text="4 hours ago"
         />
 
-  </android.support.constraint.ConstraintLayout>
+  </androidx.constraintlayout.widget.ConstraintLayout>
 
-</android.support.v7.widget.CardView>
+</androidx.cardview.widget.CardView>

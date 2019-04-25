@@ -27,7 +27,7 @@ android {
     minSdkVersion Config.MIN_SDK
     targetSdkVersion Config.TARGET_SDK
 
-    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
   }
   buildTypes {
     release {

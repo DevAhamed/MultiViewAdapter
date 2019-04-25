@@ -16,18 +16,18 @@
 
 package dev.ahamed.mva.sample.view.newsfeed;
 
-import android.support.v7.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.View;
 import dev.ahamed.mva.sample.R;
 import dev.ahamed.mva.sample.data.model.NewsHeader;
 import dev.ahamed.mva.sample.data.model.NewsItem;
 import dev.ahamed.mva.sample.view.common.BaseFragment;
 import java.util.List;
-import mva2.adapter.HeaderSection;
-import mva2.adapter.ItemSection;
-import mva2.adapter.ListSection;
-import mva2.adapter.NestedSection;
-import mva2.adapter.util.SwipeToDismissListener;
+import mva3.adapter.HeaderSection;
+import mva3.adapter.ItemSection;
+import mva3.adapter.ListSection;
+import mva3.adapter.NestedSection;
+import mva3.adapter.util.SwipeToDismissListener;
 
 public class NewsFeedFragment extends BaseFragment implements SwipeToDismissListener<NewsItem> {
 

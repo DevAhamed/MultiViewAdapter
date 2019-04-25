@@ -25,7 +25,7 @@ import android.graphics.PixelFormat;
 import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 public class TileDrawable extends Drawable {
 

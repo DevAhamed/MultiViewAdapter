@@ -77,7 +77,7 @@ The Gradle dependency is available via JCenter. JCenter is the default maven rep
 
 ```gradle
 dependencies {
-    implementation 'dev.ahamed.mva2:adapter:2.0.0-alpha01'
+    implementation 'dev.ahamed.mva3:adapter:2.0.0-alpha01'
 }
 ```
 
@@ -85,9 +85,9 @@ dependencies {
 
 ```gradle
 dependencies {
-    implementation 'dev.ahamed.mva2:ext-data-binding:2.0.0-alpha01' // DataBinding
-    implementation 'dev.ahamed.mva2:ext-decorators:2.0.0-alpha01'   // Decorators
-    implementation 'dev.ahamed.mva2:ext-rxdiffutil:2.0.0-alpha01'   // RxDiffUtil
+    implementation 'dev.ahamed.mva3:ext-data-binding:2.0.0-alpha01' // DataBinding
+    implementation 'dev.ahamed.mva3:ext-decorators:2.0.0-alpha01'   // Decorators
+    implementation 'dev.ahamed.mva3:ext-rxdiffutil:2.0.0-alpha01'   // RxDiffUtil
 }
 ```
 
@@ -97,7 +97,7 @@ Just add '-SNAPSHOT' to the version name
 
 ```gradle
 dependencies {
-    implementation 'dev.ahamed.mva2:adapter:2.0.0-SNAPSHOT' // Library
+    implementation 'dev.ahamed.mva3:adapter:2.0.0-SNAPSHOT' // Library
 }
 ```
 

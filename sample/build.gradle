@@ -56,5 +56,5 @@ dependencies {
   implementation Config.DESIGN
   implementation Config.RX_JAVA
   implementation Config.RX_ANDROID
-  implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+  implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
 }

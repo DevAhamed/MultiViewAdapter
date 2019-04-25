@@ -23,13 +23,13 @@
     android:background="#FFFFFF"
     >
 
-  <android.support.v4.widget.NestedScrollView
+  <androidx.core.widget.NestedScrollView
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:layout_marginBottom="80dp"
       >
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
@@ -152,9 +152,9 @@
           app:layout_constraintTop_toTopOf="@+id/label_pages"
           />
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-  </android.support.v4.widget.NestedScrollView>
+  </androidx.core.widget.NestedScrollView>
 
   <include
       layout="@layout/include_config_button_panel"/>

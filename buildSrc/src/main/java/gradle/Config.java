@@ -22,24 +22,24 @@ public interface Config {
   int COMPILE_SDK = 28;
   int TARGET_SDK = COMPILE_SDK;
 
-  String VERSION = "2.0.0";
+  String VERSION = "3.0.0";
   String APP_VERSION = VERSION + ".1";
   String PRODUCTION_VERSION = VERSION + "-alpha01";
   String SNAPSHOT_VERSION = VERSION + "-SNAPSHOT";
   int VERSION_CODE = 210200002;
 
-  String APP_COMPAT = "com.android.support:appcompat-v7:28.0.0";
-  String DESIGN = "com.android.support:design:28.0.0";
-  String RECYCLER_VIEW = "com.android.support:recyclerview-v7:28.0.0";
-  String CARD_VIEW = "com.android.support:cardview-v7:28.0.0";
-  String SUPPORT_ANNOTATION = "com.android.support:support-annotations:28.0.0";
+  String APP_COMPAT = "androidx.appcompat:appcompat:1.0.2";
+  String DESIGN = "com.google.android.material:material:1.1.0-alpha05";
+  String RECYCLER_VIEW = "androidx.recyclerview:recyclerview:1.0.0";
+  String CARD_VIEW = "androidx.cardview:cardview:1.0.0";
+  String SUPPORT_ANNOTATION = "androidx.annotations:annotations:1.0.2";
 
   String RX_JAVA = "io.reactivex.rxjava2:rxjava:2.2.4";
   String RX_ANDROID = "io.reactivex.rxjava2:rxandroid:2.1.0";
 
   String USER_ORG = "devahamed";
-  String GROUP_ID = "dev.ahamed.mva2";
-  String REPO_NAME = "MVA2";
+  String GROUP_ID = "dev.ahamed.mva3";
+  String REPO_NAME = "MVA3";
   String DESC = "Easily create complex recyclerview adapters in android";
   String WEBSITE = "https://github.com/DevAhamed/MultiViewAdapter";
 

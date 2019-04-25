@@ -18,8 +18,8 @@ package dev.ahamed.mva.sample.view.home;
 
 import android.view.ViewGroup;
 import dev.ahamed.mva.sample.R;
-import mva2.adapter.ItemBinder;
-import mva2.adapter.ItemViewHolder;
+import mva3.adapter.ItemBinder;
+import mva3.adapter.ItemViewHolder;
 
 public class IntroItemBinder extends ItemBinder<String, ItemViewHolder<String>> {
 
