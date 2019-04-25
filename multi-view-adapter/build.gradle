@@ -99,3 +99,40 @@ artifactoryPublish {
   artifactoryUrl = "https://oss.jfrog.org/artifactory/"
   publications = ["releaseAar"]
 }
+
+afterEvaluate { project ->
+  task androidJavadocs(type: Javadoc) {
+    source = android.sourceSets.main.java.source
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+  }
+
+  task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
+    androidJavadocs.setDestinationDir(file("javadocs"))
+    classifier = 'javadoc'
+    from androidJavadocs.destinationDir
+  }
+
+  task androidSourcesJar(type: Jar) {
+    classifier = 'sources'
+    from android.sourceSets.main.java.source
+  }
+
+  if (JavaVersion.current().isJava8Compatible()) {
+    allprojects {
+      tasks.withType(Javadoc) {
+        options.addStringOption('Xdoclint:none', '-quiet')
+      }
+    }
+  }
+
+  artifacts {
+    if (project.getPlugins().hasPlugin('com.android.application') || project.getPlugins().
+        hasPlugin('com.android.library')) {
+      archives androidSourcesJar
+      archives androidJavadocsJar
+    } else {
+      archives sourcesJar
+      archives javadocJar
+    }
+  }
+}
