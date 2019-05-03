@@ -22,6 +22,7 @@ import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 @RunWith(MockitoJUnitRunner.class) public class CoreSelectionTest extends BaseTest {
 
@@ -119,6 +120,7 @@ import static junit.framework.Assert.assertTrue;
   @Test public void selectionModeTest_SectionSingle() {
     adapter.setSelectionMode(Mode.MULTIPLE);
     listSection1.setSelectionMode(Mode.SINGLE);
+    headerSection1.getListSection().setSelectionMode(Mode.SINGLE);
     adapter.onItemSelectionToggled(1);
     assertTrue(adapter.isItemSelected(1));
 
@@ -128,7 +130,25 @@ import static junit.framework.Assert.assertTrue;
 
     adapter.onItemSelectionToggled(23);
     assertTrue(adapter.isItemSelected(23));
+    assertFalse(adapter.isItemSelected(22));
+    assertTrue(adapter.isItemSelected(1));
+  }
+
+  @Test public void selectionModeTest_SectionSingle_1() {
+    adapter.setSelectionMode(Mode.MULTIPLE);
+    listSection1.setSelectionMode(Mode.SINGLE);
+    headerSection1.getListSection().setSelectionMode(Mode.SINGLE);
+
+    adapter.onItemSelectionToggled(22);
     assertTrue(adapter.isItemSelected(22));
+
+    adapter.onItemSelectionToggled(1);
+    assertTrue(adapter.isItemSelected(22));
+    assertTrue(adapter.isItemSelected(1));
+
+    adapter.onItemSelectionToggled(23);
+    assertTrue(adapter.isItemSelected(23));
+    assertFalse(adapter.isItemSelected(22));
     assertTrue(adapter.isItemSelected(1));
   }
 

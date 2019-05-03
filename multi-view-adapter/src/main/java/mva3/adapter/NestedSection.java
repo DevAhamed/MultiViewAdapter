@@ -201,7 +201,9 @@ public class NestedSection extends Section implements Notifier {
   }
 
   @Override void onItemSelectionToggled(int itemPosition, @NonNull Mode selectionMode) {
-    Mode selectionModeToHonor = getModeToHonor(selectionMode, this.selectionMode);
+    Mode selectionModeToHonor =
+        itemPosition < getCount() && itemPosition >= 0 ? getModeToHonor(selectionMode,
+            this.selectionMode) : selectionMode;
     for (Section section : sections) {
       section.onItemSelectionToggled(itemPosition, selectionModeToHonor);
       itemPosition -= section.getCount();
@@ -229,7 +231,9 @@ public class NestedSection extends Section implements Notifier {
   }
 
   @Override void onItemExpansionToggled(int itemPosition, @NonNull Mode expansionMode) {
-    Mode expansionModeToHonor = getModeToHonor(expansionMode, this.expansionMode);
+    Mode expansionModeToHonor =
+        itemPosition < getCount() && itemPosition >= 0 ? getModeToHonor(expansionMode,
+            this.expansionMode) : expansionMode;
     for (Section section : sections) {
       section.onItemExpansionToggled(itemPosition, expansionModeToHonor);
       itemPosition -= section.getCount();

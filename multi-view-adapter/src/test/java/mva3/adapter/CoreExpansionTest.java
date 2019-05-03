@@ -17,6 +17,7 @@
 package mva3.adapter;
 
 import mva3.adapter.util.Mode;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -123,9 +124,10 @@ import static junit.framework.Assert.assertTrue;
     assertTrue(adapter.isItemExpanded(1));
   }
 
-  @Test public void expansionModeTest_SectionSingle() {
+  @Test public void selectionModeTest_SectionSingle() {
     adapter.setExpansionMode(Mode.MULTIPLE);
-    headerSection1.setExpansionMode(Mode.SINGLE);
+    listSection1.setExpansionMode(Mode.SINGLE);
+    headerSection1.getListSection().setExpansionMode(Mode.SINGLE);
     adapter.onItemExpansionToggled(1);
     assertTrue(adapter.isItemExpanded(1));
 
@@ -135,7 +137,25 @@ import static junit.framework.Assert.assertTrue;
 
     adapter.onItemExpansionToggled(23);
     assertTrue(adapter.isItemExpanded(23));
-    assertTrue(!adapter.isItemExpanded(22));
+    Assert.assertFalse(adapter.isItemExpanded(22));
+    assertTrue(adapter.isItemExpanded(1));
+  }
+
+  @Test public void selectionModeTest_SectionSingle_1() {
+    adapter.setExpansionMode(Mode.MULTIPLE);
+    listSection1.setExpansionMode(Mode.SINGLE);
+    headerSection1.getListSection().setExpansionMode(Mode.SINGLE);
+
+    adapter.onItemExpansionToggled(22);
+    assertTrue(adapter.isItemExpanded(22));
+
+    adapter.onItemExpansionToggled(1);
+    assertTrue(adapter.isItemExpanded(22));
+    assertTrue(adapter.isItemExpanded(1));
+
+    adapter.onItemExpansionToggled(23);
+    assertTrue(adapter.isItemExpanded(23));
+    assertFalse(adapter.isItemExpanded(22));
     assertTrue(adapter.isItemExpanded(1));
   }
 
