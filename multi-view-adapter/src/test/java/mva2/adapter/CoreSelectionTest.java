@@ -23,6 +23,10 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.clearInvocations;
+import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class) public class CoreSelectionTest extends BaseTest {
 
@@ -171,5 +175,26 @@ import static org.junit.Assert.assertFalse;
 
     adapter.onItemSelectionToggled(25);
     assertTrue(!adapter.isItemSelected(25));
+  }
+
+  @Test public void selectionModeTest_Notify() {
+    adapter.setSelectionMode(Mode.MULTIPLE);
+    listSection1.setSelectionMode(Mode.MULTIPLE);
+    headerSection1.getListSection().setSelectionMode(Mode.MULTIPLE);
+
+    adapter.onItemSelectionToggled(1);
+    adapter.onItemSelectionToggled(41);
+    adapter.onItemSelectionToggled(2);
+    adapter.onItemSelectionToggled(25);
+    adapter.onItemSelectionToggled(28);
+
+    clearInvocations(adapterDataObserver);
+    adapter.clearAllSelections();
+
+    verify(adapterDataObserver).notifyItemRangeChanged(eq(1), eq(1), any());
+    verify(adapterDataObserver).notifyItemRangeChanged(eq(41), eq(1), any());
+    verify(adapterDataObserver).notifyItemRangeChanged(eq(2), eq(1), any());
+    verify(adapterDataObserver).notifyItemRangeChanged(eq(25), eq(1), any());
+    verify(adapterDataObserver).notifyItemRangeChanged(eq(28), eq(1), any());
   }
 }
