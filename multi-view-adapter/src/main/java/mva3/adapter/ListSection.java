@@ -428,9 +428,10 @@ public class ListSection<M> extends Section {
     int itemPosition = 0;
     for (ItemMetaData itemMetaData : metaDataList) {
       if (itemMetaData.isSelected()) {
-        itemMetaData.setSelected(!itemMetaData.isSelected());
-        onChanged(itemPosition++, 1, null);
+        itemMetaData.setSelected(false);
+        onChanged(itemPosition, 1, null);
       }
+      itemPosition++;
     }
   }
 
@@ -450,13 +451,13 @@ public class ListSection<M> extends Section {
   }
 
   @Override void collapseAllItems() {
-    int adapterPosition = 0;
+    int itemPosition = 0;
     for (ItemMetaData itemMetaData : metaDataList) {
       if (itemMetaData.isExpanded()) {
-        itemMetaData.setExpanded(!itemMetaData.isExpanded());
-        onChanged(adapterPosition, 1, null);
+        itemMetaData.setExpanded(false);
+        onChanged(itemPosition, 1, null);
       }
-      adapterPosition++;
+      itemPosition++;
     }
   }
 
