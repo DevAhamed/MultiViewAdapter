@@ -3,7 +3,7 @@
 ## Table of contents
 
 1. [Introduction](#_1-introduction)
-2. [How to use?](#_2-how-to-use)
+2. [Usage](#_2-usage)
 3. [Get selected items](#_3-get-selected-items)
 4. [Set listener](#_4-set-listener)
 5. [Clear selections](#_5-clear-selections)
@@ -18,11 +18,10 @@ MultiViewAdapter provides easy way to add selection/choice mode for the recycler
 3. INHERIT - Inherits the property from the parent. This the default value for sections.
 4. NONE - Disables the selection mode.
 
-
-### 2. How to use?
+### 2. Usage
 
 Just set selection mode to the adapter.
- 
+
 ```java
     adapter.setSelectionMode(Mode.SINGLE);
 ```
@@ -88,10 +87,10 @@ You can clear all selected items for a ListSection.
 
 ### 6. Advanced Usage
 
-![Sample](/image/selection-item.gif)
+![Sample](image/selection-item.gif)
 
 What if you are building a complex filter screen? What if the recyclerview has to support both single and multiple selections? With MultiViewAdapter, you can build a recyclerview adapter with multiple combination of selection mode inside a single adapter.
 
-Since sections support selection modes, you can set different selection mode different from the adapter. You can group the sections using NestedSection and set selection mode to NestedSection which is different from the adapter. This lets you have different combinations of selection modes. You can set a selection mode to sections by calling ```Section.setSelectionMode(Mode)```. 
+Since sections support selection modes, you can set different selection mode different from the adapter. You can group the sections using NestedSection and set selection mode to NestedSection which is different from the adapter. This lets you have different combinations of selection modes. You can set a selection mode to sections by calling ```Section.setSelectionMode(Mode)```.
 
 !> Take a look at sample app's 'Selection' demo. It has a filter screen with most complex combination of the selection mode. It will definitely give the idea about this powerful features.

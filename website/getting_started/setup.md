@@ -1,6 +1,6 @@
-![Setup](images/download-cover.jpg)
+![Download](images/download-cover.jpg)
 
-The library is available via [JCenter](https://bintray.com/devahamed/MultiViewAdapter/multi-view-adapter/view) and Maven Central. The minimum API level supported by this library is API 16.
+The library is available via JCenter. The minimum API level supported by this library is API 16.
 
 ### Adding Library
 
@@ -42,7 +42,6 @@ allprojects {
 }
 ```
 
+### Proguard / R8
 
-### Proguard
-
-The library plays nice with proguard. There is no proguard config needed at your end.
+The library plays nice with proguard/r8. There is no special config needed at your end.

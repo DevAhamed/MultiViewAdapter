@@ -2,16 +2,15 @@
 
 MultiViewAdapter allows you to expand/collapse a single item or an entire section. There are four types of expansion mode available.
 
-1. SINGLE - Only one item/section can be expanded. 
+1. SINGLE - Only one item/section can be expanded.
 2. MULTIPLE - Multiple items/sections can be expanded.
 3. INHERIT - Inherits the property from the parent. This the default value for sections.
 4. NONE - Disables the expansion mode. This the default expansion mode for the adapter.
 
-
-### How to use?
+### Usage
 
 Set expansion mode to the adapter.
- 
+
 ```java
     // Single item
     adapter.setExpansionMode(Mode.SINGLE);
@@ -46,11 +45,11 @@ To check whether the item is selected call ```ItemViewHolder.isItemSelected()```
     @Override public void bindViewHolder(ViewHolder holder, SelectableItem item) {
       if(holder.isItemExpanded()) {
         // Item is expanded.
-      } 
+      }
       // or
       if(holder.isSectionExpanded()) {
-        // Section is expanded. 
-      } 
+        // Section is expanded.
+      }
     }
   }
 ```
@@ -61,4 +60,4 @@ What if you want to support both single and multiple expansion? With MultiViewAd
 
 !> Take a look at sample app's 'Expansion' demo. It will help you understand the feature offered by the library.
 
-![Sample](/image/expansion-section.gif)
+![Sample](image/expansion-section.gif)

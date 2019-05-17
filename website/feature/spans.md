@@ -6,7 +6,7 @@ Override the ```getSpanSize(int maxSpanCount)``` inside your ItemBinder class an
 
 ```java
   @Override public int getSpanSize(int maxSpanCount) {
-    return 1; // Return any number which is less than maxSpanCount 
+    return 1; // Return any number which is less than maxSpanCount
   }
 ```
 
@@ -24,10 +24,9 @@ Set span count to both adapter and layout manager. Also set the ``SpanSizeLookup
 
 Same ItemBinder can have different span count in different ``Section``. For example,
 
-![Multi Spans](/image/multi-spans.jpg)
+![Multi Spans](image/multi-spans.jpg)
 
 In the above screenshot, both 'Section One' and 'Section Two' uses same ItemBinder, but have different span counts. This can be achieved by setting the maxSpanCount to the ``Section``.
-
 
 ```java
   void initAdapter() {

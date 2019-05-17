@@ -2,11 +2,10 @@
 
 Lets create an adapter which displays a list of cars.
 
-
 1. You need to create an ItemBinder for your model. ItemBinder is reponsible for creating and binding your view holders. Following is the code snippet of ItemBinder for CarModel class.
 
-<b>CarBinder</b>
- 
+### CarBinder
+
 ```java
 public class CarBinder extends ItemBinder<CarModel, CarBinder.CarViewHolder> {
 
@@ -23,7 +22,7 @@ public class CarBinder extends ItemBinder<CarModel, CarBinder.CarViewHolder> {
   }
 
   static class CarViewHolder extends ItemViewHolder<CarModel> {
-    
+
     TextView tvCarName;
 
     public CarViewHolder(View itemView) {
@@ -36,7 +35,7 @@ public class CarBinder extends ItemBinder<CarModel, CarBinder.CarViewHolder> {
 
 2. Now create an adapter and use the ItemBinder created above. Since we are displaying a list of items we need to create an ListSection object and add the data items to it. Add the section to adapter. Done.
 
-<b>In your Activity/Fragment</b>
+### Inside Activity/Fragment
 
 ```java
 class CarListActivity extends Activity {
