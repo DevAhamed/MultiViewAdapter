@@ -14,9 +14,9 @@ dependencies {
 
 ```gradle
 dependencies {
-    implementation 'dev.ahamed.mva2:ext-data-binding:2.0.0-alpha01' // DataBinding
-    implementation 'dev.ahamed.mva2:ext-decorators:2.0.0-alpha01'   // Decorators
-    implementation 'dev.ahamed.mva2:ext-rxdiffutil:2.0.0-alpha01'   // RxDiffUtil
+    implementation 'dev.ahamed.mva2:ext-databinding:2.0.0-alpha01'   // DataBinding
+    implementation 'dev.ahamed.mva2:ext-decorator:2.0.0-alpha01'     // Decorators
+    implementation 'dev.ahamed.mva2:ext-diffutil-rx:2.0.0-alpha01'   // RxDiffUtil
 }
 ```
 
