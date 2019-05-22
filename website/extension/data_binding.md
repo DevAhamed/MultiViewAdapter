@@ -2,7 +2,6 @@
 
 Data binding support is provided as an extension to the adapter. Currently library supports the DataBindingV2.
 
-
 ### Download
 
 ![DataBinding Version](https://api.bintray.com/packages/devahamed/MVA2/ext-databinding/images/download.svg)
@@ -22,8 +21,7 @@ public class SampleDataBinder extends DBItemBinder<M, MyBinding> {
     binding.setModel(item);
   }
 
-  @Override
-  protected MyBinding createBinding(ViewGroup parent) {
+  @Override protected MyBinding createBinding(ViewGroup parent) {
     LayoutInflater inflater = LayoutInflater.from(parent.getContext());
     return DataBindingUtil.inflate(inflater, R.layout.item_binding, parent, false);
   }
@@ -42,4 +40,4 @@ Incase you need to provide your own view holder just override the method ``creat
   }
 ```
 
-!> You can use ```ItemBinders``` with/without data binding at the same time inside an adapter.
+!> You can use ```ItemBinder``` and ```DBItemBinder``` at the same time inside an adapter.

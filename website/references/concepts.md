@@ -1,6 +1,6 @@
 ![Concepts](images/concept-cover.jpg)
 
-Core mantra of MultiViewAdapter - Seperation of view logic from data management logic. You get two different components which are :
+Core mantra of MultiViewAdapter - Seperation of view logic from data management logic. There are two different components to achieve this which are :
 
 1. Section - Component to hold your data. All data related updates will run here and proper notify method will be called on the adapter.
 2. ItemBinder - Component which creates and binds your view holder. All view related logic should go here.
@@ -16,18 +16,22 @@ We will take a look into following concepts in detail. This will help you unders
 
 ## 1. MultiViewAdapter
 
-The class which glues together all the other components. MultiViewAdapter allows you to add any number of section and itembinders to it. In most cases you can directly use the ```MultiViewAdapter``` unlike framework's ```RecyclerView.Adapter``` which needs you to subclass itself. You can use the adapter as follows,
+The class which glues together all the other components. MultiViewAdapter allows you to add any number of sections and itembinders to it. In most cases you can directly use the ```MultiViewAdapter``` unlike framework's ```RecyclerView.Adapter``` which needs to be extended. You can use the adapter as follows,
 
 ```java
     MultiViewAdapter adapter = new MultiViewAdapter();
     recyclerView.setAdapter(adapter);
 ```
+
 You can register your binders and add sections to the adapter as follows,
+
 ```java
     adapter.registerBinders(yourBinder);
     adapter.addSection(yourSection);
 ```
+
 If you are using the ```GridLayoutManager```, you can set the span count like this. Also don't forget about ```SpanSizeLookup```
+
 ```java
     // Set Span Count
     adapter.setSpanCount(4);
@@ -36,7 +40,9 @@ If you are using the ```GridLayoutManager```, you can set the span count like th
     // Set SpanSize lookup to your layout manager
     layoutManager.setSpanSizeLookup(adapter.getSpanSizeLookup());
 ```
+
 MultiViewAdapter can have selection mode and expansion mode.
+
 ```java
     // Set SelectionMode
     adapter.setSelectionMode(Mode.SINGLE); // SINGLE, MULTIPLE or NONE
@@ -44,7 +50,6 @@ MultiViewAdapter can have selection mode and expansion mode.
     // Set ExpansionMode
     adapter.setExpansionMode(Mode.MULTIPLE); // SINGLE, MULTIPLE or NONE
 ```
-
 
 ## 2. Section
 
@@ -102,11 +107,11 @@ Other features offered by Section
 5. Sections can have their own decorators. You can learn more about it in the [Decoration](feature/decoration.md) page.
 6. Sections can have their own selection or expansion modes. Apart from ```SINGLE```, ```MULTIPLE``` and ```NONE```, sections also support ```INHERIT``` mode, which inherits the property of parent.
 
-!> By default, sections will have ```INHERIT``` as default value for selection and expansion modes. It inherits the property from its parent which can be either MultiViewAdapter or NestedSection. This allows you to have multiple combination of selection mode. Take a look at sample app for usage.
+!> By default, sections will have ```INHERIT``` as default value for selection and expansion modes. It inherits the property from its parent which can be either MultiViewAdapter or NestedSection. This allows you to have multiple combination of selection mode.
 
 ## 3. ItemBinder
 
-ItemBinder is the class where all view related code will be written. ItemBinder is responsible for creating and binding view holders. The method signatures are kept close to the default ```RecyclerView.Adapter``` method signatures. This will help you easily migrate to the library or away from the library. 
+ItemBinder is the class where all view related code will be written. ItemBinder is responsible for creating and binding view holders. The method signatures are kept close to the default ```RecyclerView.Adapter``` method signatures. This will help you easily migrate to the library or away from the library.
 
 For each viewtype inside the recyclerview, you need to create an ItemBinder. ItemBinder also allows you to add decoration which means that you can have different decoration for different view types. You can decorator by calling ```itemBinder.addDecoration(yourDecoration)```
 
@@ -124,11 +129,11 @@ ItemBinder is the place where span count for each item is calculated. By default
 ItemViewHolder is usually written as part of the ItemBinder class. It offers some nice api additions on top of its parent class ```RecyclerView.ViewHolder```. For enabling the 'Swipe to dismiss' or 'Drag and Drop' functionalities, you need to override ```getSwipeDirections()``` and ```getDragDirections()``` respectiveley.
 
 It also allows you to,
+
 * Call toggleItemSelection method to toggle selection of the item.
 * Call toggleItemExpansion method to toggle expansion of the item.
 * Call toggleSectionExpansion method to toggle expansion of the section. Note: You should call this method from items which are inside the HeaderSection, NestedSection or TreeSection.
 * Call startDrag method to drag the view
-* Set click and long click listeners for the entire view holder
 * Call ```onClick()``` method to notify section's onClickListener.
 
 ## 5. Decoration

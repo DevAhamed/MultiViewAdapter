@@ -5,7 +5,7 @@ Decoration is one of the main features of the MultiViewAdapter library. It provi
 1. You can add as many as decorators to ItemBinders or Sections
 2. You can use the same decorator and add it to both ItemBinder or Section
 
-## How to use?
+## Usage
 
 First step is to add the item decoration to the recyclerview. Get the item decoration from the adapter and set it to your recyclerview.
 
@@ -123,3 +123,11 @@ Considering the above image, itemPositionType will return following values.
 * isItemOnBottomEdge() returns true
 
 !> By using positionType you will be able to write a single decorator which can be used for both ``LinearLayoutManager`` or ``GridLayoutManager``
+
+### Section Position Type
+
+SectionPositionType is enum which tells you the section's index inside the adapter. Enum values for SectionPositionType are :
+
+1. FIRST  - Section is at first index inside the adapter
+2. MIDDLE - Section is neither at first index nor at last index inside the adapter
+3. LAST   - Section is at last index inside the adapter

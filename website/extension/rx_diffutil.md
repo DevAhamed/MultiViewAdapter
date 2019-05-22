@@ -2,7 +2,6 @@
 
 'RxDiffUtil' is a lightweight reactive wrapper around DiffUtil from RecyclerView library.
 
-
 ### Download
 
 ![RxDiffUtil Version](https://api.bintray.com/packages/devahamed/MVA2/ext-diffutil-rx/images/download.svg)

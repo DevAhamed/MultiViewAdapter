@@ -35,11 +35,8 @@
 - References
 
   - [Concepts](website/references/concepts.md)
+  - [Cookbook](website/references/cookbook.md)
   - [JavaDocs](https://devahamed.github.io/MultiViewAdapter/javadocs/index.html)
-
-
-<!-- - Cookbook
-  - [Recipes coming soon] -->
 
 
 - Project
@@ -47,8 +44,7 @@
   - [Contribute](website/project/contribute.md)
   <!-- - [Hall of fame](project/hall_of_fame.md) -->
   - [Credits](website/project/credits.md)
-  <!-- - [FAQ](project/faq.md) -->
   - [License](https://github.com/DevAhamed/MultiViewAdapter/blob/2.x/LICENSE)
 
 
-  <a href="https://play.google.com/apps/testing/dev.ahamed.mva.sample"><img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" alt="drawing" style="display: block;margin-left: auto;margin-right: auto;width: 60%;"/></a>
+  <a href="https://play.google.com/store/apps/details?id=dev.ahamed.mva.sample"><img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" alt="drawing" style="display: block;margin-left: auto;margin-right: auto;width: 60%;"/></a>

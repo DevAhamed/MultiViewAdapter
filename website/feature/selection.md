@@ -13,7 +13,7 @@
 
 MultiViewAdapter provides easy way to add selection/choice mode for the recyclerview. There are four types of mode available
 
-1. SINGLE - Only one item can be selected. 
+1. SINGLE - Only one item can be selected.
 2. MULTIPLE - Multiple items can be selected.
 3. INHERIT - Inherits the property from the parent. This the default value for sections.
 4. NONE - Disables the selection mode.
@@ -50,7 +50,7 @@ To check whether the item is selected call ```ItemViewHolder.isItemSelected()```
     @Override public void bindViewHolder(ViewHolder holder, SelectableItem item) {
       if(holder.isItemSelected()) {
         // Item is selected. Set different color or show a checkmark
-      } 
+      }
     }
   }
 ```

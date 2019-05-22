@@ -1,8 +1,8 @@
 ![Basic Usage](images/basic-cover.jpg)
 
-Lets create an adapter which displays a list of cars.
+Lets create a basic adapter which displays a list of cars.
 
-1. You need to create an ItemBinder for your model. ItemBinder is reponsible for creating and binding your view holders. Following is the code snippet of ItemBinder for CarModel class.
+First, you need to create an ItemBinder for your model. ItemBinder is reponsible for creating and binding your view holders. Following is the code snippet of ItemBinder for CarModel class.
 
 ### CarBinder
 
@@ -33,12 +33,15 @@ public class CarBinder extends ItemBinder<CarModel, CarBinder.CarViewHolder> {
 }
 ```
 
-2. Now create an adapter and use the ItemBinder created above. Since we are displaying a list of items we need to create an ListSection object and add the data items to it. Add the section to adapter. Done.
+> Note the ```canBindData(object)``` method. This method is used to identify whether the model belong to this ItemBinder.
+
+Now register the ItemBinder created above to the adapter. Since we are displaying a list of items we need to create an ListSection object and add the data items to it. Add this section to the adapter. Done.
 
 ### Inside Activity/Fragment
 
 ```java
 class CarListActivity extends Activity {
+
   private RecyclerView recyclerView;
   private List<CarModel> cars;
 
@@ -63,4 +66,4 @@ class CarListActivity extends Activity {
 }
 ```
 
-> Creation of ItemBinders and using a ListSection might feel like overwhelming step. But this gives you enough flexibility to re-use the ItemBinders across your app. Since MultiViewAdapter can have multiple sections and itembinders these steps are needed.
+Inside a single adapter you can register multiple ```ItemBinders``` and add multiple ```Sections```
