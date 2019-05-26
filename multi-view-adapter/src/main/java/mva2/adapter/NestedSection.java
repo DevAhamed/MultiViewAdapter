@@ -152,6 +152,13 @@ public class NestedSection extends Section implements Notifier {
     drawChildSectionDecoration(itemPosition, canvas, parent, state, child, adapterPosition);
   }
 
+  @Override void drawDecorationOver(int itemPosition, @NonNull Canvas canvas,
+      @NonNull RecyclerView parent, @NonNull RecyclerView.State state, View child,
+      int adapterPosition) {
+    super.drawDecorationOver(itemPosition, canvas, parent, state, child, adapterPosition);
+    drawChildSectionDecorationOver(itemPosition, canvas, parent, state, child, adapterPosition);
+  }
+
   @Override void getDecorationOffsets(int itemPosition, @NonNull Rect outRect, @NonNull View view,
       @NonNull RecyclerView parent, @NonNull RecyclerView.State state, int adapterPosition) {
     super.getDecorationOffsets(itemPosition, outRect, view, parent, state, adapterPosition);
@@ -394,6 +401,19 @@ public class NestedSection extends Section implements Notifier {
         itemPosition -= section.getCount();
       } else {
         section.drawDecoration(itemPosition, canvas, parent, state, child, adapterPosition);
+        break;
+      }
+    }
+  }
+
+  void drawChildSectionDecorationOver(int itemPosition, @NonNull Canvas canvas,
+      @NonNull RecyclerView parent, @NonNull RecyclerView.State state, View child,
+      int adapterPosition) {
+    for (Section section : sections) {
+      if (itemPosition >= section.getCount()) {
+        itemPosition -= section.getCount();
+      } else {
+        section.drawDecorationOver(itemPosition, canvas, parent, state, child, adapterPosition);
         break;
       }
     }

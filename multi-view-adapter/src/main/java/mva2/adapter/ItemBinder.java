@@ -220,6 +220,13 @@ public abstract class ItemBinder<M, VH extends ItemViewHolder<M>> {
     }
   }
 
+  void drawItemDecorationOver(@NonNull Canvas canvas, @NonNull RecyclerView parent,
+      @NonNull RecyclerView.State state, View child, int adapterPosition) {
+    for (Decorator decorator : decorators) {
+      decorator.onDrawOver(canvas, parent, state, child, adapterPosition);
+    }
+  }
+
   void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent,
       @NonNull RecyclerView.State state, int adapterPosition) {
     for (Decorator decorator : decorators) {

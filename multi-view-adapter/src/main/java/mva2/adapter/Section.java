@@ -313,6 +313,15 @@ public abstract class Section implements ListUpdateCallback {
     }
   }
 
+  void drawDecorationOver(int itemPosition, @NonNull Canvas canvas, @NonNull RecyclerView parent,
+      @NonNull RecyclerView.State state, View child, int adapterPosition) {
+    if (decorators.size() > 0) {
+      for (Decorator decorator : decorators) {
+        decorator.onDrawOver(canvas, parent, state, child, adapterPosition);
+      }
+    }
+  }
+
   void getDecorationOffsets(int itemPosition, @NonNull Rect outRect, @NonNull View view,
       @NonNull RecyclerView parent, @NonNull RecyclerView.State state, int adapterPosition) {
     if (decorators.size() > 0) {
