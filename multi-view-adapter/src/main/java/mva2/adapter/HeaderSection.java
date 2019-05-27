@@ -115,7 +115,7 @@ public class HeaderSection<H, M> extends NestedSection implements Notifier {
     if (listSection.isSectionExpanded()) {
       listSection.setSectionExpanded(false);
       onRemoved(1, listSection.size());
-      onChanged(0, 1, null);
+      onChanged(0, 1, SECTION_EXPANSION_PAYLOAD);
     }
   }
 
@@ -135,12 +135,12 @@ public class HeaderSection<H, M> extends NestedSection implements Notifier {
           } else {
             onRemoved(1, listSection.size());
           }
-          onChanged(0, 1, null);
+          onChanged(0, 1, SECTION_EXPANSION_PAYLOAD);
         } else {
           if (listSection.isSectionExpanded()) {
             listSection.setSectionExpanded(!listSection.isSectionExpanded());
             onRemoved(1, listSection.size());
-            onChanged(0, 1, null);
+            onChanged(0, 1, SECTION_EXPANSION_PAYLOAD);
           }
         }
         return itemPosition - prevCount;
@@ -152,7 +152,7 @@ public class HeaderSection<H, M> extends NestedSection implements Notifier {
           } else {
             onRemoved(1, listSection.size());
           }
-          onChanged(0, 1, null);
+          onChanged(0, 1, SECTION_EXPANSION_PAYLOAD);
         }
         return itemPosition - prevCount;
       case NONE:

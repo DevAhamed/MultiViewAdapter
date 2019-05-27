@@ -16,13 +16,13 @@
 
 package mva2.adapter.util;
 
-import android.view.ViewGroup;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.RestrictTo;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.view.ViewGroup;
 import mva2.adapter.ItemBinder;
 import mva2.adapter.ItemSection;
 import mva2.adapter.ItemViewHolder;

@@ -16,8 +16,8 @@
 
 package mva2.adapter;
 
-import android.view.View;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import mva2.adapter.util.OnItemClickListener;
 
 /**

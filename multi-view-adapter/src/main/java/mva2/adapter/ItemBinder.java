@@ -18,13 +18,13 @@ package mva2.adapter;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.annotation.LayoutRes;
-import android.support.v7.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 import mva2.adapter.decorator.Decorator;

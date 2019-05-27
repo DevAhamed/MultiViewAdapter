@@ -120,10 +120,10 @@ import mva2.adapter.util.Mode;
       Mode modeToHonor = getModeToHonor(selectionMode, this.selectionMode);
       if (modeToHonor == Mode.SINGLE && itemMetaData.isSelected()) {
         itemMetaData.setSelected(!itemMetaData.isSelected());
-        onChanged(0, 1, null);
+        onChanged(0, 1, SELECTION_PAYLOAD);
       } else if (itemPosition < getCount() && itemPosition >= 0) {
         itemMetaData.setSelected(!itemMetaData.isSelected());
-        onChanged(0, 1, null);
+        onChanged(0, 1, SELECTION_PAYLOAD);
       }
     }
   }
@@ -132,7 +132,7 @@ import mva2.adapter.util.Mode;
     if (itemMetaData.isSelected()) {
       itemMetaData.setSelected(!itemMetaData.isSelected());
       if (isItemShowing()) {
-        onChanged(0, 1, null);
+        onChanged(0, 1, SELECTION_PAYLOAD);
       }
     }
   }
@@ -146,10 +146,10 @@ import mva2.adapter.util.Mode;
       Mode modeToHonor = getModeToHonor(selectionMode, this.expansionMode);
       if (modeToHonor == Mode.SINGLE && itemMetaData.isExpanded()) {
         itemMetaData.setExpanded(!itemMetaData.isExpanded());
-        onChanged(0, 1, null);
+        onChanged(0, 1, ITEM_EXPANSION_PAYLOAD);
       } else if (itemPosition < getCount() && itemPosition >= 0) {
         itemMetaData.setExpanded(!itemMetaData.isExpanded());
-        onChanged(0, 1, null);
+        onChanged(0, 1, ITEM_EXPANSION_PAYLOAD);
       }
     }
   }
@@ -158,7 +158,7 @@ import mva2.adapter.util.Mode;
     if (itemMetaData.isExpanded()) {
       itemMetaData.setExpanded(!itemMetaData.isExpanded());
       if (isItemShowing()) {
-        onChanged(0, 1, null);
+        onChanged(0, 1, ITEM_EXPANSION_PAYLOAD);
       }
     }
   }

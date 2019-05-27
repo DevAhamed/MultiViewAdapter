@@ -18,11 +18,11 @@ package mva2.adapter;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
-import android.view.View;
 import android.support.annotation.NonNull;
 import android.support.annotation.RestrictTo;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.LayoutManager;
+import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 import mva2.adapter.decorator.PositionType;
