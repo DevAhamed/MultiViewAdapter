@@ -18,11 +18,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-  <!--<item-->
-  <!--android:id="@+id/menu_changelog"-->
-  <!--android:icon="@drawable/ic_changelog"-->
-  <!--android:title="Changelog"-->
-  <!--app:showAsAction="ifRoom"/>-->
+  <item
+      android:id="@+id/menu_switch_theme"
+      android:title="Switch Theme"
+      app:showAsAction="never"/>
+
+  <item
+      android:id="@+id/menu_toggle_hint"
+      android:title="Toggle Hints"
+      app:showAsAction="never"/>
 
   <item
       android:id="@+id/menu_rate_us"

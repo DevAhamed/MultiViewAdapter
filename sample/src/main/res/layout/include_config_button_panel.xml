@@ -20,34 +20,33 @@
     android:layout_width="match_parent"
     android:layout_height="80dp"
     android:layout_gravity="bottom"
-    android:background="@color/mva_secondary_50"
-    android:elevation="4dp"
-    android:paddingEnd="8dp"
-    android:paddingStart="8dp"
+    android:background="@color/grey_100"
+    android:paddingStart="@dimen/space_medium"
+    android:paddingEnd="@dimen/space_medium"
     >
 
   <Button
       android:id="@+id/btn_update"
+      style="?materialButtonStyle"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignParentEnd="true"
       android:layout_centerVertical="true"
-      android:layout_marginEnd="8dp"
-      android:layout_marginStart="8dp"
+      android:layout_marginStart="@dimen/space_medium"
+      android:layout_marginEnd="@dimen/space_medium"
       android:text="@string/update"
-      style="?materialButtonStyle"
       />
 
   <Button
       android:id="@+id/btn_reset"
+      style="@style/borderButtonStyle"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_centerVertical="true"
-      android:layout_marginEnd="8dp"
-      android:layout_marginStart="8dp"
+      android:layout_marginStart="@dimen/space_medium"
+      android:layout_marginEnd="@dimen/space_medium"
       android:layout_toStartOf="@+id/btn_update"
       android:text="@string/reset"
-      style="@style/borderButtonStyle"
       />
 
 </RelativeLayout>

@@ -25,7 +25,7 @@ import mva2.adapter.decorator.Decorator;
 
 public class NewsFeedDecorator extends Decorator {
 
-  public NewsFeedDecorator(MultiViewAdapter adapter) {
+  NewsFeedDecorator(MultiViewAdapter adapter) {
     super(adapter);
   }
 

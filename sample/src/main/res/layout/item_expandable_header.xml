@@ -21,39 +21,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginEnd="8dp"
-    android:layout_marginStart="8dp"
+    android:layout_marginStart="@dimen/space_medium"
+    android:layout_marginEnd="@dimen/space_medium"
+    app:cardBackgroundColor="@color/grey_0"
     app:cardCornerRadius="0dp"
     app:cardElevation="1dp"
-    tools:layout_margin="8dp"
+    tools:layout_margin="@dimen/space_medium"
     >
 
   <RelativeLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="horizontal"
-      android:padding="8dp"
+      android:padding="@dimen/space_medium"
       >
 
     <TextView
         android:id="@+id/tv_header"
+        style="@style/App.Text.SubTitle.One"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
         android:layout_toStartOf="@+id/btn_toggle"
-        android:padding="8dp"
-        android:textAppearance="?textAppearanceHeadline6"
+        android:padding="@dimen/space_medium"
         tools:text="Header"
         />
 
     <Button
         android:id="@+id/btn_toggle"
+        style="@style/borderButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         tools:text="Expand"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
         />
 
   </RelativeLayout>

@@ -20,17 +20,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="#FFFFFF"
+    app:cardBackgroundColor="@color/grey_0"
     app:cardCornerRadius="0dp"
     app:cardElevation="1dp"
     >
 
   <TextView
       android:id="@+id/tv_news_header"
+      style="@style/App.Text.SubTitle.One"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:padding="16dp"
-      android:textAppearance="?textAppearanceHeadline6"
+      android:padding="@dimen/space_large"
       tools:text="Sample Header"
       />
 

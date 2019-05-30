@@ -30,14 +30,9 @@
   <string name="span_count">Span Count</string>
   <string name="orientation">Orientation</string>
   <string name="reverse_layout">Reverse Layout</string>
-  <string name="header_decoration">Header Decoration</string>
-  <string name="movie_item_decoration">Movie Item Decoration</string>
-  <string name="trendingmovie_section_decoration">TrendingMovie Section Decoration</string>
-  <string name="latestmovie_section_decoration">LatestMovie Section Decoration</string>
-  <string name="upcomingmovie_section_decoration">UpcomingMovie Section Decoration</string>
-  <string name="decoration_style">Decoration Style</string>
-  <string name="border">Border</string>
-  <string name="inset">Inset</string>
+  <string name="section_decoration">Section Decoration</string>
+  <string name="header_divider_decoration">Header Divider Decoration</string>
+  <string name="item_divider_decoration">Item Divider Decoration</string>
   <string name="section_expansion_mode">Section Expansion Mode</string>
   <string name="section3_item">Section3 Item</string>
   <string name="section2_item">Section2 Item</string>
@@ -55,6 +50,20 @@
   <string name="news_papers">News Papers</string>
   <string name="news_channels">News Channels</string>
   <string name="websites">Websites</string>
+  <string name="hint">Hint</string>
+  <string name="swipe_to_dismiss_this_hint">Swipe to dismiss this hint</string>
+
+  <!--  HINTS  -->
+  <string name="basic_hint">This sample showcases the basics usages of the adapter. The adapter has a simple divider decoration, which adapts well with different configuration.</string>
+  <string name="advanced_hint">This sample showcases the adapter with multiple view types and multiple sections. Each view type has its own span count, swipe direction, drag directions etc.,  </string>
+  <string name="selection_hint">This sample showcases the selection feature of the library. Tap an item to toggle the selection. Each section has its own selection mode ie., single, multiple etc., Change the selection mode inside the configuration screen.</string>
+  <string name="expansion_hint">This sample showcases the expansion feature of the library. You can expand individual item or a section. Change the expansion mode inside the configuration screen.</string>
+  <string name="decoration_hint">This sample showcases the powerful decoration api of the library. Decorations are drawn for each item and for whole sections as well. For example, divider is drawn between each section and between each item.</string>
+  <string name="tree_section_hint">This sample showcases usage the TreeSection from the library. With TreeSection you can display a nested list of data ie., comments, threads. You can change the decoration from configuration screen.</string>
+  <string name="news_feed_hint">This sample showcases a mock news feed screen.</string>
+  <string name="decoration_variant_1">Decoration Variant 1</string>
+  <string name="decoration_variant_2">Decoration Variant 2</string>
+  <string name="no_decoration">No Decoration</string>
 
   <array name="sample_section">
     <item>Basic</item>
@@ -62,6 +71,7 @@
     <item>Selection</item>
     <item>Expansion</item>
     <item>Decoration</item>
+    <item>Tree Section</item>
     <item>News Feed</item>
     <item>Features</item>
   </array>

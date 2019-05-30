@@ -24,13 +24,8 @@ import dev.ahamed.mva.sample.R;
 import dev.ahamed.mva.sample.data.model.ColoredItem;
 import mva2.adapter.ItemBinder;
 import mva2.adapter.ItemViewHolder;
-import mva2.adapter.decorator.Decorator;
 
 public class ColoredItemBinder extends ItemBinder<ColoredItem, ColoredItemBinder.ViewHolder> {
-
-  ColoredItemBinder(Decorator decorator) {
-    super(decorator);
-  }
 
   @Override public ViewHolder createViewHolder(ViewGroup parent) {
     return new ViewHolder(inflate(parent, R.layout.item_number));

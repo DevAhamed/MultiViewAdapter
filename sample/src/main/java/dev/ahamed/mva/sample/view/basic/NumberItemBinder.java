@@ -26,9 +26,9 @@ import mva2.adapter.ItemBinder;
 import mva2.adapter.ItemViewHolder;
 import mva2.adapter.decorator.Decorator;
 
-public class NumberItemBinder extends ItemBinder<NumberItem, NumberItemBinder.ViewHolder> {
+class NumberItemBinder extends ItemBinder<NumberItem, NumberItemBinder.ViewHolder> {
 
-  public NumberItemBinder(Decorator itemDecorator) {
+  NumberItemBinder(Decorator itemDecorator) {
     super(itemDecorator);
   }
 

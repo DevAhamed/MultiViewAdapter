@@ -20,18 +20,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="56dp"
+    android:layout_margin="@dimen/space_medium"
     android:elevation="2dp"
     >
 
   <TextView
       android:id="@+id/text_view"
+      style="@style/App.Text.SubTitle.One"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:background="@color/sample_color_one"
+      android:background="@color/sample_color_four"
       android:gravity="center"
       android:maxLines="1"
-      android:padding="16dp"
-      android:textAppearance="?textAppearanceSubtitle1"
+      android:padding="@dimen/space_large"
       android:textColor="@color/body_text_subtle"
       tools:text="1"
       />

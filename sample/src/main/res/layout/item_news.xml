@@ -21,7 +21,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="#FFFFFF"
+    app:cardBackgroundColor="@color/grey_0"
     app:cardCornerRadius="0dp"
     app:cardElevation="1dp"
     >
@@ -29,19 +29,18 @@
   <android.support.constraint.ConstraintLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:padding="8dp"
+      android:padding="@dimen/space_medium"
       >
 
     <TextView
         android:id="@+id/tv_source"
+        style="@style/App.Text.Overline.Two"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:drawablePadding="8dp"
         android:drawableStart="@drawable/ic_fake_news"
+        android:drawablePadding="@dimen/space_medium"
         android:gravity="center_vertical"
-        android:padding="8dp"
-        android:textAppearance="?textAppearanceOverline"
-        android:textSize="12sp"
+        android:padding="@dimen/space_medium"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -50,13 +49,12 @@
 
     <TextView
         android:id="@+id/tv_title"
+        style="@style/App.Text.Body.Emphasized.Two"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:lineSpacingMultiplier="1.2"
         android:lines="3"
-        android:padding="8dp"
-        android:textAppearance="?textAppearanceSubtitle1"
-        android:textSize="16sp"
+        android:padding="@dimen/space_medium"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/card_image"
         app:layout_constraintTop_toBottomOf="@+id/tv_source"
@@ -67,8 +65,8 @@
         android:id="@+id/card_image"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginEnd="8dp"
-        app:cardCornerRadius="8dp"
+        android:layout_marginEnd="@dimen/space_medium"
+        app:cardCornerRadius="@dimen/space_medium"
         app:cardElevation="0dp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_title"
         app:layout_constraintDimensionRatio="1"
@@ -80,22 +78,21 @@
           android:id="@+id/image"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
-          android:padding="16dp"
+          android:padding="@dimen/space_large"
           />
 
     </android.support.v7.widget.CardView>
 
     <TextView
         android:id="@+id/tv_news_date"
+        style="@style/App.Text.Body.Comment.Three"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:drawablePadding="8dp"
+        android:drawablePadding="@dimen/space_medium"
         android:gravity="center_vertical"
-        android:paddingBottom="8dp"
-        android:paddingEnd="8dp"
-        android:paddingStart="8dp"
-        android:textAppearance="?textAppearanceCaption"
-        android:textSize="12sp"
+        android:paddingStart="@dimen/space_medium"
+        android:paddingEnd="@dimen/space_medium"
+        android:paddingBottom="@dimen/space_medium"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_title"

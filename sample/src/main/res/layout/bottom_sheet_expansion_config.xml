@@ -20,7 +20,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@color/grey_0"
     >
 
   <android.support.v4.widget.NestedScrollView
@@ -36,13 +36,11 @@
 
       <TextView
           android:id="@+id/label_header"
+          style="@style/App.Text.SubTitle.One"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:layout_marginBottom="8dp"
-          android:layout_marginTop="8dp"
-          android:padding="16dp"
+          android:padding="@dimen/space_large"
           android:text="@string/configuration"
-          android:textAppearance="?textAppearanceHeadline5"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
@@ -50,22 +48,22 @@
 
       <TextView
           android:id="@+id/label_indie_items"
+          style="@style/App.Text.Body.Emphasized.Two"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:padding="16dp"
+          android:padding="@dimen/space_large"
           android:text="@string/individual_item_expansion_mode"
-          android:textAppearance="?textAppearanceSubtitle2"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/label_header"
           />
 
       <TextView
           android:id="@+id/label_layout_manager"
+          style="@style/App.Text.Body.Primary.Two"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:padding="16dp"
+          android:padding="@dimen/space_large"
           android:text="@string/adapter"
-          android:textAppearance="?textAppearanceBody2"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/label_indie_items"
           />
@@ -82,11 +80,11 @@
 
       <TextView
           android:id="@+id/label_span_count"
+          style="@style/App.Text.Body.Primary.Two"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:padding="16dp"
+          android:padding="@dimen/space_large"
           android:text="@string/section1_item"
-          android:textAppearance="?textAppearanceBody2"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/label_layout_manager"
           />
@@ -103,11 +101,11 @@
 
       <TextView
           android:id="@+id/label_orientation"
+          style="@style/App.Text.Body.Primary.Two"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:padding="16dp"
+          android:padding="@dimen/space_large"
           android:text="@string/section2_item"
-          android:textAppearance="?textAppearanceBody2"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/label_span_count"
           />
@@ -124,11 +122,11 @@
 
       <TextView
           android:id="@+id/label_reverse_layout"
+          style="@style/App.Text.Body.Primary.Two"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:padding="16dp"
+          android:padding="@dimen/space_large"
           android:text="@string/section3_item"
-          android:textAppearance="?textAppearanceBody2"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/label_orientation"
           />
@@ -145,22 +143,22 @@
 
       <TextView
           android:id="@+id/label_section"
+          style="@style/App.Text.Body.Emphasized.Two"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:padding="16dp"
+          android:padding="@dimen/space_large"
           android:text="@string/section_expansion_mode"
-          android:textAppearance="?textAppearanceSubtitle2"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/label_reverse_layout"
           />
 
       <TextView
           android:id="@+id/label_adapter_section_mode"
+          style="@style/App.Text.Body.Primary.Two"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:padding="16dp"
+          android:padding="@dimen/space_large"
           android:text="@string/adapter"
-          android:textAppearance="?textAppearanceBody2"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/label_section"
           />

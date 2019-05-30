@@ -23,18 +23,18 @@ import android.view.View;
 import mva2.adapter.MultiViewAdapter;
 import mva2.adapter.decorator.Decorator;
 
-import static dev.ahamed.mva.sample.view.SampleActivity.DP_EIGHT;
+import static dev.ahamed.mva.sample.view.SampleActivity.EIGHT_DP;
 
 public class SectionSpaceDecorator extends Decorator {
 
-  public SectionSpaceDecorator(MultiViewAdapter adapter) {
+  SectionSpaceDecorator(MultiViewAdapter adapter) {
     super(adapter);
   }
 
   @Override public void getItemOffsets(@NonNull Rect outRect, @NonNull View view,
       @NonNull RecyclerView parent, @NonNull RecyclerView.State state, int adapterPosition) {
     if (isFirst(getPositionType(adapterPosition, parent))) {
-      addToRect(outRect, 0, DP_EIGHT * 2, 0, 0);
+      addToRect(outRect, 0, EIGHT_DP * 2, 0, 0);
     }
     addToRect(outRect, 0, 0, 0, 1);
   }

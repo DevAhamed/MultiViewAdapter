@@ -32,7 +32,7 @@ public class NewsSectionDecorator extends Decorator {
 
   @Override public void getItemOffsets(@NonNull Rect outRect, @NonNull View view,
       @NonNull RecyclerView parent, @NonNull RecyclerView.State state, int adapterPosition) {
-    addToRect(outRect, SampleActivity.DP_EIGHT, SampleActivity.DP_EIGHT, SampleActivity.DP_EIGHT,
-        SampleActivity.DP_EIGHT);
+    addToRect(outRect, SampleActivity.EIGHT_DP, SampleActivity.EIGHT_DP, SampleActivity.EIGHT_DP,
+        SampleActivity.EIGHT_DP);
   }
 }

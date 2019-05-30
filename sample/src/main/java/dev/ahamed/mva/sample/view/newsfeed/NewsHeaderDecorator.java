@@ -26,12 +26,12 @@ import mva2.adapter.decorator.Decorator;
 
 public class NewsHeaderDecorator extends Decorator {
 
-  public NewsHeaderDecorator(MultiViewAdapter adapter) {
+  NewsHeaderDecorator(MultiViewAdapter adapter) {
     super(adapter);
   }
 
   @Override public void getItemOffsets(@NonNull Rect outRect, @NonNull View view,
       @NonNull RecyclerView parent, @NonNull RecyclerView.State state, int adapterPosition) {
-    addToRect(outRect, 0, SampleActivity.DP_EIGHT * 2, 0, 0);
+    addToRect(outRect, 0, SampleActivity.EIGHT_DP * 2, 0, 0);
   }
 }

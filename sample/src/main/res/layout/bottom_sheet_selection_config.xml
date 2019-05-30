@@ -20,7 +20,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@color/grey_0"
     >
 
   <android.support.v4.widget.NestedScrollView
@@ -36,12 +36,12 @@
 
       <TextView
           android:id="@+id/label_header"
+          style="@style/App.Text.Body.Emphasized.One"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:layout_marginTop="8dp"
-          android:padding="16dp"
+          android:layout_marginTop="@dimen/space_medium"
+          android:padding="@dimen/space_large"
           android:text="@string/configuration"
-          android:textAppearance="?textAppearanceHeadline5"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
@@ -49,11 +49,11 @@
 
       <TextView
           android:id="@+id/label_adapter_mode"
+          style="@style/App.Text.Body.Primary.Two"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:padding="16dp"
+          android:padding="@dimen/space_large"
           android:text="@string/adapter"
-          android:textAppearance="?textAppearanceBody2"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/label_header"
           />
@@ -70,12 +70,12 @@
 
       <TextView
           android:id="@+id/label_language_mode"
+          style="@style/App.Text.Body.Primary.Two"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginStart="16dp"
-          android:padding="16dp"
+          android:layout_marginStart="@dimen/space_large"
+          android:padding="@dimen/space_large"
           android:text="@string/languages"
-          android:textAppearance="?textAppearanceBody2"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/label_adapter_mode"
           />
@@ -92,12 +92,12 @@
 
       <TextView
           android:id="@+id/label_topics_mode"
+          style="@style/App.Text.Body.Primary.Two"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginStart="16dp"
-          android:padding="16dp"
+          android:layout_marginStart="@dimen/space_large"
+          android:padding="@dimen/space_large"
           android:text="@string/topics"
-          android:textAppearance="?textAppearanceBody2"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/label_language_mode"
           />
@@ -114,12 +114,12 @@
 
       <TextView
           android:id="@+id/label_sources_mode"
+          style="@style/App.Text.Body.Primary.Two"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginStart="16dp"
-          android:padding="16dp"
+          android:layout_marginStart="@dimen/space_large"
+          android:padding="@dimen/space_large"
           android:text="@string/sources"
-          android:textAppearance="?textAppearanceBody2"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/label_topics_mode"
           />
@@ -136,12 +136,12 @@
 
       <TextView
           android:id="@+id/label_np_mode"
+          style="@style/App.Text.Body.Primary.Two"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginStart="32dp"
-          android:padding="16dp"
+          android:padding="@dimen/space_large"
           android:text="@string/news_papers"
-          android:textAppearance="?textAppearanceBody2"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/label_sources_mode"
           />
@@ -158,12 +158,12 @@
 
       <TextView
           android:id="@+id/label_channel_mode"
+          style="@style/App.Text.Body.Primary.Two"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginStart="32dp"
-          android:padding="16dp"
+          android:padding="@dimen/space_large"
           android:text="@string/news_channels"
-          android:textAppearance="?textAppearanceBody2"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/label_np_mode"
           />
@@ -180,12 +180,12 @@
 
       <TextView
           android:id="@+id/label_web_mode"
+          style="@style/App.Text.Body.Primary.Two"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginStart="32dp"
-          android:padding="16dp"
+          android:padding="@dimen/space_large"
           android:text="@string/websites"
-          android:textAppearance="?textAppearanceBody2"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/label_channel_mode"
           />

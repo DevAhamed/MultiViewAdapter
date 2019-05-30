@@ -24,7 +24,7 @@ import android.view.ViewGroup;
 
 public class CustomLayoutManager extends LinearLayoutManager {
 
-  public CustomLayoutManager(Context context) {
+  CustomLayoutManager(Context context) {
     super(context);
   }
 

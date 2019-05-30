@@ -32,8 +32,6 @@ import dev.ahamed.mva.sample.data.model.Header;
 import dev.ahamed.mva.sample.data.model.NumberItem;
 import dev.ahamed.mva.sample.data.model.ShufflingHeader;
 import dev.ahamed.mva.sample.data.model.TextItem;
-import dev.ahamed.mva.sample.view.SampleActivity;
-import dev.ahamed.mva.sample.view.basic.NumberItemBinder;
 import dev.ahamed.mva.sample.view.common.BaseFragment;
 import dev.ahamed.mva.sample.view.common.HeaderItemBinder;
 import dev.ahamed.mva.sample.view.common.ShufflingHeaderItemBinder;
@@ -42,7 +40,6 @@ import java.util.List;
 import mva2.adapter.ItemSection;
 import mva2.adapter.ListSection;
 import mva2.adapter.util.InfiniteLoadingHelper;
-import mva2.extension.decorator.InsetDecoration;
 
 public class AdvancedFragment extends BaseFragment
     implements ShufflingHeaderItemBinder.ShuffleListener, TextItemBinder.SettingsProvider {
@@ -101,13 +98,9 @@ public class AdvancedFragment extends BaseFragment
 
     recyclerView.setHasFixedSize(true);
     recyclerView.setLayoutManager(layoutManager);
-    recyclerView.addItemDecoration(adapter.getItemDecoration());
 
-    adapter.registerItemBinders(
-        new ColoredItemBinder(new InsetDecoration(adapter, SampleActivity.DP_EIGHT)),
-        new ShufflingHeaderItemBinder(this), new HeaderItemBinder(),
-        new TextItemBinder(new TextItemDecorator(adapter), this),
-        new NumberItemBinder(new InsetDecoration(adapter, SampleActivity.DP_EIGHT)));
+    adapter.registerItemBinders(new ColoredItemBinder(), new ShufflingHeaderItemBinder(this),
+        new HeaderItemBinder(), new TextItemBinder(this), new NumberItemBinder());
     adapter.setSpanCount(layoutManager.getSpanCount());
     adapter.getItemTouchHelper().attachToRecyclerView(recyclerView);
 
@@ -216,7 +209,7 @@ public class AdvancedFragment extends BaseFragment
   }
 
   @Override public void onShuffle(int adapterPosition) {
-    if (adapterPosition == 0) {
+    if (adapterPosition == 0 || adapterPosition == 1) {
       List<ColoredItem> list = listSectionOne.getData();
       Collections.shuffle(list);
       listSectionOne.set(list);

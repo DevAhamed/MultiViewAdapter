@@ -16,18 +16,25 @@
 
 package dev.ahamed.mva.sample.view.common;
 
+import android.graphics.Rect;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import dev.ahamed.mva.sample.R;
 import dev.ahamed.mva.sample.data.DataManager;
+import dev.ahamed.mva.sample.data.model.Hint;
+import dev.ahamed.mva.sample.view.SampleActivity;
+import mva2.adapter.ItemSection;
 import mva2.adapter.MultiViewAdapter;
 
 import static android.support.design.widget.BottomSheetBehavior.STATE_COLLAPSED;
@@ -35,10 +42,12 @@ import static android.support.design.widget.BottomSheetBehavior.STATE_EXPANDED;
 
 public abstract class BaseFragment extends Fragment {
 
+  private static int actionBarSize = -1;
   protected final DataManager dataManager = new DataManager();
   protected RecyclerView recyclerView;
   protected MultiViewAdapter adapter;
   private BottomSheetBehavior configurationSheet;
+  private Rect rect;
 
   @Override public boolean onOptionsItemSelected(MenuItem item) {
     if (item.getItemId() == R.id.menu_configure) {
@@ -48,9 +57,25 @@ public abstract class BaseFragment extends Fragment {
     return super.onOptionsItemSelected(item);
   }
 
-  protected void toggle(BottomSheetBehavior sheetBehavior) {
-    sheetBehavior.setState(
-        sheetBehavior.getState() != STATE_EXPANDED ? STATE_EXPANDED : STATE_COLLAPSED);
+  protected @StringRes int getHint() {
+    switch (getClass().getSimpleName()) {
+      case "BasicSampleFragment":
+        return R.string.basic_hint;
+      case "AdvancedFragment":
+        return R.string.advanced_hint;
+      case "SelectionSampleFragment":
+        return R.string.selection_hint;
+      case "ExpansionSampleFragment":
+        return R.string.expansion_hint;
+      case "DecorationSampleFragment":
+        return R.string.decoration_hint;
+      case "NestedSectionFragment":
+        return R.string.tree_section_hint;
+      case "NewsFeedFragment":
+        return R.string.news_feed_hint;
+      default:
+        return R.string.hint;
+    }
   }
 
   public abstract void initViews(View view);
@@ -77,7 +102,29 @@ public abstract class BaseFragment extends Fragment {
     configurationSheet.setState(STATE_COLLAPSED);
 
     recyclerView = view.findViewById(R.id.recycler_view);
+    recyclerView.setOnApplyWindowInsetsListener((v, insets) -> {
+      if (rect == null) {
+        rect = new Rect();
+        rect.set(recyclerView.getPaddingLeft(), recyclerView.getPaddingTop(),
+            recyclerView.getPaddingRight(), recyclerView.getPaddingBottom());
+      }
+      v.setPadding(rect.left, rect.top + insets.getSystemWindowInsetTop() + getActionBarSize(),
+          rect.right, rect.bottom + insets.getSystemWindowInsetBottom() + getActionBarSize());
+      return insets;
+    });
+    view.findViewById(R.id.sheet_configuration).setOnApplyWindowInsetsListener((v, insets) -> {
+      v.setPadding(0, insets.getSystemWindowInsetTop() + getActionBarSize(), 0,
+          insets.getSystemWindowInsetBottom() + getActionBarSize());
+      return insets;
+    });
     adapter = new MultiViewAdapter();
+
+    if (PreferenceManager.getDefaultSharedPreferences(requireContext().getApplicationContext())
+        .getBoolean(SampleActivity.PREFS_HINT_ENABLED, true)) {
+      adapter.registerItemBinders(new HintBinder());
+      adapter.addSection(new ItemSection<>(new Hint(getHint())));
+      adapter.getItemTouchHelper().attachToRecyclerView(recyclerView);
+    }
 
     view.findViewById(R.id.btn_reset).setOnClickListener(v -> {
       resetConfiguration();
@@ -89,10 +136,28 @@ public abstract class BaseFragment extends Fragment {
     });
 
     initViews(view);
-    if(savedInstanceState == null) {
+  }
+
+  @Override public final void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+    super.onViewStateRestored(savedInstanceState);
+    if (savedInstanceState == null) {
       resetConfiguration();
     } else {
       updateConfiguration();
     }
+  }
+
+  private void toggle(BottomSheetBehavior sheetBehavior) {
+    sheetBehavior.setState(
+        sheetBehavior.getState() != STATE_EXPANDED ? STATE_EXPANDED : STATE_COLLAPSED);
+  }
+
+  private int getActionBarSize() {
+    if (actionBarSize < 0) {
+      TypedValue typedValue = new TypedValue();
+      requireContext().getTheme().resolveAttribute(R.attr.actionBarSize, typedValue, true);
+      actionBarSize = (int) getResources().getDimension(typedValue.resourceId);
+    }
+    return actionBarSize;
   }
 }

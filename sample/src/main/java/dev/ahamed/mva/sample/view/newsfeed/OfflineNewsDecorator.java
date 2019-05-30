@@ -50,7 +50,7 @@ public class OfflineNewsDecorator extends Decorator {
       @NonNull RecyclerView parent, @NonNull RecyclerView.State state, int adapterPosition) {
   }
 
-  @Override public void onDraw(@NonNull Canvas canvas, @NonNull RecyclerView parent,
+  @Override public void onDrawOver(@NonNull Canvas canvas, @NonNull RecyclerView parent,
       @NonNull RecyclerView.State state, View child, int adapterPosition) {
     if (parent.getLayoutManager() == null) {
       return;

@@ -22,6 +22,7 @@ import dev.ahamed.mva.sample.R;
 import dev.ahamed.mva.sample.data.model.NewsHeader;
 import dev.ahamed.mva.sample.data.model.NewsItem;
 import dev.ahamed.mva.sample.view.common.BaseFragment;
+import dev.ahamed.mva.sample.view.common.HintBinder;
 import java.util.List;
 import mva2.adapter.HeaderSection;
 import mva2.adapter.ItemSection;
@@ -39,9 +40,10 @@ public class NewsFeedFragment extends BaseFragment implements SwipeToDismissList
     newsFeedItemBinder.addDecorator(new NewsFeedDecorator(adapter));
     OfflineNewsFeedItemBinder offlineNewsFeedBinder = new OfflineNewsFeedItemBinder();
     newsFeedItemBinder.addDecorator(new NewsFeedDecorator(adapter));
+    adapter.unRegisterAllItemBinders();
     adapter.registerItemBinders(offlineNewsFeedBinder, newsFeedItemBinder,
         new NewsHeaderItemBinder(new NewsHeaderDecorator(adapter)),
-        new NewsGroupItemBinder(recyclerView), new EmptyStateItemBinder());
+        new NewsGroupItemBinder(recyclerView), new EmptyStateItemBinder(), new HintBinder());
 
     LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
     recyclerView.setLayoutManager(layoutManager);

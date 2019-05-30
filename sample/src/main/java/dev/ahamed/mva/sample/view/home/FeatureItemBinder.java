@@ -27,7 +27,7 @@ import mva2.adapter.decorator.Decorator;
 
 public class FeatureItemBinder extends ItemBinder<Feature, FeatureItemBinder.ViewHolder> {
 
-  public FeatureItemBinder(Decorator decorator) {
+  FeatureItemBinder(Decorator decorator) {
     super(decorator);
   }
 
@@ -50,7 +50,7 @@ public class FeatureItemBinder extends ItemBinder<Feature, FeatureItemBinder.Vie
     FeatureHeader featureHeader;
     TextView description;
 
-    public ViewHolder(View itemView) {
+    ViewHolder(View itemView) {
       super(itemView);
       featureHeader = itemView.findViewById(R.id.feature_header);
       description = itemView.findViewById(R.id.tv_description);
