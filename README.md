@@ -75,7 +75,7 @@ The library is available via JCenter. JCenter is the default maven repository us
 
 ```gradle
 dependencies {
-    implementation 'dev.ahamed.mva2:adapter:2.0.0-alpha01'
+    implementation 'dev.ahamed.mva2:adapter:2.0.0-alpha02'
 }
 ```
 
@@ -85,9 +85,9 @@ dependencies {
 
 ```gradle
 dependencies {
-    implementation 'dev.ahamed.mva2:ext-databinding:2.0.0-alpha01'  // DataBinding
-    implementation 'dev.ahamed.mva2:ext-decorator:2.0.0-alpha01'    // Decorators
-    implementation 'dev.ahamed.mva2:ext-diffutil-rx:2.0.0-alpha01'  // RxDiffUtil
+    implementation 'dev.ahamed.mva2:ext-databinding:2.0.0-alpha02'  // DataBinding
+    implementation 'dev.ahamed.mva2:ext-decorator:2.0.0-alpha02'    // Decorators
+    implementation 'dev.ahamed.mva2:ext-diffutil-rx:2.0.0-alpha02'  // RxDiffUtil
 }
 ```
 
@@ -427,9 +427,42 @@ The library allows you to draw decoration for individual items or sections. You 
 
 ## Changelog
 
-Current 2.x branch is under heavy development and snapshot builds are released often. Once we hit the stable further changelog will be posted for each release.
+### v2.0.0-alpha02
 
-Alternatively, you can visit the project's releases page for older changelog. [(View Releases)](https://github.com/DevAhamed/MultiViewAdapter/releases) Also if you watch this repository, GitHub will send you a notification every time there is an update.
+|Type|Stability|Date|
+|---|---|---|
+|Major|Alpha|31-May-2019|
+
+#### Features added
+
+* Implemented ``onDrawOver`` method inside the decoration api
+
+#### Bug fixes
+
+* Fixed incorrect adapter position being sent to notify while calling ```clearAllSelections()``` method - [Issue](https://github.com/DevAhamed/MultiViewAdapter/issues/75)
+* Fixed incorrect 'selection' and 'expansion' behaviour - [Issue](https://github.com/DevAhamed/MultiViewAdapter/issues/72)
+
+#### Behavior Changes
+
+* Pre-defined payload is sent when item's selection/expansion is toggled
+* TreeSection decoration behavior is changed
+* TreeSection when created, will be either expanded or collapsed by user flag
+
+#### Misc
+
+* Sample app updated is with new showcases for decoration and TreeSection api's
+* Automation for app releases is enabled. Now app is pushed to playstore with a git-tag push
+* Project contribution guidelines and templates are added
+
+### v2.0.0-alpha01
+
+|Type|Stability|Date|
+|---|---|---|
+|Major|Alpha|20-April-2019|
+
+* Initial release for v2.x refactor
+
+Alternatively, you can visit the project's releases page for complete changelog. [(View Releases)](https://github.com/DevAhamed/MultiViewAdapter/releases) Also if you watch this repository, GitHub will send you a notification every time there is an update.
 
 ---
 
