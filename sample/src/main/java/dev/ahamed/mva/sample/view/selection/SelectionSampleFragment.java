@@ -16,10 +16,10 @@
 
 package dev.ahamed.mva.sample.view.selection;
 
-import androidx.recyclerview.widget.GridLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Spinner;
+import androidx.recyclerview.widget.GridLayoutManager;
 import dev.ahamed.mva.sample.R;
 import dev.ahamed.mva.sample.data.model.Header;
 import dev.ahamed.mva.sample.data.model.SelectableItem;

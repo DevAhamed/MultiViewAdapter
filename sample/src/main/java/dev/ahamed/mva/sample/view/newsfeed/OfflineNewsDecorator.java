@@ -24,10 +24,10 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
-import android.view.View;
 import mva3.adapter.MultiViewAdapter;
 import mva3.adapter.decorator.Decorator;
 
@@ -50,7 +50,7 @@ public class OfflineNewsDecorator extends Decorator {
       @NonNull RecyclerView parent, @NonNull RecyclerView.State state, int adapterPosition) {
   }
 
-  @Override public void onDraw(@NonNull Canvas canvas, @NonNull RecyclerView parent,
+  @Override public void onDrawOver(@NonNull Canvas canvas, @NonNull RecyclerView parent,
       @NonNull RecyclerView.State state, View child, int adapterPosition) {
     if (parent.getLayoutManager() == null) {
       return;

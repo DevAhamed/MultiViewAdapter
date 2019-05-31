@@ -59,6 +59,21 @@ import static mva3.adapter.util.Mode.INHERIT;
  */
 public abstract class Section implements ListUpdateCallback {
 
+  /**
+   * String which is sent as payload object when item selection is changed
+   */
+  public static final String SELECTION_PAYLOAD = "selection_payload";
+
+  /**
+   * String which is sent as payload object when item expansion is changed
+   */
+  public static final String ITEM_EXPANSION_PAYLOAD = "item_expansion_payload";
+
+  /**
+   * String which is sent as payload object when section expansion is changed
+   */
+  public static final String SECTION_EXPANSION_PAYLOAD = "section_expansion_payload";
+
   @NonNull Mode selectionMode = INHERIT;
   @NonNull Mode expansionMode = INHERIT;
   @NonNull Mode sectionExpansionMode = INHERIT;
@@ -309,6 +324,15 @@ public abstract class Section implements ListUpdateCallback {
     if (decorators.size() > 0) {
       for (Decorator decorator : decorators) {
         decorator.onDraw(canvas, parent, state, child, adapterPosition);
+      }
+    }
+  }
+
+  void drawDecorationOver(int itemPosition, @NonNull Canvas canvas, @NonNull RecyclerView parent,
+      @NonNull RecyclerView.State state, View child, int adapterPosition) {
+    if (decorators.size() > 0) {
+      for (Decorator decorator : decorators) {
+        decorator.onDrawOver(canvas, parent, state, child, adapterPosition);
       }
     }
   }

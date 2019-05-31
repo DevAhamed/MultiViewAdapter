@@ -22,6 +22,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import dev.ahamed.mva.sample.R;
 import dev.ahamed.mva.sample.data.model.Header;
+import java.util.List;
 import mva3.adapter.ItemBinder;
 import mva3.adapter.ItemViewHolder;
 
@@ -30,6 +31,10 @@ public class ExpandableHeaderItemBinder
 
   @Override public ViewHolder createViewHolder(ViewGroup parent) {
     return new ViewHolder(inflate(parent, R.layout.item_expandable_header));
+  }
+
+  @Override public void bindViewHolder(ViewHolder holder, Header item, List payloads) {
+    holder.toggle.setText(holder.isSectionExpanded() ? "Collapse" : "Expand");
   }
 
   @Override public void bindViewHolder(ViewHolder holder, Header item) {

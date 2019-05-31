@@ -18,14 +18,14 @@ package mva3.adapter;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.view.View;
+import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SpanSizeLookup;
-import androidx.recyclerview.widget.ItemTouchHelper;
-import android.view.View;
-import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -406,6 +406,13 @@ public class MultiViewAdapter extends RecyclerView.Adapter<ItemViewHolder> {
   }
 
   @RestrictTo(RestrictTo.Scope.LIBRARY)
+  public final void drawDecorationOver(@NonNull Canvas canvas, @NonNull RecyclerView parent,
+      @NonNull RecyclerView.State state, View child, int adapterPosition) {
+    drawSectionDecorationOver(canvas, parent, state, child, adapterPosition);
+    drawItemDecorationOver(canvas, parent, state, child, adapterPosition);
+  }
+
+  @RestrictTo(RestrictTo.Scope.LIBRARY)
   public final void getDecorationOffset(@NonNull Rect outRect, @NonNull View view,
       @NonNull RecyclerView parent, @NonNull RecyclerView.State state, int adapterPosition) {
     applySectionDecorationOffset(outRect, view, parent, state, adapterPosition);
@@ -545,9 +552,21 @@ public class MultiViewAdapter extends RecyclerView.Adapter<ItemViewHolder> {
         adapterPosition);
   }
 
+  private void drawItemDecorationOver(@NonNull Canvas canvas, @NonNull RecyclerView parent,
+      @NonNull RecyclerView.State state, View child, int adapterPosition) {
+    getItemBinder(adapterPosition).drawItemDecorationOver(canvas, parent, state, child,
+        adapterPosition);
+  }
+
   private void drawSectionDecoration(@NonNull Canvas canvas, @NonNull RecyclerView parent,
       @NonNull RecyclerView.State state, View child, int adapterPosition) {
     nestedSection.drawChildSectionDecoration(adapterPosition, canvas, parent, state, child,
+        adapterPosition);
+  }
+
+  private void drawSectionDecorationOver(@NonNull Canvas canvas, @NonNull RecyclerView parent,
+      @NonNull RecyclerView.State state, View child, int adapterPosition) {
+    nestedSection.drawChildSectionDecorationOver(adapterPosition, canvas, parent, state, child,
         adapterPosition);
   }
 

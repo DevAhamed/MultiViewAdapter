@@ -17,15 +17,15 @@
 package dev.ahamed.mva.sample.view.newsfeed;
 
 import android.graphics.Rect;
+import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import android.view.View;
 import mva3.adapter.MultiViewAdapter;
 import mva3.adapter.decorator.Decorator;
 
 public class NewsFeedDecorator extends Decorator {
 
-  public NewsFeedDecorator(MultiViewAdapter adapter) {
+  NewsFeedDecorator(MultiViewAdapter adapter) {
     super(adapter);
   }
 

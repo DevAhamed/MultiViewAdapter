@@ -17,8 +17,8 @@
 package mva3.adapter.internal;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.RecyclerView;
 import mva3.adapter.ItemViewHolder;
 import mva3.adapter.MultiViewAdapter;
 

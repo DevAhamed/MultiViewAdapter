@@ -16,23 +16,21 @@
 
 package dev.ahamed.mva.sample.view.advanced;
 
-import androidx.recyclerview.widget.ItemTouchHelper;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import dev.ahamed.mva.sample.R;
 import dev.ahamed.mva.sample.data.model.TextItem;
 import mva3.adapter.ItemBinder;
 import mva3.adapter.ItemViewHolder;
-import mva3.adapter.decorator.Decorator;
 
 public class TextItemBinder extends ItemBinder<TextItem, TextItemBinder.ViewHolder> {
 
   private final SettingsProvider settingsProvider;
 
-  TextItemBinder(Decorator decorator, SettingsProvider settingsProvider) {
-    super(decorator);
+  TextItemBinder(SettingsProvider settingsProvider) {
     this.settingsProvider = settingsProvider;
   }
 

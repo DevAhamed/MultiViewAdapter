@@ -16,13 +16,13 @@
 
 package dev.ahamed.mva.sample.view.selection;
 
-import androidx.core.content.ContextCompat;
-import androidx.cardview.widget.CardView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import dev.ahamed.mva.sample.R;
 import dev.ahamed.mva.sample.data.model.SelectableItem;
 import mva3.adapter.ItemBinder;
@@ -39,7 +39,7 @@ public class SelectableItemBinder
     holder.imageView.setImageResource(item.getIconResource());
     holder.textView.setText(item.getText());
     int bgColor = ContextCompat.getColor(holder.textView.getContext(),
-        holder.isItemSelected() ? item.getColor() : R.color.cardview_light_background);
+        holder.isItemSelected() ? item.getColor() : R.color.grey_0);
     holder.linearLayout.setBackgroundColor(bgColor);
     holder.cardView.setCardElevation(holder.isItemSelected() ? 16 : 0);
   }

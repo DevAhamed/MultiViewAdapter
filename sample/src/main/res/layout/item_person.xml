@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/grey_0"
+    android:orientation="vertical"
+    android:padding="@dimen/space_large"
+    >
+
+  <TextView
+      android:id="@+id/tv_avatar"
+      style="@style/App.Text.SubTitle.Three"
+      android:layout_width="40dp"
+      android:layout_height="40dp"
+      android:background="@drawable/ic_circle"
+      android:gravity="center"
+      android:textAllCaps="true"
+      app:layout_constraintBottom_toBottomOf="@+id/tv_overline"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="@+id/tv_name"
+      tools:text="O"
+      />
+
+  <TextView
+      android:id="@+id/tv_name"
+      style="@style/App.Text.Body.Primary.One"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:paddingStart="@dimen/space_large"
+      android:paddingEnd="@dimen/space_large"
+      app:layout_constraintBottom_toTopOf="@+id/tv_overline"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@+id/tv_avatar"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:text="John Doe"
+      />
+
+  <TextView
+      android:id="@+id/tv_overline"
+      style="@style/App.Text.Overline.Three"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:paddingStart="@dimen/space_large"
+      android:paddingEnd="@dimen/space_large"
+      android:textAllCaps="false"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@+id/tv_avatar"
+      app:layout_constraintTop_toBottomOf="@+id/tv_name"
+      tools:text="Tony Stark"
+      />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

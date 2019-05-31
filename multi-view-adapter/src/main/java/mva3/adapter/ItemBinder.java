@@ -18,12 +18,12 @@ package mva3.adapter;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.GridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
@@ -217,6 +217,13 @@ public abstract class ItemBinder<M, VH extends ItemViewHolder<M>> {
       @NonNull RecyclerView.State state, View child, int adapterPosition) {
     for (Decorator decorator : decorators) {
       decorator.onDraw(canvas, parent, state, child, adapterPosition);
+    }
+  }
+
+  void drawItemDecorationOver(@NonNull Canvas canvas, @NonNull RecyclerView parent,
+      @NonNull RecyclerView.State state, View child, int adapterPosition) {
+    for (Decorator decorator : decorators) {
+      decorator.onDrawOver(canvas, parent, state, child, adapterPosition);
     }
   }
 

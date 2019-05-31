@@ -20,20 +20,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     >
 
   <androidx.recyclerview.widget.RecyclerView
       android:id="@+id/recycler_view"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:background="#FAFAFA"
+      android:background="@color/grey_100"
+      android:clipToPadding="false"
+      android:fitsSystemWindows="true"
+      android:paddingStart="@dimen/space_medium"
+      android:paddingEnd="@dimen/space_medium"
       />
 
   <include
-      layout="@layout/bottom_sheet_advanced_config"
       android:id="@+id/sheet_configuration"
+      layout="@layout/bottom_sheet_advanced_config"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
+      android:fitsSystemWindows="true"
       app:layout_behavior="@string/bottom_sheet_behavior"
       />
 

@@ -18,9 +18,9 @@ package mva3.adapter.internal;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import android.view.View;
 import mva3.adapter.ItemBinder;
 import mva3.adapter.MultiViewAdapter;
 
@@ -52,7 +52,15 @@ public class DecorationDelegate extends RecyclerView.ItemDecoration {
 
   @Override public void onDrawOver(@NonNull Canvas canvas, @NonNull RecyclerView parent,
       @NonNull RecyclerView.State state) {
-    // TODO Implement onDrawOver
+    int childCount = parent.getChildCount();
+    for (int i = 0; i < childCount; i++) {
+      View child = parent.getChildAt(i);
+      int adapterPosition = parent.getChildAdapterPosition(child);
+      if (adapterPosition < 0) {
+        return;
+      }
+      adapter.drawDecorationOver(canvas, parent, state, child, adapterPosition);
+    }
   }
 
   @Override public void getItemOffsets(@NonNull Rect outRect, @NonNull View view,

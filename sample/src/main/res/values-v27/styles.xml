@@ -20,6 +20,5 @@
   <style name="BaseTheme.Version">
     <item name="android:windowLightStatusBar">true</item>
     <item name="android:windowLightNavigationBar">true</item>
-    <item name="android:navigationBarColor">@color/mva_primary_100</item>
   </style>
 </resources>

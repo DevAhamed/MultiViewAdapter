@@ -19,6 +19,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/grey_0"
     android:orientation="vertical"
     >
 
@@ -30,11 +31,11 @@
 
   <TextView
       android:id="@+id/tv_description"
+      style="@style/App.Text.Body.Secondary.One"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:lineSpacingMultiplier="1.25"
-      android:padding="16dp"
-      android:textAppearance="?textAppearanceBody1"
+      android:padding="@dimen/space_large"
       tools:text="Some sample text \n test"
       />
 

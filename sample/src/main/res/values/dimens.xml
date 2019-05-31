@@ -1,0 +1,17 @@
+<resources>
+  <dimen name="space_none">0dp</dimen>
+  <dimen name="space_xsmall">2dp</dimen>
+  <dimen name="space_small">4dp</dimen>
+  <dimen name="space_medium">8dp</dimen>
+  <dimen name="space_mid">12dp</dimen>
+  <dimen name="space_large">16dp</dimen>
+  <dimen name="space_xlarge">24dp</dimen>
+  <dimen name="space_xxlarge">30dp</dimen>
+
+  <dimen name="font_small">12sp</dimen>
+  <dimen name="font_regular">14sp</dimen>
+  <dimen name="font_medium">15sp</dimen>
+  <dimen name="font_large">16sp</dimen>
+  <dimen name="font_xlarge">20sp</dimen>
+  <dimen name="font_xxlarge">24sp</dimen>
+</resources>

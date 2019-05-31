@@ -18,9 +18,11 @@
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/tv_header"
+    style="@style/App.Text.SubTitle.One"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    android:textAppearance="?textAppearanceHeadline6"
+    android:layout_margin="@dimen/space_medium"
+    android:paddingTop="@dimen/space_medium"
+    android:paddingBottom="@dimen/space_medium"
     tools:text="Sample Header"
     />

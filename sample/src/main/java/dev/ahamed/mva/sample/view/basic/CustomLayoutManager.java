@@ -17,14 +17,14 @@
 package dev.ahamed.mva.sample.view.basic;
 
 import android.content.Context;
+import android.view.ViewGroup;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.view.ViewGroup;
 
 public class CustomLayoutManager extends LinearLayoutManager {
 
-  public CustomLayoutManager(Context context) {
+  CustomLayoutManager(Context context) {
     super(context);
   }
 

@@ -429,7 +429,7 @@ public class ListSection<M> extends Section {
     for (ItemMetaData itemMetaData : metaDataList) {
       if (itemMetaData.isSelected()) {
         itemMetaData.setSelected(false);
-        onChanged(itemPosition, 1, null);
+        onChanged(itemPosition, 1, SELECTION_PAYLOAD);
       }
       itemPosition++;
     }
@@ -455,7 +455,7 @@ public class ListSection<M> extends Section {
     for (ItemMetaData itemMetaData : metaDataList) {
       if (itemMetaData.isExpanded()) {
         itemMetaData.setExpanded(false);
-        onChanged(itemPosition, 1, null);
+        onChanged(itemPosition, 1, ITEM_EXPANSION_PAYLOAD);
       }
       itemPosition++;
     }
@@ -605,15 +605,15 @@ public class ListSection<M> extends Section {
       if (count == itemPosition) {
         if (itemMetaData.isExpanded()) {
           itemMetaData.setExpanded(!itemMetaData.isExpanded());
-          onChanged(count, 1, null);
+          onChanged(count, 1, ITEM_EXPANSION_PAYLOAD);
           break;
         } else {
           itemMetaData.setExpanded(!itemMetaData.isExpanded());
-          onChanged(count, 1, null);
+          onChanged(count, 1, ITEM_EXPANSION_PAYLOAD);
         }
       } else if (itemMetaData.isExpanded()) {
         itemMetaData.setExpanded(false);
-        onChanged(count, 1, null);
+        onChanged(count, 1, ITEM_EXPANSION_PAYLOAD);
         if (itemPosition < 0) {
           break;
         }
@@ -628,18 +628,18 @@ public class ListSection<M> extends Section {
       if (count == itemPosition) {
         if (itemMetaData.isSelected()) {
           itemMetaData.setSelected(!itemMetaData.isSelected());
-          onChanged(count, 1, null);
+          onChanged(count, 1, SELECTION_PAYLOAD);
           notifySelectionChanged(count);
           break;
         } else {
           itemMetaData.setSelected(!itemMetaData.isSelected());
-          onChanged(count, 1, null);
+          onChanged(count, 1, SELECTION_PAYLOAD);
           notifySelectionChanged(count);
           itemPosition = -1;
         }
       } else if (itemMetaData.isSelected()) {
         itemMetaData.setSelected(false);
-        onChanged(count, 1, null);
+        onChanged(count, 1, SELECTION_PAYLOAD);
         notifySelectionChanged(count);
       }
       count++;
@@ -650,7 +650,7 @@ public class ListSection<M> extends Section {
     if (itemPosition < getCount() && itemPosition >= 0) {
       ItemMetaData itemMetaData = metaDataList.get(itemPosition);
       itemMetaData.setExpanded(!itemMetaData.isExpanded());
-      onChanged(itemPosition, 1, null);
+      onChanged(itemPosition, 1, ITEM_EXPANSION_PAYLOAD);
     }
   }
 
@@ -658,7 +658,7 @@ public class ListSection<M> extends Section {
     if (itemPosition < getCount() && itemPosition >= 0) {
       ItemMetaData itemMetaData = metaDataList.get(itemPosition);
       itemMetaData.setSelected(!itemMetaData.isSelected());
-      onChanged(itemPosition, 1, null);
+      onChanged(itemPosition, 1, SELECTION_PAYLOAD);
       notifySelectionChanged(itemPosition);
     }
   }

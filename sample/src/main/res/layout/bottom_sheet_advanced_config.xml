@@ -20,7 +20,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@color/grey_0"
     >
 
   <androidx.core.widget.NestedScrollView
@@ -36,12 +36,12 @@
 
       <TextView
           android:id="@+id/label_header"
+          style="@style/App.Text.Body.Emphasized.One"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:layout_marginTop="8dp"
-          android:padding="16dp"
+          android:layout_marginTop="@dimen/space_medium"
+          android:padding="@dimen/space_large"
           android:text="@string/configuration"
-          android:textAppearance="?textAppearanceHeadline5"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
@@ -49,11 +49,11 @@
 
       <TextView
           android:id="@+id/label_section_one_span"
+          style="@style/App.Text.Body.Primary.Two"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:padding="16dp"
+          android:padding="@dimen/space_large"
           android:text="@string/section1_span_count"
-          android:textAppearance="?textAppearanceBody2"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/label_header"
           />
@@ -70,11 +70,11 @@
 
       <TextView
           android:id="@+id/label_section_two_span"
+          style="@style/App.Text.Body.Primary.Two"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:padding="16dp"
+          android:padding="@dimen/space_large"
           android:text="@string/section2_span_count"
-          android:textAppearance="?textAppearanceBody2"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/label_section_one_span"
           />
@@ -91,53 +91,53 @@
 
       <CheckedTextView
           android:id="@+id/ctv_drag_drop"
+          style="@style/App.Text.Body.Primary.Two"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:background="?selectableItemBackground"
           android:checkMark="?android:listChoiceIndicatorMultiple"
           android:gravity="center_vertical"
-          android:padding="16dp"
+          android:padding="@dimen/space_large"
           android:text="@string/enable_drag_and_drop"
-          android:textAppearance="?textAppearanceBody2"
           app:layout_constraintLeft_toLeftOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/label_section_two_span"
           />
 
       <CheckedTextView
           android:id="@+id/ctv_swipe_to_dismiss"
+          style="@style/App.Text.Body.Primary.Two"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:background="?selectableItemBackground"
           android:checkMark="?android:listChoiceIndicatorMultiple"
           android:gravity="center_vertical"
-          android:padding="16dp"
+          android:padding="@dimen/space_large"
           android:text="@string/enable_swipe_to_dismiss"
-          android:textAppearance="?textAppearanceBody2"
           app:layout_constraintLeft_toLeftOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/ctv_drag_drop"
           />
 
       <CheckedTextView
           android:id="@+id/ctv_infinite_loading"
+          style="@style/App.Text.Body.Primary.Two"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:background="?selectableItemBackground"
           android:checkMark="?android:listChoiceIndicatorMultiple"
           android:gravity="center_vertical"
-          android:padding="16dp"
+          android:padding="@dimen/space_large"
           android:text="@string/enable_infinite_loading"
-          android:textAppearance="?textAppearanceBody2"
           app:layout_constraintLeft_toLeftOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/ctv_swipe_to_dismiss"
           />
 
       <TextView
           android:id="@+id/label_pages"
+          style="@style/App.Text.Body.Primary.Two"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:padding="16dp"
+          android:padding="@dimen/space_large"
           android:text="@string/page_count_for_infinite_loading"
-          android:textAppearance="?textAppearanceBody2"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/ctv_infinite_loading"
           />

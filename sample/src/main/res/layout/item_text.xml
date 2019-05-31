@@ -20,13 +20,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="@dimen/space_medium"
     android:elevation="2dp"
     >
 
   <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:background="@color/sample_color_two"
+      android:background="@color/sample_color_five"
       android:orientation="horizontal"
       >
 
@@ -36,18 +37,18 @@
         android:layout_height="56dp"
         android:layout_gravity="center_vertical"
         android:background="?selectableItemBackground"
-        android:padding="12dp"
+        android:padding="@dimen/space_mid"
         android:src="@drawable/ic_drag_handle"
         />
 
     <TextView
         android:id="@+id/text_view"
+        style="@style/App.Text.SubTitle.One"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:maxLines="1"
-        android:padding="16dp"
-        android:textAppearance="?textAppearanceSubtitle1"
+        android:padding="@dimen/space_large"
         android:textColor="@color/body_text_subtle"
         tools:text="Text Item"
         />

@@ -16,7 +16,7 @@
 
 package dev.ahamed.mva.sample.view.home;
 
-public class Feature {
+class Feature {
 
   private final String title;
   private final int icon;
@@ -28,15 +28,15 @@ public class Feature {
     this.description = description;
   }
 
-  public String getDescription() {
+  String getDescription() {
     return description;
   }
 
-  public int getIcon() {
+  int getIcon() {
     return icon;
   }
 
-  public String getTitle() {
+  String getTitle() {
     return title;
   }
 }

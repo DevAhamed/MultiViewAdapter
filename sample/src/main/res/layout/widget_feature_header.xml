@@ -23,21 +23,21 @@
       android:id="@+id/iv_feature"
       android:layout_width="40dp"
       android:layout_height="40dp"
-      android:layout_marginBottom="16dp"
-      android:layout_marginStart="16dp"
-      android:layout_marginTop="16dp"
+      android:layout_marginStart="@dimen/space_large"
+      android:layout_marginTop="@dimen/space_large"
+      android:layout_marginBottom="@dimen/space_large"
       tools:src="@drawable/ic_extension"
       />
 
   <TextView
       android:id="@+id/tv_feature"
+      style="@style/App.Text.Title.One"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_gravity="bottom"
       android:gravity="bottom"
-      android:padding="16dp"
-      android:textAppearance="?textAppearanceHeadline5"
-      android:textColor="#333333"
+      android:padding="@dimen/space_large"
+      android:textColor="@color/dark_text_color"
       tools:text="Infinite Scrolling"
       />
 

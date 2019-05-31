@@ -20,7 +20,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="#FFFFFF"
+    app:cardBackgroundColor="@color/grey_0"
     app:cardCornerRadius="0dp"
     app:cardElevation="1dp"
     >
@@ -29,26 +29,25 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="vertical"
-      android:padding="8dp"
+      android:padding="@dimen/space_medium"
       >
 
     <ImageView
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_gravity="center"
-        android:padding="8dp"
+        android:padding="@dimen/space_medium"
         android:src="@drawable/ic_offline_empty"
-        android:tint="@color/body_text_secondary"
+        android:tint="@color/text_color_body_primary3"
         />
 
     <TextView
+        style="@style/App.Text.Body.Comment.Two"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:padding="8dp"
+        android:padding="@dimen/space_medium"
         android:text="@string/no_offline_articles"
-        android:textAppearance="@style/TextAppearance.App.Subtitle1"
-        android:textColor="@color/body_text_secondary"
         />
 
   </LinearLayout>

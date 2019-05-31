@@ -20,12 +20,17 @@
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorSecondary">@color/colorAccent</item>
+
+    <item name="headlineTextColor">@color/headline_text_color</item>
+    <item name="bodyTextColor">@color/body_text_color</item>
   </style>
 
-  <style name="BaseTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-    <item name="android:windowBackground">@color/grey_300</item>
-    <item name="android:statusBarColor">@color/mva_primary_100</item>
-    <item name="materialButtonStyle">@style/Widget.MyApp.MyButton</item>
+  <style name="BaseTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <item name="android:windowBackground">@color/grey_0</item>
+    <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+    <item name="android:statusBarColor">@android:color/transparent</item>
+    <item name="android:navigationBarColor">@android:color/transparent</item>
+    <item name="materialButtonStyle">@style/Widget.App.Button</item>
 
     <item name="android:spinnerItemStyle">@style/Widget.App.TextView.SpinnerItem</item>
     <item name="android:spinnerDropDownItemStyle">@style/Widget.App.DropDownItem.Spinner</item>
@@ -48,104 +53,30 @@
 
   <style name="BaseTheme.Version"/>
 
-  <style name="Widget.MyApp.MyButton" parent="Widget.MaterialComponents.Button">
+  <style name="AppTheme.Overlay" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
+    <item name="android:background">@color/nav_bars</item>
+  </style>
+
+  <style name="Widget.App.Button" parent="Widget.MaterialComponents.Button">
     <item name="backgroundTint">?attr/colorSecondary</item>
     <item name="android:textColor">#CC333333</item>
   </style>
 
   <style name="borderButtonStyle" parent="Widget.MaterialComponents.Button.OutlinedButton">
-    <item name="android:textColor">@color/mva_secondary_700</item>
-  </style>
-
-  <style name="TextAppearance.App.Headline1" parent="TextAppearance.MaterialComponents.Headline1">
-    <item name="fontFamily">@font/light</item>
-    <item name="android:fontFamily">@font/light</item>
-    <item name="android:textColor">?colorPrimaryDark</item>
-  </style>
-
-  <style name="TextAppearance.App.Headline2" parent="TextAppearance.MaterialComponents.Headline2">
-    <item name="fontFamily">@font/bold</item>
-    <item name="android:fontFamily">@font/bold</item>
-    <item name="android:textColor">?colorPrimaryDark</item>
-  </style>
-
-  <style name="TextAppearance.App.Headline3" parent="TextAppearance.MaterialComponents.Headline3">
-    <item name="fontFamily">@font/bold</item>
-    <item name="android:fontFamily">@font/bold</item>
-    <item name="android:textColor">?colorPrimaryDark</item>
-  </style>
-
-  <style name="TextAppearance.App.Headline4" parent="TextAppearance.MaterialComponents.Headline4">
-    <item name="fontFamily">@font/bold</item>
-    <item name="android:fontFamily">@font/bold</item>
-    <item name="android:textColor">?colorPrimaryDark</item>
-    <item name="android:textSize">38sp</item>
-  </style>
-
-  <style name="TextAppearance.App.Headline5" parent="TextAppearance.MaterialComponents.Headline5">
-    <item name="fontFamily">@font/bold</item>
-    <item name="android:fontFamily">@font/bold</item>
-    <item name="android:textColor">?colorPrimaryDark</item>
-    <item name="android:textSize">24sp</item>
-  </style>
-
-  <style name="TextAppearance.App.Headline6" parent="TextAppearance.MaterialComponents.Headline6">
-    <item name="fontFamily">@font/bold</item>
-    <item name="android:fontFamily">@font/bold</item>
-    <item name="android:textColor">?colorPrimaryDark</item>
-    <item name="android:textSize">20sp</item>
-  </style>
-
-  <style name="TextAppearance.App.Subtitle1" parent="TextAppearance.MaterialComponents.Subtitle1">
-    <item name="fontFamily">@font/medium</item>
-    <item name="android:fontFamily">@font/medium</item>
-    <item name="android:textColor">@color/body_text_primary</item>
-    <item name="android:textSize">18sp</item>
-  </style>
-
-  <style name="TextAppearance.App.Subtitle2" parent="TextAppearance.MaterialComponents.Subtitle2">
-    <item name="fontFamily">@font/semibold</item>
-    <item name="android:fontFamily">@font/semibold</item>
-    <item name="android:textSize">18sp</item>
-    <item name="android:textColor">@color/body_text_primary</item>
-  </style>
-
-  <style name="TextAppearance.App.Body1" parent="TextAppearance.MaterialComponents.Body1">
-    <item name="android:textSize">16sp</item>
-    <item name="android:letterSpacing">0.0</item>
-    <item name="android:textColor">@color/body_text_secondary</item>
-  </style>
-
-  <style name="TextAppearance.App.Body2" parent="TextAppearance.MaterialComponents.Body2">
-    <item name="android:textSize">14sp</item>
-    <item name="android:letterSpacing">0.0</item>
-    <item name="android:textColor">@color/body_text_secondary</item>
-  </style>
-
-  <style name="TextAppearance.App.Button" parent="TextAppearance.MaterialComponents.Button">
-    <item name="fontFamily">@font/bold</item>
-    <item name="android:fontFamily">@font/bold</item>
-  </style>
-
-  <style name="TextAppearance.App.Caption" parent="TextAppearance.MaterialComponents.Caption">
-    <item name="fontFamily">@font/regular</item>
-    <item name="android:fontFamily">@font/regular</item>
-    <item name="android:textSize">14sp</item>
-  </style>
-
-  <style name="TextAppearance.App.Overline" parent="TextAppearance.MaterialComponents.Overline">
-    <item name="fontFamily">@font/semibold</item>
-    <item name="android:fontFamily">@font/semibold</item>
-    <item name="android:textSize">14sp</item>
-    <item name="android:letterSpacing">0.25</item>
+    <item name="android:textColor">@color/colorAccentVariant</item>
   </style>
 
   <style name="Widget.App.TextView.SpinnerItem" parent="Widget.AppCompat.TextView.SpinnerItem">
-    <item name="android:textAppearance">@style/TextAppearance.App.Subtitle1</item>
+    <item name="android:textAppearance">@style/TextAppearance.App.Subtitle2</item>
+    <item name="android:textSize">16sp</item>
   </style>
 
   <style name="Widget.App.DropDownItem.Spinner" parent="Widget.AppCompat.DropDownItem.Spinner">
-    <item name="android:textAppearance">@style/TextAppearance.App.Subtitle1</item>
+    <item name="android:textAppearance">@style/TextAppearance.App.Subtitle2</item>
+    <item name="android:textSize">16sp</item>
   </style>
+
+  <attr name="headlineTextColor" format="color"/>
+  <attr name="bodyTextColor" format="color"/>
 
 </resources>

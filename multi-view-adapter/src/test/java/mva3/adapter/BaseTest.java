@@ -175,14 +175,14 @@ import org.mockito.Spy;
     headerSection2.getListSection().set(testItemList4);
 
     // TREE SECTION 1
-    treeSection1 = new TreeSection<>(new Comment(49, "Author 49", "Comment 49"));
-    treeSection2 = new TreeSection<>(new Comment(50, "Author 50", "Comment 50"));
-    treeSection3 = new TreeSection<>(new Comment(51, "Author 51", "Comment 51"));
-    treeSection4 = new TreeSection<>(new Comment(52, "Author 52", "Comment 52"));
-    treeSection5 = new TreeSection<>(new Comment(53, "Author 53", "Comment 53"));
-    treeSection6 = new TreeSection<>(new Comment(54, "Author 54", "Comment 54"));
-    treeSection7 = new TreeSection<>(new Comment(55, "Author 55", "Comment 55"));
-    treeSection8 = new TreeSection<>(new Comment(56, "Author 56", "Comment 56"));
+    treeSection1 = new TreeSection<>(new Comment(49, "Author 49", "Comment 49"), true);
+    treeSection2 = new TreeSection<>(new Comment(50, "Author 50", "Comment 50"), true);
+    treeSection3 = new TreeSection<>(new Comment(51, "Author 51", "Comment 51"), true);
+    treeSection4 = new TreeSection<>(new Comment(52, "Author 52", "Comment 52"), true);
+    treeSection5 = new TreeSection<>(new Comment(53, "Author 53", "Comment 53"), true);
+    treeSection6 = new TreeSection<>(new Comment(54, "Author 54", "Comment 54"), true);
+    treeSection7 = new TreeSection<>(new Comment(55, "Author 55", "Comment 55"), true);
+    treeSection8 = new TreeSection<>(new Comment(56, "Author 56", "Comment 56"), true);
 
     treeSection5.addSection(treeSection6);
     treeSection5.addSection(treeSection7);

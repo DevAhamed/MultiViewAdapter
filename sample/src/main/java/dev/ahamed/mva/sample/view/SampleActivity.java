@@ -17,46 +17,60 @@
 package dev.ahamed.mva.sample.view;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import dev.ahamed.mva.sample.R;
 import dev.ahamed.mva.sample.view.advanced.AdvancedFragment;
 import dev.ahamed.mva.sample.view.basic.BasicSampleFragment;
 import dev.ahamed.mva.sample.view.decoration.DecorationSampleFragment;
 import dev.ahamed.mva.sample.view.expansion.ExpansionSampleFragment;
 import dev.ahamed.mva.sample.view.home.HomeFragment;
+import dev.ahamed.mva.sample.view.nested.NestedSectionFragment;
 import dev.ahamed.mva.sample.view.newsfeed.NewsFeedFragment;
 import dev.ahamed.mva.sample.view.selection.SelectionSampleFragment;
 
+import static android.content.res.Configuration.UI_MODE_NIGHT_YES;
+import static android.view.View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION;
+import static android.view.View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
+import static android.view.View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+
 public class SampleActivity extends AppCompatActivity {
 
+  public static final String PREFS_HINT_ENABLED = "prefs_hint_enabled";
   private static final String STATE_SELECTED_POSITION = "state_selected_position";
-
-  public static float DP = 0;
-  public static int DP_FOUR = 0;
-  public static int DP_EIGHT = 0;
+  private static final String PREFS_DARK_THEME = "prefs_dark_theme";
+  public static int DP = 0;
+  public static int TWO_DP = 0;
+  public static int FOUR_DP = 0;
+  public static int EIGHT_DP = 0;
+  public static int SIXTEEN_DP = 0;
 
   private Spinner spinner;
   private int selectedPosition;
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {
-    if (spinner.getSelectedItemPosition() == 6) {
+    if (spinner.getSelectedItemPosition() == 7) {
       getMenuInflater().inflate(R.menu.menu_home, menu);
     } else {
       getMenuInflater().inflate(R.menu.menu_sample_fragment, menu);
     }
-    if (spinner.getSelectedItemPosition() == 5) {
+    if (spinner.getSelectedItemPosition() == 6) {
       menu.removeItem(R.id.menu_configure);
     }
     return super.onCreateOptionsMenu(menu);
@@ -71,17 +85,47 @@ public class SampleActivity extends AppCompatActivity {
       Intent browserIntent = new Intent(Intent.ACTION_VIEW,
           Uri.parse("https://play.google.com/store/apps/details?id=dev.ahamed.mva.sample"));
       startActivity(browserIntent);
+    } else if (item.getItemId() == R.id.menu_switch_theme) {
+      boolean isDarkThemeEnabled =
+          PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
+              .getBoolean(PREFS_DARK_THEME, false);
+      PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
+          .edit()
+          .putBoolean(PREFS_DARK_THEME, !isDarkThemeEnabled)
+          .apply();
+      AppCompatDelegate.setDefaultNightMode(
+          !isDarkThemeEnabled ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
+      getDelegate().applyDayNight();
+    } else if (item.getItemId() == R.id.menu_toggle_hint) {
+      boolean isHintEnabled = PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
+          .getBoolean(PREFS_HINT_ENABLED, true);
+      PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
+          .edit()
+          .putBoolean(PREFS_HINT_ENABLED, !isHintEnabled)
+          .apply();
+      getDelegate().applyDayNight();
     }
     return super.onOptionsItemSelected(item);
   }
 
+  @Override public void onConfigurationChanged(@NonNull Configuration newConfig) {
+    super.onConfigurationChanged(newConfig);
+    setSystemBarTheme();
+  }
+
   @Override protected void onCreate(Bundle savedInstanceState) {
+    boolean isDarkThemeEnabled =
+        PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
+            .getBoolean(PREFS_DARK_THEME, false);
+    AppCompatDelegate.setDefaultNightMode(
+        isDarkThemeEnabled ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
+    setSystemBarTheme();
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_sample);
     spinner = findViewById(R.id.sample_selector);
 
     if (null == savedInstanceState) {
-      spinner.setSelection(6);
+      spinner.setSelection(7);
     } else {
       selectedPosition = savedInstanceState.getInt(STATE_SELECTED_POSITION);
     }
@@ -95,12 +139,36 @@ public class SampleActivity extends AppCompatActivity {
     super.onResume();
   }
 
+  @Override protected void onSaveInstanceState(@NonNull Bundle outState) {
+    super.onSaveInstanceState(outState);
+    outState.putInt(STATE_SELECTED_POSITION, selectedPosition);
+  }
+
+  private void setSystemBarTheme() {
+    int visibility = SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION;
+    int currentNightMode =
+        getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+      if (currentNightMode != UI_MODE_NIGHT_YES) {
+        visibility |= SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR | SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+      }
+    } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+      if (currentNightMode != UI_MODE_NIGHT_YES) {
+        visibility |= SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+      }
+    }
+    getWindow().getDecorView().setSystemUiVisibility(visibility);
+  }
+
   private void setUpDeviceMetrics() {
     Resources resources = getResources();
     DisplayMetrics metrics = resources.getDisplayMetrics();
-    DP = metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT;
-    DP_FOUR = (int) (DP * 4);
-    DP_EIGHT = (int) (DP * 8);
+    float dp = metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT;
+    DP = (int) dp;
+    TWO_DP = (int) (dp * 2);
+    FOUR_DP = (int) (dp * 4);
+    EIGHT_DP = (int) (dp * 8);
+    SIXTEEN_DP = (int) (dp * 16);
   }
 
   private void replaceFragment(Fragment fragment) {
@@ -123,11 +191,6 @@ public class SampleActivity extends AppCompatActivity {
         // No-op
       }
     });
-  }
-
-  @Override protected void onSaveInstanceState(Bundle outState) {
-    super.onSaveInstanceState(outState);
-    outState.putInt(STATE_SELECTED_POSITION, selectedPosition);
   }
 
   private void setUpToolbar() {
@@ -161,11 +224,14 @@ public class SampleActivity extends AppCompatActivity {
         fragment = new DecorationSampleFragment();
         break;
       case 5:
-        fragment = new NewsFeedFragment();
+        fragment = new NestedSectionFragment();
         break;
       case 6:
+        fragment = new NewsFeedFragment();
+        break;
+      case 7:
       default:
-        fragment = HomeFragment.newInstance();
+        fragment = new HomeFragment();
         break;
     }
     replaceFragment(fragment);

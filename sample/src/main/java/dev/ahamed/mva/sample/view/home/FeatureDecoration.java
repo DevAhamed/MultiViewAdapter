@@ -16,13 +16,15 @@
 
 package dev.ahamed.mva.sample.view.home;
 
+import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
+import dev.ahamed.mva.sample.R;
 import mva3.adapter.MultiViewAdapter;
 import mva3.adapter.decorator.Decorator;
 
@@ -33,11 +35,11 @@ public class FeatureDecoration extends Decorator {
   private Paint borderPaint = new Paint();
   private final Rect mBounds = new Rect();
 
-  public FeatureDecoration(MultiViewAdapter adapter, int inset) {
+  FeatureDecoration(MultiViewAdapter adapter, Context context, int inset) {
     super(adapter);
     this.inset = inset;
-    bgPaint.setColor(Color.parseColor("#EEEEEE"));
-    borderPaint.setColor(Color.parseColor("#AFAFAF"));
+    bgPaint.setColor(ContextCompat.getColor(context, R.color.grey_300));
+    borderPaint.setColor(ContextCompat.getColor(context, R.color.grey_500));
   }
 
   @Override public void getItemOffsets(@NonNull Rect outRect, @NonNull View view,

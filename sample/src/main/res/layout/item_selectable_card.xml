@@ -20,7 +20,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
+    android:layout_margin="@dimen/space_medium"
     >
 
   <LinearLayout
@@ -28,7 +28,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="vertical"
-      android:padding="8dp"
+      android:padding="@dimen/space_medium"
       tools:background="@color/sample_color_three"
       >
 
@@ -36,23 +36,22 @@
         android:id="@+id/image_view"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:padding="8dp"
-        android:tint="@color/body_text_secondary"
+        android:padding="@dimen/space_medium"
         tools:src="@drawable/ic_language"
         />
 
     <TextView
         android:id="@+id/text_view"
+        style="@style/App.Text.Body.Primary.One"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="4dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="@dimen/space_small"
+        android:layout_marginEnd="@dimen/space_small"
+        android:layout_marginBottom="@dimen/space_small"
         android:gravity="center_vertical"
         android:lines="2"
         android:maxLines="2"
-        android:padding="4dp"
-        android:textAppearance="?textAppearanceBody2"
+        android:padding="@dimen/space_small"
         tools:text="Tamil"
         />
 

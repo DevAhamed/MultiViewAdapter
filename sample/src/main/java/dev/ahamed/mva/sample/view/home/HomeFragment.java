@@ -17,14 +17,15 @@
 package dev.ahamed.mva.sample.view.home;
 
 import android.os.Bundle;
+import android.util.TypedValue;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import dev.ahamed.mva.sample.R;
 import dev.ahamed.mva.sample.view.SampleActivity;
 import java.util.ArrayList;
@@ -42,14 +43,23 @@ public class HomeFragment extends Fragment {
     super.onViewCreated(view, savedInstanceState);
 
     RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
+    recyclerView.setOnApplyWindowInsetsListener((v, insets) -> {
+      TypedValue typedValue = new TypedValue();
+      getContext().getTheme().resolveAttribute(R.attr.actionBarSize, typedValue, true);
+      int actionBarSize = (int) getResources().getDimension(typedValue.resourceId);
+      v.setPadding(0, insets.getSystemWindowInsetTop() + actionBarSize, 0,
+          insets.getSystemWindowInsetBottom() + actionBarSize);
+      return insets;
+    });
+
     MultiViewAdapter adapter = new MultiViewAdapter();
 
     recyclerView.addItemDecoration(adapter.getItemDecoration());
     recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     recyclerView.setAdapter(adapter);
 
-    adapter.registerItemBinders(
-        new FeatureItemBinder(new FeatureDecoration(adapter, SampleActivity.DP_EIGHT)),
+    adapter.registerItemBinders(new FeatureItemBinder(
+            new FeatureDecoration(adapter, requireContext(), SampleActivity.EIGHT_DP)),
         new IntroItemBinder());
 
     ItemSection<String> itemSection = new ItemSection<>("Introduction");
@@ -80,7 +90,7 @@ public class HomeFragment extends Fragment {
             + "adapter you can have one section with multi-selection and one section with "
             + "single-selection mode."));
 
-    features.add(new Feature("Expansion Mode", R.drawable.ic_expand_less,
+    features.add(new Feature("Expansion Mode", R.drawable.ic_expandable_mode,
         "Library allows you to expand or collapse individual items. Also you can expand "
             + "or collapse entire sections. \nSimilar to selection mode, when the expansion modes are"
             + " combined with sections, you get lot of combinations."));

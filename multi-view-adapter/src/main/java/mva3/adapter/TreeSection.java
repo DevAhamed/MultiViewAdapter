@@ -16,7 +16,11 @@
 
 package mva3.adapter;
 
+import android.graphics.Canvas;
+import android.graphics.Rect;
+import android.view.View;
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import mva3.adapter.decorator.Decorator;
 import mva3.adapter.decorator.SectionPositionType;
 import mva3.adapter.internal.Notifier;
@@ -40,8 +44,12 @@ public class TreeSection<M> extends NestedSection implements Notifier {
 
   /**
    * Constructor which initializes TreeSection with an item.
+   *
+   * @param item       Item to be set for this TreeSection
+   * @param isExpanded If true, TreeSection is expanded and added to adapter. If false, the
+   *                   TreeSection is collapsed and added to the adapter.
    */
-  public TreeSection(M item) {
+  public TreeSection(M item, boolean isExpanded) {
     super();
 
     itemSection = new ItemSection<>(item);
@@ -50,6 +58,7 @@ public class TreeSection<M> extends NestedSection implements Notifier {
     sections.add(itemSection);
 
     setSectionExpansionMode(Mode.MULTIPLE);
+    setSectionExpanded(isExpanded);
   }
 
   /**
@@ -122,7 +131,7 @@ public class TreeSection<M> extends NestedSection implements Notifier {
   }
 
   @Override int getCount() {
-    if (isSectionVisible()) {
+    if (isSectionExpanded()) {
       return super.getCount();
     } else {
       return itemSection.getCount();
@@ -144,6 +153,7 @@ public class TreeSection<M> extends NestedSection implements Notifier {
         } else {
           onRemoved(1, count);
         }
+        onChanged(0, 1, SECTION_EXPANSION_PAYLOAD);
       } else {
         onChildSectionExpansionToggled(itemPosition, this.sectionExpansionMode);
       }
@@ -151,9 +161,50 @@ public class TreeSection<M> extends NestedSection implements Notifier {
     return itemPosition - getCount();
   }
 
+  @Override void drawDecoration(int itemPosition, @NonNull Canvas canvas,
+      @NonNull RecyclerView parent, @NonNull RecyclerView.State state, View child,
+      int adapterPosition) {
+    if (itemPosition != 0) {
+      drawChildSectionDecoration(itemPosition, canvas, parent, state, child, adapterPosition);
+    } else if (null != treeDecorator) {
+      treeDecorator.onDraw(canvas, parent, state, child, adapterPosition);
+    }
+  }
+
+  @Override void drawDecorationOver(int itemPosition, @NonNull Canvas canvas,
+      @NonNull RecyclerView parent, @NonNull RecyclerView.State state, View child,
+      int adapterPosition) {
+    if (itemPosition != 0) {
+      drawChildSectionDecorationOver(itemPosition, canvas, parent, state, child, adapterPosition);
+    } else if (null != treeDecorator) {
+      treeDecorator.onDrawOver(canvas, parent, state, child, adapterPosition);
+    }
+  }
+
+  @Override void getDecorationOffsets(int itemPosition, @NonNull Rect outRect, @NonNull View view,
+      @NonNull RecyclerView parent, @NonNull RecyclerView.State state, int adapterPosition) {
+    if (null != treeDecorator) {
+      treeDecorator.getItemOffsets(outRect, view, parent, state, adapterPosition);
+    }
+    if (itemPosition != 0) {
+      getChildSectionOffsets(itemPosition, outRect, view, parent, state, adapterPosition);
+    }
+  }
+
+  @Override boolean isSectionExpanded(int itemPosition) {
+    if (itemPosition == 0) {
+      return isSectionExpanded();
+    }
+    return super.isSectionExpanded(itemPosition);
+  }
+
+  boolean isSectionVisible() {
+    return !isSectionHidden();
+  }
+
   private void addTreeSection(TreeSection section) {
     section.setNotifier(this);
-    section.addDecorator(treeDecorator);
+    section.setTreeDecorator(treeDecorator);
     sections.add(section);
   }
 

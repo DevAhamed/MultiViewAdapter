@@ -15,44 +15,96 @@
   ~ limitations under the License.
   -->
 
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<dev.ahamed.mva.sample.view.widget.WindowInsetsFrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:fitsSystemWindows="true"
     >
 
-  <FrameLayout
+  <dev.ahamed.mva.sample.view.widget.TopBar
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@color/nav_bars"
+      android:elevation="4dp"
+      android:fitsSystemWindows="true"
+      >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:fitsSystemWindows="false"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/space_medium"
+        android:paddingEnd="@dimen/space_medium"
+        >
+
+      <ImageView
+          android:layout_width="48dp"
+          android:layout_height="48dp"
+          android:layout_gravity="center_vertical"
+          android:layout_marginStart="@dimen/space_small"
+          android:layout_marginEnd="@dimen/space_small"
+          android:padding="@dimen/space_small"
+          android:src="@drawable/ic_logo"
+          />
+
+      <TextView
+          style="@style/App.Text.SubTitle.Two"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_vertical"
+          android:paddingStart="@dimen/space_medium"
+          android:paddingEnd="@dimen/space_medium"
+          android:text="MultiViewAdapter"
+          />
+
+    </LinearLayout>
+
+  </dev.ahamed.mva.sample.view.widget.TopBar>
+
+  <dev.ahamed.mva.sample.view.widget.InsetFrameLayout
       android:id="@+id/content_layout"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:layout_marginBottom="?actionBarSize"
+      android:clipChildren="false"
+      android:clipToPadding="false"
+      android:fitsSystemWindows="true"
       />
 
-  <androidx.appcompat.widget.Toolbar
-      android:id="@+id/toolbar"
+  <dev.ahamed.mva.sample.view.widget.BottomBar
       android:layout_width="match_parent"
-      android:layout_height="?actionBarSize"
+      android:layout_height="wrap_content"
       android:layout_gravity="bottom"
-      android:background="@color/mva_primary_100"
-      android:elevation="16dp"
+      android:background="@color/nav_bars"
+      android:elevation="4dp"
+      android:fitsSystemWindows="true"
       >
 
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:fitsSystemWindows="false"
         >
 
-      <Spinner
-          android:id="@+id/sample_selector"
+      <FrameLayout
           android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center_vertical"
-          android:entries="@array/sample_section"
-          />
+          android:layout_height="match_parent"
+          >
 
-    </FrameLayout>
+        <Spinner
+            android:id="@+id/sample_selector"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:entries="@array/sample_section"
+            />
 
-  </androidx.appcompat.widget.Toolbar>
+      </FrameLayout>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+  </dev.ahamed.mva.sample.view.widget.BottomBar>
+
+</dev.ahamed.mva.sample.view.widget.WindowInsetsFrameLayout>

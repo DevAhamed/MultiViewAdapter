@@ -17,9 +17,9 @@
 package dev.ahamed.mva.sample.view.newsfeed;
 
 import android.graphics.Rect;
+import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import android.view.View;
 import dev.ahamed.mva.sample.view.SampleActivity;
 import mva3.adapter.MultiViewAdapter;
 import mva3.adapter.decorator.Decorator;
@@ -32,7 +32,7 @@ public class NewsSectionDecorator extends Decorator {
 
   @Override public void getItemOffsets(@NonNull Rect outRect, @NonNull View view,
       @NonNull RecyclerView parent, @NonNull RecyclerView.State state, int adapterPosition) {
-    addToRect(outRect, SampleActivity.DP_EIGHT, SampleActivity.DP_EIGHT, SampleActivity.DP_EIGHT,
-        SampleActivity.DP_EIGHT);
+    addToRect(outRect, SampleActivity.EIGHT_DP, SampleActivity.EIGHT_DP, SampleActivity.EIGHT_DP,
+        SampleActivity.EIGHT_DP);
   }
 }

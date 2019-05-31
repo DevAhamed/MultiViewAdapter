@@ -16,15 +16,20 @@
 
 package dev.ahamed.mva.sample.view.basic;
 
+import android.preference.PreferenceManager;
+import android.view.View;
+import android.widget.Spinner;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.view.View;
-import android.widget.Spinner;
 import dev.ahamed.mva.sample.R;
+import dev.ahamed.mva.sample.data.model.Hint;
 import dev.ahamed.mva.sample.data.model.NumberItem;
+import dev.ahamed.mva.sample.view.SampleActivity;
 import dev.ahamed.mva.sample.view.common.BaseFragment;
+import dev.ahamed.mva.sample.view.common.HintBinder;
 import java.util.List;
+import mva3.adapter.ItemSection;
 import mva3.adapter.ListSection;
 
 public class BasicSampleFragment extends BaseFragment {
@@ -84,9 +89,18 @@ public class BasicSampleFragment extends BaseFragment {
     recyclerView.addItemDecoration(adapter.getItemDecoration());
 
     adapter.removeAllSections();
+
+    if (PreferenceManager.getDefaultSharedPreferences(requireContext().getApplicationContext())
+        .getBoolean(SampleActivity.PREFS_HINT_ENABLED, true)) {
+      adapter.registerItemBinders(new HintBinder());
+      adapter.addSection(new ItemSection<>(new Hint(getHint())));
+      adapter.getItemTouchHelper().attachToRecyclerView(recyclerView);
+    }
+
     ListSection<NumberItem> listSection = new ListSection<>();
     adapter.addSection(listSection);
-    adapter.registerItemBinders(new NumberItemBinder(new BasicDividerDecorator(adapter)));
+    adapter.registerItemBinders(
+        new NumberItemBinder(new BasicDividerDecorator(adapter, requireContext())));
 
     List<NumberItem> list = dataManager.getNumberItems(10000);
     listSection.addAll(list);

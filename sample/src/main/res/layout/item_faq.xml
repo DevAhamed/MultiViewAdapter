@@ -21,11 +21,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginEnd="8dp"
-    android:layout_marginStart="8dp"
+    android:layout_marginStart="@dimen/space_medium"
+    android:layout_marginEnd="@dimen/space_medium"
+    app:cardBackgroundColor="@color/grey_0"
     app:cardCornerRadius="0dp"
     app:cardElevation="1dp"
-    tools:layout_margin="8dp"
+    tools:layout_margin="@dimen/space_medium"
     >
 
   <LinearLayout
@@ -38,18 +39,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="8dp"
+        android:padding="@dimen/space_medium"
         >
 
       <TextView
           android:id="@+id/tv_question"
+          style="@style/App.Text.Body.Emphasized.Two"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_gravity="center_vertical"
           android:layout_weight="1"
-          android:paddingEnd="8dp"
-          android:paddingStart="8dp"
-          android:textAppearance="?textAppearanceSubtitle1"
+          android:paddingStart="@dimen/space_medium"
+          android:paddingEnd="@dimen/space_medium"
           tools:text="Item Name"
           />
 
@@ -58,7 +59,7 @@
           android:layout_width="48dp"
           android:layout_height="48dp"
           android:background="?selectableItemBackground"
-          android:padding="8dp"
+          android:padding="@dimen/space_medium"
           android:src="@drawable/ic_expand_more"
           />
 
@@ -66,11 +67,11 @@
 
     <TextView
         android:id="@+id/tv_answer"
+        style="@style/App.Text.Body.Secondary.Two"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#DFDFDF"
-        android:padding="16dp"
-        android:textAppearance="?textAppearanceBody1"
+        android:background="@color/grey_300"
+        android:padding="@dimen/space_large"
         tools:text="Lorem ipsum dolar"
         />
 

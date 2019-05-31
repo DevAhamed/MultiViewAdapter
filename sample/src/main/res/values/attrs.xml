@@ -17,7 +17,7 @@
 
 <resources>
   <declare-styleable name="FeatureHeader">
-    <attr format="string" name="title"/>
-    <attr format="reference" name="icon"/>
+    <attr name="title" format="string"/>
+    <attr name="icon" format="reference"/>
   </declare-styleable>
 </resources>

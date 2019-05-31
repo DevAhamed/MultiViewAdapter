@@ -23,10 +23,13 @@
 
   <TextView
       android:id="@+id/tv_header"
+      style="@style/App.Text.SubTitle.One"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:padding="16dp"
-      android:textAppearance="?textAppearanceHeadline6"
+      android:layout_centerVertical="true"
+      android:layout_marginTop="@dimen/space_medium"
+      android:layout_marginBottom="@dimen/space_medium"
+      android:padding="@dimen/space_medium"
       tools:text="Sample Header"
       />
 
@@ -37,7 +40,7 @@
       android:layout_alignParentEnd="true"
       android:layout_centerVertical="true"
       android:background="?selectableItemBackground"
-      android:padding="12dp"
+      android:padding="@dimen/space_mid"
       android:src="@drawable/ic_shuffle"
       />
 

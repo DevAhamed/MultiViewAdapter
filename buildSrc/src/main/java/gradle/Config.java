@@ -24,12 +24,12 @@ public interface Config {
 
   String VERSION = "3.0.0";
   String APP_VERSION = VERSION + ".1";
-  String PRODUCTION_VERSION = VERSION + "-alpha01";
+  String PRODUCTION_VERSION = VERSION + "-alpha02";
   String SNAPSHOT_VERSION = VERSION + "-SNAPSHOT";
   int VERSION_CODE = 210200002;
 
   String APP_COMPAT = "androidx.appcompat:appcompat:1.0.2";
-  String DESIGN = "com.google.android.material:material:1.1.0-alpha05";
+  String DESIGN = "com.google.android.material:material:1.1.0-alpha06";
   String RECYCLER_VIEW = "androidx.recyclerview:recyclerview:1.0.0";
   String CARD_VIEW = "androidx.cardview:cardview:1.0.0";
   String SUPPORT_ANNOTATION = "androidx.annotations:annotations:1.0.2";

@@ -16,9 +16,9 @@
 
 package dev.ahamed.mva.sample.view.newsfeed;
 
-import androidx.recyclerview.widget.ItemTouchHelper;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import dev.ahamed.mva.sample.R;
 import dev.ahamed.mva.sample.data.model.NewsItem;
 

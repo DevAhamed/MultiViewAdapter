@@ -16,12 +16,13 @@
 
 package dev.ahamed.mva.sample.view.expansion;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.Spinner;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import dev.ahamed.mva.sample.R;
 import dev.ahamed.mva.sample.data.model.FaqItem;
 import dev.ahamed.mva.sample.data.model.Header;
+import dev.ahamed.mva.sample.view.SampleActivity;
 import dev.ahamed.mva.sample.view.common.BaseFragment;
 import dev.ahamed.mva.sample.view.common.CustomItemAnimator;
 import mva3.adapter.HeaderSection;
@@ -99,10 +100,10 @@ public class ExpansionSampleFragment extends BaseFragment {
   private void setUpAdapter() {
     LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 
+    recyclerView.setItemAnimator(new CustomItemAnimator(SampleActivity.TWO_DP));
     recyclerView.setAdapter(adapter);
     recyclerView.setLayoutManager(layoutManager);
     recyclerView.addItemDecoration(adapter.getItemDecoration());
-    recyclerView.setItemAnimator(new CustomItemAnimator());
 
     expandableHeaderSectionOne = new HeaderSection<>(new Header("Account"));
     expandableHeaderSectionTwo = new HeaderSection<>(new Header("Payment"));

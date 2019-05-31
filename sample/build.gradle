@@ -57,4 +57,5 @@ dependencies {
   implementation Config.RX_JAVA
   implementation Config.RX_ANDROID
   implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
+  implementation "com.mikepenz:itemanimators:1.1.0"
 }

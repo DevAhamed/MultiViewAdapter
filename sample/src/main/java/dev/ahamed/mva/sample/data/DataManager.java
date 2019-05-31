@@ -19,10 +19,11 @@ package dev.ahamed.mva.sample.data;
 import android.graphics.Color;
 import dev.ahamed.mva.sample.R;
 import dev.ahamed.mva.sample.data.model.ColoredItem;
+import dev.ahamed.mva.sample.data.model.Comment;
 import dev.ahamed.mva.sample.data.model.FaqItem;
-import dev.ahamed.mva.sample.data.model.MoviePosterItem;
 import dev.ahamed.mva.sample.data.model.NewsItem;
 import dev.ahamed.mva.sample.data.model.NumberItem;
+import dev.ahamed.mva.sample.data.model.Person;
 import dev.ahamed.mva.sample.data.model.SelectableItem;
 import dev.ahamed.mva.sample.data.model.TextItem;
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class DataManager {
       Color.parseColor("#FFAB91")
   };
   private static final int[] newsThumbnails = new int[] {
-      R.drawable.ic_circle, R.drawable.ic_heart, R.drawable.ic_star
+      R.drawable.ic_circle_variant, R.drawable.ic_heart, R.drawable.ic_star
   };
   private static String[] newsDummyTitles = {
       "Introducing new Android Excellence apps and games on Google Play ",
@@ -46,12 +47,6 @@ public class DataManager {
       "You can't rush perfection, but now you can file bugs against it ",
       "Announcing Apps for Android and Google developer podcast",
       "Congrats to the new Android Excellence apps and games on Google Play "
-  };
-  //private static String[] movieNames = {
-  //    "A", "B", "C", "D", "E", "F", "G", "H", "I"
-  //};
-  private static String[] movieNames = {
-      "A", "B", "C", "D"
   };
   private static String[] languages = {
       "Arabic", "English", "French", "Hindi", "Russian", "Spanish"
@@ -69,6 +64,51 @@ public class DataManager {
   private static String[] websites = {
       "Reddit", "Google News", "Yahoo News", "Huffington Post", "Reuters"
   };
+  private static String[] cast = {
+      "Tony Stark", "Hans Olo", "Alice", "Petey Cruiser"
+  };
+  private static String[] castOverline = {
+      "as ROBIN BANKS", "as LUKE WARM", "as MARIA HILL", "as PETE SARIYA"
+  };
+  private static String[] crew = {
+      "John Doe", "Jane Doe", "Mario Speedwagon", "Rick O'Shea"
+  };
+  private static String[] crewOverline = {
+      "DIRECTOR", "DIRECTOR", "WRITER", "WRITER"
+  };
+  private static String[] producer = {
+      "Monty Carlo", "Jimmy Changa", "Barry Wine", "Buster Hyman"
+  };
+  private static String[] producerOverline = {
+      "EXECUTIVE PRODUCER", "PRODUCER", "PRODUCER", "ASSOCIATE PRODUCER"
+  };
+  private static String[] authors = {
+      "Concurag", "CrazyBilki", "emakerOf", "patA1", "trollicon", "iAmThere", "silento",
+      "silentreader"
+  };
+  private static String[] comments = {
+      "You are so inspiring! Such illustration, many avatar, so sublime",
+      "Vastly sick notification :-) Just fab, friend.",
+      "Excellent =) I want to make love to the use of button and background image!",
+      "Sleek work you have here. Let me take a nap... great shot, anyway.",
+      "Nice use of violet in this shot :-) Mission accomplished. It's strong :-)",
+      "These are graceful and engaging mate", "I want to learn this kind of shot! Teach me. ",
+      "This shot has navigated right into my heart.",
+      "Immensely thought out! Excellent shot! Ahhhhhhh...",
+      "Nice use of light in this style dude, and Those icons blew my mind.",
+      "Button, gradient, boldness, texture – excellent =)",
+      "Sky blue. I wonder what would have happened if I made this",
+      "This work has navigated right into my heart.",
+      "Engaging. It keeps your mind occupied while you wait.",
+      "Background, hero, experience, colour – incredible :-)",
+      "Very thought out! I wonder what would have happened if I made this",
+      "Strong mate I approve the use of layout and lines!", "This is magical work :)",
+      "Classic animation! Just delightful!", "Nice use of magenta in this shapes!!"
+  };
+  private static String[] postedTime = {
+      "Yesterday", "12 hours ago", "5 hours ago", "2 hours ago", "1 hour ago", "5 minutes ago",
+      "2 minutes ago", "1 minute ago", "Just now"
+  };
   private final Random random = new Random();
 
   public List<FaqItem> getAccountFaq() {
@@ -81,12 +121,35 @@ public class DataManager {
     return items;
   }
 
+  public List<Person> getCast() {
+    List<Person> items = new ArrayList<>(cast.length);
+    int i = 0;
+    for (String name : cast) {
+      items.add(new Person(name, name.substring(0, 1), castOverline[i++]));
+    }
+    return items;
+  }
+
   public List<ColoredItem> getColoredItems(int count) {
     List<ColoredItem> coloredItems = new ArrayList<>(count);
     for (int i = 1; i <= count; i++) {
       coloredItems.add(new ColoredItem(i, newsColorsList[random.nextInt(9)]));
     }
     return coloredItems;
+  }
+
+  public List<Comment> getComments() {
+    int totalComments = random.nextInt(10) + 2;
+    return generateComment(totalComments, 0);
+  }
+
+  public List<Person> getCrew() {
+    List<Person> items = new ArrayList<>(crew.length);
+    int i = 0;
+    for (String name : crew) {
+      items.add(new Person(name, name.substring(0, 1), crewOverline[i++]));
+    }
+    return items;
   }
 
   public List<SelectableItem> getLanguages() {
@@ -106,14 +169,6 @@ public class DataManager {
     return items;
   }
 
-  public List<MoviePosterItem> getMovies() {
-    List<MoviePosterItem> textItems = new ArrayList<>(movieNames.length);
-    for (String movieName : movieNames) {
-      textItems.add(new MoviePosterItem(movieName, newsColorsList[random.nextInt(9)]));
-    }
-    return textItems;
-  }
-
   public List<NewsItem> getNewsList(boolean isOffline) {
     List<NewsItem> numberItems = new ArrayList<>(5);
     for (int i = 0; i < 5; i++) {
@@ -121,7 +176,7 @@ public class DataManager {
       numberItems.add(new NewsItem(i, newsSource == 0 ? "Umbrella News" : "Fake News",
           newsSource == 0 ? R.drawable.ic_umbrella : R.drawable.ic_fake_news,
           Color.parseColor(newsSource == 0 ? "#01CC9D" : "#FE1743"),
-          newsThumbnails[random.nextInt(2)], newsColorsList[random.nextInt(9)], newsDummyTitles[i],
+          newsThumbnails[random.nextInt(3)], newsColorsList[random.nextInt(9)], newsDummyTitles[i],
           "14-July-2018", isOffline));
     }
     return numberItems;
@@ -158,6 +213,15 @@ public class DataManager {
     return items;
   }
 
+  public List<Person> getProducers() {
+    List<Person> items = new ArrayList<>(producer.length);
+    int i = 0;
+    for (String name : producer) {
+      items.add(new Person(name, name.substring(0, 1), producerOverline[i++]));
+    }
+    return items;
+  }
+
   public List<SelectableItem> getTelevisionChannels() {
     List<SelectableItem> items = new ArrayList<>(televisions.length);
     for (String channel : televisions) {
@@ -188,5 +252,21 @@ public class DataManager {
       items.add(new SelectableItem(R.drawable.ic_web, R.color.sample_color_three, website));
     }
     return items;
+  }
+
+  private List<Comment> generateComment(int count, int level) {
+    if (level > 7) {
+      return new ArrayList<>();
+    }
+    List<Comment> comments = new ArrayList<>();
+    for (int i = 0; i < count; i++) {
+      comments.add(generateComment(level));
+    }
+    return comments;
+  }
+
+  private Comment generateComment(int level) {
+    return new Comment(authors[random.nextInt(8)], comments[random.nextInt(20)],
+        postedTime[random.nextInt(2) + level], generateComment(random.nextInt(5), level + 1));
   }
 }

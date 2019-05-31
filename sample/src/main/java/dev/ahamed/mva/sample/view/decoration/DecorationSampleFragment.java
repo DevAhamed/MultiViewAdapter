@@ -16,59 +16,43 @@
 
 package dev.ahamed.mva.sample.view.decoration;
 
-import androidx.recyclerview.widget.GridLayoutManager;
 import android.view.View;
 import android.widget.CheckedTextView;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import dev.ahamed.mva.sample.R;
 import dev.ahamed.mva.sample.data.model.Header;
-import dev.ahamed.mva.sample.data.model.MoviePosterItem;
+import dev.ahamed.mva.sample.data.model.Person;
 import dev.ahamed.mva.sample.view.SampleActivity;
 import dev.ahamed.mva.sample.view.common.BaseFragment;
-import dev.ahamed.mva.sample.view.common.HeaderItemBinder;
 import mva3.adapter.HeaderSection;
-import mva3.extension.decorator.InsetDecoration;
 
 public class DecorationSampleFragment extends BaseFragment {
 
-  private final MoviePosterItemBinder moviePosterBinder = new MoviePosterItemBinder();
-  private final HeaderItemBinder decoratedHeaderBinder = new HeaderItemBinder();
-  private HeaderSection<Header, MoviePosterItem> trendingMovies;
-  private HeaderSection<Header, MoviePosterItem> latestMovies;
-  private HeaderSection<Header, MoviePosterItem> upcomingMovies;
-  private CheckedTextView cbEnableTrendingSectionDecoration;
-  private CheckedTextView cbEnableLatestSectionDecoration;
-  private CheckedTextView cbEnableUpcomingSectionDecoration;
+  private HeaderSection<Header, Person> castSection;
+  private HeaderSection<Header, Person> crewSection;
+  private HeaderSection<Header, Person> producerSection;
+  private CheckedTextView cbEnableSectionDecoration;
   private CheckedTextView cbEnableItemDecoration;
   private CheckedTextView cbEnableHeaderDecoration;
-  private CheckedTextView cbEnableBorder;
-  private CheckedTextView cbEnableInset;
+  private PersonBinder personBinder;
+  private HeaderBinder headerBinder;
 
   public DecorationSampleFragment() {
   }
 
   @Override public void initViews(View view) {
-    cbEnableTrendingSectionDecoration = view.findViewById(R.id.cb_trending_decoration);
-    cbEnableLatestSectionDecoration = view.findViewById(R.id.cb_latest_decoration);
-    cbEnableUpcomingSectionDecoration = view.findViewById(R.id.cb_upcoming_decoration);
-
-    cbEnableItemDecoration = view.findViewById(R.id.cb_movie_decoration);
+    cbEnableSectionDecoration = view.findViewById(R.id.cb_section_decoration);
+    cbEnableItemDecoration = view.findViewById(R.id.cb_item_decoration);
     cbEnableHeaderDecoration = view.findViewById(R.id.cb_header_decoration);
-
-    cbEnableBorder = view.findViewById(R.id.cb_enable_borders);
-    cbEnableInset = view.findViewById(R.id.cb_enable_inset);
 
     View.OnClickListener onClickListener = v -> {
       CheckedTextView checkedTextView = (CheckedTextView) v;
       checkedTextView.setChecked(!checkedTextView.isChecked());
     };
 
-    cbEnableTrendingSectionDecoration.setOnClickListener(onClickListener);
-    cbEnableLatestSectionDecoration.setOnClickListener(onClickListener);
-    cbEnableUpcomingSectionDecoration.setOnClickListener(onClickListener);
+    cbEnableSectionDecoration.setOnClickListener(onClickListener);
     cbEnableItemDecoration.setOnClickListener(onClickListener);
     cbEnableHeaderDecoration.setOnClickListener(onClickListener);
-    cbEnableBorder.setOnClickListener(onClickListener);
-    cbEnableInset.setOnClickListener(onClickListener);
 
     setUpAdapter();
   }
@@ -78,13 +62,9 @@ public class DecorationSampleFragment extends BaseFragment {
   }
 
   @Override public void resetConfiguration() {
-    cbEnableTrendingSectionDecoration.setChecked(true);
-    cbEnableLatestSectionDecoration.setChecked(true);
-    cbEnableUpcomingSectionDecoration.setChecked(true);
+    cbEnableSectionDecoration.setChecked(true);
     cbEnableItemDecoration.setChecked(true);
     cbEnableHeaderDecoration.setChecked(true);
-    cbEnableBorder.setChecked(true);
-    cbEnableInset.setChecked(true);
 
     updateConfiguration();
   }
@@ -92,61 +72,52 @@ public class DecorationSampleFragment extends BaseFragment {
   @Override public void updateConfiguration() {
     recyclerView.invalidateItemDecorations();
 
-    trendingMovies.removeAllDecorators();
-    latestMovies.removeAllDecorators();
-    upcomingMovies.removeAllDecorators();
-    moviePosterBinder.removeAllDecorators();
-    decoratedHeaderBinder.removeAllDecorators();
+    castSection.removeAllDecorators();
+    crewSection.removeAllDecorators();
+    producerSection.removeAllDecorators();
 
-    boolean enableTrendingMoviesDecoration = cbEnableTrendingSectionDecoration.isChecked();
-    boolean enableLatestMoviesDecoration = cbEnableLatestSectionDecoration.isChecked();
-    boolean enableUpcomingMoviesDecoration = cbEnableUpcomingSectionDecoration.isChecked();
-    boolean enableItemDecoration = cbEnableItemDecoration.isChecked();
-    boolean enableHeaderDecoration = cbEnableHeaderDecoration.isChecked();
-    boolean showBorders = cbEnableBorder.isChecked();
-    boolean addInset = cbEnableInset.isChecked();
-
-    if (enableTrendingMoviesDecoration) {
-      trendingMovies.addDecorator(new MovieSectionDecoration(adapter, addInset, showBorders));
-    }
-    if (enableLatestMoviesDecoration) {
-      latestMovies.addDecorator(new MovieSectionDecoration(adapter, addInset, showBorders));
-    }
-    if (enableUpcomingMoviesDecoration) {
-      upcomingMovies.addDecorator(new MovieSectionDecoration(adapter, addInset, showBorders));
+    if (cbEnableSectionDecoration.isChecked()) {
+      castSection.addDecorator(
+          new SectionDecorator(adapter, getContext(), SampleActivity.EIGHT_DP));
+      crewSection.addDecorator(
+          new SectionDecorator(adapter, getContext(), SampleActivity.EIGHT_DP));
+      producerSection.addDecorator(
+          new SectionDecorator(adapter, getContext(), SampleActivity.EIGHT_DP));
     }
 
-    if (enableItemDecoration) {
-      moviePosterBinder.addDecorator(new InsetDecoration(adapter, SampleActivity.DP_EIGHT));
+    personBinder.removeAllDecorators();
+    if (cbEnableItemDecoration.isChecked()) {
+      personBinder.addDecorator(
+          new DividerDecorator(adapter, getContext(), false, SampleActivity.TWO_DP * 36));
     }
 
-    if (enableHeaderDecoration) {
-      decoratedHeaderBinder.addDecorator(new InsetDecoration(adapter, SampleActivity.DP_EIGHT));
+    headerBinder.removeAllDecorators();
+    if (cbEnableHeaderDecoration.isChecked()) {
+      headerBinder.addDecorator(new DividerDecorator(adapter, getContext()));
     }
   }
 
   private void setUpAdapter() {
-    moviePosterBinder.addDecorator(new InsetDecoration(adapter, SampleActivity.DP_EIGHT));
-
-    GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
-    adapter.setSpanCount(2);
-    layoutManager.setSpanSizeLookup(adapter.getSpanSizeLookup());
+    LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 
     recyclerView.setAdapter(adapter);
     recyclerView.setLayoutManager(layoutManager);
     recyclerView.addItemDecoration(adapter.getItemDecoration());
 
-    trendingMovies = new HeaderSection<>(new Header("Trending Movies"));
-    latestMovies = new HeaderSection<>(new Header("Latest Movies"));
-    upcomingMovies = new HeaderSection<>(new Header("Upcoming Movies"));
+    castSection = new HeaderSection<>(new Header("Cast"));
+    crewSection = new HeaderSection<>(new Header("Crew"));
+    producerSection = new HeaderSection<>(new Header("Producers"));
 
-    adapter.registerItemBinders(moviePosterBinder, decoratedHeaderBinder);
-    adapter.addSection(trendingMovies);
-    adapter.addSection(latestMovies);
-    adapter.addSection(upcomingMovies);
+    headerBinder = new HeaderBinder();
+    personBinder = new PersonBinder();
 
-    trendingMovies.getListSection().set(dataManager.getMovies());
-    latestMovies.getListSection().set(dataManager.getMovies());
-    upcomingMovies.getListSection().set(dataManager.getMovies());
+    adapter.registerItemBinders(personBinder, headerBinder);
+    adapter.addSection(castSection);
+    adapter.addSection(crewSection);
+    adapter.addSection(producerSection);
+
+    castSection.getListSection().set(dataManager.getCast());
+    crewSection.getListSection().set(dataManager.getCrew());
+    producerSection.getListSection().set(dataManager.getProducers());
   }
 }
