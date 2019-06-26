@@ -35,11 +35,11 @@ public class MultiViewAdapterTest extends BaseTest {
     assertEquals(adapter.getItemCount(), 57);
 
     // Add an item to a section and check
-    headerSection2.getListSection().add(new TestItem(100, "Test Item 101"));
+    listSection4.add(new TestItem(100, "Test Item 101"));
     assertEquals(adapter.getItemCount(), 58);
 
     // Remove an item to a section and check
-    headerSection1.getListSection().remove(5);
+    listSection2.remove(5);
     assertEquals(adapter.getItemCount(), 57);
 
     // Hide a section and check the count
@@ -201,9 +201,9 @@ public class MultiViewAdapterTest extends BaseTest {
     adapter.clearAllSelections();
 
     assertEquals(listSection1.getSelectedItems().size(), 0);
-    assertEquals(headerSection1.getListSection().getSelectedItems().size(), 0);
+    assertEquals(listSection2.getSelectedItems().size(), 0);
     assertEquals(listSection3.getSelectedItems().size(), 0);
-    assertEquals(headerSection2.getListSection().getSelectedItems().size(), 0);
+    assertEquals(listSection4.getSelectedItems().size(), 0);
   }
 
   @Test public void removeAllSections_test() {

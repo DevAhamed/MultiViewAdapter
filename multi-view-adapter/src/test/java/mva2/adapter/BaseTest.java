@@ -17,10 +17,10 @@
 package mva2.adapter;
 
 import android.graphics.Canvas;
-import android.view.View;
-import android.view.ViewGroup;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SpanSizeLookup;
+import android.view.View;
+import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 import mva2.adapter.testconfig.AdapterDataObserver;
@@ -100,10 +100,12 @@ import org.mockito.Spy;
 
   protected ItemSection<Header> itemSection1;
   protected ListSection<TestItem> listSection1;
-  protected HeaderSection<Header, TestItem> headerSection1;
+  protected HeaderSection<Header> headerSection1;
+  protected ListSection<TestItem> listSection2;
   protected ItemSection<Header> itemSection3;
   protected ListSection<TestItem> listSection3;
-  protected HeaderSection<Header, TestItem> headerSection2;
+  protected HeaderSection<Header> headerSection2;
+  protected ListSection<TestItem> listSection4;
   protected NestedSection nestedSection1;
   protected TreeSection<Comment> treeSection1;
   protected TreeSection<Comment> treeSection2;
@@ -125,9 +127,13 @@ import org.mockito.Spy;
     itemSection1 = new ItemSection<>();
     listSection1 = new ListSection<>();
     headerSection1 = new HeaderSection<>(new Header("ItemSection2"));
+    listSection2 = new ListSection<>();
+    headerSection1.addSection(listSection2);
     itemSection3 = new ItemSection<>();
     listSection3 = new ListSection<>();
     headerSection2 = new HeaderSection<>();
+    listSection4 = new ListSection<>();
+    headerSection2.addSection(listSection4);
     nestedSection1 = new NestedSection();
 
     headerSection1.setSpanCount(3);
@@ -157,7 +163,7 @@ import org.mockito.Spy;
     for (int i = 20; i <= 28; i++) {
       testItemList2.add(new TestItem(i, "Test Item  " + i));
     }
-    headerSection1.getListSection().set(testItemList2);
+    listSection2.set(testItemList2);
 
     // NESTED SECTION 1
     itemSection3.setItem(new Header("ItemSection1"));
@@ -172,7 +178,7 @@ import org.mockito.Spy;
     for (int i = 40; i <= 48; i++) {
       testItemList4.add(new TestItem(i, "Test Item  " + i));
     }
-    headerSection2.getListSection().set(testItemList4);
+    listSection4.set(testItemList4);
 
     // TREE SECTION 1
     treeSection1 = new TreeSection<>(new Comment(49, "Author 49", "Comment 49"), true);

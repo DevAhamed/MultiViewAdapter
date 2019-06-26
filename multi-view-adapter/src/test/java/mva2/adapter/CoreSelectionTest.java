@@ -124,7 +124,7 @@ import static org.mockito.Mockito.verify;
   @Test public void selectionModeTest_SectionSingle() {
     adapter.setSelectionMode(Mode.MULTIPLE);
     listSection1.setSelectionMode(Mode.SINGLE);
-    headerSection1.getListSection().setSelectionMode(Mode.SINGLE);
+    listSection2.setSelectionMode(Mode.SINGLE);
     adapter.onItemSelectionToggled(1);
     assertTrue(adapter.isItemSelected(1));
 
@@ -141,7 +141,7 @@ import static org.mockito.Mockito.verify;
   @Test public void selectionModeTest_SectionSingle_1() {
     adapter.setSelectionMode(Mode.MULTIPLE);
     listSection1.setSelectionMode(Mode.SINGLE);
-    headerSection1.getListSection().setSelectionMode(Mode.SINGLE);
+    listSection2.setSelectionMode(Mode.SINGLE);
 
     adapter.onItemSelectionToggled(22);
     assertTrue(adapter.isItemSelected(22));
@@ -180,7 +180,7 @@ import static org.mockito.Mockito.verify;
   @Test public void selectionModeTest_Notify() {
     adapter.setSelectionMode(Mode.MULTIPLE);
     listSection1.setSelectionMode(Mode.MULTIPLE);
-    headerSection1.getListSection().setSelectionMode(Mode.MULTIPLE);
+    listSection2.setSelectionMode(Mode.MULTIPLE);
 
     adapter.onItemSelectionToggled(1);
     adapter.onItemSelectionToggled(41);

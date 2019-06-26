@@ -127,7 +127,7 @@ import static junit.framework.Assert.assertTrue;
   @Test public void selectionModeTest_SectionSingle() {
     adapter.setExpansionMode(Mode.MULTIPLE);
     listSection1.setExpansionMode(Mode.SINGLE);
-    headerSection1.getListSection().setExpansionMode(Mode.SINGLE);
+    listSection2.setExpansionMode(Mode.SINGLE);
     adapter.onItemExpansionToggled(1);
     assertTrue(adapter.isItemExpanded(1));
 
@@ -144,7 +144,7 @@ import static junit.framework.Assert.assertTrue;
   @Test public void selectionModeTest_SectionSingle_1() {
     adapter.setExpansionMode(Mode.MULTIPLE);
     listSection1.setExpansionMode(Mode.SINGLE);
-    headerSection1.getListSection().setExpansionMode(Mode.SINGLE);
+    listSection2.setExpansionMode(Mode.SINGLE);
 
     adapter.onItemExpansionToggled(22);
     assertTrue(adapter.isItemExpanded(22));
