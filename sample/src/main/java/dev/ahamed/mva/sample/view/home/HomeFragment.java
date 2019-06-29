@@ -131,7 +131,7 @@ public class HomeFragment extends Fragment {
         "Do you want a section which directly accepts observable? Do you want your "
             + "viewholder to directly support ButterKnife?\nNow write your own extension. The "
             + "library has very good api set to utilise and build your own extension.\nTake a look "
-            + "at DataBinding extension for getting started."));
+            + "at DataBinding extension or RxDiffUtil extension for getting started."));
 
     return features;
   }

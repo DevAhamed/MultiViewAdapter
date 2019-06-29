@@ -29,8 +29,8 @@ public class InsetFrameLayout extends FrameLayout {
     context.getTheme().resolveAttribute(R.attr.actionBarSize, typedValue, true);
     int actionBarSize = (int) getResources().getDimension(typedValue.resourceId);
     setOnApplyWindowInsetsListener((v, insets) -> {
-      //v.setPadding(0, insets.getSystemWindowInsetTop() + actionBarSize, 0,
-      //    insets.getSystemWindowInsetBottom() + actionBarSize);
+      v.setPadding(insets.getSystemWindowInsetLeft(), 0,
+          insets.getSystemWindowInsetRight(), 0);
       return insets;
     });
   }
