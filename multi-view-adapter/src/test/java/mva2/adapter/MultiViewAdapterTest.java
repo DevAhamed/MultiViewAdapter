@@ -172,6 +172,8 @@ public class MultiViewAdapterTest extends BaseTest {
   @Test public void collapseAll_test() {
     adapter.collapseAllSections();
     assertEquals(adapter.getItemCount(), 32);
+    assertFalse(adapter.isSectionExpanded(19));
+    assertFalse(adapter.isSectionExpanded(30));
   }
 
   @Test public void clearSelections_test() {
@@ -204,6 +206,46 @@ public class MultiViewAdapterTest extends BaseTest {
     assertEquals(listSection2.getSelectedItems().size(), 0);
     assertEquals(listSection3.getSelectedItems().size(), 0);
     assertEquals(listSection4.getSelectedItems().size(), 0);
+  }
+
+  @Test public void clearItemExpansions_test() {
+    // Expand multiple items from different sections
+    // Collapse all items
+    // Check the expanded items from different section
+
+    adapter.setExpansionMode(Mode.MULTIPLE);
+
+    adapter.onItemExpansionToggled(0);
+
+    adapter.onItemExpansionToggled(1);
+    adapter.onItemExpansionToggled(2);
+    adapter.onItemExpansionToggled(3);
+    adapter.onItemExpansionToggled(4);
+
+    adapter.onItemExpansionToggled(20);
+    adapter.onItemExpansionToggled(21);
+
+    adapter.onItemExpansionToggled(34);
+    adapter.onItemExpansionToggled(35);
+    adapter.onItemExpansionToggled(44);
+    adapter.onItemExpansionToggled(45);
+
+    adapter.collapseAllItems();
+
+    assertFalse(adapter.isItemExpanded(0));
+
+    assertFalse(adapter.isItemExpanded(1));
+    assertFalse(adapter.isItemExpanded(2));
+    assertFalse(adapter.isItemExpanded(3));
+    assertFalse(adapter.isItemExpanded(4));
+
+    assertFalse(adapter.isItemExpanded(20));
+    assertFalse(adapter.isItemExpanded(21));
+
+    assertFalse(adapter.isItemExpanded(34));
+    assertFalse(adapter.isItemExpanded(35));
+    assertFalse(adapter.isItemExpanded(44));
+    assertFalse(adapter.isItemExpanded(45));
   }
 
   @Test public void removeAllSections_test() {

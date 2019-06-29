@@ -32,15 +32,15 @@ import mva2.adapter.util.Mode;
  */
 @SuppressWarnings("ConstantConditions") public class ItemSection<M> extends Section {
 
-  private M item;
-  private ItemMetaData itemMetaData;
+  @Nullable private M item;
+  @Nullable private ItemMetaData itemMetaData;
 
   /**
    * No-arg constructor for ItemSection. This sets the {@link ItemSection#item} as null. This
    * results the item not to be displayed in the recyclerview. Call {@link
    * ItemSection#setItem(Object)} to set the item.
    */
-  @SuppressWarnings("WeakerAccess") public ItemSection() {
+  public ItemSection() {
   }
 
   /**
@@ -48,9 +48,8 @@ import mva2.adapter.util.Mode;
    *
    * @param item Item that needs to be set for this ItemSection.
    */
-  public ItemSection(M item) {
-    this.item = item;
-    this.itemMetaData = new ItemMetaData();
+  public ItemSection(@NonNull M item) {
+    setItem(item);
   }
 
   /**
@@ -112,16 +111,16 @@ import mva2.adapter.util.Mode;
   }
 
   @Override boolean isItemSelected(int adapterPosition) {
-    return itemMetaData.isSelected();
+    return null != itemMetaData && itemMetaData.isSelected();
   }
 
   @Override void onItemSelectionToggled(int itemPosition, @NonNull Mode selectionMode) {
     if (itemPosition < getCount()) {
       Mode modeToHonor = getModeToHonor(selectionMode, this.selectionMode);
-      if (modeToHonor == Mode.SINGLE && itemMetaData.isSelected()) {
+      if (modeToHonor == Mode.SINGLE && null != itemMetaData && itemMetaData.isSelected()) {
         itemMetaData.setSelected(!itemMetaData.isSelected());
         onChanged(0, 1, SELECTION_PAYLOAD);
-      } else if (itemPosition < getCount() && itemPosition >= 0) {
+      } else if (itemPosition < getCount() && itemPosition >= 0 && null != itemMetaData) {
         itemMetaData.setSelected(!itemMetaData.isSelected());
         onChanged(0, 1, SELECTION_PAYLOAD);
       }
@@ -129,7 +128,7 @@ import mva2.adapter.util.Mode;
   }
 
   @Override void clearAllSelections() {
-    if (itemMetaData.isSelected()) {
+    if (null != itemMetaData && itemMetaData.isSelected()) {
       itemMetaData.setSelected(!itemMetaData.isSelected());
       if (isItemShowing()) {
         onChanged(0, 1, SELECTION_PAYLOAD);
@@ -144,10 +143,10 @@ import mva2.adapter.util.Mode;
   @Override void onItemExpansionToggled(int itemPosition, @NonNull Mode selectionMode) {
     if (itemPosition < getCount()) {
       Mode modeToHonor = getModeToHonor(selectionMode, this.expansionMode);
-      if (modeToHonor == Mode.SINGLE && itemMetaData.isExpanded()) {
+      if (modeToHonor == Mode.SINGLE && null != itemMetaData && itemMetaData.isExpanded()) {
         itemMetaData.setExpanded(!itemMetaData.isExpanded());
         onChanged(0, 1, ITEM_EXPANSION_PAYLOAD);
-      } else if (itemPosition < getCount() && itemPosition >= 0) {
+      } else if (itemPosition < getCount() && itemPosition >= 0 && null != itemMetaData) {
         itemMetaData.setExpanded(!itemMetaData.isExpanded());
         onChanged(0, 1, ITEM_EXPANSION_PAYLOAD);
       }
@@ -155,7 +154,7 @@ import mva2.adapter.util.Mode;
   }
 
   @Override void collapseAllItems() {
-    if (itemMetaData.isExpanded()) {
+    if (null != itemMetaData && itemMetaData.isExpanded()) {
       itemMetaData.setExpanded(!itemMetaData.isExpanded());
       if (isItemShowing()) {
         onChanged(0, 1, ITEM_EXPANSION_PAYLOAD);
