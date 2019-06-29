@@ -16,9 +16,19 @@
 
 package mva2.adapter.util;
 
+import mva2.adapter.ItemSection;
+import mva2.adapter.ItemViewHolder;
+import mva2.adapter.ListSection;
+
 /**
+ * This interface lets you listen to the click event of the items inside the ListSection or
+ * ItemSection. You can attach this listener to the section and listen for click events. To pass
+ * down the click events to this interface call {@link ItemViewHolder#onClick()} method.
  *
- * @param <M>
+ * @param <M> Model used in the {@link ListSection} or {@link ItemSection} where this listener is
+ *            attached.
+ *
+ * @see ItemViewHolder#onClick()
  */
 public interface OnItemClickListener<M> {
 
