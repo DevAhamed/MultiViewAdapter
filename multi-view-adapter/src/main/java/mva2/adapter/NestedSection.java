@@ -258,9 +258,7 @@ public class NestedSection extends Section implements Notifier {
 
   @Override int onSectionExpansionToggled(int itemPosition, @NonNull Mode sectionExpansionMode) {
     Mode mode = getModeToHonor(sectionExpansionMode, this.sectionExpansionMode);
-    if (itemPosition < getCount() && itemPosition >= 0) {
-      onChildSectionExpansionToggled(itemPosition, mode);
-    }
+    onChildSectionExpansionToggled(itemPosition, mode);
     return itemPosition - getCount();
   }
 

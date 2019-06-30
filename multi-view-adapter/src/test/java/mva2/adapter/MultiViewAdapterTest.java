@@ -17,15 +17,21 @@
 package mva2.adapter;
 
 import mva2.adapter.testconfig.CommentBinder;
+import mva2.adapter.testconfig.Header;
 import mva2.adapter.testconfig.HeaderBinder;
 import mva2.adapter.testconfig.TestItem;
 import mva2.adapter.testconfig.TestItemBinder;
 import mva2.adapter.util.Mode;
+import mva2.adapter.util.OnItemClickListener;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -256,5 +262,12 @@ public class MultiViewAdapterTest extends BaseTest {
 
     adapter.addSection(new ListSection<>());
     assertEquals(adapter.getItemCount(), 0);
+  }
+
+  @Test public void onItemClicked_test() {
+    OnItemClickListener<Header> listener = Mockito.mock(OnItemClickListener.class);
+    itemSection1.setOnItemClickListener(listener);
+    adapter.onItemClicked(0);
+    verify(listener, times(1)).onItemClicked(anyInt(), any(Header.class));
   }
 }

@@ -104,7 +104,7 @@ public class ItemViewHolder<M> extends RecyclerView.ViewHolder {
    * If you set the {@link OnItemClickListener} for your ListSection, call this method to get
    * notified.
    */
-  public void onClick() {
+  public void onItemClick() {
     adapter.onItemClicked(getAdapterPosition());
   }
 

@@ -23,6 +23,7 @@ import mva2.adapter.decorator.PositionType;
 import mva2.adapter.internal.ItemMetaData;
 import mva2.adapter.internal.RecyclerItem;
 import mva2.adapter.util.Mode;
+import mva2.adapter.util.OnItemClickListener;
 
 /**
  * Section which displays a single item inside the RecyclerView. For example, ItemSection can be
@@ -34,6 +35,7 @@ import mva2.adapter.util.Mode;
 
   @Nullable private M item;
   @Nullable private ItemMetaData itemMetaData;
+  @Nullable private OnItemClickListener<M> onItemClickListener;
 
   /**
    * No-arg constructor for ItemSection. This sets the {@link ItemSection#item} as null. This
@@ -94,6 +96,16 @@ import mva2.adapter.util.Mode;
     }
   }
 
+  /**
+   * Set the listener to get callback when an item is clicked inside the section. To invoke this
+   * listener, you need to call {@link ItemViewHolder#onItemClick()}
+   *
+   * @param onItemClickListener Listener to be set
+   */
+  public void setOnItemClickListener(@Nullable OnItemClickListener<M> onItemClickListener) {
+    this.onItemClickListener = onItemClickListener;
+  }
+
   //////////////////////////////////////////////////////////////////////////////////////
   /// ------------------------------------------------------------------------------ ///
   /// ---------------------  CAUTION : INTERNAL METHODS AHEAD  --------------------- ///
@@ -101,6 +113,12 @@ import mva2.adapter.util.Mode;
   /// -------------  SUBJECT TO CHANGE WITHOUT BACKWARD COMPATIBILITY -------------- ///
   /// ------------------------------------------------------------------------------ ///
   //////////////////////////////////////////////////////////////////////////////////////
+
+  @Override void onItemClicked(int position) {
+    if (null != onItemClickListener && position == 0 && getCount() > 0) {
+      onItemClickListener.onItemClicked(position, item);
+    }
+  }
 
   @Override Object getItem(int position) {
     return item;

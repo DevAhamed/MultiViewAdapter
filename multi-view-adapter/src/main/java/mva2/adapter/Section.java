@@ -237,6 +237,7 @@ public abstract class Section implements ListUpdateCallback {
   public void showSection() {
     if (isSectionHidden) {
       isSectionHidden = false;
+      onDataSetChanged();
       onInserted(0, getCount());
     }
   }
