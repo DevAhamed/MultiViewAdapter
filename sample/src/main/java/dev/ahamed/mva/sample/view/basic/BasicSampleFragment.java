@@ -91,7 +91,8 @@ public class BasicSampleFragment extends BaseFragment {
     adapter.removeAllSections();
 
     if (PreferenceManager.getDefaultSharedPreferences(requireContext().getApplicationContext())
-        .getBoolean(SampleActivity.PREFS_HINT_ENABLED, true)) {
+        .getBoolean(SampleActivity.PREFS_HINT_ENABLED, true)
+        && spinnerOrientation.getSelectedItemPosition() == 0) {
       adapter.registerItemBinders(new HintBinder());
       adapter.addSection(new ItemSection<>(new Hint(getHint())));
       adapter.getItemTouchHelper().attachToRecyclerView(recyclerView);

@@ -75,7 +75,7 @@ The library is available via JCenter. JCenter is the default maven repository us
 
 ```gradle
 dependencies {
-    implementation 'dev.ahamed.mva3:adapter:3.0.0-alpha02'
+    implementation 'dev.ahamed.mva3:adapter:3.0.0-beta01'
 }
 ```
 
@@ -85,9 +85,9 @@ dependencies {
 
 ```gradle
 dependencies {
-    implementation 'dev.ahamed.mva3:ext-databinding:3.0.0-alpha02'  // DataBinding
-    implementation 'dev.ahamed.mva3:ext-decorator:3.0.0-alpha02'    // Decorators
-    implementation 'dev.ahamed.mva3:ext-diffutil-rx:3.0.0-alpha02'  // RxDiffUtil
+    implementation 'dev.ahamed.mva3:ext-databinding:3.0.0-beta01'  // DataBinding
+    implementation 'dev.ahamed.mva3:ext-decorator:3.0.0-beta01'    // Decorators
+    implementation 'dev.ahamed.mva3:ext-diffutil-rx:3.0.0-beta01'  // RxDiffUtil
 }
 ```
 
@@ -426,6 +426,26 @@ The library allows you to draw decoration for individual items or sections. You 
 ---
 
 ## Changelog
+
+### v3.0.0-beta01
+
+|Type|Stability|Date|
+|---|---|---|
+|Major|Beta|3-July-2019|
+
+All public API's are finalized for v3.0.0 release, only bug fixes will be added in further beta's.
+
+#### Features added
+
+* Added ``OnItemClickListener`` method inside the ItemSection class.
+
+#### Bug fixes
+
+* Fixed NPE thrown by ItemSection when the item is null and expansion/selection is toggled.
+
+#### Behavior Changes
+
+* HeaderSection is has been changed to host ItemSection and NestedSection. Previously it was hosting ItemSection and ListSection.
 
 ### v3.0.0-alpha02
 

@@ -80,7 +80,6 @@ public abstract class Section implements ListUpdateCallback {
   private int spanCount = Integer.MAX_VALUE;
   private List<Decorator> decorators = new ArrayList<>();
   private Notifier notifier;
-  private boolean isSectionExpanded = true;
   private boolean isSectionHidden = false;
 
   /**
@@ -238,6 +237,7 @@ public abstract class Section implements ListUpdateCallback {
   public void showSection() {
     if (isSectionHidden) {
       isSectionHidden = false;
+      onDataSetChanged();
       onInserted(0, getCount());
     }
   }
@@ -287,7 +287,7 @@ public abstract class Section implements ListUpdateCallback {
   }
 
   boolean isSectionVisible() {
-    return isSectionExpanded() && !isSectionHidden;
+    return !isSectionHidden;
   }
 
   void setNotifier(Notifier notifier) {
@@ -296,14 +296,6 @@ public abstract class Section implements ListUpdateCallback {
 
   Notifier getNotifier() {
     return notifier;
-  }
-
-  boolean isSectionExpanded() {
-    return isSectionExpanded;
-  }
-
-  void setSectionExpanded(boolean isSectionExpanded) {
-    this.isSectionExpanded = isSectionExpanded;
   }
 
   void collapseSection() {
@@ -315,8 +307,8 @@ public abstract class Section implements ListUpdateCallback {
   }
 
   SectionPositionType getSectionPositionType(int adapterPosition, int sectionPosition, int size) {
-    return sectionPosition == 0 ? SectionPositionType.FIRST
-        : size - 1 == sectionPosition ? SectionPositionType.LAST : SectionPositionType.MIDDLE;
+    return size - 1 == sectionPosition ? SectionPositionType.LAST
+        : sectionPosition == 0 ? SectionPositionType.FIRST : SectionPositionType.MIDDLE;
   }
 
   void drawDecoration(int itemPosition, @NonNull Canvas canvas, @NonNull RecyclerView parent,

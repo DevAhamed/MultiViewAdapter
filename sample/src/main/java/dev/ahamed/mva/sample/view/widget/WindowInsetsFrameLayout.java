@@ -33,9 +33,9 @@ public class WindowInsetsFrameLayout extends FrameLayout {
 
   @Override public WindowInsets onApplyWindowInsets(WindowInsets insets) {
     int childCount = getChildCount();
-    for (int index = 0; index < childCount; index++)
+    for (int index = 0; index < childCount; index++) {
       getChildAt(index).dispatchApplyWindowInsets(insets);
-
+    }
     return insets;
   }
 }

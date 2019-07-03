@@ -25,43 +25,41 @@ import static mva3.adapter.decorator.PositionType.BOTTOM;
 import static mva3.adapter.decorator.PositionType.TOP;
 
 /**
- * Displays list of items along with a header and has collapsing/expanding feature.
+ * Displays list of items or section of items along with a header and has collapsing/expanding
+ * feature.
  *
  * <p>
  *
  * Section to display list of items with a header. Internally it comprises of an ItemSection and
- * ListSection. HeaderSection can be used with GridLayoutManager or LinearLayoutManager
+ * NestedSection. HeaderSection can be used with GridLayoutManager or LinearLayoutManager
  *
  * <p>
  *
- * It provides the collapsing and expanding feature. If the section is collapsed the getCount() will
- * return 1. To collapse the section call {@link ItemViewHolder#toggleSectionExpansion()}.
+ * It provides the collapsing and expanding feature. If the section is collapsed the getCount()
+ * will return 1. To collapse or expand the section call
+ * {@link ItemViewHolder#toggleSectionExpansion()}.
  *
  * @param <H> The header item object
- * @param <M> The list item object
  *
  * @see MultiViewAdapter#setSectionExpansionMode(Mode)
  */
-public class HeaderSection<H, M> extends NestedSection implements Notifier {
+public class HeaderSection<H> extends NestedSection implements Notifier {
 
   private final ItemSection<H> itemSection;
-  private final ListSection<M> listSection;
+  private final NestedSection nestedSection;
 
   /**
-   * Initializes the HeaderSection. This header object is set as null which results in header not
-   * being displayed. Call {@link HeaderSection#setHeader} to set the header.
+   * Initializes the HeaderSection. This header object is set as null which results in header
+   * not being displayed. Call {@link HeaderSection#setHeader} to set the header.
    */
-  @SuppressWarnings("WeakerAccess") public HeaderSection() {
+  public HeaderSection() {
     super();
 
     itemSection = new ItemSection<>();
-    itemSection.setNotifier(this);
+    nestedSection = new NestedSection();
 
-    listSection = new ListSection<>();
-    listSection.setNotifier(this);
-
-    this.addSection(itemSection);
-    this.addSection(listSection);
+    super.addSection(itemSection);
+    super.addSection(nestedSection);
   }
 
   /**
@@ -84,16 +82,6 @@ public class HeaderSection<H, M> extends NestedSection implements Notifier {
   }
 
   /**
-   * Use this method to get the ListSection which is inside the HeaderSection. Use this ListSection
-   * to set any data to the ListSection.
-   *
-   * @return ListSection which is added to the this HeaderSection
-   */
-  public ListSection<M> getListSection() {
-    return listSection;
-  }
-
-  /**
    * Sets the header object. If null is being set, the item will not be displayed in the
    * recyclerview
    *
@@ -101,6 +89,10 @@ public class HeaderSection<H, M> extends NestedSection implements Notifier {
    */
   public void setHeader(@NonNull H header) {
     itemSection.setItem(header);
+  }
+
+  @Override public void addSection(Section section) {
+    nestedSection.addSection(section);
   }
 
   //////////////////////////////////////////////////////////////////////////////////////
@@ -112,15 +104,14 @@ public class HeaderSection<H, M> extends NestedSection implements Notifier {
   //////////////////////////////////////////////////////////////////////////////////////
 
   @Override void collapseSection() {
-    if (listSection.isSectionExpanded()) {
-      listSection.setSectionExpanded(false);
-      onRemoved(1, listSection.size());
+    if (nestedSection.isSectionVisible()) {
+      nestedSection.hideSection();
       onChanged(0, 1, SECTION_EXPANSION_PAYLOAD);
     }
   }
 
   @Override boolean isSectionExpanded(int itemPosition) {
-    return listSection.isSectionExpanded();
+    return nestedSection.isSectionVisible();
   }
 
   @Override int onSectionExpansionToggled(int itemPosition, @NonNull Mode sectionExpansionMode) {
@@ -129,28 +120,25 @@ public class HeaderSection<H, M> extends NestedSection implements Notifier {
     switch (mode) {
       case SINGLE:
         if (itemPosition < getCount() && itemPosition >= 0) {
-          listSection.setSectionExpanded(!listSection.isSectionExpanded());
-          if (listSection.isSectionExpanded()) {
-            onInserted(1, listSection.size());
+          if (!nestedSection.isSectionVisible()) {
+            nestedSection.showSection();
           } else {
-            onRemoved(1, listSection.size());
+            nestedSection.hideSection();
           }
           onChanged(0, 1, SECTION_EXPANSION_PAYLOAD);
         } else {
-          if (listSection.isSectionExpanded()) {
-            listSection.setSectionExpanded(!listSection.isSectionExpanded());
-            onRemoved(1, listSection.size());
+          if (nestedSection.isSectionVisible()) {
+            nestedSection.hideSection();
             onChanged(0, 1, SECTION_EXPANSION_PAYLOAD);
           }
         }
         return itemPosition - prevCount;
       case MULTIPLE:
         if (itemPosition < getCount() && itemPosition >= 0) {
-          listSection.setSectionExpanded(!listSection.isSectionExpanded());
-          if (listSection.isSectionExpanded()) {
-            onInserted(1, listSection.size());
+          if (!nestedSection.isSectionVisible()) {
+            nestedSection.showSection();
           } else {
-            onRemoved(1, listSection.size());
+            nestedSection.hideSection();
           }
           onChanged(0, 1, SECTION_EXPANSION_PAYLOAD);
         }

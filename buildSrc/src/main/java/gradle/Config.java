@@ -24,7 +24,7 @@ public interface Config {
 
   String VERSION = "3.0.0";
   String APP_VERSION = VERSION + ".2";
-  String PRODUCTION_VERSION = VERSION + "-alpha02";
+  String PRODUCTION_VERSION = VERSION + "-beta01";
   String SNAPSHOT_VERSION = VERSION + "-SNAPSHOT";
   int VERSION_CODE = 210200003;
 

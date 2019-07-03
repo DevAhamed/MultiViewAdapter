@@ -55,9 +55,11 @@ public class NewsFeedFragment extends BaseFragment implements SwipeToDismissList
     ListSection<NewsItem> firstSection = new ListSection<>();
     firstSection.addAll(newsItems);
 
-    HeaderSection<NewsHeader, NewsItem> globalSection =
+    HeaderSection<NewsHeader> globalSection =
         new HeaderSection<>(new NewsHeader("Global News"));
-    globalSection.getListSection().addAll(dataManager.getNewsList(false));
+    ListSection<NewsItem> globalListSection = new ListSection<>();
+    globalSection.addSection(globalListSection);
+    globalListSection.addAll(dataManager.getNewsList(false));
 
     NestedSection trendingSection = new NestedSection();
     ItemSection<NewsHeader> trendingItemSection =

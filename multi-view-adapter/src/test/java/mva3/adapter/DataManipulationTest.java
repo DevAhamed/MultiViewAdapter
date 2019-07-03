@@ -38,13 +38,13 @@ import static org.mockito.Mockito.verify;
     listSection1.add(new TestItem(101, "Test Item 101"));
     verify(adapterDataObserver).notifyItemRangeInserted(19, 1);
 
-    headerSection1.getListSection().add(new TestItem(101, "Test Item 101"));
+    listSection2.add(new TestItem(101, "Test Item 101"));
     verify(adapterDataObserver).notifyItemRangeInserted(30, 1);
 
     List<TestItem> list = new ArrayList<>();
     list.add(new TestItem(101, "Test Item 101"));
     list.add(new TestItem(101, "Test Item 102"));
-    headerSection2.getListSection().addAll(list);
+    listSection4.addAll(list);
     verify(adapterDataObserver).notifyItemRangeInserted(51, 2);
 
     listSection1.add(5, new TestItem(103, "Test Item 103"));
@@ -53,7 +53,7 @@ import static org.mockito.Mockito.verify;
     headerSection1.onSectionExpansionToggled(0, Mode.SINGLE);
     clearInvocations(adapterDataObserver);
 
-    headerSection1.getListSection().add(new TestItem(104, "Test Item 104"));
+    listSection2.add(new TestItem(104, "Test Item 104"));
     verify(adapterDataObserver, never()).notifyItemRangeInserted(anyInt(), eq(1));
   }
 

@@ -41,6 +41,7 @@ public class TreeSection<M> extends NestedSection implements Notifier {
 
   private final ItemSection<M> itemSection;
   private Decorator treeDecorator;
+  private boolean isSectionExpanded = true;
 
   /**
    * Constructor which initializes TreeSection with an item.
@@ -214,5 +215,13 @@ public class TreeSection<M> extends NestedSection implements Notifier {
       itemCount += section.getCount();
     }
     return itemCount;
+  }
+
+  private boolean isSectionExpanded() {
+    return isSectionExpanded;
+  }
+
+  private void setSectionExpanded(boolean sectionExpanded) {
+    isSectionExpanded = sectionExpanded;
   }
 }

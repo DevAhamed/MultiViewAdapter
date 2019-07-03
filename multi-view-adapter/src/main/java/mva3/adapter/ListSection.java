@@ -338,8 +338,7 @@ public class ListSection<M> extends Section {
 
   /**
    * Set the listener to get callback when an item is clicked inside the section. To invoke this
-   * listener,
-   * you need to call {@link ItemViewHolder#onClick()}
+   * listener, you need to call {@link ItemViewHolder#onItemClick()}
    *
    * @param itemClickListener Listener to be set
    */

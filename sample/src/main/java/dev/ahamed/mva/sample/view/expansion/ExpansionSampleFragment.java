@@ -26,13 +26,18 @@ import dev.ahamed.mva.sample.view.SampleActivity;
 import dev.ahamed.mva.sample.view.common.BaseFragment;
 import dev.ahamed.mva.sample.view.common.CustomItemAnimator;
 import mva3.adapter.HeaderSection;
+import mva3.adapter.ListSection;
 import mva3.adapter.util.Mode;
 
 public class ExpansionSampleFragment extends BaseFragment {
 
-  private HeaderSection<Header, FaqItem> expandableHeaderSectionOne;
-  private HeaderSection<Header, FaqItem> expandableHeaderSectionTwo;
-  private HeaderSection<Header, FaqItem> expandableHeaderSectionThree;
+  private HeaderSection<Header> expandableHeaderSectionOne;
+  private HeaderSection<Header> expandableHeaderSectionTwo;
+  private HeaderSection<Header> expandableHeaderSectionThree;
+
+  private ListSection<FaqItem> listSectionOne = new ListSection<>();
+  private ListSection<FaqItem> listSectionTwo = new ListSection<>();
+  private ListSection<FaqItem> listSectionThree = new ListSection<>();
 
   private Spinner spinnerAdapterItemMode;
   private Spinner spinnerAdapterSectionMode;
@@ -109,9 +114,13 @@ public class ExpansionSampleFragment extends BaseFragment {
     expandableHeaderSectionTwo = new HeaderSection<>(new Header("Payment"));
     expandableHeaderSectionThree = new HeaderSection<>(new Header("Life"));
 
-    expandableHeaderSectionOne.getListSection().addAll(dataManager.getAccountFaq());
-    expandableHeaderSectionTwo.getListSection().addAll(dataManager.getPaymentFaq());
-    expandableHeaderSectionThree.getListSection().addAll(dataManager.getMiscFaq());
+    listSectionOne.addAll(dataManager.getAccountFaq());
+    listSectionTwo.addAll(dataManager.getPaymentFaq());
+    listSectionThree.addAll(dataManager.getMiscFaq());
+
+    expandableHeaderSectionOne.addSection(listSectionOne);
+    expandableHeaderSectionTwo.addSection(listSectionTwo);
+    expandableHeaderSectionThree.addSection(listSectionThree);
 
     expandableHeaderSectionOne.addDecorator(new SectionSpaceDecorator(adapter));
     expandableHeaderSectionTwo.addDecorator(new SectionSpaceDecorator(adapter));

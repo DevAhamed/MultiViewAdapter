@@ -24,7 +24,8 @@ public class TopBar extends FrameLayout {
 
   public void setInsetsListener() {
     setOnApplyWindowInsetsListener((v, insets) -> {
-      v.setPadding(0, insets.getSystemWindowInsetTop(), 0, 0);
+      v.setPadding(insets.getSystemWindowInsetLeft(), insets.getSystemWindowInsetTop(),
+          insets.getSystemWindowInsetRight(), 0);
       return insets;
     });
   }

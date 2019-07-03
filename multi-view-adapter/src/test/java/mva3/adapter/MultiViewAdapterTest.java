@@ -17,15 +17,21 @@
 package mva3.adapter;
 
 import mva3.adapter.testconfig.CommentBinder;
+import mva3.adapter.testconfig.Header;
 import mva3.adapter.testconfig.HeaderBinder;
 import mva3.adapter.testconfig.TestItem;
 import mva3.adapter.testconfig.TestItemBinder;
 import mva3.adapter.util.Mode;
+import mva3.adapter.util.OnItemClickListener;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -35,11 +41,11 @@ public class MultiViewAdapterTest extends BaseTest {
     assertEquals(adapter.getItemCount(), 57);
 
     // Add an item to a section and check
-    headerSection2.getListSection().add(new TestItem(100, "Test Item 101"));
+    listSection4.add(new TestItem(100, "Test Item 101"));
     assertEquals(adapter.getItemCount(), 58);
 
     // Remove an item to a section and check
-    headerSection1.getListSection().remove(5);
+    listSection2.remove(5);
     assertEquals(adapter.getItemCount(), 57);
 
     // Hide a section and check the count
@@ -172,6 +178,8 @@ public class MultiViewAdapterTest extends BaseTest {
   @Test public void collapseAll_test() {
     adapter.collapseAllSections();
     assertEquals(adapter.getItemCount(), 32);
+    assertFalse(adapter.isSectionExpanded(19));
+    assertFalse(adapter.isSectionExpanded(30));
   }
 
   @Test public void clearSelections_test() {
@@ -201,9 +209,49 @@ public class MultiViewAdapterTest extends BaseTest {
     adapter.clearAllSelections();
 
     assertEquals(listSection1.getSelectedItems().size(), 0);
-    assertEquals(headerSection1.getListSection().getSelectedItems().size(), 0);
+    assertEquals(listSection2.getSelectedItems().size(), 0);
     assertEquals(listSection3.getSelectedItems().size(), 0);
-    assertEquals(headerSection2.getListSection().getSelectedItems().size(), 0);
+    assertEquals(listSection4.getSelectedItems().size(), 0);
+  }
+
+  @Test public void clearItemExpansions_test() {
+    // Expand multiple items from different sections
+    // Collapse all items
+    // Check the expanded items from different section
+
+    adapter.setExpansionMode(Mode.MULTIPLE);
+
+    adapter.onItemExpansionToggled(0);
+
+    adapter.onItemExpansionToggled(1);
+    adapter.onItemExpansionToggled(2);
+    adapter.onItemExpansionToggled(3);
+    adapter.onItemExpansionToggled(4);
+
+    adapter.onItemExpansionToggled(20);
+    adapter.onItemExpansionToggled(21);
+
+    adapter.onItemExpansionToggled(34);
+    adapter.onItemExpansionToggled(35);
+    adapter.onItemExpansionToggled(44);
+    adapter.onItemExpansionToggled(45);
+
+    adapter.collapseAllItems();
+
+    assertFalse(adapter.isItemExpanded(0));
+
+    assertFalse(adapter.isItemExpanded(1));
+    assertFalse(adapter.isItemExpanded(2));
+    assertFalse(adapter.isItemExpanded(3));
+    assertFalse(adapter.isItemExpanded(4));
+
+    assertFalse(adapter.isItemExpanded(20));
+    assertFalse(adapter.isItemExpanded(21));
+
+    assertFalse(adapter.isItemExpanded(34));
+    assertFalse(adapter.isItemExpanded(35));
+    assertFalse(adapter.isItemExpanded(44));
+    assertFalse(adapter.isItemExpanded(45));
   }
 
   @Test public void removeAllSections_test() {
@@ -214,5 +262,12 @@ public class MultiViewAdapterTest extends BaseTest {
 
     adapter.addSection(new ListSection<>());
     assertEquals(adapter.getItemCount(), 0);
+  }
+
+  @Test public void onItemClicked_test() {
+    OnItemClickListener<Header> listener = Mockito.mock(OnItemClickListener.class);
+    itemSection1.setOnItemClickListener(listener);
+    adapter.onItemClicked(0);
+    verify(listener, times(1)).onItemClicked(anyInt(), any(Header.class));
   }
 }

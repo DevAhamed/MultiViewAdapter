@@ -34,7 +34,7 @@ import static mva3.adapter.decorator.PositionType.TOP;
 
 /**
  * A Decorator allows the application to add a special drawing and layout offset to specific
- * itemviews from the adapter's data set.
+ * item views from the adapter's data set.
  * This can be useful for drawing dividers between items, highlights and more.
  *
  * <p>
@@ -49,9 +49,9 @@ import static mva3.adapter.decorator.PositionType.TOP;
   private MultiViewAdapter adapter;
 
   /**
-   * Constructor which initialized the Decorator with the adapter object.
+   * Constructor which initializes the Decorator with the adapter object.
    *
-   * @param adapter MultiViewAaapter that is attached with this decorator.
+   * @param adapter MultiViewAdapter that is attached with this decorator.
    */
   public Decorator(MultiViewAdapter adapter) {
     this.adapter = adapter;
@@ -74,7 +74,10 @@ import static mva3.adapter.decorator.PositionType.TOP;
   }
 
   /**
-   * Returns the position type of the item for given adapter position.
+   * Returns the position type of the item for given adapter position. PositionType lets you
+   * identify specific information about the position of the item inside the adapter. For example
+   * you can use PositionType to find whether the item lies on the left or right or top or bottom
+   * edge of the adapter.
    *
    * @param adapterPosition Item position inside the adapter for which position type is calculated
    * @param parent          Parent recyclerview

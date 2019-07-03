@@ -25,12 +25,13 @@ import dev.ahamed.mva.sample.data.model.Person;
 import dev.ahamed.mva.sample.view.SampleActivity;
 import dev.ahamed.mva.sample.view.common.BaseFragment;
 import mva3.adapter.HeaderSection;
+import mva3.adapter.ListSection;
 
 public class DecorationSampleFragment extends BaseFragment {
 
-  private HeaderSection<Header, Person> castSection;
-  private HeaderSection<Header, Person> crewSection;
-  private HeaderSection<Header, Person> producerSection;
+  private ListSection<Person> castSection;
+  private ListSection<Person> crewSection;
+  private ListSection<Person> producerSection;
   private CheckedTextView cbEnableSectionDecoration;
   private CheckedTextView cbEnableItemDecoration;
   private CheckedTextView cbEnableHeaderDecoration;
@@ -104,9 +105,17 @@ public class DecorationSampleFragment extends BaseFragment {
     recyclerView.setLayoutManager(layoutManager);
     recyclerView.addItemDecoration(adapter.getItemDecoration());
 
-    castSection = new HeaderSection<>(new Header("Cast"));
-    crewSection = new HeaderSection<>(new Header("Crew"));
-    producerSection = new HeaderSection<>(new Header("Producers"));
+    HeaderSection<Header> castHeaderSection = new HeaderSection<>(new Header("Cast"));
+    HeaderSection<Header> crewHeaderSection = new HeaderSection<>(new Header("Crew"));
+    HeaderSection<Header> producerHeaderSection = new HeaderSection<>(new Header("Producers"));
+
+    castSection = new ListSection<>();
+    crewSection = new ListSection<>();
+    producerSection = new ListSection<>();
+
+    castHeaderSection.addSection(castSection);
+    crewHeaderSection.addSection(crewSection);
+    producerHeaderSection.addSection(producerSection);
 
     headerBinder = new HeaderBinder();
     personBinder = new PersonBinder();
@@ -116,8 +125,8 @@ public class DecorationSampleFragment extends BaseFragment {
     adapter.addSection(crewSection);
     adapter.addSection(producerSection);
 
-    castSection.getListSection().set(dataManager.getCast());
-    crewSection.getListSection().set(dataManager.getCrew());
-    producerSection.getListSection().set(dataManager.getProducers());
+    castSection.set(dataManager.getCast());
+    crewSection.set(dataManager.getCrew());
+    producerSection.set(dataManager.getProducers());
   }
 }

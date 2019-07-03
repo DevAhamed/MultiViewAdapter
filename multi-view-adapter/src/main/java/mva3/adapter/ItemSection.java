@@ -23,6 +23,7 @@ import mva3.adapter.decorator.PositionType;
 import mva3.adapter.internal.ItemMetaData;
 import mva3.adapter.internal.RecyclerItem;
 import mva3.adapter.util.Mode;
+import mva3.adapter.util.OnItemClickListener;
 
 /**
  * Section which displays a single item inside the RecyclerView. For example, ItemSection can be
@@ -32,15 +33,16 @@ import mva3.adapter.util.Mode;
  */
 @SuppressWarnings("ConstantConditions") public class ItemSection<M> extends Section {
 
-  private M item;
-  private ItemMetaData itemMetaData;
+  @Nullable private M item;
+  @Nullable private ItemMetaData itemMetaData;
+  @Nullable private OnItemClickListener<M> onItemClickListener;
 
   /**
    * No-arg constructor for ItemSection. This sets the {@link ItemSection#item} as null. This
    * results the item not to be displayed in the recyclerview. Call {@link
    * ItemSection#setItem(Object)} to set the item.
    */
-  @SuppressWarnings("WeakerAccess") public ItemSection() {
+  public ItemSection() {
   }
 
   /**
@@ -48,9 +50,8 @@ import mva3.adapter.util.Mode;
    *
    * @param item Item that needs to be set for this ItemSection.
    */
-  public ItemSection(M item) {
-    this.item = item;
-    this.itemMetaData = new ItemMetaData();
+  public ItemSection(@NonNull M item) {
+    setItem(item);
   }
 
   /**
@@ -95,6 +96,16 @@ import mva3.adapter.util.Mode;
     }
   }
 
+  /**
+   * Set the listener to get callback when an item is clicked inside the section. To invoke this
+   * listener, you need to call {@link ItemViewHolder#onItemClick()}
+   *
+   * @param onItemClickListener Listener to be set
+   */
+  public void setOnItemClickListener(@Nullable OnItemClickListener<M> onItemClickListener) {
+    this.onItemClickListener = onItemClickListener;
+  }
+
   //////////////////////////////////////////////////////////////////////////////////////
   /// ------------------------------------------------------------------------------ ///
   /// ---------------------  CAUTION : INTERNAL METHODS AHEAD  --------------------- ///
@@ -102,6 +113,12 @@ import mva3.adapter.util.Mode;
   /// -------------  SUBJECT TO CHANGE WITHOUT BACKWARD COMPATIBILITY -------------- ///
   /// ------------------------------------------------------------------------------ ///
   //////////////////////////////////////////////////////////////////////////////////////
+
+  @Override void onItemClicked(int position) {
+    if (null != onItemClickListener && position == 0 && getCount() > 0) {
+      onItemClickListener.onItemClicked(position, item);
+    }
+  }
 
   @Override Object getItem(int position) {
     return item;
@@ -112,16 +129,16 @@ import mva3.adapter.util.Mode;
   }
 
   @Override boolean isItemSelected(int adapterPosition) {
-    return itemMetaData.isSelected();
+    return null != itemMetaData && itemMetaData.isSelected();
   }
 
   @Override void onItemSelectionToggled(int itemPosition, @NonNull Mode selectionMode) {
     if (itemPosition < getCount()) {
       Mode modeToHonor = getModeToHonor(selectionMode, this.selectionMode);
-      if (modeToHonor == Mode.SINGLE && itemMetaData.isSelected()) {
+      if (modeToHonor == Mode.SINGLE && null != itemMetaData && itemMetaData.isSelected()) {
         itemMetaData.setSelected(!itemMetaData.isSelected());
         onChanged(0, 1, SELECTION_PAYLOAD);
-      } else if (itemPosition < getCount() && itemPosition >= 0) {
+      } else if (itemPosition < getCount() && itemPosition >= 0 && null != itemMetaData) {
         itemMetaData.setSelected(!itemMetaData.isSelected());
         onChanged(0, 1, SELECTION_PAYLOAD);
       }
@@ -129,7 +146,7 @@ import mva3.adapter.util.Mode;
   }
 
   @Override void clearAllSelections() {
-    if (itemMetaData.isSelected()) {
+    if (null != itemMetaData && itemMetaData.isSelected()) {
       itemMetaData.setSelected(!itemMetaData.isSelected());
       if (isItemShowing()) {
         onChanged(0, 1, SELECTION_PAYLOAD);
@@ -144,10 +161,10 @@ import mva3.adapter.util.Mode;
   @Override void onItemExpansionToggled(int itemPosition, @NonNull Mode selectionMode) {
     if (itemPosition < getCount()) {
       Mode modeToHonor = getModeToHonor(selectionMode, this.expansionMode);
-      if (modeToHonor == Mode.SINGLE && itemMetaData.isExpanded()) {
+      if (modeToHonor == Mode.SINGLE && null != itemMetaData && itemMetaData.isExpanded()) {
         itemMetaData.setExpanded(!itemMetaData.isExpanded());
         onChanged(0, 1, ITEM_EXPANSION_PAYLOAD);
-      } else if (itemPosition < getCount() && itemPosition >= 0) {
+      } else if (itemPosition < getCount() && itemPosition >= 0 && null != itemMetaData) {
         itemMetaData.setExpanded(!itemMetaData.isExpanded());
         onChanged(0, 1, ITEM_EXPANSION_PAYLOAD);
       }
@@ -155,7 +172,7 @@ import mva3.adapter.util.Mode;
   }
 
   @Override void collapseAllItems() {
-    if (itemMetaData.isExpanded()) {
+    if (null != itemMetaData && itemMetaData.isExpanded()) {
       itemMetaData.setExpanded(!itemMetaData.isExpanded());
       if (isItemShowing()) {
         onChanged(0, 1, ITEM_EXPANSION_PAYLOAD);

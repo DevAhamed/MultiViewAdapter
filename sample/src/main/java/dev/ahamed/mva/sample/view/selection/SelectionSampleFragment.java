@@ -27,6 +27,7 @@ import dev.ahamed.mva.sample.view.common.BaseFragment;
 import dev.ahamed.mva.sample.view.common.HeaderItemBinder;
 import mva3.adapter.HeaderSection;
 import mva3.adapter.ItemSection;
+import mva3.adapter.ListSection;
 import mva3.adapter.NestedSection;
 import mva3.adapter.util.Mode;
 import mva3.adapter.util.OnSelectionChangedListener;
@@ -35,13 +36,12 @@ import static mva3.adapter.util.Mode.SINGLE;
 
 public class SelectionSampleFragment extends BaseFragment {
 
-  private HeaderSection<Header, SelectableItem> listSectionOne;
-  private HeaderSection<Header, SelectableItem> listSectionTwo;
-  private ItemSection<Header> headerSection;
+  private ListSection<SelectableItem> listSectionOne;
+  private ListSection<SelectableItem> listSectionTwo;
   private NestedSection nestedSection;
-  private HeaderSection<Header, SelectableItem> listSectionThree;
-  private HeaderSection<Header, SelectableItem> listSectionFour;
-  private HeaderSection<Header, SelectableItem> listSectionFive;
+  private ListSection<SelectableItem> listSectionThree;
+  private ListSection<SelectableItem> listSectionFour;
+  private ListSection<SelectableItem> listSectionFive;
 
   private Spinner spinnerAdapterSelectionMode;
   private Spinner spinnerLanguageSelectionMode;
@@ -125,19 +125,31 @@ public class SelectionSampleFragment extends BaseFragment {
     recyclerView.setLayoutManager(layoutManager);
     recyclerView.addItemDecoration(adapter.getItemDecoration());
 
-    listSectionOne = new HeaderSection<>(new Header("Language"));
-    listSectionTwo = new HeaderSection<>(new Header("Topic"));
-    listSectionThree = new HeaderSection<>(new Header("News Papers"));
-    listSectionFour = new HeaderSection<>(new Header("News Channels"));
-    listSectionFive = new HeaderSection<>(new Header("Websites"));
+    HeaderSection headerSectionOne = new HeaderSection<>(new Header("Language"));
+    HeaderSection headerSectionTwo = new HeaderSection<>(new Header("Topic"));
+    HeaderSection headerSectionThree = new HeaderSection<>(new Header("News Papers"));
+    HeaderSection headerSectionFour = new HeaderSection<>(new Header("News Channels"));
+    HeaderSection headerSectionFive = new HeaderSection<>(new Header("Websites"));
 
-    listSectionOne.getListSection().set(dataManager.getLanguages());
-    listSectionTwo.getListSection().set(dataManager.getTopics());
-    listSectionThree.getListSection().set(dataManager.getNewsPapers());
-    listSectionFour.getListSection().set(dataManager.getTelevisionChannels());
-    listSectionFive.getListSection().set(dataManager.getWebsites());
+    listSectionOne = new ListSection<>();
+    listSectionTwo = new ListSection<>();
+    listSectionThree = new ListSection<>();
+    listSectionFour = new ListSection<>();
+    listSectionFive = new ListSection<>();
 
-    headerSection = new ItemSection<>(new Header("Sources"));
+    headerSectionOne.addSection(listSectionOne);
+    headerSectionTwo.addSection(listSectionTwo);
+    headerSectionThree.addSection(listSectionThree);
+    headerSectionFour.addSection(listSectionFour);
+    headerSectionFive.addSection(listSectionFive);
+
+    listSectionOne.set(dataManager.getLanguages());
+    listSectionTwo.set(dataManager.getTopics());
+    listSectionThree.set(dataManager.getNewsPapers());
+    listSectionFour.set(dataManager.getTelevisionChannels());
+    listSectionFive.set(dataManager.getWebsites());
+
+    ItemSection<Header> headerSection = new ItemSection<>(new Header("Sources"));
     nestedSection = new NestedSection();
     nestedSection.addSection(listSectionThree);
     nestedSection.addSection(listSectionFour);
@@ -153,10 +165,10 @@ public class SelectionSampleFragment extends BaseFragment {
         (item, isSelected, selectedItems) -> Log.d("SelectionChanged",
             "Item " + item.toString() + " was " + (isSelected ? "" : "un") + "selected");
 
-    listSectionOne.getListSection().setOnSelectionChangedListener(selectionChangedListener);
-    listSectionTwo.getListSection().setOnSelectionChangedListener(selectionChangedListener);
-    listSectionThree.getListSection().setOnSelectionChangedListener(selectionChangedListener);
-    listSectionFour.getListSection().setOnSelectionChangedListener(selectionChangedListener);
-    listSectionFive.getListSection().setOnSelectionChangedListener(selectionChangedListener);
+    listSectionOne.setOnSelectionChangedListener(selectionChangedListener);
+    listSectionTwo.setOnSelectionChangedListener(selectionChangedListener);
+    listSectionThree.setOnSelectionChangedListener(selectionChangedListener);
+    listSectionFour.setOnSelectionChangedListener(selectionChangedListener);
+    listSectionFive.setOnSelectionChangedListener(selectionChangedListener);
   }
 }

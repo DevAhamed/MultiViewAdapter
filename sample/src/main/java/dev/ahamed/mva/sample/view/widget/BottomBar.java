@@ -24,7 +24,8 @@ public class BottomBar extends FrameLayout {
 
   public void setInsetsListener() {
     setOnApplyWindowInsetsListener((v, insets) -> {
-      v.setPadding(0, 0, 0, insets.getSystemWindowInsetBottom());
+      v.setPadding(insets.getSystemWindowInsetLeft(), 0, insets.getSystemWindowInsetRight(),
+          insets.getSystemWindowInsetBottom());
       return insets;
     });
   }
