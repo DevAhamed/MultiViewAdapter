@@ -60,6 +60,24 @@ public class NestedSection extends Section implements Notifier {
     section.onInserted(0, section.getCount());
   }
 
+  @Override public void showSection() {
+    if (isSectionHidden()) {
+      for (Section section : sections) {
+        section.showSection(false);
+      }
+    }
+    super.showSection();
+  }
+
+  @Override public void hideSection() {
+    if (isSectionVisible()) {
+      for (Section section : sections) {
+        section.hideSection(false);
+      }
+    }
+    super.hideSection();
+  }
+
   //////////////////////////////////////////////////////////////////////////////////////
   /// ------------------------------------------------------------------------------ ///
   /// ---------------------  CAUTION : INTERNAL METHODS AHEAD  --------------------- ///

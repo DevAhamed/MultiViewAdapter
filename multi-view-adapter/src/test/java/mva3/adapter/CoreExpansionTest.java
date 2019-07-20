@@ -24,6 +24,10 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.clearInvocations;
+import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class) public class CoreExpansionTest extends BaseTest {
 
@@ -178,5 +182,43 @@ import static junit.framework.Assert.assertTrue;
 
     adapter.onItemExpansionToggled(25);
     assertTrue(!adapter.isItemExpanded(25));
+  }
+
+  @Test public void expansionModeTest_Notify() {
+    adapter.setExpansionMode(Mode.MULTIPLE);
+    listSection1.setExpansionMode(Mode.MULTIPLE);
+    listSection2.setExpansionMode(Mode.MULTIPLE);
+
+    adapter.onItemExpansionToggled(1);
+    adapter.onItemExpansionToggled(41);
+    adapter.onItemExpansionToggled(2);
+    adapter.onItemExpansionToggled(25);
+    adapter.onItemExpansionToggled(28);
+
+    clearInvocations(adapterDataObserver);
+    adapter.collapseAllItems();
+
+    verify(adapterDataObserver).notifyItemRangeChanged(eq(1), eq(1), any());
+    verify(adapterDataObserver).notifyItemRangeChanged(eq(41), eq(1), any());
+    verify(adapterDataObserver).notifyItemRangeChanged(eq(2), eq(1), any());
+    verify(adapterDataObserver).notifyItemRangeChanged(eq(25), eq(1), any());
+    verify(adapterDataObserver).notifyItemRangeChanged(eq(28), eq(1), any());
+  }
+
+  @Test public void expansionModeTest_NestedSection() {
+    adapter.setExpansionMode(Mode.MULTIPLE);
+    listSection1.setExpansionMode(Mode.SINGLE);
+    listSection2.setExpansionMode(Mode.SINGLE);
+    listSection3.setExpansionMode(Mode.SINGLE);
+    listSection4.setExpansionMode(Mode.SINGLE);
+    adapter.onSectionExpansionToggled(19);
+
+    adapter.onItemExpansionToggled(21);
+    assertTrue(adapter.isItemExpanded(21));
+
+    adapter.onSectionExpansionToggled(19);
+
+    assertFalse(adapter.isItemExpanded(21));
+    assertTrue(adapter.isItemExpanded(30));
   }
 }
