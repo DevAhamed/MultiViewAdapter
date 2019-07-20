@@ -197,4 +197,22 @@ import static org.mockito.Mockito.verify;
     verify(adapterDataObserver).notifyItemRangeChanged(eq(25), eq(1), any());
     verify(adapterDataObserver).notifyItemRangeChanged(eq(28), eq(1), any());
   }
+
+  @Test public void selectionModeTest_NestedSection() {
+    adapter.setSelectionMode(Mode.MULTIPLE);
+    listSection1.setSelectionMode(Mode.SINGLE);
+    listSection2.setSelectionMode(Mode.SINGLE);
+    listSection3.setSelectionMode(Mode.SINGLE);
+    listSection4.setSelectionMode(Mode.SINGLE);
+    adapter.onSectionExpansionToggled(19);
+
+    adapter.onItemSelectionToggled(21);
+
+    assertTrue(adapter.isItemSelected(21));
+
+    adapter.onSectionExpansionToggled(19);
+
+    assertFalse(adapter.isItemSelected(21));
+    assertTrue(adapter.isItemSelected(30));
+  }
 }

@@ -128,11 +128,7 @@ public abstract class Section implements ListUpdateCallback {
    * Section#getCount()} returns 0.
    */
   public void hideSection() {
-    if (!isSectionHidden) {
-      int count = getCount();
-      isSectionHidden = true;
-      onRemoved(0, count);
-    }
+    hideSection(true);
   }
 
   /**
@@ -235,11 +231,7 @@ public abstract class Section implements ListUpdateCallback {
    * If the section was hidden from parent, this method shows it again in the parent.
    */
   public void showSection() {
-    if (isSectionHidden) {
-      isSectionHidden = false;
-      onDataSetChanged();
-      onInserted(0, getCount());
-    }
+    showSection(true);
   }
 
   //////////////////////////////////////////////////////////////////////////////////////
@@ -354,6 +346,26 @@ public abstract class Section implements ListUpdateCallback {
 
   void onDataSetChanged() {
     // No-op
+  }
+
+  void showSection(boolean notify) {
+    if (isSectionHidden) {
+      isSectionHidden = false;
+      onDataSetChanged();
+      if (notify) {
+        onInserted(0, getCount());
+      }
+    }
+  }
+
+  void hideSection(boolean notify) {
+    if (!isSectionHidden) {
+      int count = getCount();
+      isSectionHidden = true;
+      if (notify) {
+        onRemoved(0, count);
+      }
+    }
   }
 
   @NonNull Mode getModeToHonor(@NonNull Mode parentMode, @NonNull Mode childMode) {
