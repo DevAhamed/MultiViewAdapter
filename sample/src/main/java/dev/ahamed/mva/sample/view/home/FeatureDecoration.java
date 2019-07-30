@@ -31,15 +31,13 @@ import mva3.adapter.decorator.Decorator;
 public class FeatureDecoration extends Decorator {
 
   private final int inset;
-  private Paint bgPaint = new Paint();
   private Paint borderPaint = new Paint();
   private final Rect mBounds = new Rect();
 
   FeatureDecoration(MultiViewAdapter adapter, Context context, int inset) {
     super(adapter);
     this.inset = inset;
-    bgPaint.setColor(ContextCompat.getColor(context, R.color.grey_300));
-    borderPaint.setColor(ContextCompat.getColor(context, R.color.grey_500));
+    borderPaint.setColor(ContextCompat.getColor(context, R.color.color_divider));
   }
 
   @Override public void getItemOffsets(@NonNull Rect outRect, @NonNull View view,
@@ -57,7 +55,6 @@ public class FeatureDecoration extends Decorator {
     final int right = mBounds.right;
     final int top = bottom - inset;
 
-    canvas.drawRect(left, top, right, bottom, bgPaint);
     canvas.drawLine(left, top, right, top, borderPaint);
     canvas.drawLine(left, bottom, right, bottom, borderPaint);
 

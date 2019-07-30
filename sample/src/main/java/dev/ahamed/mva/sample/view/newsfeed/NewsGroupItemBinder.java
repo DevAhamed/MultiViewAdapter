@@ -54,7 +54,8 @@ public class NewsGroupItemBinder
             false));
     ListSection<NewsItem> newsListSection = new ListSection<>();
     newsListSection.addAll(item);
-    newsListSection.addDecorator(new NewsSectionDecorator(adapter));
+    newsListSection.addDecorator(
+        new NewsSectionDecorator(adapter, holder.recyclerView.getContext()));
     adapter.addSection(newsListSection);
     adapter.registerItemBinders(new NewsFeedItemBinder());
     holder.recyclerView.setAdapter(adapter);
@@ -68,7 +69,7 @@ public class NewsGroupItemBinder
 
     RecyclerView recyclerView;
 
-    public ViewHolder(View itemView) {
+    ViewHolder(View itemView) {
       super(itemView);
       recyclerView = itemView.findViewById(R.id.nested_recycler_view);
     }

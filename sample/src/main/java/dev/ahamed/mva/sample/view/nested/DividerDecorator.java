@@ -19,7 +19,7 @@ public class DividerDecorator extends Decorator {
 
   DividerDecorator(MultiViewAdapter adapter, Context context) {
     super(adapter);
-    dividerPaint.setColor(ContextCompat.getColor(context, R.color.grey_300));
+    dividerPaint.setColor(ContextCompat.getColor(context, R.color.color_divider));
   }
 
   @Override public void getItemOffsets(@NonNull Rect outRect, @NonNull View view,
@@ -29,9 +29,6 @@ public class DividerDecorator extends Decorator {
 
   @Override public void onDrawOver(@NonNull Canvas canvas, @NonNull RecyclerView parent,
       @NonNull RecyclerView.State state, View child, int adapterPosition) {
-    //if(isLast(getPositionType(adapterPosition, parent))) {
-    //  return;
-    //}
     RecyclerView.LayoutManager layoutManager = parent.getLayoutManager();
     if (null == layoutManager) {
       return;

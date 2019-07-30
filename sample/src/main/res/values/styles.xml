@@ -17,20 +17,25 @@
 <resources>
 
   <style name="AppTheme" parent="BaseTheme.Version">
-    <item name="colorPrimary">@color/colorPrimary</item>
-    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-    <item name="colorSecondary">@color/colorAccent</item>
+    <item name="colorPrimary">@color/color_primary</item>
+    <item name="colorPrimaryVariant">@color/color_primary_variant</item>
+    <item name="colorSecondary">@color/color_secondary</item>
+    <item name="colorSecondaryVariant">@color/color_secondary_variant</item>
+
+    <item name="android:colorBackground">@color/color_background</item>
+    <item name="colorSurface">@color/color_foreground</item>
 
     <item name="headlineTextColor">@color/headline_text_color</item>
     <item name="bodyTextColor">@color/body_text_color</item>
   </style>
 
   <style name="BaseTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-    <item name="android:windowBackground">@color/grey_0</item>
     <item name="android:windowDrawsSystemBarBackgrounds">true</item>
     <item name="android:statusBarColor">@android:color/transparent</item>
     <item name="android:navigationBarColor">@android:color/transparent</item>
+
     <item name="materialButtonStyle">@style/Widget.App.Button</item>
+    <item name="materialCardViewStyle">@style/Widget.MaterialComponents.CardView</item>
 
     <item name="android:spinnerItemStyle">@style/Widget.App.TextView.SpinnerItem</item>
     <item name="android:spinnerDropDownItemStyle">@style/Widget.App.DropDownItem.Spinner</item>
@@ -63,7 +68,7 @@
   </style>
 
   <style name="borderButtonStyle" parent="Widget.MaterialComponents.Button.OutlinedButton">
-    <item name="android:textColor">@color/colorAccentVariant</item>
+    <item name="android:textColor">@color/color_secondary_variant</item>
   </style>
 
   <style name="Widget.App.TextView.SpinnerItem" parent="Widget.AppCompat.TextView.SpinnerItem">

@@ -77,7 +77,7 @@
       android:layout_height="wrap_content"
       android:layout_gravity="bottom"
       android:background="@color/nav_bars"
-      android:elevation="4dp"
+      android:elevation="16dp"
       android:fitsSystemWindows="true"
       >
 

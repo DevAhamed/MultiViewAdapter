@@ -28,7 +28,7 @@ public class EmptyStateItemBinder extends ItemBinder<String, ItemViewHolder<Stri
   }
 
   @Override public void bindViewHolder(ItemViewHolder<String> holder, String item) {
-    // Nothing to bindViewHolder
+    // Nothing to bind
   }
 
   @Override public boolean canBindData(Object item) {

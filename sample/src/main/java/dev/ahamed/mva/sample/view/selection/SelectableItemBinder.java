@@ -39,7 +39,7 @@ public class SelectableItemBinder
     holder.imageView.setImageResource(item.getIconResource());
     holder.textView.setText(item.getText());
     int bgColor = ContextCompat.getColor(holder.textView.getContext(),
-        holder.isItemSelected() ? item.getColor() : R.color.grey_0);
+        holder.isItemSelected() ? item.getColor() : R.color.color_foreground);
     holder.linearLayout.setBackgroundColor(bgColor);
     holder.cardView.setCardElevation(holder.isItemSelected() ? 16 : 0);
   }

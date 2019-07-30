@@ -36,13 +36,17 @@ public class NewsFeedFragment extends BaseFragment implements SwipeToDismissList
   private ItemSection<String> offlineEmptySection;
 
   @Override public void initViews(View view) {
+    NewsFeedDecorator newsFeedDecorator = new NewsFeedDecorator(adapter, requireContext());
+
     NewsFeedItemBinder newsFeedItemBinder = new NewsFeedItemBinder();
-    newsFeedItemBinder.addDecorator(new NewsFeedDecorator(adapter));
+    newsFeedItemBinder.addDecorator(newsFeedDecorator);
+
     OfflineNewsFeedItemBinder offlineNewsFeedBinder = new OfflineNewsFeedItemBinder();
-    newsFeedItemBinder.addDecorator(new NewsFeedDecorator(adapter));
+    newsFeedItemBinder.addDecorator(newsFeedDecorator);
+
     adapter.unRegisterAllItemBinders();
     adapter.registerItemBinders(offlineNewsFeedBinder, newsFeedItemBinder,
-        new NewsHeaderItemBinder(new NewsHeaderDecorator(adapter)),
+        new NewsHeaderItemBinder(new NewsHeaderDecorator(adapter, requireContext())),
         new NewsGroupItemBinder(recyclerView), new EmptyStateItemBinder(), new HintBinder());
 
     LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -55,8 +59,7 @@ public class NewsFeedFragment extends BaseFragment implements SwipeToDismissList
     ListSection<NewsItem> firstSection = new ListSection<>();
     firstSection.addAll(newsItems);
 
-    HeaderSection<NewsHeader> globalSection =
-        new HeaderSection<>(new NewsHeader("Global News"));
+    HeaderSection<NewsHeader> globalSection = new HeaderSection<>(new NewsHeader("Global News"));
     ListSection<NewsItem> globalListSection = new ListSection<>();
     globalSection.addSection(globalListSection);
     globalListSection.addAll(dataManager.getNewsList(false));
@@ -85,7 +88,7 @@ public class NewsFeedFragment extends BaseFragment implements SwipeToDismissList
 
     offlineNewsSection = new ListSection<>();
     offlineNewsSection.addAll(dataManager.getNewsList(true));
-    offlineNewsSection.addDecorator(new OfflineNewsDecorator(adapter, getContext()));
+    offlineNewsSection.addDecorator(newsFeedDecorator);
     offlineSection.addSection(offlineNewsSection);
 
     offlineNewsSection.setSwipeToDismissListener(this);

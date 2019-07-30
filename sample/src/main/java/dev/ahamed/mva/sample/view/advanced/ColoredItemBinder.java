@@ -19,6 +19,7 @@ package dev.ahamed.mva.sample.view.advanced;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import dev.ahamed.mva.sample.R;
 import dev.ahamed.mva.sample.data.model.ColoredItem;
@@ -33,7 +34,8 @@ public class ColoredItemBinder extends ItemBinder<ColoredItem, ColoredItemBinder
 
   @Override public void bindViewHolder(ViewHolder holder, ColoredItem item) {
     holder.textView.setText(String.valueOf(item.getNumber()));
-    holder.textView.setBackgroundColor(item.getColor());
+    holder.textView.setBackgroundColor(
+        ContextCompat.getColor(holder.textView.getContext(), item.getColor()));
   }
 
   @Override public boolean canBindData(Object item) {

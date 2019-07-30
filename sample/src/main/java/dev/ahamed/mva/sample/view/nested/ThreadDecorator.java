@@ -20,7 +20,7 @@ public class ThreadDecorator extends Decorator {
 
   ThreadDecorator(MultiViewAdapter adapter, Context context) {
     super(adapter);
-    paint.setColor(ContextCompat.getColor(context, R.color.colorAccent));
+    paint.setColor(ContextCompat.getColor(context, R.color.color_secondary));
   }
 
   @Override public void getItemOffsets(@NonNull Rect outRect, @NonNull View view,

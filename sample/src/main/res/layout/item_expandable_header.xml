@@ -15,7 +15,7 @@
   ~ limitations under the License.
   -->
 
-<androidx.cardview.widget.CardView
+<com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -23,9 +23,8 @@
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/space_medium"
     android:layout_marginEnd="@dimen/space_medium"
-    app:cardBackgroundColor="@color/grey_0"
     app:cardCornerRadius="0dp"
-    app:cardElevation="1dp"
+    app:cardElevation="2dp"
     tools:layout_margin="@dimen/space_medium"
     >
 
@@ -59,4 +58,4 @@
 
   </RelativeLayout>
 
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

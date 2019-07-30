@@ -23,10 +23,10 @@ public interface Config {
   int TARGET_SDK = COMPILE_SDK;
 
   String VERSION = "3.0.0";
-  String APP_VERSION = VERSION + ".2";
+  String APP_VERSION = VERSION + ".3";
   String PRODUCTION_VERSION = VERSION + "-beta01";
   String SNAPSHOT_VERSION = VERSION + "-SNAPSHOT";
-  int VERSION_CODE = 210200003;
+  int VERSION_CODE = 210200004;
 
   String APP_COMPAT = "androidx.appcompat:appcompat:1.0.2";
   String DESIGN = "com.google.android.material:material:1.1.0-alpha06";

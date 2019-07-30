@@ -27,7 +27,7 @@
       style="@style/App.Text.Title.One"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:background="@color/grey_0"
+      android:background="?colorSurface"
       android:gravity="center"
       android:maxLines="1"
       android:padding="@dimen/space_large"

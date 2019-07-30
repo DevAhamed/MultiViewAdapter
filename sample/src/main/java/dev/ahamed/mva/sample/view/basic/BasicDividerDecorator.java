@@ -20,7 +20,7 @@ public class BasicDividerDecorator extends Decorator {
 
   BasicDividerDecorator(MultiViewAdapter adapter, Context context) {
     super(adapter);
-    dividerPaint.setColor(ContextCompat.getColor(context, R.color.grey_500));
+    dividerPaint.setColor(ContextCompat.getColor(context, R.color.color_divider));
     dividerPaint.setStrokeWidth(SampleActivity.TWO_DP);
   }
 

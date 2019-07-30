@@ -46,6 +46,7 @@ public abstract class BaseFragment extends Fragment {
   protected final DataManager dataManager = new DataManager();
   protected RecyclerView recyclerView;
   protected MultiViewAdapter adapter;
+  private View wrapper;
   private BottomSheetBehavior configurationSheet;
   private Rect rect;
 
@@ -102,16 +103,32 @@ public abstract class BaseFragment extends Fragment {
     configurationSheet.setState(STATE_COLLAPSED);
 
     recyclerView = view.findViewById(R.id.recycler_view);
-    recyclerView.setOnApplyWindowInsetsListener((v, insets) -> {
-      if (rect == null) {
-        rect = new Rect();
-        rect.set(recyclerView.getPaddingLeft(), recyclerView.getPaddingTop(),
-            recyclerView.getPaddingRight(), recyclerView.getPaddingBottom());
-      }
-      v.setPadding(rect.left, rect.top + insets.getSystemWindowInsetTop() + getActionBarSize(),
-          rect.right, rect.bottom + insets.getSystemWindowInsetBottom() + getActionBarSize());
-      return insets;
-    });
+    wrapper = view.findViewById(R.id.wrapper);
+    if (wrapper == null) {
+      recyclerView.setOnApplyWindowInsetsListener((v, insets) -> {
+        if (rect == null) {
+          rect = new Rect();
+          rect.set(recyclerView.getPaddingLeft(), recyclerView.getPaddingTop(),
+              recyclerView.getPaddingRight(), recyclerView.getPaddingBottom());
+        }
+        v.setPadding(rect.left, rect.top + insets.getSystemWindowInsetTop() + getActionBarSize(),
+            rect.right, rect.bottom + insets.getSystemWindowInsetBottom() + getActionBarSize());
+        return insets;
+      });
+    } else {
+      wrapper.setOnApplyWindowInsetsListener((v, insets) -> {
+        if (rect == null) {
+          rect = new Rect();
+          rect.set(insets.getSystemWindowInsetLeft(),
+              wrapper.getPaddingTop() + insets.getSystemWindowInsetTop() + getActionBarSize(),
+              wrapper.getPaddingRight(), wrapper.getPaddingBottom()
+                  + insets.getSystemWindowInsetBottom()
+                  + getActionBarSize());
+        }
+        v.setPadding(rect.left, rect.top, rect.right, rect.bottom);
+        return insets;
+      });
+    }
     view.findViewById(R.id.sheet_configuration).setOnApplyWindowInsetsListener((v, insets) -> {
       v.setPadding(0, insets.getSystemWindowInsetTop() + getActionBarSize(), 0,
           insets.getSystemWindowInsetBottom() + getActionBarSize());

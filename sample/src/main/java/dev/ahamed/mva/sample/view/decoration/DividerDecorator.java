@@ -24,7 +24,7 @@ public class DividerDecorator extends Decorator {
 
   DividerDecorator(MultiViewAdapter adapter, Context context, boolean isSubtle, int paddingLeft) {
     super(adapter);
-    int color = ContextCompat.getColor(context, isSubtle ? R.color.grey_300 : R.color.grey_500);
+    int color = ContextCompat.getColor(context, R.color.color_divider);
     dividerPaint.setColor(color);
     this.paddingLeft = paddingLeft;
   }

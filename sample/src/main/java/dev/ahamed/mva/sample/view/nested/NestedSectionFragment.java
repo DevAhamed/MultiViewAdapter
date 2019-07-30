@@ -62,7 +62,6 @@ public class NestedSectionFragment extends BaseFragment {
       treeSection.addSection(childTreeSection);
       if (addDecorator) {
         treeSections.add(childTreeSection);
-        //childTreeSection.setTreeDecorator();
       }
     }
     return treeSection;

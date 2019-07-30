@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import androidx.core.content.ContextCompat;
 import dev.ahamed.mva.sample.R;
 import dev.ahamed.mva.sample.data.model.NewsItem;
 import mva3.adapter.ItemBinder;
@@ -35,7 +36,8 @@ public class NewsFeedItemBinder extends ItemBinder<NewsItem, NewsFeedItemBinder.
     holder.newsSource.setText(item.getSource());
     holder.title.setText(item.getTitle());
     holder.date.setText(item.getTime());
-    holder.image.setBackgroundColor(item.getThumbNailColor());
+    holder.image.setBackgroundColor(
+        ContextCompat.getColor(holder.image.getContext(), item.getThumbNailColor()));
     holder.image.setImageResource(item.getThumbNailId());
 
     holder.newsSource.setTextColor(item.getSourceColor());

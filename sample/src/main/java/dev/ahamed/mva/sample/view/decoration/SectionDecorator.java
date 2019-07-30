@@ -24,7 +24,7 @@ public class SectionDecorator extends Decorator {
 
   SectionDecorator(MultiViewAdapter adapter, Context context, int dp) {
     super(adapter);
-    int color = ContextCompat.getColor(context, R.color.grey_500);
+    int color = ContextCompat.getColor(context, R.color.color_divider);
     dividerPaint.setColor(color);
     offsetInPixels = dp;
   }

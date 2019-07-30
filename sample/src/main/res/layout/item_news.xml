@@ -15,90 +15,81 @@
   ~ limitations under the License.
   -->
 
-<androidx.cardview.widget.CardView
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="@color/grey_0"
-    app:cardCornerRadius="0dp"
-    app:cardElevation="1dp"
+    android:background="?colorSurface"
+    android:padding="@dimen/space_medium"
     >
 
-  <androidx.constraintlayout.widget.ConstraintLayout
-      android:layout_width="match_parent"
+  <TextView
+      android:id="@+id/tv_source"
+      style="@style/App.Text.Overline.Two"
+      android:layout_width="0dp"
       android:layout_height="wrap_content"
+      android:drawableStart="@drawable/ic_fake_news"
+      android:drawablePadding="@dimen/space_medium"
+      android:gravity="center_vertical"
       android:padding="@dimen/space_medium"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:text="UMBRELLA NEWS"
+      />
+
+  <TextView
+      android:id="@+id/tv_title"
+      style="@style/App.Text.Body.Emphasized.Two"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="@dimen/space_medium"
+      android:lineSpacingMultiplier="1.2"
+      android:lines="3"
+      android:padding="@dimen/space_medium"
+      app:layout_constraintEnd_toStartOf="@+id/card_image"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/tv_source"
+      tools:text="Some Article with \n three lines\n of title"
+      />
+
+  <com.google.android.material.card.MaterialCardView
+      android:id="@+id/card_image"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:layout_marginStart="@dimen/space_medium"
+      android:layout_marginEnd="@dimen/space_medium"
+      app:layout_constraintBottom_toBottomOf="@+id/tv_title"
+      app:layout_constraintDimensionRatio="1"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toTopOf="@+id/tv_title"
       >
 
-    <TextView
-        android:id="@+id/tv_source"
-        style="@style/App.Text.Overline.Two"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:drawableStart="@drawable/ic_fake_news"
-        android:drawablePadding="@dimen/space_medium"
-        android:gravity="center_vertical"
-        android:padding="@dimen/space_medium"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="UMBRELLA NEWS"
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/space_large"
         />
 
-    <TextView
-        android:id="@+id/tv_title"
-        style="@style/App.Text.Body.Emphasized.Two"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:lineSpacingMultiplier="1.2"
-        android:lines="3"
-        android:padding="@dimen/space_medium"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/card_image"
-        app:layout_constraintTop_toBottomOf="@+id/tv_source"
-        tools:text="Some Article with \n three lines\n of title"
-        />
+  </com.google.android.material.card.MaterialCardView>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_image"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="@dimen/space_medium"
-        app:cardCornerRadius="@dimen/space_medium"
-        app:cardElevation="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_title"
-        app:layout_constraintDimensionRatio="1"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tv_title"
-        >
+  <TextView
+      android:id="@+id/tv_news_date"
+      style="@style/App.Text.Body.Comment.Three"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:drawablePadding="@dimen/space_medium"
+      android:gravity="center_vertical"
+      android:paddingStart="@dimen/space_medium"
+      android:paddingEnd="@dimen/space_medium"
+      android:paddingBottom="@dimen/space_medium"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/tv_title"
+      tools:text="4 hours ago"
+      />
 
-      <ImageView
-          android:id="@+id/image"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:padding="@dimen/space_large"
-          />
-
-    </androidx.cardview.widget.CardView>
-
-    <TextView
-        android:id="@+id/tv_news_date"
-        style="@style/App.Text.Body.Comment.Three"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:drawablePadding="@dimen/space_medium"
-        android:gravity="center_vertical"
-        android:paddingStart="@dimen/space_medium"
-        android:paddingEnd="@dimen/space_medium"
-        android:paddingBottom="@dimen/space_medium"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_title"
-        tools:text="4 hours ago"
-        />
-
-  </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

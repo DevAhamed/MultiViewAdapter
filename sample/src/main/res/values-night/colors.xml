@@ -16,24 +16,23 @@
   -->
 
 <resources>
-  <color name="colorPrimary">#333333</color>
-  <color name="colorPrimaryDark">#000000</color>
-  <color name="colorAccent">#FFC107</color>
+
+  <color name="color_background">#121212</color>
+  <color name="color_foreground">#242424</color>
+  <color name="color_background_emphasis">#363636</color>
+  <color name="color_divider">#363636</color>
 
   <color name="headline_text_color">#EFEFEF</color>
   <color name="body_text_color">#DFDFDF</color>
-  <color name="body_text_subtle">#606060</color>
+  <color name="body_text_subtle">#B3FFFFFF</color>
 
-  <color name="sample_color_three">#d94f4f</color>
-  <color name="sample_color_one">#8367be</color>
-  <color name="sample_color_two">#01b981</color>
+  <color name="sample_color_one">#943B35</color>
+  <color name="sample_color_two">#4D3775</color>
+  <color name="sample_color_three">#2A6593</color>
+  <color name="sample_color_four">#407142</color>
+  <color name="sample_color_five">#996619</color>
 
-  <color name="nav_bars">#BB000000</color>
-  <color name="grey_0">#1A202c</color>
-  <color name="grey_100">#1e2533</color>
-  <color name="grey_200">#222a3a</color>
-  <color name="grey_300">#262f40</color>
-  <color name="grey_400">#2a3446</color>
-  <color name="grey_500">#2e394d</color>
+  <color name="nav_bars">#D9000000</color>
+  <color name="grey_0">@color/color_foreground</color>
 
 </resources>

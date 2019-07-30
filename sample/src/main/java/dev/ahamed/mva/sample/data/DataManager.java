@@ -33,10 +33,8 @@ import java.util.Random;
 public class DataManager {
 
   private static final int[] newsColorsList = new int[] {
-      Color.parseColor("#ef9a9a"), Color.parseColor("#F48FB1"), Color.parseColor("#CE93D8"),
-      Color.parseColor("#B39DDB"), Color.parseColor("#9FA8DA"), Color.parseColor("#90CAF9"),
-      Color.parseColor("#81D4FA"), Color.parseColor("#C5E1A5"), Color.parseColor("#FFCC80"),
-      Color.parseColor("#FFAB91")
+      R.color.sample_color_one, R.color.sample_color_two, R.color.sample_color_three,
+      R.color.sample_color_four, R.color.sample_color_five
   };
   private static final int[] newsThumbnails = new int[] {
       R.drawable.ic_circle_variant, R.drawable.ic_heart, R.drawable.ic_star
@@ -133,7 +131,7 @@ public class DataManager {
   public List<ColoredItem> getColoredItems(int count) {
     List<ColoredItem> coloredItems = new ArrayList<>(count);
     for (int i = 1; i <= count; i++) {
-      coloredItems.add(new ColoredItem(i, newsColorsList[random.nextInt(9)]));
+      coloredItems.add(new ColoredItem(i, newsColorsList[random.nextInt(5)]));
     }
     return coloredItems;
   }
@@ -176,7 +174,7 @@ public class DataManager {
       numberItems.add(new NewsItem(i, newsSource == 0 ? "Umbrella News" : "Fake News",
           newsSource == 0 ? R.drawable.ic_umbrella : R.drawable.ic_fake_news,
           Color.parseColor(newsSource == 0 ? "#01CC9D" : "#FE1743"),
-          newsThumbnails[random.nextInt(3)], newsColorsList[random.nextInt(9)], newsDummyTitles[i],
+          newsThumbnails[random.nextInt(3)], newsColorsList[random.nextInt(4)], newsDummyTitles[i],
           "14-July-2018", isOffline));
     }
     return numberItems;

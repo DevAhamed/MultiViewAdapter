@@ -22,7 +22,7 @@
     android:viewportWidth="24"
     android:viewportHeight="24">
   <path
-      android:fillColor="@color/colorAccent"
+      android:fillColor="@color/color_secondary"
       android:pathData="M0,0h24v24h-24z"/>
   <path
       android:fillColor="#33666666"
@@ -30,33 +30,33 @@
   <path
       android:pathData="M0,6L18,24"
       android:strokeWidth="0.5"
-      android:strokeColor="#BBFFFFFF"/>
+      android:strokeColor="#ccffffff"/>
   <path
       android:pathData="M0,18L6,24"
       android:strokeWidth="0.5"
-      android:strokeColor="#BBFFFFFF"/>
+      android:strokeColor="#ccffffff"/>
   <path
       android:pathData="M6,0L24,18"
       android:strokeWidth="0.5"
-      android:strokeColor="#BBFFFFFF"/>
+      android:strokeColor="#ccffffff"/>
   <path
       android:pathData="M18,0L24,6"
       android:strokeWidth="0.5"
-      android:strokeColor="#BBFFFFFF"/>
+      android:strokeColor="#ccffffff"/>
   <path
       android:pathData="M6,0L0,6"
       android:strokeWidth="0.5"
-      android:strokeColor="#BBFFFFFF"/>
+      android:strokeColor="#ccffffff"/>
   <path
       android:pathData="M18,0L0,18"
       android:strokeWidth="0.5"
-      android:strokeColor="#BBFFFFFF"/>
+      android:strokeColor="#ccffffff"/>
   <path
       android:pathData="M24,6L6,24"
       android:strokeWidth="0.5"
-      android:strokeColor="#BBFFFFFF"/>
+      android:strokeColor="#ccffffff"/>
   <path
       android:pathData="M24,18L18,24"
       android:strokeWidth="0.5"
-      android:strokeColor="#BBFFFFFF"/>
+      android:strokeColor="#ccffffff"/>
 </vector>

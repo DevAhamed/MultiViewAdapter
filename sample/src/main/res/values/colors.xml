@@ -16,28 +16,29 @@
   -->
 
 <resources>
-  <color name="colorPrimary">#FFFFFF</color>
-  <color name="colorPrimaryDark">#EFEFEF</color>
-  <color name="colorAccent">#FFC107</color>
-  <color name="colorAccentVariant">#FFB305</color>
+
+  <color name="color_primary">#ffffff</color>
+  <color name="color_primary_variant">#efefef</color>
+  <color name="color_secondary">#ffc107</color>
+  <color name="color_secondary_variant">#ffb305</color>
+
+  <color name="color_background">#f8f9fa</color>
+  <color name="color_foreground">#ffffff</color>
+  <color name="color_background_emphasis">#f1f3f5</color>
+  <color name="color_divider">#e9ecef</color>
 
   <color name="headline_text_color">#202020</color>
   <color name="body_text_color">#333333</color>
-  <color name="body_text_subtle">#AA606060</color>
+  <color name="body_text_subtle">#B3333333</color>
   <color name="dark_text_color">#333333</color>
 
-  <color name="sample_color_three">#EF9A9A</color>
-  <color name="sample_color_one">#B39DDB</color>
-  <color name="sample_color_two">#80e6ce</color>
-  <color name="sample_color_four">#B39DDB</color>
-  <color name="sample_color_five">#FFCC80</color>
+  <color name="sample_color_one">#F9A19A</color>
+  <color name="sample_color_two">#B39CDB</color>
+  <color name="sample_color_three">#90CAF9</color>
+  <color name="sample_color_four">#A5D7A7</color>
+  <color name="sample_color_five">#FFCB7F</color>
 
-  <color name="nav_bars">#CCDFDFDF</color>
-  <color name="grey_0">#ffffff</color>
-  <color name="grey_100">#f8f9fa</color>
-  <color name="grey_200">#f1f3f5</color>
-  <color name="grey_300">#e9ecef</color>
-  <color name="grey_400">#dee2e6</color>
-  <color name="grey_500">#ced4da</color>
+  <color name="nav_bars">#E6DFDFDF</color>
+  <color name="grey_0">@color/color_foreground</color>
 
 </resources>

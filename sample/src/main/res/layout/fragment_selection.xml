@@ -27,7 +27,6 @@
       android:id="@+id/recycler_view"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:background="@color/grey_100"
       android:clipToPadding="false"
       android:fitsSystemWindows="true"
       android:padding="@dimen/space_medium"

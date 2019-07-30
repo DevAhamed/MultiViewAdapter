@@ -151,13 +151,13 @@ public class SelectionSampleFragment extends BaseFragment {
 
     ItemSection<Header> headerSection = new ItemSection<>(new Header("Sources"));
     nestedSection = new NestedSection();
-    nestedSection.addSection(listSectionThree);
-    nestedSection.addSection(listSectionFour);
-    nestedSection.addSection(listSectionFive);
+    nestedSection.addSection(headerSectionThree);
+    nestedSection.addSection(headerSectionFour);
+    nestedSection.addSection(headerSectionFive);
 
     adapter.registerItemBinders(new SelectableItemBinder(), new HeaderItemBinder());
-    adapter.addSection(listSectionOne);
-    adapter.addSection(listSectionTwo);
+    adapter.addSection(headerSectionOne);
+    adapter.addSection(headerSectionTwo);
     adapter.addSection(headerSection);
     adapter.addSection(nestedSection);
 
