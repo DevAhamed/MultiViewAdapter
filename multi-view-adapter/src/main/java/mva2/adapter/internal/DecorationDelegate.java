@@ -52,7 +52,15 @@ public class DecorationDelegate extends RecyclerView.ItemDecoration {
 
   @Override public void onDrawOver(@NonNull Canvas canvas, @NonNull RecyclerView parent,
       @NonNull RecyclerView.State state) {
-    // TODO Implement onDrawOver
+    int childCount = parent.getChildCount();
+    for (int i = 0; i < childCount; i++) {
+      View child = parent.getChildAt(i);
+      int adapterPosition = parent.getChildAdapterPosition(child);
+      if (adapterPosition < 0) {
+        return;
+      }
+      adapter.drawDecorationOver(canvas, parent, state, child, adapterPosition);
+    }
   }
 
   @Override public void getItemOffsets(@NonNull Rect outRect, @NonNull View view,
