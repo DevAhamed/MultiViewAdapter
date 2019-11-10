@@ -121,9 +121,9 @@ public class DecorationSampleFragment extends BaseFragment {
     personBinder = new PersonBinder();
 
     adapter.registerItemBinders(personBinder, headerBinder);
-    adapter.addSection(castSection);
-    adapter.addSection(crewSection);
-    adapter.addSection(producerSection);
+    adapter.addSection(castHeaderSection);
+    adapter.addSection(crewHeaderSection);
+    adapter.addSection(producerHeaderSection);
 
     castSection.set(dataManager.getCast());
     crewSection.set(dataManager.getCrew());
