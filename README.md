@@ -75,7 +75,7 @@ The library is available via JCenter. JCenter is the default maven repository us
 
 ```gradle
 dependencies {
-    implementation 'dev.ahamed.mva2:adapter:2.0.0-beta01'
+    implementation 'dev.ahamed.mva2:adapter:2.0.0'
 }
 ```
 
@@ -85,9 +85,9 @@ dependencies {
 
 ```gradle
 dependencies {
-    implementation 'dev.ahamed.mva2:ext-databinding:2.0.0-beta01'  // DataBinding
-    implementation 'dev.ahamed.mva2:ext-decorator:2.0.0-beta01'    // Decorators
-    implementation 'dev.ahamed.mva2:ext-diffutil-rx:2.0.0-beta01'  // RxDiffUtil
+    implementation 'dev.ahamed.mva2:ext-databinding:2.0.0'  // DataBinding
+    implementation 'dev.ahamed.mva2:ext-decorator:2.0.0'    // Decorators
+    implementation 'dev.ahamed.mva2:ext-diffutil-rx:2.0.0'  // RxDiffUtil
 }
 ```
 
@@ -426,6 +426,18 @@ The library allows you to draw decoration for individual items or sections. You 
 ---
 
 ## Changelog
+
+### v2.0.0
+
+|Type|Stability|Date|
+|---|---|---|
+|Major|Stable|29-October-2019|
+
+After being in development for more than a year and being in beta for more than three months, the library is moved to stable release.
+
+#### Changes
+
+* NestedSection visibility flags are passed down to its children. This fixes incorrect selection/expansion toggles on child views.
 
 ### v2.0.0-beta01
 
