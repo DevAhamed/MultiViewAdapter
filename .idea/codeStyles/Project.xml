@@ -9,7 +9,6 @@
         <option name="TAB_SIZE" value="2" />
       </value>
     </option>
-    <option name="RIGHT_MARGIN" value="100" />
     <option name="FORMATTER_TAGS_ENABLED" value="true" />
     <option name="LINE_COMMENT_AT_FIRST_COLUMN" value="false" />
     <option name="BLOCK_COMMENT_AT_FIRST_COLUMN" value="false" />
@@ -48,7 +47,6 @@
     <option name="VARIABLE_ANNOTATION_WRAP" value="1" />
     <option name="ENUM_CONSTANTS_WRAP" value="1" />
     <AndroidXmlCodeStyleSettings>
-      <option name="USE_CUSTOM_SETTINGS" value="true" />
       <option name="LAYOUT_SETTINGS">
         <value>
           <option name="INSERT_BLANK_LINE_BEFORE_TAG" value="false" />
@@ -60,9 +58,6 @@
       <option name="CLASS_NAMES_IN_JAVADOC" value="3" />
       <option name="CLASS_COUNT_TO_USE_IMPORT_ON_DEMAND" value="999" />
       <option name="NAMES_COUNT_TO_USE_IMPORT_ON_DEMAND" value="999" />
-      <option name="PACKAGES_TO_USE_IMPORT_ON_DEMAND">
-        <value />
-      </option>
       <option name="IMPORT_LAYOUT_TABLE">
         <value>
           <package name="" withSubpackages="true" static="false" />
@@ -87,7 +82,6 @@
       <option name="IMPORT_NESTED_CLASSES" value="true" />
     </JetCodeStyleSettings>
     <XML>
-      <option name="XML_ALIGN_ATTRIBUTES" value="false" />
       <option name="XML_LEGACY_SETTINGS_IMPORTED" value="true" />
     </XML>
     <ADDITIONAL_INDENT_OPTIONS fileType="php">
